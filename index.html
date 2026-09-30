@@ -266,6 +266,66 @@ section{scroll-margin-top:72px}
 .callout b{color:var(--y)}
 @media (max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}.check-grid{grid-template-columns:1fr}.cat{grid-template-columns:8.5em 1fr 2em;font-size:13px}}
 
+/* REPORTS */
+.reports{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rep{background:var(--card);border:1px solid var(--line-l);border-radius:var(--r);display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.rep:hover{transform:translateY(-4px);box-shadow:0 24px 40px -24px rgba(23,24,28,.35)}
+.rep-cover{padding:20px 22px;color:#fff;display:grid;gap:6px;min-height:150px;align-content:end;position:relative}
+.rep-cover .ord{position:absolute;top:16px;inset-inline-end:18px;font-family:var(--mono);font-size:12px;opacity:.75}
+.rep-cover h3{font-size:20px;font-weight:800}
+.rep-cover small{font-size:12.5px;opacity:.85}
+.rep-body{padding:18px 22px;display:grid;gap:12px;align-content:start}
+.rep-meta{display:flex;flex-wrap:wrap;gap:6px}
+.rep-meta span{font-size:12px;font-weight:600;background:var(--paper);border-radius:6px;padding:2px 8px;color:#4b4a45}
+.rep-by{font-size:13px;color:var(--mute-l)}
+.rep-by b{color:var(--on-l)}
+.rep ul{margin:0;padding-inline-start:18px;display:grid;gap:4px;font-size:14px;color:#4b4a45;line-height:1.6}
+.rep-foot{padding:0 22px 20px}
+.rep-foot .btn{width:100%;justify-content:center;background:var(--ink);color:var(--y)}
+@media (max-width:980px){.reports{grid-template-columns:1fr}}
+
+/* DRILL */
+.drill-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:14px}
+.tbl-wrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+.tbl th{text-align:start;font-family:var(--display);font-size:12px;letter-spacing:.04em;color:var(--mute-d);font-weight:700;padding:8px 10px;border-bottom:1px solid var(--line-d)}
+.tbl td{padding:12px 10px;border-bottom:1px solid var(--line-d);vertical-align:top}
+.tbl td.b{font-family:var(--display);font-weight:900;font-size:20px;color:var(--y)}
+.tbl td.t{font-family:var(--mono);font-weight:600}
+.tbl td.t.max{color:var(--red)}
+.tbl .note{font-size:13px;color:var(--mute-d);line-height:1.6}
+.ap{display:grid;gap:12px}
+.ap div{background:var(--ink3);border-radius:14px;padding:14px 16px}
+.ap b{display:block;font-family:var(--display);font-size:15px}
+.ap span{font-size:13px;color:var(--mute-d)}
+.recs{margin:0;padding-inline-start:18px;display:grid;gap:6px;font-size:14px}
+@media (max-width:820px){.drill-grid{grid-template-columns:1fr}}
+
+/* CLUB LOG */
+.club-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:18px}
+.tl{display:grid;gap:0}
+.tl-day{display:grid;grid-template-columns:92px 1fr;gap:16px;padding-block:14px;border-top:1px solid var(--line-l)}
+.tl-day:first-child{border-top:0}
+.tl-date{font-family:var(--display);font-weight:800;line-height:1.2}
+.tl-date small{display:block;font-weight:500;font-size:12px;color:var(--mute-l)}
+.tl-items{display:grid;gap:10px}
+.tl-it{display:grid;gap:2px}
+.tl-it b{font-size:15px}
+.tl-it span{font-size:13px;color:var(--mute-l)}
+.tl-it .done{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--green);background:rgba(46,158,106,.1);border-radius:99px;padding:1px 8px;margin-inline-start:6px}
+.att{background:var(--ink);color:var(--on-d);border-radius:var(--r);padding:24px;display:grid;gap:16px;align-content:start}
+.att h3{font-size:18px;font-weight:800}
+.att-row{display:grid;gap:6px}
+.att-row .lbl{display:flex;justify-content:space-between;font-size:13px;font-weight:600}
+.att-row .lbl i{font-style:normal;font-family:var(--mono);color:var(--y)}
+.att-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--ink3)}
+.att-bar span{display:block;height:100%}
+.att .big{font-family:var(--display);font-weight:900;font-size:48px;line-height:1;color:var(--y)}
+.att .big small{font-size:14px;color:var(--mute-d);font-weight:600;margin-inline-start:6px}
+.att .btn{justify-content:center}
+.att .fine{font-size:12px;color:var(--mute-d)}
+@media (max-width:900px){.club-grid{grid-template-columns:1fr}.tl-day{grid-template-columns:72px 1fr}}
+
 /* CULTURE */
 .culture{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .cc{border-top:3px solid var(--ink);padding-top:18px;display:grid;gap:8px}
@@ -302,6 +362,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <a href="#duo" data-t="nav_duo">سليم وسلامة</a>
       <a href="#guides" data-t="nav_guides">الإرشادات</a>
       <a href="#check" data-t="nav_check">جولة التشييك</a>
+      <a href="#reports" data-t="nav_reports">التقارير</a>
+      <a href="#drill" data-t="nav_drill">تمرين الإخلاء</a>
+      <a href="#club" data-t="nav_club">سجل النادي</a>
       <a href="#culture" data-t="nav_culture">ثقافة السلامة</a>
     </div>
     <button class="lang" id="langBtn" type="button">English</button>
@@ -415,7 +478,65 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   </div>
 </section>
 
-<section class="sec light" id="culture">
+<section class="sec light" id="reports">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="r_eye">مكتبة التقارير</span>
+      <h2 data-t="r_title">تقارير جولات التشييك</h2>
+      <p data-t="r_sub">التقارير الكاملة اللي أعدّها أعضاء النادي من الجولات التفقدية. افتح أي تقرير لتشوف الصور والملاحظات كاملة.</p>
+    </div>
+    <div class="reports" id="repGrid"></div>
+  </div>
+</section>
+
+<section class="sec" id="drill">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="d_eye">الأربعاء ٣٠ سبتمبر ٢٠٢٦ · ٩:٠٠ – ١٠:٠٠ صباحًا</span>
+      <h2 data-t="d_title">تمرين إخلاء المباني</h2>
+      <p data-t="d_sub">تمرين إخلاء لخمسة مباني بقيادة م. عمر تنكر، بمشاركة جميع أعضاء نادي السلامة.</p>
+    </div>
+    <div class="stats">
+      <div class="stat" style="--c:var(--y)"><b id="dB">5</b><span data-t="d_s1">مباني تم إخلاؤها</span></div>
+      <div class="stat" style="--c:#F5F4F0"><b id="dP">369</b><span data-t="d_s2">شخص تم إخلاؤهم</span></div>
+      <div class="stat" style="--c:var(--red)"><b class="mono">2:13</b><span data-t="d_s3">أطول مدة إخلاء (مبنى H)</span></div>
+      <div class="stat" style="--c:var(--green)"><b id="dA">2</b><span data-t="d_s4">نقاط تجمع</span></div>
+    </div>
+    <div class="drill-grid">
+      <div class="panel">
+        <h3 data-t="d_by">النتائج حسب المبنى</h3>
+        <div class="tbl-wrap"><table class="tbl" id="drillTbl"></table></div>
+      </div>
+      <div class="panel">
+        <h3 data-t="d_ap">نقاط التجمع</h3>
+        <div class="ap" id="apList"></div>
+        <h3 style="margin-top:22px" data-t="d_rec">التوصيات</h3>
+        <ul class="recs" id="recList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec light" id="club">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="cl_eye">بقيادة م. عمر تنكر</span>
+      <h2 data-t="cl_title">سجل نادي السلامة</h2>
+      <p data-t="cl_sub">وش سوّى النادي هالأسبوع، ومين نفّذ كل مهمة.</p>
+    </div>
+    <div class="club-grid">
+      <div class="tl" id="timeline"></div>
+      <aside class="att">
+        <div class="big"><span id="memN">12</span><small data-t="cl_members">عضو في النادي</small></div>
+        <div id="attRows"></div>
+        <a class="btn primary" href="https://1drv.ms/x/c/998ABE6FE6AF66EA/IQDBan0hb3Y5Q4Hy1SkMpeHDARXgbSO7pmkE8LQ_dlFp9Hc?e=88ZpeE" target="_blank" rel="noopener" data-t="cl_btn">افتح سجل النادي (Excel)</a>
+        <p class="fine" data-t="cl_fine">السجل الكامل على OneDrive: التحضير، المهام والنقاط، وتقرير الإخلاء.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec light" id="culture" style="border-top:1px solid var(--line-l)">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Safety Culture</span>
@@ -494,6 +615,16 @@ const icon = (k, color = "#FFC400", w = 2) =>
 const T = {
  ar:{
   brand:"نادي السلامة", nav_promo:"البرومو", nav_duo:"سليم وسلامة", nav_guides:"الإرشادات", nav_check:"جولة التشييك", nav_culture:"ثقافة السلامة",
+  nav_reports:"التقارير", nav_drill:"تمرين الإخلاء", nav_club:"سجل النادي",
+  r_eye:"مكتبة التقارير", r_title:"تقارير جولات التشييك", r_sub:"التقارير الكاملة اللي أعدّها أعضاء النادي من الجولات التفقدية. افتح أي تقرير لتشوف الصور والملاحظات كاملة.",
+  r_open:"افتح التقرير (PDF)", r_by:"إعداد", r_pages:"صفحة",
+  d_eye:"الأربعاء ٣٠ سبتمبر ٢٠٢٦ · ٩:٠٠ – ١٠:٠٠ صباحًا", d_title:"تمرين إخلاء المباني", d_sub:"تمرين إخلاء لخمسة مباني بقيادة م. عمر تنكر، بمشاركة جميع أعضاء نادي السلامة.",
+  d_s1:"مباني تم إخلاؤها", d_s2:"شخص تم إخلاؤهم", d_s3:"أطول مدة إخلاء (مبنى H)", d_s4:"نقاط تجمع",
+  d_by:"النتائج حسب المبنى", d_ap:"نقاط التجمع", d_rec:"التوصيات",
+  th_b:"المبنى", th_n:"الأشخاص", th_t:"مدة الإخلاء", th_note:"الملاحظات",
+  cl_eye:"بقيادة م. عمر تنكر", cl_title:"سجل نادي السلامة", cl_sub:"وش سوّى النادي هالأسبوع، ومين نفّذ كل مهمة.",
+  cl_members:"عضو في النادي", cl_btn:"افتح سجل النادي (Excel)", cl_fine:"السجل الكامل على OneDrive: التحضير، المهام والنقاط، وتقرير الإخلاء.",
+  att_p:"حاضر", att_e:"معتذر", done:"تم",
   lang:"English", hero_pill:"Safety Club · إرشادات السلامة",
   hero_title:'السلامة ما تبدأ من القسم،<br><em>تبدأ من كل واحد فينا.</em>',
   hero_sub:"إرشادات السلامة في الأكاديمية، يقدّمها لك سليم وسلامة بالعربي والإنجليزي. شوف البرومو، اسمع الحوار، واعرف وش لقينا في جولة التشييك.",
@@ -521,6 +652,16 @@ const T = {
  },
  en:{
   brand:"Safety Club", nav_promo:"Promo", nav_duo:"Saleem & Salma", nav_guides:"Guidelines", nav_check:"Safety Check", nav_culture:"Safety Culture",
+  nav_reports:"Reports", nav_drill:"Evacuation drill", nav_club:"Club log",
+  r_eye:"Report library", r_title:"Inspection reports", r_sub:"The full reports club members prepared from their inspection rounds. Open any report to see every photo and finding.",
+  r_open:"Open report (PDF)", r_by:"Prepared by", r_pages:"pages",
+  d_eye:"Wednesday 30 September 2026 · 9:00–10:00 am", d_title:"Building evacuation drill", d_sub:"An evacuation drill across five buildings, led by Eng. Omar Tankar with every Safety Club member taking part.",
+  d_s1:"Buildings evacuated", d_s2:"People evacuated", d_s3:"Longest evacuation (Building H)", d_s4:"Assembly points",
+  d_by:"Results by building", d_ap:"Assembly points", d_rec:"Recommendations",
+  th_b:"Building", th_n:"People", th_t:"Evacuation time", th_note:"Notes",
+  cl_eye:"Led by Eng. Omar Tankar", cl_title:"Safety Club log", cl_sub:"What the club did this week, and who carried out each task.",
+  cl_members:"club members", cl_btn:"Open the club log (Excel)", cl_fine:"The full log on OneDrive: attendance, tasks and points, and the evacuation report.",
+  att_p:"Present", att_e:"Excused", done:"Done",
   lang:"العربية", hero_pill:"Safety Club · Safety Guidelines",
   hero_title:'Safety doesn’t start with a department.<br><em>It starts with each of us.</em>',
   hero_sub:"The academy’s safety guidelines, presented by Saleem and Salma in Arabic and English. Watch the promo, hear the conversation, and see what our safety check found.",
@@ -868,6 +1009,90 @@ function buildCheck() {
   }).join("");
 }
 
+/* ---------- REPORTS ---------- */
+const REPORTS = [
+ {file:"reports/building-c-and-housing.pdf", bg:"linear-gradient(135deg,#0F2A4A 0%,#0F2A4A 62%,#F07F1E 62%)", pages:5,
+  ar:{t:"تشييك مبنى C وسكن المتدربات", s:"تقرير فحص السلامة · HSE", by:"طيف عبدالله وغيداء عبدالعزيز", date:"٢٩ سبتمبر ٢٠٢٦",
+      pts:["طفاية بمدخل مبنى C مؤشرها بالأحمر: إجراء عاجل","عوائق حول الطفاية بجانب باب الطوارئ","مخلفات بناء في المحيط الخارجي","سكن المتدربات مطابق لمعايير السلامة ✓"]},
+  en:{t:"Building C & trainee housing", s:"Safety inspection report · HSE", by:"Taif Abdullah & Ghaida Abdulaziz", date:"29 September 2026",
+      pts:["Extinguisher at Building C entrance reads red: urgent action","Obstructions around the extinguisher by the emergency door","Construction debris around the outer perimeter","Trainee housing meets safety standards ✓"]}},
+ {file:"reports/safety-check-report.pdf", bg:"linear-gradient(135deg,#17181C 0%,#17181C 70%,#FFC400 70%)", pages:18,
+  ar:{t:"Safety Check · تقرير جولة التشييك", s:"٩ مواقع · ٣٦ ملاحظة", by:"أفنان الجهني", date:"٢٨ سبتمبر ٢٠٢٦",
+      pts:["٣٦ ملاحظة، منها ١١ بأولوية عالية","صور وحلول لكل ملاحظة حسب المبنى","خطة معالجة مجمّعة حسب نوع العمل","أهمها: الطفايات الفارغة ومسارات الإخلاء"]},
+  en:{t:"Safety Check · inspection report", s:"9 locations · 36 findings", by:"Afnan Aljohani", date:"28 September 2026",
+      pts:["36 findings, 11 of them high priority","Photos and a fix for every finding, by building","Remediation plan grouped by type of work","Top issues: empty extinguishers and evacuation routes"]}},
+ {file:"reports/safety-check-workshops.pdf", bg:"linear-gradient(150deg,#1E2F3A 0%,#1E2F3A 55%,#C9463D 55%)", pages:11,
+  ar:{t:"تقرير تشيك السلامة", s:"المباني والورش والمرافق", by:"سارة الشمراني", date:"٢٩ سبتمبر ٢٠٢٦",
+      pts:["ورش G وH، ومباني I وR وF وE وD، والبزنس سنتر","معظم الطفايات في R وF فارغة أو منتهية","تسرب مياه فوق التمديدات الكهربائية في مبنى F","باب طوارئ مغلق وعوائق في البزنس سنتر"]},
+  en:{t:"Safety check report", s:"Buildings, workshops and facilities", by:"Sara Alshamrani", date:"29 September 2026",
+      pts:["Workshops G & H, buildings I, R, F, E, D and the Business Center","Most extinguishers in R and F are empty or expired","Roof leak above electrical fittings in Building F","A locked emergency door and blocked exits in the Business Center"]}}
+];
+function buildReports() {
+  const d = T[lang];
+  $("#repGrid").innerHTML = REPORTS.map((r, i) => { const c = r[lang]; return `
+    <article class="rep">
+      <div class="rep-cover" style="background:${r.bg}"><span class="ord">${num(i + 1)} / ${num(REPORTS.length)}</span><small>${c.s}</small><h3>${c.t}</h3></div>
+      <div class="rep-body">
+        <p class="rep-by">${d.r_by}: <b>${c.by}</b></p>
+        <div class="rep-meta"><span>${c.date}</span><span>${num(r.pages)} ${d.r_pages}</span><span>PDF</span></div>
+        <ul>${c.pts.map(p => `<li>${p}</li>`).join("")}</ul>
+      </div>
+      <div class="rep-foot"><a class="btn" href="${r.file}" target="_blank" rel="noopener">${d.r_open}</a></div>
+    </article>`; }).join("");
+}
+
+/* ---------- EVACUATION DRILL ---------- */
+const DRILL = [
+ {b:"C", n:50, t:"1:22", ap:0, ar:"تهاون من بعض الأشخاص وعدم امتثال للأوامر، ودخول عدد كبير مع فريق السلامة، وخروج بعضهم خارج الأكاديمية.", en:"Some people ignored instructions, many followed the safety team back in, and some left the academy grounds."},
+ {b:"F", n:35, t:"1:36", ap:0, ar:"تكدس عند الباب. ملاحظة إيجابية: الجميع كان يعرف وين يتوجه.", en:"Crowding at the door. Positive: everyone knew where to go."},
+ {b:"E", n:151, t:"2:00", ap:1, ar:"أكبر عدد. يمكن يكون الوقت أسرع، ونحتاج طرق لمنع التكدس.", en:"The largest group. Time could be faster; crowding needs to be prevented."},
+ {b:"H", n:71, t:"2:13", ap:1, max:true, ar:"أطول مدة إخلاء. من دق الجرس: ١:٢٦.", en:"Longest evacuation. From the bell: 1:26."},
+ {b:"G", n:62, t:"1:22", ap:1, ar:"", en:""}
+];
+const APTS = [
+ {ar:"المواقف الخلفية بجانب مبنى C", en:"Rear parking next to Building C", bar:"C · F", ben:"C · F"},
+ {ar:"المواقف الرئيسية بجانب البوابة الرئيسية", en:"Main parking by the main gate", bar:"E · H · G · B · قاعة أكوا", ben:"E · H · G · B · Aqua Hall"}
+];
+const RECS = {
+ ar:["إحكام السيطرة على الأشخاص أثناء الإخلاء ومنع الرجوع للمبنى.","وضع طرق لمنع التكدس عند الأبواب، خصوصًا في مبنى E.","تكرار التمرين وقياس الزمن لتحسينه من تمرين لآخر."],
+ en:["Keep tighter control of people during evacuation and stop anyone going back in.","Put measures in place to prevent crowding at doors, especially in Building E.","Repeat the drill and time it so each one improves on the last."]
+};
+function buildDrill() {
+  const d = T[lang];
+  $("#drillTbl").innerHTML = `<thead><tr><th>${d.th_b}</th><th>${d.th_n}</th><th>${d.th_t}</th><th>${d.th_note}</th></tr></thead><tbody>${
+    DRILL.map(r => `<tr><td class="b">${r.b}</td><td class="t">${r.n}</td><td class="t ${r.max ? "max" : ""}">${r.t}</td><td class="note">${r[lang] || "—"}</td></tr>`).join("")
+  }<tr><td class="b" style="font-size:14px;color:var(--on-d)">Σ</td><td class="t">369</td><td class="t max">2:13</td><td class="note"></td></tr></tbody>`;
+  $("#apList").innerHTML = APTS.map((a, i) => `<div><b>${num(i + 1)}. ${a[lang]}</b><span>${lang === "ar" ? a.bar : a.ben}</span></div>`).join("");
+  $("#recList").innerHTML = RECS[lang].map(r => `<li>${r}</li>`).join("");
+}
+
+/* ---------- CLUB LOG ---------- */
+const LOG = [
+ {ar:"الاثنين", en:"Monday", dar:"٢٨ سبتمبر", den:"28 Sep", items:[
+   {ar:"جولات تفقدية على مرافق الأكاديمية", en:"Inspection rounds across academy facilities", war:"أفنان الجهني، سارة الشمراني، أصيل جابر", wen:"Afnan Aljohani, Sara Alshamrani, Aseel Jaber"}]},
+ {ar:"الثلاثاء", en:"Tuesday", dar:"٢٩ سبتمبر", den:"29 Sep", items:[
+   {ar:"اجتماع النادي: شرح معلومات السلامة للمتدربين", en:"Club meeting: safety briefing for trainees", war:"م. عمر تنكر", wen:"Eng. Omar Tankar"},
+   {ar:"جولات تفقدية على مرافق الأكاديمية", en:"Inspection rounds across academy facilities", war:"طيف عبدالله، غيداء عبدالعزيز", wen:"Taif Abdullah, Ghaida Abdulaziz"}]},
+ {ar:"الأربعاء", en:"Wednesday", dar:"٣٠ سبتمبر", den:"30 Sep", items:[
+   {ar:"تمرين إخلاء المباني C وF وE وH وG", en:"Evacuation drill for buildings C, F, E, H and G", war:"أعضاء النادي", wen:"Club members"},
+   {ar:"مناقشة خطط التطوير والتحسين المستقبلية للنادي", en:"Discussion of the club’s future improvement plans", war:"أعضاء النادي", wen:"Club members"},
+   {ar:"إرسال نتائج الجولات التفقدية لقسم الصيانة", en:"Inspection results sent to the maintenance department", war:"م. عمر تنكر", wen:"Eng. Omar Tankar"}]}
+];
+const ATT = [{ar:"اجتماع نادي السلامة", en:"Safety Club meeting", p:9, e:3}, {ar:"تمرين الإخلاء", en:"Evacuation drill", p:11, e:1}];
+function buildClub() {
+  const d = T[lang];
+  $("#timeline").innerHTML = LOG.map(day => `
+    <div class="tl-day"><div class="tl-date">${day[lang]}<small>${lang === "ar" ? day.dar : day.den}</small></div>
+      <div class="tl-items">${day.items.map(it => `<div class="tl-it"><b>${it[lang]}<span class="done">✓ ${d.done}</span></b><span>${lang === "ar" ? it.war : it.wen}</span></div>`).join("")}</div>
+    </div>`).join("");
+  $("#memN").textContent = num(12);
+  $("#attRows").innerHTML = ATT.map(a => `
+    <div class="att-row"><div class="lbl">${a[lang]}<i>${num(a.p)}/${num(a.p + a.e)}</i></div>
+      <div class="att-bar"><span style="width:${a.p / 12 * 100}%;background:var(--green)"></span><span style="width:${a.e / 12 * 100}%;background:var(--orange)"></span></div>
+      <div class="lbl" style="font-weight:500;color:var(--mute-d)"><span>● ${d.att_p} ${num(a.p)}</span><span>● ${d.att_e} ${num(a.e)}</span></div>
+    </div>`).join("");
+}
+
 /* ---------- I18N ---------- */
 function applyLang() {
   const d = T[lang];
@@ -880,7 +1105,7 @@ function applyLang() {
   buildPromo(); render();
   buildTopics(); runId++; try { speechSynthesis.cancel(); } catch(e){}
   $("#chatPlay").textContent = d.play; staticLog();
-  buildGuides(); buildCheck();
+  buildGuides(); buildCheck(); buildReports(); buildDrill(); buildClub();
   document.querySelectorAll(".steps .arr").forEach(a => a.textContent = lang === "ar" ? "←" : "→");
 }
 $("#langBtn").onclick = () => {
