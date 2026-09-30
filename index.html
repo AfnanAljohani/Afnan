@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>نادي السلامة · Safety Club</title>
+<meta name="description" content="نادي السلامة EWA: برومو متحرك لإرشادات السلامة، حوار سليم وسلامة بالعربي والإنجليزي، ونتائج جولة التشييك.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --ink:#141519; --ink2:#1C1E23; --ink3:#282B32; --line-d:#34373F;
+  --paper:#F3F1EC; --card:#FFFFFF; --line-l:#E4E1D8;
+  --y:#FFC400; --y-deep:#E0A800; --y-soft:rgba(255,196,0,.13);
+  --on-d:#F5F4F0; --mute-d:#9EA0A8; --on-l:#17181C; --mute-l:#67665F;
+  --red:#E5484D; --orange:#F5A524; --green:#2E9E6A; --blue:#2B7FE0;
+  --purple:#7E57C2; --teal:#22A39A; --pink:#C2185B; --amber:#FF7F1F;
+  --display:"Alexandria","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --body:"IBM Plex Sans Arabic","Alexandria",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--on-d);font-family:var(--body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--y);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--display);line-height:1.2;margin:0;text-wrap:balance}
+p{margin:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--y);color:var(--ink);font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.14em;padding:6px 14px;border-radius:999px;text-transform:uppercase}
+.pill.dark{background:var(--ink);color:var(--y)}
+.stripes{height:14px;background:repeating-linear-gradient(-45deg,var(--y) 0 18px,var(--ink) 18px 36px)}
+
+/* NAV */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(20,21,25,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-d)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.brand b{font-family:var(--display);font-weight:800;font-size:16px;line-height:1.1;display:block}
+.brand small{display:block;font-family:var(--display);font-size:10px;letter-spacing:.2em;color:var(--y);font-weight:700}
+.nav-links{display:flex;gap:4px;margin-inline-start:auto;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{text-decoration:none;font-size:14px;color:var(--mute-d);padding:6px 12px;border-radius:999px;white-space:nowrap;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--on-d);background:var(--ink3)}
+.lang{border:1px solid var(--line-d);background:var(--ink2);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;flex-shrink:0;transition:border-color .2s}
+.lang:hover{border-color:var(--y)}
+@media (max-width:820px){.nav-links{display:none}.lang{margin-inline-start:auto}}
+
+/* HERO */
+.hero{position:relative;padding-block:56px 40px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset-inline-end:-10%;top:-30%;width:70%;aspect-ratio:1;background:radial-gradient(circle,rgba(255,196,0,.16),transparent 62%);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:end;margin-bottom:36px}
+.hero h1{font-size:clamp(34px,5.6vw,68px);font-weight:900;margin-top:18px;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero-side{display:grid;gap:18px;padding-bottom:8px}
+.hero-side p{color:var(--mute-d);font-size:17px;max-width:46ch}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 22px;font-weight:700;font-family:var(--display);font-size:14px;text-decoration:none;border:1px solid transparent;transition:transform .2s,background .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--y);color:var(--ink)}
+.btn.ghost{border-color:var(--line-d);color:var(--on-d)}
+.btn.ghost:hover{border-color:var(--y)}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr;gap:18px}}
+
+/* PROMO PLAYER */
+.player{position:relative;border-radius:26px;overflow:hidden;background:radial-gradient(120% 90% at 50% 110%,#3a2f0c 0%,#1a1810 40%,#0e0f12 75%);border:1px solid var(--line-d);box-shadow:0 40px 80px -30px rgba(0,0,0,.7),0 0 0 1px rgba(255,196,0,.06) inset}
+.stage{position:relative;aspect-ratio:16/9;container-type:inline-size;overflow:hidden}
+@media (max-width:640px){.stage{aspect-ratio:4/5}}
+.stage .corner{position:absolute;width:18px;height:18px;border:2px solid rgba(255,255,255,.18)}
+.corner.tl{top:14px;left:14px;border-right:0;border-bottom:0}
+.corner.tr{top:14px;right:14px;border-left:0;border-bottom:0}
+.corner.bl{bottom:14px;left:14px;border-right:0;border-top:0}
+.corner.br{bottom:14px;right:14px;border-left:0;border-top:0}
+.hud{position:absolute;top:18px;inset-inline:22px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;z-index:5}
+.stepcount{font-family:var(--display);font-size:11px;color:var(--mute-d);line-height:1.3}
+.stepcount b{display:block;color:var(--on-d);font-size:13px}
+.steps{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:4px;border-radius:999px;flex-wrap:nowrap;overflow:hidden}
+.steps button{border:0;background:transparent;color:var(--mute-d);font-family:var(--display);font-weight:700;font-size:12px;padding:5px 12px;border-radius:999px;white-space:nowrap;transition:background .3s,color .3s}
+.steps button.done{color:var(--on-d)}
+.steps button.active{background:var(--y);color:var(--ink);box-shadow:0 0 18px rgba(255,196,0,.45)}
+.steps .arr{color:#5a5d66;font-size:11px}
+.clock{font-family:var(--mono);font-size:14px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.08);padding:4px 10px;border-radius:8px;color:var(--on-d)}
+@media (max-width:640px){.scene{padding-top:26%}.steps button{padding:5px 7px;font-size:10px}.steps .arr{display:none}.hud{flex-wrap:wrap;justify-content:center}.stepcount,.clock{position:absolute;top:44px}.stepcount{inset-inline-end:0}.clock{inset-inline-start:0}}
+
+.stage.paused *{animation-play-state:paused!important}
+.scene{position:absolute;inset:0;display:grid;place-items:center;padding:14% 6% 10%;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s .35s}
+.scene.on{opacity:1;visibility:visible;transition:opacity .35s ease}
+.cap{position:absolute;bottom:9%;inset-inline:6%;text-align:center;font-family:var(--display);font-weight:700;font-size:clamp(13px,2.3cqw,26px);color:var(--on-d)}
+.cap span{background:rgba(0,0,0,.5);padding:.25em .7em;border-radius:.5em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.scene.on .cap{animation:capIn .6s .9s both cubic-bezier(.2,.9,.2,1)}
+@keyframes capIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* S1 kinetic */
+.kin{display:flex;flex-direction:column;align-items:center;gap:.1em;text-align:center;font-family:var(--display);font-weight:900;line-height:1.05}
+.kin .w{display:inline-block;font-size:clamp(20px,5cqw,56px);color:var(--on-d)}
+.kin .big{font-size:clamp(64px,19cqw,220px);color:var(--y);text-shadow:0 0 40px rgba(255,196,0,.35);letter-spacing:-.02em}
+.scene.on .kin .w{animation:drop .7s calc(var(--i)*.28s + .1s) both cubic-bezier(.2,1.4,.3,1)}
+.scene.on .kin .big{animation:drop .7s calc(var(--i)*.28s + .1s) both cubic-bezier(.2,1.4,.3,1),shake .5s 1.35s 2}
+@keyframes drop{from{opacity:0;transform:translateY(-60%) scale(1.3);filter:blur(10px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-3%) rotate(-2deg)}75%{transform:translateX(3%) rotate(2deg)}}
+
+/* S2/S3 blocks */
+.blocks{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2cqw;width:100%;perspective:1200px}
+@container (max-width:560px){.blocks{grid-template-columns:repeat(2,1fr);gap:3cqw;width:74%}}
+.blk{aspect-ratio:1/1.05;position:relative;transform-style:preserve-3d}
+.blk .face{position:absolute;inset:0;border-radius:clamp(10px,2cqw,22px);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(10px,2cqw,22px);backface-visibility:hidden;-webkit-backface-visibility:hidden;font-family:var(--display)}
+.blk .front{background:var(--c);color:#fff;box-shadow:0 20px 40px -18px var(--c)}
+.blk .front svg{width:clamp(22px,5cqw,54px);height:auto}
+.blk .front b{font-size:clamp(13px,2.4cqw,26px);font-weight:800;line-height:1.2}
+.blk .back{background:#fff;color:var(--ink);transform:rotateY(180deg);border:3px solid var(--c)}
+.blk .back .code{font-family:var(--mono);font-weight:600;font-size:clamp(20px,5cqw,56px);line-height:1;color:var(--ink)}
+.blk .back .pri{display:inline-flex;align-items:center;gap:.4em;font-size:clamp(10px,1.6cqw,16px);font-weight:700;color:var(--pc)}
+.blk .back .pri::before{content:"";width:.7em;height:.7em;border-radius:50%;background:var(--pc)}
+.blk .back .fix{font-size:clamp(10px,1.7cqw,17px);font-weight:600;color:#555;line-height:1.3}
+.s2.on .blk{animation:pop .55s calc(var(--i)*.22s + .15s) both cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{0%{opacity:0;transform:scale(.3) rotate(-8deg)}70%{opacity:1;transform:scale(1.08) rotate(1deg)}100%{transform:none}}
+.s3.on .blk{animation:flip .8s calc(var(--i)*.25s + .2s) both cubic-bezier(.5,0,.2,1.2)}
+@keyframes flip{from{transform:rotateY(0)}to{transform:rotateY(180deg)}}
+
+/* S4 counter */
+.count-wrap{display:grid;grid-template-columns:auto 1fr;gap:5cqw;align-items:center;width:min(100%,88cqw)}
+@container (max-width:560px){.count-wrap{grid-template-columns:1fr;text-align:center;gap:4cqw}}
+.big-num{font-family:var(--display);font-weight:900;font-size:clamp(80px,24cqw,280px);line-height:.9;color:var(--y);text-shadow:0 0 60px rgba(255,196,0,.3);font-variant-numeric:tabular-nums}
+.big-num small{display:block;font-size:clamp(12px,2.2cqw,24px);color:var(--on-d);font-weight:700;margin-top:.6em;text-shadow:none}
+.pbars{display:grid;gap:2cqw}
+.pbar{display:grid;grid-template-columns:minmax(6em,auto) 1fr 2.2em;align-items:center;gap:1.4cqw;font-family:var(--display);font-weight:700;font-size:clamp(11px,2cqw,22px)}
+.pbar .track{height:clamp(10px,2.2cqw,24px);border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.pbar .fill{height:100%;border-radius:inherit;background:var(--c);width:var(--w);transform-origin:right}
+[dir="ltr"] .pbar .fill{transform-origin:left}
+.s4.on .pbar .fill{animation:grow 1s calc(var(--i)*.2s + .5s) both cubic-bezier(.2,.9,.2,1)}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.stream{position:absolute;top:20%;inset-inline:0;display:flex;justify-content:center;gap:2cqw;pointer-events:none}
+.stream i{font-style:normal;font-family:var(--mono);font-size:clamp(10px,1.6cqw,16px);color:var(--y);opacity:0;padding:.2em .5em;border:1px solid rgba(255,196,0,.35);border-radius:.4em}
+.s4.on .stream i{animation:stream 1.4s calc(var(--i)*.1s) both ease-in}
+@keyframes stream{0%{opacity:0;transform:translateY(-40%)}30%{opacity:1}100%{opacity:0;transform:translateY(260%) scale(.6)}}
+
+/* S5 finale */
+.finale{display:grid;justify-items:center;gap:2cqw;text-align:center}
+.duo-mini{display:flex;align-items:flex-end;gap:5cqw}
+.duo-mini svg{width:clamp(60px,14cqw,170px);height:auto}
+.s5.on .duo-mini svg{animation:rise .7s calc(var(--i)*.18s + .1s) both cubic-bezier(.2,1.5,.4,1)}
+@keyframes rise{from{opacity:0;transform:translateY(60%)}to{opacity:1;transform:none}}
+.bub{position:relative;background:#fff;color:var(--ink);font-family:var(--display);font-weight:800;font-size:clamp(12px,2.2cqw,24px);padding:.45em 1em;border-radius:1em}
+.s5.on .bub{animation:pop .5s .75s both cubic-bezier(.2,1.6,.4,1)}
+.final-title{font-family:var(--display);font-weight:900;font-size:clamp(26px,6.6cqw,78px);line-height:1.1;position:relative;display:inline-block}
+.final-title::after{content:"";position:absolute;inset-inline:0;bottom:-.08em;height:.14em;background:var(--y);border-radius:99px;transform:scaleX(0);transform-origin:right}
+[dir="ltr"] .final-title::after{transform-origin:left}
+.s5.on .final-title{animation:drop .7s 1s both cubic-bezier(.2,1.4,.3,1)}
+.s5.on .final-title::after{animation:grow .6s 1.6s both cubic-bezier(.2,.9,.2,1)}
+.s5 .band{position:absolute;bottom:0;inset-inline:0;height:4%;background:repeating-linear-gradient(-45deg,var(--y) 0 2cqw,var(--ink) 2cqw 4cqw);transform:translateX(100%)}
+.s5.on .band{animation:band .9s 1.9s both cubic-bezier(.2,.9,.2,1)}
+@keyframes band{from{transform:translateX(100%)}to{transform:none}}
+
+.controls{display:flex;align-items:center;gap:14px;padding:12px 18px;border-top:1px solid var(--line-d);background:rgba(10,10,12,.6)}
+.ctrl{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-d);background:var(--ink2);display:grid;place-items:center;flex-shrink:0;transition:border-color .2s}
+.ctrl:hover{border-color:var(--y)}
+.ctrl svg{width:16px;height:16px}
+.prog{flex:1;height:4px;border-radius:99px;background:var(--ink3);overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--y)}
+.promo-label{font-size:12px;color:var(--mute-d);white-space:nowrap}
+@media (max-width:640px){.promo-label{display:none}}
+
+/* ROBOTS */
+.robot .mouth{transform-box:fill-box;transform-origin:center}
+.robot .eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+.robot.talking .mouth{animation:talk .22s infinite alternate}
+.robot.talking{animation:bob .5s infinite alternate ease-in-out}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes talk{from{transform:scaleY(1)}to{transform:scaleY(2.2) translateY(-1px)}}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+
+/* SECTIONS */
+section{scroll-margin-top:72px}
+.sec{padding-block:88px}
+.sec.light{background:var(--paper);color:var(--on-l)}
+.sec-head{display:grid;gap:12px;margin-bottom:40px;max-width:720px}
+.sec-head h2{font-size:clamp(30px,4.4vw,52px);font-weight:900}
+.sec-head p{color:var(--mute-d);font-size:17px}
+.light .sec-head p{color:var(--mute-l)}
+.eyebrow{font-family:var(--display);font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--y);text-transform:uppercase}
+.light .eyebrow{color:#9A7400}
+
+/* DUO CHAT */
+.duo{display:grid;grid-template-columns:220px 1fr 220px;gap:24px;align-items:start;background:var(--ink2);border:1px solid var(--line-d);border-radius:28px;padding:28px;position:relative;overflow:hidden}
+.duo::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 0%,rgba(255,196,0,.08),transparent 70%);pointer-events:none}
+.bot-col{position:sticky;top:96px;display:grid;justify-items:center;gap:10px;text-align:center}
+.bot-col svg{width:150px;height:auto;transition:filter .3s,opacity .3s}
+.bot-col.idle svg{opacity:.55;filter:saturate(.6)}
+.bot-col h3{font-size:22px;font-weight:800}
+.bot-col small{font-family:var(--display);font-size:11px;letter-spacing:.18em;color:var(--y);font-weight:700}
+.bot-col p{font-size:13px;color:var(--mute-d);max-width:22ch}
+.chat{display:grid;gap:18px;position:relative;min-width:0}
+.topics{display:flex;flex-wrap:wrap;gap:8px}
+.topic{border:1px solid var(--line-d);background:transparent;color:var(--mute-d);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;transition:all .2s}
+.topic:hover{color:var(--on-d);border-color:#555}
+.topic[aria-pressed="true"]{background:var(--y);color:var(--ink);border-color:var(--y)}
+.log{display:grid;gap:12px;min-height:340px;align-content:start}
+.msg{display:flex;gap:10px;align-items:flex-end;max-width:88%}
+.msg.saleem{justify-self:start}
+.msg.salma{justify-self:end;flex-direction:row-reverse}
+.msg .av{width:34px;height:34px;flex-shrink:0}
+.msg .b{border-radius:18px;padding:10px 16px;font-size:15.5px;line-height:1.65}
+.msg .who{display:block;font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.06em;opacity:.65;margin-bottom:2px}
+.msg.saleem .b{background:#fff;color:var(--ink);border-end-start-radius:4px}
+.msg.salma .b{background:var(--y);color:var(--ink);border-end-end-radius:4px}
+.msg.new{animation:msgIn .45s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes msgIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+.typing .b{display:flex;gap:4px;padding:14px 16px}
+.typing .b i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.4;animation:dots 1s infinite}
+.typing .b i:nth-child(2){animation-delay:.15s}.typing .b i:nth-child(3){animation-delay:.3s}
+@keyframes dots{0%,100%{opacity:.25;transform:none}50%{opacity:.9;transform:translateY(-3px)}}
+.chat-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-top:1px solid var(--line-d);padding-top:16px}
+.chat-bar .btn{padding:9px 18px}
+.chat-bar .note{font-size:12px;color:var(--mute-d);margin-inline-start:auto;max-width:40ch}
+.toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-d);border-radius:999px;padding:8px 14px;background:transparent;font-size:13px;font-weight:600}
+.toggle[aria-pressed="true"]{border-color:var(--y);color:var(--y)}
+@media (max-width:980px){
+  .duo{grid-template-columns:1fr 1fr;padding:20px}
+  .bot-col{position:static;grid-row:1}
+  .bot-col svg{width:96px}
+  .bot-col p{display:none}
+  .chat{grid-column:1/-1}
+}
+
+/* GUIDES */
+.guides{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.g{background:var(--card);border-radius:var(--r);padding:22px;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px;border:1px solid var(--line-l);position:relative;transition:transform .25s,box-shadow .25s}
+.g:hover{transform:translateY(-4px);box-shadow:0 24px 40px -24px rgba(23,24,28,.35)}
+.g-top{display:flex;justify-content:space-between;align-items:center}
+.g .ic{width:46px;height:46px;border-radius:14px;background:var(--ink);display:grid;place-items:center}
+.g .ic svg{width:24px;height:24px}
+.g .code{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mute-l)}
+.g h3{font-size:19px;font-weight:800}
+.g p{color:#4b4a45;font-size:14.5px;line-height:1.7}
+.g .en{font-size:12.5px;color:var(--mute-l);direction:ltr;text-align:left;border-top:1px dashed var(--line-l);padding-top:8px}
+[dir="ltr"] .g .en{direction:rtl;text-align:right}
+.g .listen{justify-self:start;display:inline-flex;align-items:center;gap:6px;border:0;background:var(--y-soft);color:#7A5C00;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;transition:background .2s}
+.g .listen:hover{background:var(--y);color:var(--ink)}
+.lines-legend{display:flex;flex-wrap:wrap;gap:6px}
+.lines-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;background:var(--paper);border-radius:6px;padding:2px 8px}
+.lines-legend span::before{content:"";width:14px;height:6px;border-radius:2px;background:var(--c)}
+
+/* CHECK */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{background:var(--ink2);border:1px solid var(--line-d);border-radius:var(--r);padding:20px 22px;border-top:4px solid var(--c)}
+.stat b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(36px,5vw,56px);line-height:1;color:var(--c);font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--mute-d);font-weight:600}
+.check-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+.panel{background:var(--ink2);border:1px solid var(--line-d);border-radius:var(--r);padding:24px}
+.panel h3{font-size:18px;font-weight:800;margin-bottom:18px}
+.cat{display:grid;grid-template-columns:10.5em 1fr 2em;gap:12px;align-items:center;margin-bottom:12px;font-size:14px;font-weight:600}
+.cat .track{height:12px;border-radius:99px;background:var(--ink3);overflow:hidden}
+.cat .fill{height:100%;border-radius:inherit;background:var(--c);width:var(--w)}
+.cat .n{font-family:var(--mono);text-align:end;color:var(--on-d)}
+.locs{display:flex;flex-wrap:wrap;gap:8px}
+.loc{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-d);border-radius:999px;padding:5px 6px 5px 12px;font-size:13px;font-weight:600}
+[dir="rtl"] .loc{padding:5px 12px 5px 6px}
+.loc i{font-style:normal;font-family:var(--mono);background:var(--ink3);border-radius:999px;min-width:26px;text-align:center;font-size:12px;padding:1px 6px}
+.loc.hot i{background:var(--y);color:var(--ink)}
+.callout{margin-top:18px;background:var(--y-soft);border:1px solid rgba(255,196,0,.35);border-radius:14px;padding:14px 16px;font-size:14px}
+.callout b{color:var(--y)}
+@media (max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}.check-grid{grid-template-columns:1fr}.cat{grid-template-columns:8.5em 1fr 2em;font-size:13px}}
+
+/* CULTURE */
+.culture{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cc{border-top:3px solid var(--ink);padding-top:18px;display:grid;gap:8px}
+.cc .k{font-family:var(--mono);font-size:13px;color:#9A7400;font-weight:600}
+.cc h3{font-size:22px;font-weight:800}
+.cc p{color:#4b4a45;font-size:15px}
+@media (max-width:820px){.culture{grid-template-columns:1fr}}
+.closing{margin-top:64px;background:var(--ink);color:var(--on-d);border-radius:28px;padding:48px 36px;display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center;overflow:hidden;position:relative}
+.closing .duo-mini svg{width:110px}
+.closing h2{font-size:clamp(26px,3.6vw,44px);font-weight:900}
+.closing h2 em{font-style:normal;color:var(--y)}
+.closing p{color:var(--mute-d);margin-top:10px}
+@media (max-width:720px){.closing{grid-template-columns:1fr;padding:32px 22px;text-align:center}.closing .duo-mini{justify-content:center}}
+
+footer{padding-block:28px;color:var(--mute-d);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="main">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg width="34" height="38" viewBox="0 0 34 38" aria-hidden="true"><path d="M17 2 31 7.5V18c0 9-6.2 15-14 18C9.2 33 3 27 3 18V7.5Z" fill="none" stroke="#FFC400" stroke-width="3"/><path d="m10.5 18.5 4.5 4.5 8.5-9" fill="none" stroke="#FFC400" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b data-t="brand">نادي السلامة</b><small>SAFETY CLUB · EWA</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#promo" data-t="nav_promo">البرومو</a>
+      <a href="#duo" data-t="nav_duo">سليم وسلامة</a>
+      <a href="#guides" data-t="nav_guides">الإرشادات</a>
+      <a href="#check" data-t="nav_check">جولة التشييك</a>
+      <a href="#culture" data-t="nav_culture">ثقافة السلامة</a>
+    </div>
+    <button class="lang" id="langBtn" type="button">English</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="pill" data-t="hero_pill">Safety Club · إرشادات السلامة</span>
+        <h1 data-th="hero_title">السلامة ما تبدأ من القسم،<br><em>تبدأ من كل واحد فينا.</em></h1>
+      </div>
+      <div class="hero-side">
+        <p data-t="hero_sub">إرشادات السلامة في الأكاديمية، يقدّمها لك سليم وسلامة بالعربي والإنجليزي. شوف البرومو، اسمع الحوار، واعرف وش لقينا في جولة التشييك.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#duo" data-t="cta1">اسمع سليم وسلامة</a>
+          <a class="btn ghost" href="#guides" data-t="cta2">تصفّح الإرشادات</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="player" id="promo" aria-label="promo">
+      <div class="stage" id="stage">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="hud">
+          <div class="stepcount"><span data-t="step">الخطوة</span><b id="stepNum">١ من ٥</b></div>
+          <div class="steps" id="steps"></div>
+          <div class="clock" id="clock">00:00</div>
+        </div>
+        <div id="scenes"></div>
+      </div>
+      <div class="controls">
+        <button class="ctrl" id="playBtn" type="button" aria-label="pause"></button>
+        <button class="ctrl" id="restartBtn" type="button" aria-label="restart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+        <div class="prog"><i id="prog"></i></div>
+        <span class="promo-label" data-t="promo_label">برومو · ١٥ ثانية</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="stripes" aria-hidden="true"></div>
+
+<section class="sec" id="duo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="duo_eye">الهوية · سليم EWA وسلامة EWA</span>
+      <h2 data-t="duo_title">سليم وسلامة يشرحون لك</h2>
+      <p data-t="duo_sub">روبوتان يمثّلان هوية نادي السلامة. اختر موضوع، وخلّهم يتناقشون فيه بالعربي أو الإنجليزي.</p>
+    </div>
+    <div class="duo">
+      <div class="bot-col" id="colSaleem">
+        <div id="botSaleem"></div>
+        <h3 data-t="saleem">سليم</h3><small>SALEEM EWA</small>
+        <p data-t="saleem_d">يسأل الأسئلة اللي في بالك.</p>
+      </div>
+      <div class="chat">
+        <div class="topics" id="topics" role="group"></div>
+        <div class="log" id="log" aria-live="polite"></div>
+        <div class="chat-bar">
+          <button class="btn primary" id="chatPlay" type="button" data-t="play">شغّل الحوار</button>
+          <button class="toggle" id="soundBtn" type="button" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg><span data-t="sound">الصوت</span></button>
+          <span class="note" data-t="duo_note">الأصوات من متصفحك كتجربة. النسخة النهائية يسجّلها متدربون متطوعون.</span>
+        </div>
+      </div>
+      <div class="bot-col" id="colSalma">
+        <div id="botSalma"></div>
+        <h3 data-t="salma">سلامة</h3><small>SALMA EWA</small>
+        <p data-t="salma_d">تعطيك الإرشاد الصح وسببه.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec light" id="guides">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="g_eye">أول ١٠ إرشادات</span>
+      <h2 data-t="g_title">إرشادات السلامة</h2>
+      <p data-t="g_sub">كل إرشاد بالعربي والإنجليزي، ومبني على ملاحظات جولة التشييك. اضغط على أي إرشاد وخلّ سليم وسلامة يشرحونه.</p>
+    </div>
+    <div class="guides" id="guideGrid"></div>
+  </div>
+</section>
+
+<section class="sec" id="check">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="c_eye">Safety Check · الاثنين ٢٨ سبتمبر ٢٠٢٦</span>
+      <h2 data-t="c_title">وش لقينا في جولة التشييك</h2>
+      <p data-t="c_sub">جولة واحدة على ٩ مواقع في الأكاديمية. هذي الأرقام هي سبب الإرشادات اللي فوق.</p>
+    </div>
+    <div class="stats">
+      <div class="stat" style="--c:#F5F4F0"><b class="mono">36</b><span data-t="s_total">إجمالي الملاحظات</span></div>
+      <div class="stat" style="--c:var(--red)"><b class="mono">11</b><span data-t="s_high">أولوية عالية</span></div>
+      <div class="stat" style="--c:var(--orange)"><b class="mono">16</b><span data-t="s_med">أولوية متوسطة</span></div>
+      <div class="stat" style="--c:var(--green)"><b class="mono">9</b><span data-t="s_low">أولوية منخفضة</span></div>
+    </div>
+    <div class="check-grid">
+      <div class="panel">
+        <h3 data-t="by_type">حسب نوع الملاحظة</h3>
+        <div id="cats"></div>
+      </div>
+      <div class="panel">
+        <h3 data-t="by_loc">حسب الموقع</h3>
+        <div class="locs" id="locs"></div>
+        <p class="callout" data-th="callout">أهم الأولويات: <b>الطفايات الفارغة</b> و<b>مسارات الإخلاء</b>. باقي تشييك قاعة غازي القصيبي والعيادة وداخل مبنى C.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec light" id="culture">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Safety Culture</span>
+      <h2 data-t="cu_title">ثقافة السلامة</h2>
+      <p data-t="cu_sub">القيم والسلوكيات المشتركة اللي تخلّي السلامة عادة يومية عند الجميع، مو مجرد قوانين مكتوبة.</p>
+    </div>
+    <div class="culture">
+      <div class="cc"><span class="k">REPORT</span><h3 data-t="cu1">بلّغ بدون خوف</h3><p data-t="cu1p">أي شخص يبلّغ عن الخطر بدون خوف من اللوم. بلاغك ممكن يحمي زميلك.</p></div>
+      <div class="cc"><span class="k">STOP</span><h3 data-t="cu2">وقّف إذا شفت خطر</h3><p data-t="cu2p">الكل يوقّف العمل إذا شاف شي غير آمن، مهما كان الشغل مستعجل.</p></div>
+      <div class="cc"><span class="k">OWN IT</span><h3 data-t="cu3">مسؤولية الجميع</h3><p data-t="cu3p">السلامة مسؤولية الجميع، مو مسؤولية قسم واحد. تبدأ منك ومن مكانك.</p></div>
+    </div>
+    <div class="closing">
+      <div class="duo-mini" id="closingDuo"></div>
+      <div>
+        <span class="pill">Safety First</span>
+        <h2 style="margin-top:14px" data-th="close_t">انضم لنادي السلامة،<br><em>وكن شريك في بيئة آمنة.</em></h2>
+        <p data-t="close_p">امسح الباركود على لافتات الورش لتقديم اقتراح أو بلاغ عن خطر، أو للتسجيل في النادي.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stripes" aria-hidden="true"></div>
+<footer>
+  <div class="wrap">
+    <span data-t="foot1">نادي السلامة · EWA · ٢٠٢٦</span>
+    <span data-t="foot2">سليم وسلامة: رسم مبدئي للفكرة، والتصميم النهائي يُطوّر مع مصمم.</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+/* ---------- ROBOTS ---------- */
+function robot(kind, cls = "") {
+  const saleem = kind === "saleem";
+  const C = saleem ? "#FFFFFF" : "#FFC400";
+  const top = saleem
+    ? '<rect x="53" y="4" width="14" height="11" rx="3.5" fill="#FFC400"/>'
+    : '<path d="M42 3 58 10 42 17Z M78 3 62 10 78 17Z" fill="#FFC400"/><circle cx="60" cy="10" r="4.5" fill="#FFC400"/>';
+  return `<svg class="robot ${cls}" data-bot="${kind}" viewBox="0 0 120 150" role="img" aria-label="${saleem ? "Saleem EWA" : "Salma EWA"}">
+    ${top}
+    <rect x="20" y="20" width="80" height="58" rx="20" fill="${C}"/>
+    <rect x="31" y="31" width="58" height="36" rx="12" fill="#17181C"/>
+    <circle class="eye" cx="48" cy="46" r="6.5" fill="#FFC400"/>
+    <circle class="eye" cx="72" cy="46" r="6.5" fill="#FFC400"/>
+    <path class="mouth" d="M51 57 Q60 64 69 57" stroke="#FFC400" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+    <rect x="23" y="88" width="8" height="36" rx="4" fill="${C}"/>
+    <rect x="89" y="88" width="8" height="36" rx="4" fill="${C}"/>
+    <rect x="35" y="84" width="50" height="50" rx="14" fill="${C}"/>
+    <path d="M60 92 75 97.5V108c0 9.5-6.8 15-15 18.5-8.2-3.5-15-9-15-18.5V97.5Z" fill="#17181C"/>
+    <path d="m53 108.5 5 5 9.5-10" stroke="#FFC400" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+const avatar = k => robot(k).replace('viewBox="0 0 120 150"', 'viewBox="18 0 84 82"');
+
+/* ---------- ICONS ---------- */
+const I = {
+  helmet:'<path d="M3 18h18M5 18v-3a7 7 0 0 1 14 0v3M10 8v4M14 8v4"/>',
+  ext:'<path d="M9 9h6v11a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1ZM12 9V6M10 6h5l2-2M15 6c2.5 0 4 1.5 4 4.5"/>',
+  lines:'<path d="M3 21 21 3M3 14 14 3M10 21 21 10"/>',
+  door:'<path d="M5 21V3h10v18M15 6l4 1v13l-4 1M12 12h.01M3 21h18"/>',
+  exit:'<path d="M14 4h5v16h-5M3 12h11M10 8l4 4-4 4"/>',
+  bell:'<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4ZM10 21h4"/>',
+  bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7Z"/>',
+  box:'<path d="m3 7 9-4 9 4v10l-9 4-9-4ZM3 7l9 4 9-4M12 11v10"/>',
+  qr:'<path d="M4 4h6v6H4ZM14 4h6v6h-6ZM4 14h6v6H4ZM14 14h2v2h-2ZM18 18h2v2h-2ZM14 19h2M19 14h1"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/>',
+  warn:'<path d="M12 3 2 20h20ZM12 10v4M12 17h.01"/>',
+  play:'<path d="M7 4v16l13-8Z" fill="currentColor"/>',
+  pause:'<path d="M7 4h4v16H7zM13 4h4v16h-4z" fill="currentColor" stroke="none"/>'
+};
+const icon = (k, color = "#FFC400", w = 2) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`;
+
+/* ---------- CONTENT ---------- */
+const T = {
+ ar:{
+  brand:"نادي السلامة", nav_promo:"البرومو", nav_duo:"سليم وسلامة", nav_guides:"الإرشادات", nav_check:"جولة التشييك", nav_culture:"ثقافة السلامة",
+  lang:"English", hero_pill:"Safety Club · إرشادات السلامة",
+  hero_title:'السلامة ما تبدأ من القسم،<br><em>تبدأ من كل واحد فينا.</em>',
+  hero_sub:"إرشادات السلامة في الأكاديمية، يقدّمها لك سليم وسلامة بالعربي والإنجليزي. شوف البرومو، اسمع الحوار، واعرف وش لقينا في جولة التشييك.",
+  cta1:"اسمع سليم وسلامة", cta2:"تصفّح الإرشادات", step:"الخطوة", of:"من", promo_label:"برومو · ١٥ ثانية",
+  duo_eye:"الهوية · سليم EWA وسلامة EWA", duo_title:"سليم وسلامة يشرحون لك",
+  duo_sub:"روبوتان يمثّلان هوية نادي السلامة. اختر موضوع، وخلّهم يتناقشون فيه بالعربي أو الإنجليزي.",
+  saleem:"سليم", salma:"سلامة", saleem_d:"يسأل الأسئلة اللي في بالك.", salma_d:"تعطيك الإرشاد الصح وسببه.",
+  play:"شغّل الحوار", replay:"أعد الحوار", sound:"الصوت",
+  duo_note:"الأصوات من متصفحك كتجربة. النسخة النهائية يسجّلها متدربون متطوعون.",
+  g_eye:"أول ١٠ إرشادات", g_title:"إرشادات السلامة",
+  g_sub:"كل إرشاد بالعربي والإنجليزي، ومبني على ملاحظات جولة التشييك. اضغط على أي إرشاد وخلّ سليم وسلامة يشرحونه.",
+  listen:"اسمعها من سليم وسلامة",
+  c_eye:"Safety Check · الاثنين ٢٨ سبتمبر ٢٠٢٦", c_title:"وش لقينا في جولة التشييك",
+  c_sub:"جولة واحدة على ٩ مواقع في الأكاديمية. هذي الأرقام هي سبب الإرشادات اللي فوق.",
+  s_total:"إجمالي الملاحظات", s_high:"أولوية عالية", s_med:"أولوية متوسطة", s_low:"أولوية منخفضة",
+  by_type:"حسب نوع الملاحظة", by_loc:"حسب الموقع",
+  callout:'أهم الأولويات: <b>الطفايات الفارغة</b> و<b>مسارات الإخلاء</b>. باقي تشييك قاعة غازي القصيبي والعيادة وداخل مبنى C.',
+  cu_title:"ثقافة السلامة", cu_sub:"القيم والسلوكيات المشتركة اللي تخلّي السلامة عادة يومية عند الجميع، مو مجرد قوانين مكتوبة.",
+  cu1:"بلّغ بدون خوف", cu1p:"أي شخص يبلّغ عن الخطر بدون خوف من اللوم. بلاغك ممكن يحمي زميلك.",
+  cu2:"وقّف إذا شفت خطر", cu2p:"الكل يوقّف العمل إذا شاف شي غير آمن، مهما كان الشغل مستعجل.",
+  cu3:"مسؤولية الجميع", cu3p:"السلامة مسؤولية الجميع، مو مسؤولية قسم واحد. تبدأ منك ومن مكانك.",
+  close_t:'انضم لنادي السلامة،<br><em>وكن شريك في بيئة آمنة.</em>',
+  close_p:"امسح الباركود على لافتات الورش لتقديم اقتراح أو بلاغ عن خطر، أو للتسجيل في النادي.",
+  foot1:"نادي السلامة · EWA · ٢٠٢٦", foot2:"سليم وسلامة: رسم مبدئي للفكرة، والتصميم النهائي يُطوّر مع مصمم."
+ },
+ en:{
+  brand:"Safety Club", nav_promo:"Promo", nav_duo:"Saleem & Salma", nav_guides:"Guidelines", nav_check:"Safety Check", nav_culture:"Safety Culture",
+  lang:"العربية", hero_pill:"Safety Club · Safety Guidelines",
+  hero_title:'Safety doesn’t start with a department.<br><em>It starts with each of us.</em>',
+  hero_sub:"The academy’s safety guidelines, presented by Saleem and Salma in Arabic and English. Watch the promo, hear the conversation, and see what our safety check found.",
+  cta1:"Hear Saleem & Salma", cta2:"Browse the guidelines", step:"Step", of:"of", promo_label:"Promo · 15 seconds",
+  duo_eye:"Identity · Saleem EWA & Salma EWA", duo_title:"Saleem and Salma explain it",
+  duo_sub:"Two robots that carry the Safety Club identity. Pick a topic and let them talk it through in Arabic or English.",
+  saleem:"Saleem", salma:"Salma", saleem_d:"Asks the questions on your mind.", salma_d:"Gives you the right guideline and why.",
+  play:"Play conversation", replay:"Replay", sound:"Sound",
+  duo_note:"Voices come from your browser as a preview. Final voices will be recorded by volunteer trainees.",
+  g_eye:"The first 10 guidelines", g_title:"Safety guidelines",
+  g_sub:"Every guideline in Arabic and English, based on what the safety check found. Tap any guideline to hear Saleem and Salma explain it.",
+  listen:"Hear it from Saleem & Salma",
+  c_eye:"Safety Check · Monday 28 September 2026", c_title:"What our safety check found",
+  c_sub:"One walkthrough across 9 locations in the academy. These numbers are the reason behind the guidelines above.",
+  s_total:"Total findings", s_high:"High priority", s_med:"Medium priority", s_low:"Low priority",
+  by_type:"By finding type", by_loc:"By location",
+  callout:'Top priorities: <b>empty extinguishers</b> and <b>evacuation routes</b>. Still to check: Ghazi Al-Qusaibi Hall, the clinic, and inside Building C.',
+  cu_title:"Safety culture", cu_sub:"The shared values and habits that make safety an everyday routine for everyone, not just written rules.",
+  cu1:"Report without fear", cu1p:"Anyone can report a hazard without fear of blame. Your report could protect a colleague.",
+  cu2:"Stop when it’s unsafe", cu2p:"Everyone stops work when they see something unsafe, however urgent the job is.",
+  cu3:"Everyone owns it", cu3p:"Safety belongs to everyone, not to one department. It starts with you and your workspace.",
+  close_t:'Join the Safety Club<br><em>and help keep everyone safe.</em>',
+  close_p:"Scan the QR code on workshop signs to share an idea, report a hazard, or join the club.",
+  foot1:"Safety Club · EWA · 2026", foot2:"Saleem & Salma are early concept sketches; the final design will be developed with a designer."
+ }
+};
+
+const PRI = {h:{c:"#E5484D",ar:"أولوية عالية",en:"High"}, m:{c:"#F5A524",ar:"أولوية متوسطة",en:"Medium"}, l:{c:"#2E9E6A",ar:"أولوية منخفضة",en:"Low"}};
+
+const PROMO = {
+ ar:{ steps:["الخطر","الرصد","البلاغ","المعالجة","الأمان"],
+  s1:["في كل ورشة","خطر","ممكن ما تشوفه"],
+  s2cap:"جولة تشييك واحدة… وهذا اللي لقيناه",
+  s3cap:"كل ملاحظة لها رقم… ولها حل",
+  s4lbl:"ملاحظة في جولة واحدة", s4cap:"٩ مواقع · ١١ ملاحظة أولويتها عالية",
+  s5bub:"Safety First!", s5title:"هكذا نصنع ثقافة السلامة" },
+ en:{ steps:["Hazard","Spot","Report","Fix","Safe"],
+  s1:["In every workshop","a hazard","you might miss"],
+  s2cap:"One safety check… and here’s what we found",
+  s3cap:"Every finding gets a code… and a fix",
+  s4lbl:"findings in one walkthrough", s4cap:"9 locations · 11 high-priority findings",
+  s5bub:"Safety First!", s5title:"This is how we build a safety culture" }
+};
+const HAZ = [
+ {c:"#E5484D", ic:"ext",  ar:"طفاية فارغة", en:"Empty extinguisher", code:"R-02", p:"h", fa:"إعادة تعبئة الطفاية", fe:"Refill the extinguisher"},
+ {c:"#FF7F1F", ic:"door", ar:"عوائق أمام باب الطوارئ", en:"Blocked emergency door", code:"I-01", p:"h", fa:"إخلاء مسار الباب", fe:"Clear the exit path"},
+ {c:"#2B7FE0", ic:"bolt", ar:"كيابل على الأرض", en:"Cables on the floor", code:"A-04", p:"m", fa:"ترتيب الكيابل وتثبيتها", fe:"Route and secure cables"},
+ {c:"#C9A000", ic:"lines",ar:"خطوط صفراء متآكلة", en:"Worn yellow lines", code:"G-01", p:"m", fa:"تجديد الشريط الأصفر", fe:"Renew the yellow tape"}
+];
+
+const TOPICS = [
+ {k:"ppe", ic:"helmet", code:"SG-01", ar:"معدات الحماية", en:"PPE",
+  ga:"قبل ما تبدأ شغلك، تأكد من معدات الحماية الشخصية المطلوبة في الورشة: نظارة، قفازات، خوذة، وحذاء سلامة.",
+  ge:"Before you start, check the PPE your workshop requires: goggles, gloves, hard hat and safety shoes.",
+  d:[
+   ["s","سلامة، وين رايحة بسرعة كذا؟","Salma, where are you rushing off to?"],
+   ["m","للورشة! بس قبل ما أبدأ، أتأكد من معدات الحماية الشخصية.","The workshop! But before I start, I check my PPE."],
+   ["s","تقصدين النظارة والقفازات والخوذة؟","You mean goggles, gloves and a hard hat?"],
+   ["m","وحذاء السلامة، وحماية الأذن إذا فيه ضجيج. كل ورشة كاتبة متطلباتها على اللوحة عند الباب.","And safety shoes, plus ear protection if it’s noisy. Every workshop lists what it needs on the sign at the door."],
+   ["s","واضح! قبل ما تبدأ شغلك، تأكد من معدات الحماية الشخصية.","Got it. Before you start, check your PPE!"]]},
+ {k:"ext", ic:"ext", code:"SG-02", ar:"الطفايات", en:"Extinguishers",
+  ga:"تذكّر PASS: اسحب، وجّه، اضغط، حرّك. تأكد إن مؤشر الطفاية على الأخضر، ولا تحط شي داخل المربع الأحمر تحتها.",
+  ge:"Remember PASS: Pull, Aim, Squeeze, Sweep. Check the gauge is in the green, and keep the red box under it clear.",
+  d:[
+   ["s","لو شفت حريق صغير، كيف أستخدم الطفاية؟","If I see a small fire, how do I use the extinguisher?"],
+   ["m","تذكّر PASS: اسحب المسمار، وجّه على قاعدة النار، اضغط المقبض، وحرّك يمين ويسار.","Remember PASS: Pull the pin, Aim at the base of the fire, Squeeze the handle, Sweep side to side."],
+   ["s","وكيف أعرف إن الطفاية مليانة؟","How do I know it’s actually charged?"],
+   ["m","شوف العداد، لازم المؤشر يكون على الأخضر. لقينا ٣ طفايات فاضية في جولة التشييك، فلو شفت وحدة كذا بلّغ فورًا.","Look at the gauge. The needle must sit in the green. Our safety check found 3 empty extinguishers, so report one right away."],
+   ["s","والمربع الأحمر اللي تحتها؟","And the red box on the floor under it?"],
+   ["m","عشان محد يحط شي قدامها. لازم توصل للطفاية بثواني.","So nobody puts anything in front of it. You need to reach it in seconds."]]},
+ {k:"lines", ic:"lines", code:"SG-03", ar:"الخطوط الأرضية", en:"Floor markings",
+  ga:"الأصفر للممرات، والأحمر للخطر ومعدات الحريق، والأخضر للإسعافات الأولية، والأزرق حول منطقة الموية. لا تحط أغراض داخل الخطوط.",
+  ge:"Yellow marks walkways, red marks hazards and fire equipment, green marks first aid, blue marks water areas. Keep marked zones clear.",
+  legend:true,
+  d:[
+   ["s","ليش أرضية الورشة كلها خطوط ملونة؟","Why is the workshop floor full of coloured lines?"],
+   ["m","كل لون له معنى. الأصفر يحدد الممرات والأماكن اللي نمشي فيها.","Every colour means something. Yellow marks the walkways we use."],
+   ["s","والأحمر؟","And red?"],
+   ["m","الأحمر للخطر ومعدات الحريق، لا تحط شي داخله. الأخضر لموقع الإسعافات الأولية، والأزرق حول منطقة الموية.","Red is for hazards and fire equipment, so never put anything inside it. Green marks first aid, and blue surrounds water areas."],
+   ["s","وإذا شفت خط متآكل أو مقطوع؟","What if a line is worn or broken?"],
+   ["m","صوّره وبلّغ عنه بالباركود. ١٢ ملاحظة من جولتنا كانت عن العلامات الأرضية!","Take a photo and report it by QR code. 12 of our findings were about floor markings!"]]},
+ {k:"exits", ic:"door", code:"SG-04", ar:"أبواب الطوارئ", en:"Emergency exits",
+  ga:"أبواب الطوارئ ومساراتها لازم تكون فاضية دايم، وما تنقفل وقت الدوام. الأغراض مكانها المستودع.",
+  ge:"Emergency doors and routes must always be clear and never locked during working hours. Extra items belong in the store.",
+  d:[
+   ["s","باب الطوارئ هذا قدامه طاولة، عادي؟","There’s a table in front of this emergency door. Is that okay?"],
+   ["m","لا أبدًا! باب الطوارئ لازم يكون فاضي دايم، وما ينقفل وقت الدوام.","Not at all! An emergency door must always be clear, and never locked during working hours."],
+   ["s","حتى لو الأغراض مؤقتة؟","Even if it’s only for a while?"],
+   ["m","حتى لو دقيقة. وقت الطوارئ كل ثانية تفرق، والأغراض مكانها المستودع.","Even for a minute. In an emergency every second counts, and extra items belong in the store."],
+   ["s","تمام، بأبعدها وأبلّغ لو لقيت باب مقفل.","Okay, I’ll move it and report any locked door I find."]]},
+ {k:"evac", ic:"exit", code:"SG-05", ar:"الإخلاء", en:"Evacuation",
+  ga:"إذا اشتغل الإنذار: وقّف شغلك، اطلع بهدوء من أقرب مخرج، استخدم الدرج، وتوجّه لنقطة التجمع وابقَ فيها.",
+  ge:"When the alarm sounds: stop work, leave calmly by the nearest exit, use the stairs, and stay at the assembly point.",
+  d:[
+   ["s","الإنذار اشتغل! وش أول شي أسويه؟","The alarm is going off! What do I do first?"],
+   ["m","وقّف شغلك، اطفِ الجهاز إذا تقدر بأمان، واطلع بهدوء من أقرب مخرج.","Stop work, switch off your machine if it’s safe, and leave calmly by the nearest exit."],
+   ["s","آخذ المصعد أسرع؟","Should I take the lift? It’s faster."],
+   ["m","لا، الدرج بس. واتبع لوحات المخرج لين توصل نقطة التجمع.","No, stairs only. Follow the exit signs to the assembly point."],
+   ["s","وأرجع أجيب جوالي؟","Can I go back for my phone?"],
+   ["m","لا ترجع لين يسمح لك المسؤول. ابقَ في نقطة التجمع عشان يعدّون الكل.","Don’t go back until you’re told it’s safe. Stay at the assembly point so everyone can be counted."]]},
+ {k:"alarm", ic:"bell", code:"SG-06", ar:"زر الإنذار", en:"Fire alarm",
+  ga:"اعرف مكان زر الإنذار الأحمر من أول يوم. إذا شفت دخان أو حريق: اسحب الزر، نبّه اللي حولك، واتصل بالطوارئ.",
+  ge:"Know where the red alarm call point is from day one. If you see smoke or fire: pull it, warn others, call emergency.",
+  d:[
+   ["s","لو أنا أول واحد شاف دخان؟","What if I’m the first one to see smoke?"],
+   ["m","اسحب زر الإنذار الأحمر، ونبّه اللي حولك، وتواصل مع رقم الطوارئ.","Pull the red fire alarm, warn the people around you, and call the emergency number."],
+   ["s","وين ألقى الزر؟","Where do I find the alarm?"],
+   ["m","غالبًا قرب المخارج وفوقه لافتة حمراء. تعرّف على مكانه من أول يوم في الورشة.","Usually near the exits, with a red sign above it. Learn where it is on your first day in the workshop."],
+   ["s","يعني أعرف المكان قبل ما أحتاجه.","So I know where it is before I need it."]]},
+ {k:"elec", ic:"bolt", code:"SG-07", ar:"الكهرباء والكيابل", en:"Electrical safety",
+  ga:"لا تترك كيابل على الأرض، ولا تلمس علب أفياش مفتوحة أو أسلاك ظاهرة، ولا تشغّل جهاز وإيدك مبلولة.",
+  ge:"Don’t leave cables across the floor, never touch open sockets or exposed wires, and never use equipment with wet hands.",
+  d:[
+   ["s","الكيابل ممدودة على الأرض، أتخطاها وخلاص؟","There are cables across the floor. Can I just step over them?"],
+   ["m","لا، هذي من أكثر أسباب التعثر. رتّبها وثبّتها أو بلّغ عنها.","No, they’re one of the top trip hazards. Route and secure them, or report them."],
+   ["s","وعلبة الأفياش المفتوحة؟","And an open socket box?"],
+   ["m","لا تلمسها أبدًا. ابتعد عنها وبلّغ، الأسلاك الظاهرة خطر كهربائي.","Never touch it. Keep away and report it. Exposed wires are an electrical hazard."],
+   ["s","وإذا إيدي مبلولة؟","What if my hands are wet?"],
+   ["m","لا تلمس أي جهاز كهربائي وإيدك مبلولة، ولا تستخدم جهاز كيبله متضرر.","Don’t touch any electrical equipment with wet hands, and never use a device with a damaged cable."]]},
+ {k:"house", ic:"box", code:"SG-08", ar:"الترتيب", en:"Housekeeping",
+  ga:"المكان المرتب مكان آمن. رجّع كل شي مكانه، والأغراض الزايدة للمستودع، ونظّف مكانك قبل ما تطلع.",
+  ge:"A tidy workspace is a safe workspace. Put everything back, move extra items to the store, and clean up before you leave.",
+  d:[
+   ["s","الورشة زحمة أغراض، بس الشغل ماشي.","The workshop is cluttered, but the work still gets done."],
+   ["m","المكان المرتب مكان آمن. الأغراض المتكدسة تسد الممرات وتسبب إصابات.","A tidy workspace is a safe one. Piled-up items block walkways and cause injuries."],
+   ["s","طيب وين أحطها؟","So where do they go?"],
+   ["m","كل شي يرجع مكانه، والزايد للمستودع. ونظّف مكانك قبل ما تطلع.","Everything goes back in its place, extras go to the store, and you clean up before you leave."],
+   ["s","ترتيب اليوم يمنع حادث بكرة.","Tidy today, no accident tomorrow."]]},
+ {k:"report", ic:"qr", code:"SG-09", ar:"البلاغ عن الخطر", en:"Report a hazard",
+  ga:"شفت خطر؟ امسح الباركود على اللافتة، ارفع صورة وحدد المبنى. وبلاغ «كاد أن يقع» تقدر ترسله بدون اسم.",
+  ge:"Spotted a hazard? Scan the QR code on the sign, add a photo and the building. Near-miss reports can be anonymous.",
+  d:[
+   ["s","شفت خطر، بس البلاغ مو شغلي… صح؟","I saw a hazard, but reporting isn’t my job… right?"],
+   ["m","غلط! السلامة مسؤولية الجميع. امسح الباركود اللي على اللافتة، ارفع صورة وحدد المبنى.","Wrong! Safety is everyone’s job. Scan the QR code on the sign, add a photo and pick the building."],
+   ["s","وإذا الموقف كاد يصير حادث بس ما صار؟","And if something almost became an accident, but didn’t?"],
+   ["m","هذا بلاغ «كاد أن يقع»، وتقدر ترسله بدون اسم. ما فيه لوم، الهدف إننا نتعلم.","That’s a near-miss report, and you can send it anonymously. No blame. The goal is to learn."],
+   ["s","يعني بلاغي ممكن يحمي زميلي.","So my report could protect a colleague."],
+   ["m","بالضبط. وكل شهر نعلن وش تم حله من بلاغاتكم.","Exactly. And every month we share which reports got fixed."]]},
+ {k:"heat", ic:"sun", code:"SG-10", ar:"حرارة الصيف", en:"Summer heat",
+  ga:"اشرب موية باستمرار، واستخدم الظل، وإذا حسيت بدوخة وقّف وبلّغ. المملكة تمنع العمل تحت الشمس وقت الظهيرة في الصيف.",
+  ge:"Drink water often, use shade, and stop and report if you feel dizzy. Saudi Arabia bans work under direct sun at midday in summer.",
+  d:[
+   ["s","الجو اليوم حار مرّة!","It’s really hot today!"],
+   ["m","حرارة الصيف خطر حقيقي. اشرب موية باستمرار حتى لو ما حسيت بعطش.","Summer heat is a real hazard. Drink water regularly, even if you’re not thirsty."],
+   ["s","وإذا حسيت بدوخة؟","What if I feel dizzy?"],
+   ["m","وقّف فورًا، روح للظل أو مكان مكيّف، وبلّغ مشرفك.","Stop right away, move to shade or air conditioning, and tell your supervisor."],
+   ["s","والشغل تحت الشمس؟","And working in the sun?"],
+   ["m","المملكة تمنع العمل تحت الشمس وقت الظهيرة في أشهر الصيف، ونلتزم بهذا دايم.","Saudi Arabia bans work under direct sun at midday in the summer months, and we always follow it."]]}
+];
+
+const CATS = [
+ {c:"#FFC400",n:12,ar:"العلامات الأرضية",en:"Floor markings"},
+ {c:"#FF7F1F",n:7,ar:"إزالة العوائق والترتيب",en:"Obstructions & housekeeping"},
+ {c:"#C2185B",n:5,ar:"الإنذار واللافتات",en:"Alarms & signage"},
+ {c:"#E5484D",n:4,ar:"الطفايات",en:"Extinguishers"},
+ {c:"#22A39A",n:3,ar:"صيانة المبنى",en:"Building maintenance"},
+ {c:"#2B7FE0",n:3,ar:"الكهرباء والكيابل",en:"Electrical & cables"},
+ {c:"#7E57C2",n:2,ar:"الإخلاء والأبواب",en:"Evacuation & doors"}
+];
+const LOCS = [["R",7],["G",6],["F",6],["D",5],["A",4],["I",2],["E",2],["H",1],["C",1],["X",2]];
+const LOCNAME = {ar:{A:"قاعة أكوا",X:"ملاحظات عامة"}, en:{A:"Aqua Hall",X:"General"}};
+
+/* ---------- STATE ---------- */
+let lang = "ar";
+try { const s = localStorage.getItem("sc-lang"); if (s === "en" || s === "ar") lang = s; } catch(e){}
+const $ = s => document.querySelector(s);
+const ARD = "٠١٢٣٤٥٦٧٨٩";
+const num = n => lang === "ar" ? String(n).replace(/\d/g, d => ARD[d]) : String(n);
+
+/* ---------- PROMO ---------- */
+const STEP_MS = 3000, N = 5, DUR = STEP_MS * N;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let playing = !reduce, t0 = performance.now(), paused = 0, cur = -1, countRAF = 0;
+
+function buildPromo() {
+  const P = PROMO[lang];
+  $("#steps").innerHTML = P.steps.map((s, i) =>
+    (i ? '<span class="arr" aria-hidden="true">←</span>' : "") + `<button type="button" data-i="${i}">${s}</button>`).join("");
+  const blocks = () =>`<div class="blocks">${HAZ.map((h, i) => `
+    <div class="blk" style="--c:${h.c};--i:${i}">
+      <div class="face front">${icon(h.ic, "#fff", 2.2)}<b>${h[lang]}</b></div>
+      <div class="face back" style="--pc:${PRI[h.p].c}"><span class="code">${h.code}</span><span class="fix">${lang === "ar" ? h.fa : h.fe}</span><span class="pri">${PRI[h.p][lang]}</span></div>
+    </div>`).join("")}</div>`;
+  const chips = ["R-01","R-02","F-02","I-01","A-01","A-02","E-01","G-02","G-03","F-01","F-03"];
+  $("#scenes").innerHTML = `
+    <div class="scene s1"><div class="kin">
+      <span class="w" style="--i:0">${P.s1[0]}</span><span class="w big" style="--i:1">${P.s1[1]}</span><span class="w" style="--i:2">${P.s1[2]}</span>
+    </div></div>
+    <div class="scene s2">${blocks()}<p class="cap"><span>${P.s2cap}</span></p></div>
+    <div class="scene s3">${blocks()}<p class="cap"><span>${P.s3cap}</span></p></div>
+    <div class="scene s4">
+      <div class="stream">${chips.map((c, i) => `<i style="--i:${i}">${c}</i>`).join("")}</div>
+      <div class="count-wrap">
+        <div class="big-num"><span id="cnt">${num(36)}</span><small>${P.s4lbl}</small></div>
+        <div class="pbars">${[["h",11],["m",16],["l",9]].map(([k, n], i) => `
+          <div class="pbar" style="--c:${PRI[k].c};--i:${i};--w:${n / 16 * 100}%"><span>${PRI[k][lang]}</span><div class="track"><div class="fill"></div></div><span class="mono">${num(n)}</span></div>`).join("")}
+        </div>
+      </div>
+      <p class="cap"><span>${P.s4cap}</span></p>
+    </div>
+    <div class="scene s5"><div class="finale">
+      <div class="bub">${P.s5bub}</div>
+      <div class="duo-mini">${robot("salma")}${robot("saleem")}</div>
+      <div class="final-title">${P.s5title}</div>
+    </div><div class="band"></div></div>`;
+  $("#scenes").querySelectorAll(".s5 .duo-mini svg").forEach((s, i) => s.style.setProperty("--i", i));
+  cur = -1;
+  $("#steps").onclick = e => { const b = e.target.closest("button"); if (!b) return; seek(+b.dataset.i * STEP_MS + 1); };
+}
+function countUp() {
+  cancelAnimationFrame(countRAF);
+  const el = $("#cnt"); if (!el) return;
+  const s = performance.now();
+  const tick = now => { const p = Math.min(1, (now - s - 300) / 1100); const v = Math.round(36 * (1 - Math.pow(1 - Math.max(0, p), 3))); el.textContent = num(v); if (p < 1) countRAF = requestAnimationFrame(tick); };
+  countRAF = requestAnimationFrame(tick);
+}
+function setScene(i) {
+  if (i === cur) return; cur = i;
+  document.querySelectorAll(".scene").forEach((s, j) => { s.classList.remove("on"); if (j === i) { void s.offsetWidth; s.classList.add("on"); } });
+  document.querySelectorAll("#steps button").forEach((b, j) => { b.classList.toggle("active", j === i); b.classList.toggle("done", j < i); });
+  $("#stepNum").textContent = `${num(i + 1)} ${T[lang].of} ${num(N)}`;
+  if (i === 3) countUp();
+}
+function elapsed() { return playing ? (performance.now() - t0) % DUR : paused; }
+function seek(ms) { cur = -1; if (playing) t0 = performance.now() - ms; else paused = ms; render(); }
+function render() {
+  const t = elapsed();
+  setScene(Math.min(N - 1, Math.floor(t / STEP_MS)));
+  const sec = Math.floor(t / 1000);
+  $("#clock").textContent = `00:${String(sec).padStart(2, "0")}`;
+  $("#prog").style.width = (t / DUR * 100) + "%";
+}
+function loop() { if (playing) render(); requestAnimationFrame(loop); }
+function setPlayIcon() {
+  $("#playBtn").innerHTML = `<svg viewBox="0 0 24 24" fill="none">${playing ? I.pause : I.play}</svg>`;
+  $("#playBtn").setAttribute("aria-label", playing ? "pause" : "play");
+}
+$("#playBtn").onclick = () => {
+  if (playing) { paused = elapsed(); playing = false; $("#stage").classList.add("paused"); }
+  else { t0 = performance.now() - paused; playing = true; $("#stage").classList.remove("paused"); }
+  setPlayIcon();
+};
+$("#restartBtn").onclick = () => { playing = true; $("#stage").classList.remove("paused"); seek(0); setPlayIcon(); };
+
+/* ---------- DUO CHAT ---------- */
+let topic = "ppe", runId = 0, sound = false;
+function buildTopics() {
+  $("#topics").innerHTML = TOPICS.map(tp => `<button class="topic" type="button" data-k="${tp.k}" aria-pressed="${tp.k === topic}">${tp[lang]}</button>`).join("");
+}
+$("#topics").onclick = e => { const b = e.target.closest(".topic"); if (b) selectTopic(b.dataset.k, true); };
+function msgHTML(who, text, cls = "") {
+  const name = who === "s" ? T[lang].saleem : T[lang].salma;
+  return `<div class="msg ${who === "s" ? "saleem" : "salma"} ${cls}"><div class="av">${avatar(who === "s" ? "saleem" : "salma")}</div><div class="b"><span class="who">${name}</span>${text}</div></div>`;
+}
+function staticLog() {
+  const tp = TOPICS.find(x => x.k === topic);
+  $("#log").innerHTML = tp.d.map(([w, a, e]) => msgHTML(w, lang === "ar" ? a : e)).join("");
+  setTalking(null);
+}
+function setTalking(who) {
+  $("#botSaleem svg").classList.toggle("talking", who === "s");
+  $("#botSalma svg").classList.toggle("talking", who === "m");
+  $("#colSaleem").classList.toggle("idle", who === "m");
+  $("#colSalma").classList.toggle("idle", who === "s");
+}
+const wait = ms => new Promise(r => setTimeout(r, ms));
+function speak(text, who) {
+  return new Promise(res => {
+    if (!sound || !("speechSynthesis" in window)) return res(false);
+    try {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = lang === "ar" ? "ar-SA" : "en-US";
+      const vs = speechSynthesis.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith(lang));
+      if (vs.length) u.voice = vs[who === "s" ? 0 : Math.min(1, vs.length - 1)];
+      u.pitch = who === "s" ? 0.85 : 1.35; u.rate = lang === "ar" ? 0.95 : 1;
+      let done = false; const fin = () => { if (!done) { done = true; res(true); } };
+      u.onend = fin; u.onerror = fin;
+      setTimeout(fin, 1500 + text.length * 110);
+      speechSynthesis.speak(u);
+    } catch (e) { res(false); }
+  });
+}
+async function playChat() {
+  const id = ++runId;
+  try { speechSynthesis.cancel(); } catch(e){}
+  const tp = TOPICS.find(x => x.k === topic);
+  const log = $("#log"); log.innerHTML = "";
+  $("#chatPlay").textContent = T[lang].replay;
+  for (const [w, a, e] of tp.d) {
+    if (id !== runId) return;
+    const text = lang === "ar" ? a : e;
+    log.insertAdjacentHTML("beforeend", msgHTML(w, "<i></i><i></i><i></i>", "typing new"));
+    const typing = log.lastElementChild; typing.querySelector(".who").remove();
+    setTalking(null);
+    await wait(reduce ? 50 : 650);
+    if (id !== runId) return;
+    typing.outerHTML = msgHTML(w, text, "new");
+    setTalking(w);
+    const spoke = await speak(text, w);
+    if (!spoke) await wait(reduce ? 200 : Math.min(3200, 900 + text.length * 32));
+    if (id !== runId) return;
+  }
+  setTalking(null);
+}
+function selectTopic(k, animate) {
+  topic = k;
+  document.querySelectorAll(".topic").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === k));
+  runId++; try { speechSynthesis.cancel(); } catch(e){}
+  $("#chatPlay").textContent = T[lang].play;
+  if (animate) playChat(); else staticLog();
+}
+$("#chatPlay").onclick = playChat;
+$("#soundBtn").onclick = () => {
+  sound = !sound; $("#soundBtn").setAttribute("aria-pressed", sound);
+  if (!sound) { try { speechSynthesis.cancel(); } catch(e){} }
+};
+
+/* ---------- GUIDES ---------- */
+function buildGuides() {
+  $("#guideGrid").innerHTML = TOPICS.map(tp => `
+    <article class="g">
+      <div class="g-top"><span class="ic">${icon(tp.ic)}</span><span class="code">${tp.code}</span></div>
+      <h3>${tp[lang]}</h3>
+      <div style="display:grid;gap:10px;align-content:start">
+        <p>${lang === "ar" ? tp.ga : tp.ge}</p>
+        ${tp.legend ? `<div class="lines-legend">${[["#FFC400","أصفر · ممرات","Yellow · walkways"],["#E5484D","أحمر · خطر وحريق","Red · hazard & fire"],["#2E9E6A","أخضر · إسعافات","Green · first aid"],["#2B7FE0","أزرق · موية","Blue · water"]].map(([c,a,e]) => `<span style="--c:${c}">${lang === "ar" ? a : e}</span>`).join("")}</div>` : ""}
+        <p class="en">${lang === "ar" ? tp.ge : tp.ga}</p>
+      </div>
+      <button class="listen" type="button" data-k="${tp.k}">${icon("play","currentColor")}<span>${T[lang].listen}</span></button>
+    </article>`).join("");
+  $("#guideGrid").querySelectorAll(".listen svg").forEach(s => { s.style.width = "12px"; s.style.height = "12px"; });
+}
+$("#guideGrid").onclick = e => {
+  const b = e.target.closest(".listen"); if (!b) return;
+  $("#duo").scrollIntoView({behavior: reduce ? "auto" : "smooth"});
+  selectTopic(b.dataset.k, true);
+};
+
+/* ---------- CHECK ---------- */
+function buildCheck() {
+  $("#cats").innerHTML = CATS.map(c => `<div class="cat" style="--c:${c.c};--w:${c.n / 12 * 100}%"><span>${c[lang]}</span><div class="track"><div class="fill"></div></div><span class="n">${c.n}</span></div>`).join("");
+  $("#locs").innerHTML = LOCS.map(([k, n]) => {
+    const name = (LOCNAME[lang][k]) || (lang === "ar" ? `مبنى ${k}` : `Building ${k}`);
+    return `<span class="loc ${n >= 6 ? "hot" : ""}">${name}<i>${n}</i></span>`;
+  }).join("");
+}
+
+/* ---------- I18N ---------- */
+function applyLang() {
+  const d = T[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.querySelectorAll("[data-t]").forEach(el => { if (d[el.dataset.t] != null) el.textContent = d[el.dataset.t]; });
+  document.querySelectorAll("[data-th]").forEach(el => { if (d[el.dataset.th] != null) el.innerHTML = d[el.dataset.th]; });
+  $("#langBtn").textContent = d.lang;
+  document.title = lang === "ar" ? "نادي السلامة · Safety Club" : "Safety Club · نادي السلامة";
+  buildPromo(); render();
+  buildTopics(); runId++; try { speechSynthesis.cancel(); } catch(e){}
+  $("#chatPlay").textContent = d.play; staticLog();
+  buildGuides(); buildCheck();
+  document.querySelectorAll(".steps .arr").forEach(a => a.textContent = lang === "ar" ? "←" : "→");
+}
+$("#langBtn").onclick = () => {
+  lang = lang === "ar" ? "en" : "ar";
+  try { localStorage.setItem("sc-lang", lang); } catch(e){}
+  applyLang();
+};
+
+/* ---------- INIT ---------- */
+$("#botSaleem").innerHTML = robot("saleem");
+$("#botSalma").innerHTML = robot("salma");
+$("#closingDuo").innerHTML = robot("salma") + robot("saleem");
+if (reduce) paused = 4 * STEP_MS + 100;
+setPlayIcon();
+applyLang();
+requestAnimationFrame(loop);
+if ("speechSynthesis" in window) { try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => {}; } catch(e){} }
+})();
+</script>
+</body>
+</html>
