@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 3 · Data Preparation</title>
+<meta name="description" content="PANDA Team Phase 3 — data cleaning, encoding, imbalance handling and ABT grain.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23a6be3c%27/%3E%3Ctext x=%2716%27 y=%2721%27 font-family=%27monospace%27 font-size=%2712%27 font-weight=%27800%27 text-anchor=%27middle%27 fill=%27%230b130f%27%3EP10%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="phase-3">
+
+<main>
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Overview</a> / Phases / 03</div>
+      <span class="tag planned">Planned</span>
+      <h1 style="margin-top:14px">Phase 3 · Data Preparation</h1>
+      <p class="lead" style="max-width:760px">Turning the audited raw data into a clean analysis dataset and a model-ready numeric dataset, without leaking future information.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Treatment plan</span>
+        <h2>Every material issue has a proposed treatment</h2>
+      </div>
+      <div class="note warn"><b>Planned.</b> This content is the plan proposed at the end of Phase 2. It will be replaced with actual results when the Phase 3 files are delivered.</div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Issue</th><th>Proposed treatment</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Missing values (3 columns)</td><td>Median by group + missing-indicator flag</td><td>Keeps rows; preserves the signal of missingness</td></tr>
+            <tr><td>Category label variant</td><td>Strip spaces + title case → 6 categories</td><td>Correct grouping</td></tr>
+            <tr><td>Inflated Units_Sold (9,825)</td><td>Recompute from Sales_Value ÷ effective price</td><td>Removes false extreme targets</td></tr>
+            <tr><td>Zero inventory, no stockout (964)</td><td>Agree a business rule, then relabel or flag</td><td>Consistent target definition</td></tr>
+            <tr><td>Price extremes / repeated keys</td><td>Verify; cap or merge only if confirmed</td><td>Avoid deleting valid data</td></tr>
+            <tr><td>Skewed quantities</td><td>log(1 + x) or robust scaling; z-score for linear models</td><td>Stable model training</td></tr>
+            <tr><td>Categorical fields</td><td>One-hot: Category, Temperature_Zone; frequency encoding for high-cardinality IDs</td><td>Model-ready numeric data</td></tr>
+            <tr><td>Class imbalance (2.54%)</td><td>Class weights / SMOTE on the training split only</td><td>Avoid optimistic evaluation</td></tr>
+            <tr><td>Leakage + future dates</td><td>Drop same-day OSA / cover as features; time-based train / test split</td><td>Honest performance</td></tr>
+            <tr><td>Sparse store × SKU history</td><td>Aggregate: Category × Day, Store × Category × Week</td><td>Enough history for lags</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Outputs</span>
+        <h2>Two datasets</h2>
+      </div>
+      <div class="grid g2">
+        <div class="card reveal"><span class="tag">Output 1</span><h3>Clean, readable dataset</h3><p>For analysis and reporting — corrected labels and targets, readable values.</p></div>
+        <div class="card reveal"><span class="tag">Output 2</span><h3>Fully numeric ML dataset</h3><p>Encoded, scaled and aggregated to the chosen ABT grain for machine learning.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Files</h2>
+      <div class="empty">Phase 3 deliverables will appear here once uploaded. <a href="files.html">All files →</a></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0"><div class="wrap"><div data-phase-pager="3"></div></div></section>
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

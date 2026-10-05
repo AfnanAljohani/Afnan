@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 1 · Business Understanding</title>
+<meta name="description" content="PANDA Team Phase 1 — problem statement, business objectives, success measures and analytical questions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23a6be3c%27/%3E%3Ctext x=%2716%27 y=%2721%27 font-family=%27monospace%27 font-size=%2712%27 font-weight=%27800%27 text-anchor=%27middle%27 fill=%27%230b130f%27%3EP10%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="phase-1">
+
+<main>
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Overview</a> / Phases / 01</div>
+      <span class="tag done">Completed</span>
+      <h1 style="margin-top:14px">Phase 1 · Business Understanding</h1>
+      <p class="lead" style="max-width:720px">Defining the business problem, the decisions the model must support, how success is measured, and the questions the data must answer.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Problem statement</span>
+        <h2>Fresh food forces a trade-off between availability and waste</h2>
+        <p>Panda's store and DC replenishment of short-shelf-life products is driven by uncertain demand. Too much stock ends in markdown, expiry and disposal; too little ends in stockouts and lost sales.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card reveal"><span class="tag">01</span><h3>Forecast demand</h3><p>Units sold, as the core input to every replenishment decision.</p></div>
+        <div class="card reveal"><span class="tag">02</span><h3>Predict stockout &amp; near-expiry risk</h3><p>Flag products likely to run out or expire so teams act early.</p></div>
+        <div class="card reveal"><span class="tag">03</span><h3>Support replenishment decisions</h3><p>Order quantities driven by forecast, not fixed rules.</p></div>
+      </div>
+      <div class="note"><b>Scope (Plan B):</b> Product · Supplier · Store.</div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Success measures</span>
+        <h2>Baselines and targets</h2>
+      </div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Measure</th><th class="num">Academic baseline</th><th class="num">Target</th></tr></thead>
+          <tbody>
+            <tr><td>Forecast error (MAPE)</td><td class="num">25–30%</td><td class="num">&lt; 15% (high-velocity SKUs)</td></tr>
+            <tr><td>Promo stockouts, fresh SKUs</td><td class="num">8–12%</td><td class="num">−25–30%</td></tr>
+            <tr><td>Fresh stock to markdown / expiry</td><td class="num">5–8%</td><td class="num">−20–25%</td></tr>
+            <tr><td>On-shelf availability</td><td class="num">—</td><td class="num">+3–5%</td></tr>
+            <tr><td>Near-expiry risk recall</td><td class="num">—</td><td class="num">&gt; 85%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note warn">Baselines and targets are academic assumptions from the project brief, not verified Panda performance.</div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Analytical questions</span>
+        <h2>Descriptive (D) and diagnostic (G) questions</h2>
+        <p>These questions were defined in Phase 1 and answered with evidence in <a href="phase-2.html#questions">Phase 2</a>.</p>
+      </div>
+      <div class="grid g2">
+        <div class="card reveal">
+          <h3>Descriptive</h3>
+          <ul class="list-check">
+            <li><b>D1</b> — How do sales and waste vary across categories and stores?</li>
+            <li><b>D2</b> — Do promotions change stockout rates?</li>
+            <li><b>D3</b> — What is on-shelf availability by category and store?</li>
+            <li><b>D4</b> — How much stock is near expiry?</li>
+            <li><b>D5</b> — How do suppliers and DCs perform (fill rate, lead time)?</li>
+            <li><b>D6</b> — When and for which SKUs do stockouts happen?</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <h3>Diagnostic</h3>
+          <ul class="list-check">
+            <li><b>G1</b> — Why do promotion stockouts happen?</li>
+            <li><b>G2</b> — Why do waste quantities vary?</li>
+            <li><b>G3</b> — Does store traffic explain near-expiry share?</li>
+            <li><b>G4</b> — Does supplier fill rate explain availability?</li>
+            <li><b>G5</b> — Do open orders and lead times differ by stock state?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">Question wording is summarised from the Phase 2 answers; it will be replaced with the original Phase 1 text when that file is added.</div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Files</h2>
+      <div class="empty">Phase 1 deliverables will appear here once uploaded. <a href="files.html">All files →</a></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0"><div class="wrap"><div data-phase-pager="1"></div></div></section>
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

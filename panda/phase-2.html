@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 2 · Data Understanding</title>
+<meta name="description" content="PANDA Team Phase 2 — data overview, auditing, statistical analysis and key insights from 1,000,000 fresh food records.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23a6be3c%27/%3E%3Ctext x=%2716%27 y=%2721%27 font-family=%27monospace%27 font-size=%2712%27 font-weight=%27800%27 text-anchor=%27middle%27 fill=%27%230b130f%27%3EP10%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="phase-2">
+
+<main>
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Overview</a> / Phases / 02</div>
+      <span class="tag done">Completed</span>
+      <h1 style="margin-top:14px">Phase 2 · Data Understanding</h1>
+      <p class="lead" style="max-width:760px">Profiling, auditing and exploring one million inventory and sales observations to find what drives demand, stockouts and waste — and what must be fixed before modelling.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="files/PANDA_Phase2_Data_Understanding_v2.pptx" download>Download presentation (.pptx)</a>
+        <a class="btn" href="dashboard.html">See it in the dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <section id="overview">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Data overview</span>
+        <h2>One million records over two years</h2>
+        <p>One row = one inventory / sales observation for a <b>store × SKU × batch</b> on a date, with supplier, price, promotion, quantity, shelf-life and availability attributes.</p>
+      </div>
+      <div class="grid g4">
+        <div class="card stat reveal"><span class="label">Records</span><span class="value">1,000,000</span><span class="sub">26 columns</span></div>
+        <div class="card stat reveal"><span class="label">Time coverage</span><span class="value">730 days</span><span class="sub">1 Jan 2025 – 31 Dec 2026</span></div>
+        <div class="card stat reveal"><span class="label">Store IDs</span><span class="value">1,000</span><span class="sub">30 DCs · 5 regions · 7 cities</span></div>
+        <div class="card stat reveal"><span class="label">SKU IDs</span><span class="value">149,827</span><span class="sub">6 categories · 532,564 batches</span></div>
+        <div class="card stat reveal"><span class="label">Supplier IDs</span><span class="value">12,000</span><span class="sub">Lead time 1–14 days</span></div>
+        <div class="card stat reveal"><span class="label">Fully complete</span><span class="value">83.8%</span><span class="sub">Only 3 columns have gaps</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Targets -->
+  <section id="targets" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Targets</span>
+        <h2>Three targets, each shaping the modelling choice</h2>
+      </div>
+      <div class="grid g3">
+        <div class="card reveal">
+          <span class="tag">Classification</span>
+          <h3>Stockout_Flag</h3>
+          <div class="stat"><span class="value">2.54%</span><span class="sub">25,413 stockouts vs 974,587 in stock (≈ 1 : 38)</span></div>
+          <p style="margin-top:10px">Far below the 8–12% academic assumption, which covers a different scope.</p>
+          <p><b style="color:var(--brand-ink)">→</b> Class weights / resampling on training data; judge by recall and PR-AUC.</p>
+        </div>
+        <div class="card reveal">
+          <span class="tag">Regression · time series</span>
+          <h3>Units_Sold</h3>
+          <div class="stat"><span class="value">16 → 25</span><span class="sub">Median units, no promotion → promotion</span></div>
+          <p style="margin-top:10px">Strong right skew: skewness ≈ 21, max 5,092.</p>
+          <p><b style="color:var(--brand-ink)">→</b> Log transform, robust metrics (MAE); fix inflated values first.</p>
+        </div>
+        <div class="card reveal">
+          <span class="tag">Classification (candidate)</span>
+          <h3>Near-expiry risk</h3>
+          <div class="stat"><span class="value">7.15%</span><span class="sub">of records have ≤ 3 days left; 3.6% have 2 days</span></div>
+          <p style="margin-top:10px">Shelf life is uniform 2–29 days in every category.</p>
+          <p><b style="color:var(--brand-ink)">→</b> Business must approve the threshold per category.</p>
+        </div>
+      </div>
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card chart-card reveal"><h3>Stockout_Flag distribution</h3><p class="chart-sub">Records by class</p><div data-chart="stockout-split"></div></div>
+        <div class="card chart-card reveal"><h3>Missing values</h3><p class="chart-sub">% of 1,000,000 records</p><div data-chart="missing"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auditing -->
+  <section id="audit" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Data auditing</span>
+        <h2>Complete IDs and dates; issues are concentrated and countable</h2>
+        <p>Only three columns have gaps, at near-identical rates across promotion, stockout and category groups.</p>
+      </div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Check</th><th class="num">Records</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>Exact duplicate rows / duplicate IDs</td><td class="num">0 / 0</td><td><span class="tag done">Clean</span></td></tr>
+            <tr><td>Repeated Store × SKU × Date keys</td><td class="num">3</td><td>Different category / brand</td></tr>
+            <tr><td>Category label variant (' produce ')</td><td class="num">3,027</td><td>7 labels → 6 after normalising</td></tr>
+            <tr><td>Units_Sold inflated vs sales value</td><td class="num">9,825</td><td>4–22× implied units (0.98%)</td></tr>
+            <tr><td>Zero inventory but Stockout_Flag = 0</td><td class="num">964</td><td>Contradicts stockout definition</td></tr>
+            <tr><td>Price at bounds (250 / 2 SAR)</td><td class="num">234</td><td>3 at 250 · 231 at 2</td></tr>
+            <tr><td>IQR outliers in quantity columns</td><td class="num">≈ 7%</td><td>Mostly natural long tail</td></tr>
+            <tr><td>Dated after 28 Sep 2026</td><td class="num">128,686</td><td>12.87% synthetic future dates</td></tr>
+            <tr><td>Negative or out-of-range values</td><td class="num">0</td><td>None found</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><b>No record was corrected or removed in Phase 2.</b> Every issue is carried to the <a href="phase-3.html">Phase 3 treatment plan</a>.</div>
+
+      <h3 style="margin-top:36px">Four structural risks matter more than the missing values</h3>
+      <div class="grid g2" style="margin-top:14px">
+        <div class="card reveal"><span class="tag crit">Target leakage</span><p>Stockout_Flag = 1 exactly when same-day OSA &lt; 90%. Same-day on-hand ÷ units is 0.40–0.55 for 25,398 of 25,413 stockouts.</p><p><b style="color:var(--brand-ink)">→</b> Exclude same-day OSA and cover as predictors.</p></div>
+        <div class="card reveal"><span class="tag warn">Class imbalance</span><p>2.54% stockouts (≈ 1 : 38). Promotion and non-promotion rates are almost equal.</p><p><b style="color:var(--brand-ink)">→</b> Resample on training data only; use PR-AUC.</p></div>
+        <div class="card reveal"><span class="tag warn">Non-nested IDs</span><p>Every store appears in all 7 cities, 5 regions and 30 DCs; a SKU appears under ~4 categories.</p><p><b style="color:var(--brand-ink)">→</b> Use location IDs as labels, not roll-ups.</p></div>
+        <div class="card reveal"><span class="tag warn">Sparse history</span><p>99.67% of store–SKU pairs appear on one day only, so daily lag features cannot be built.</p><p><b style="color:var(--brand-ink)">→</b> Aggregate the grain for the ABT.</p></div>
+      </div>
+      <div class="note">Also noted: Temperature_Zone is independent of Category (≈ 33% each zone), and no seasonality, weekday or Ramadan effect is visible.</div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section id="stats" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Statistical analysis</span>
+        <h2>Quantities are heavily skewed and move together; supply variables are flat</h2>
+      </div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Variable</th><th>Central tendency</th><th>Spread / bounds</th><th>Shape</th></tr></thead>
+          <tbody>
+            <tr><td>Units_Sold</td><td>Median 16 → 25 with promotion; mean 24.55 → 38.98</td><td>Max 5,092 (inflated records)</td><td>Skew ≈ 21.0</td></tr>
+            <tr><td>Waste_Qty</td><td>3.23% of units handled; 43.3% of records &gt; 0</td><td>Category waste rate 3.20–3.27%</td><td>Skew ≈ 15.7</td></tr>
+            <tr><td>On_Hand_Qty</td><td>Stockout on promotion: mean 18.33 vs 53.85</td><td>Same-day cover separates stockouts</td><td>Skew ≈ 4.7</td></tr>
+            <tr><td>Regular_Price_SAR</td><td>Not associated with units (ρ ≈ 0.00)</td><td>Range 2 – 250 SAR</td><td>Right tail</td></tr>
+            <tr><td>Remaining_Shelf_Life</td><td>≤ 3 days in 7.15% of records</td><td>Range 2 – 29 days</td><td>Uniform</td></tr>
+            <tr><td>Lead_Time / Fill_Rate</td><td>Mean 7.50 days / 92.16%</td><td>Lead time 1 – 14 days</td><td>Flat vs stockout</td></tr>
+            <tr><td>On_Shelf_Availability</td><td>Mean 96.80%</td><td>Stockouts 50.0–89.9%; others 95–100%</td><td>Bimodal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card chart-card reveal"><h3>Strongest Spearman associations</h3><p class="chart-sub">Rank correlation ρ</p><div data-chart="spearman"></div></div>
+        <div class="card reveal">
+          <h3>Reading the statistics</h3>
+          <ul class="list-check">
+            <li>Stock, sales and waste quantities move together — inventory is the common driver.</li>
+            <li>Shelf life affects waste non-linearly (a jump at 2 days), so its linear coefficient is near zero.</li>
+            <li>Price on its own has no association with units sold.</li>
+            <li>The full Min / Max / Mean / Median / Mode / Variance / Std / IQR table is computed in the Phase 2 notebook.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insights -->
+  <section id="insights" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Key insights</span>
+        <h2>What influences waste, demand and stockouts</h2>
+      </div>
+
+      <div class="card reveal" style="margin-bottom:16px">
+        <span class="tag">Insight 1 · D4 / G2</span>
+        <h3>Waste is a freshness-timing problem: 3.6% of records carry 27.8% of waste</h3>
+        <div class="grid g2" style="margin-top:14px">
+          <div class="chart-card"><p class="chart-sub">Mean waste per record (units) by remaining shelf life</p><div data-chart="waste-shelf"></div></div>
+          <div class="chart-card"><p class="chart-sub">Mean waste by inventory ÷ (units sold + 1), quintile</p><div data-chart="waste-cover"></div></div>
+        </div>
+        <div class="note"><b>Business meaning:</b> act 2–3 days before expiry (markdown or transfer) and order less when stock cover is high. Associations, not proven causes.</div>
+      </div>
+
+      <div class="card reveal" style="margin-bottom:16px">
+        <span class="tag">Insight 2 · D2 / G3</span>
+        <h3>Promotions and store traffic drive demand; price on its own does not</h3>
+        <div class="grid g4" style="margin:14px 0">
+          <div class="stat"><span class="value">+56%</span><span class="sub">median units on promotion, in all 6 categories</span></div>
+          <div class="stat"><span class="value">≈ 3×</span><span class="sub">units from lowest to highest footfall quintile</span></div>
+          <div class="stat"><span class="value">ρ ≈ 0.00</span><span class="sub">regular price vs units sold</span></div>
+          <div class="stat"><span class="value">2.49% / 2.55%</span><span class="sub">stockout rate with / without promotion</span></div>
+        </div>
+        <div class="grid g2">
+          <div class="chart-card"><p class="chart-sub">Median units sold per record</p><div data-chart="promo-units"></div></div>
+          <div class="chart-card"><p class="chart-sub">Mean units sold by footfall quintile</p><div data-chart="footfall-units"></div></div>
+        </div>
+        <div class="note"><b>Business meaning:</b> forecasts must include promotion and traffic signals. Promotions lift demand without raising stockouts in the pooled data.</div>
+      </div>
+
+      <div class="card reveal">
+        <span class="tag">Insight 3 · D3 / D5 / G1 / G4 / G5</span>
+        <h3>Stockouts follow stock levels, not supplier performance</h3>
+        <div class="grid g2" style="margin-top:14px">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Signal</th><th class="num">Range</th><th>Reading</th></tr></thead>
+              <tbody>
+                <tr><td>Stockout rate by lead time (1–14 d)</td><td class="num">2.46–2.62%</td><td>Flat</td></tr>
+                <tr><td>Lead time: stockout vs in stock</td><td class="num">7.49 vs 7.50 d</td><td>Same</td></tr>
+                <tr><td>OSA by supplier fill-rate quintile</td><td class="num">96.80–96.82%</td><td>Flat (ρ ≈ 0.0004)</td></tr>
+                <tr><td>Stockout rate across 6 categories</td><td class="num">2.37–2.65%</td><td>Consistent</td></tr>
+                <tr><td>Stockout rate across 1,000 stores</td><td class="num">1.1–4.4%</td><td>No hot-spot</td></tr>
+                <tr><td>Stockout rate by weekday</td><td class="num">2.42–2.65%</td><td>Small</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="chart-card"><p class="chart-sub">Mean units on hand during promotions</p><div data-chart="promo-onhand"></div></div>
+        </div>
+        <div class="note"><b>Business meaning:</b> the lever is replenishment quantity, not supplier lead time or fill rate. Same-day on-hand is a leakage variable and is shown for diagnosis only.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Questions -->
+  <section id="questions" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Phase 1 questions</span>
+        <h2>All descriptive and diagnostic questions answered with evidence</h2>
+      </div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Q</th><th>Answer from the data</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>D1</td><td>Sales and waste are similar across categories (waste 3.20–3.27%) and stores (2.5–4.4%)</td><td><span class="tag done">Answered</span></td></tr>
+            <tr><td>D2</td><td>Promotion stockouts 2.49% vs 2.55% without promotion; no difference in any category</td><td><span class="tag done">Answered</span></td></tr>
+            <tr><td>D3</td><td>OSA 96.78–96.82% by category and 96.31–97.24% by store</td><td><span class="tag warn">Entity caveat</span></td></tr>
+            <tr><td>D4</td><td>Shelf life uniform 2–29 days; 3.6% at 2 days, 7.15% at ≤ 3 days</td><td><span class="tag warn">Threshold provisional</span></td></tr>
+            <tr><td>D5</td><td>Supplier fill rate 0.89–0.95, lead time 5.8–9.0 days; DCs nearly identical</td><td><span class="tag warn">Mapping caveat</span></td></tr>
+            <tr><td>D6</td><td>Stockouts 2.42% (Fri) – 2.65% (Mon); SKU ranking unreliable (~6 records/SKU)</td><td><span class="tag warn">Limited</span></td></tr>
+            <tr><td>G1</td><td>Promotion stockouts have lower stock (median 13 vs 35), not longer lead times</td><td><span class="tag">Observational</span></td></tr>
+            <tr><td>G2</td><td>Waste rises with inventory relative to sales, far more at 2 days of shelf life</td><td><span class="tag done">Answered</span></td></tr>
+            <tr><td>G3</td><td>Near-expiry share flat (≈ 3.6%) across footfall; footfall varies within a store-day</td><td><span class="tag crit">Store inference blocked</span></td></tr>
+            <tr><td>G4</td><td>No visible association between fill rate and OSA</td><td><span class="tag done">Answered</span></td></tr>
+            <tr><td>G5</td><td>99.6% of records have open orders; lead time and fill rate equal across states</td><td><span class="tag done">Answered</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">All relationships are associations, not causal effects.</div>
+    </div>
+  </section>
+
+  <!-- Appendix -->
+  <section id="appendix" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Appendix</span>
+        <h2>Supporting tables and data dictionary</h2>
+      </div>
+
+      <details class="card reveal" style="margin-bottom:12px">
+        <summary style="cursor:pointer"><b>Data dictionary (26 columns)</b></summary>
+        <div class="table-wrap" style="margin-top:14px">
+          <table>
+            <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>Record_ID</td><td>ID</td><td>Unique record key</td></tr>
+              <tr><td>Region</td><td>Location</td><td>Region label</td></tr>
+              <tr><td>City</td><td>Location</td><td>City label</td></tr>
+              <tr><td>DC_ID</td><td>ID</td><td>Distribution centre</td></tr>
+              <tr><td>Store_ID</td><td>ID</td><td>Store</td></tr>
+              <tr><td>SKU_ID</td><td>ID</td><td>Product</td></tr>
+              <tr><td>Batch_ID</td><td>ID</td><td>Batch</td></tr>
+              <tr><td>Supplier_ID</td><td>ID</td><td>Supplier</td></tr>
+              <tr><td>Date</td><td>Date</td><td>Observation date</td></tr>
+              <tr><td>Category</td><td>Categorical</td><td>6 categories (7 raw)</td></tr>
+              <tr><td>Brand</td><td>Categorical</td><td>Brand</td></tr>
+              <tr><td>Promotion_Flag</td><td>Binary</td><td>1 = on promotion</td></tr>
+              <tr><td>Regular_Price_SAR</td><td>Numeric</td><td>Regular unit price (SAR)</td></tr>
+              <tr><td>Promo_Price_SAR</td><td>Numeric</td><td>Promotional price (SAR)</td></tr>
+              <tr><td>Units_Sold</td><td>Numeric · target</td><td>Units sold</td></tr>
+              <tr><td>Sales_Value_SAR</td><td>Numeric</td><td>Sales value (SAR)</td></tr>
+              <tr><td>On_Hand_Qty</td><td>Numeric</td><td>Units on hand</td></tr>
+              <tr><td>On_Order_Qty</td><td>Numeric</td><td>Outstanding order units</td></tr>
+              <tr><td>Lead_Time_Days</td><td>Numeric</td><td>Supplier lead time (days)</td></tr>
+              <tr><td>Supplier_Fill_Rate</td><td>Numeric</td><td>Delivered share (0–1)</td></tr>
+              <tr><td>Remaining_Shelf_Life_Days</td><td>Numeric</td><td>Days to expiry</td></tr>
+              <tr><td>Waste_Qty</td><td>Numeric</td><td>Units wasted</td></tr>
+              <tr><td>Stockout_Flag</td><td>Binary · target</td><td>1 = stockout</td></tr>
+              <tr><td>On_Shelf_Availability_Pct</td><td>Numeric</td><td>OSA (%)</td></tr>
+              <tr><td>Store_Footfall</td><td>Numeric</td><td>Store visitors</td></tr>
+              <tr><td>Temperature_Zone</td><td>Categorical</td><td>Frozen / Chilled / Ambient</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details class="card reveal" style="margin-bottom:12px">
+        <summary style="cursor:pointer"><b>Category statistics (raw labels kept separate)</b></summary>
+        <div class="table-wrap" style="margin-top:14px">
+          <table>
+            <thead><tr><th>Category</th><th class="num">Records</th><th class="num">Mean sold</th><th class="num">Mean waste</th><th class="num">OSA (%)</th></tr></thead>
+            <tbody>
+              <tr><td>produce (variant)</td><td class="num">3,027</td><td class="num">26.89</td><td class="num">0.941</td><td class="num">96.85</td></tr>
+              <tr><td>Bakery</td><td class="num">165,500</td><td class="num">26.86</td><td class="num">0.908</td><td class="num">96.81</td></tr>
+              <tr><td>Dairy</td><td class="num">166,416</td><td class="num">27.04</td><td class="num">0.908</td><td class="num">96.80</td></tr>
+              <tr><td>Frozen</td><td class="num">165,706</td><td class="num">26.84</td><td class="num">0.886</td><td class="num">96.78</td></tr>
+              <tr><td>Grocery</td><td class="num">166,459</td><td class="num">26.89</td><td class="num">0.890</td><td class="num">96.80</td></tr>
+              <tr><td>Meat</td><td class="num">166,441</td><td class="num">26.82</td><td class="num">0.896</td><td class="num">96.82</td></tr>
+              <tr><td>Produce</td><td class="num">166,451</td><td class="num">26.78</td><td class="num">0.887</td><td class="num">96.82</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:12px">The variant is the raw value ' produce ' (surrounding spaces, lowercase). Dairy has the largest raw-label waste total: 151,153 units.</p>
+      </details>
+
+      <details class="card reveal" style="margin-bottom:12px">
+        <summary style="cursor:pointer"><b>Stockout definition and missingness by segment</b></summary>
+        <div class="grid g2" style="margin-top:14px">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Condition</th><th class="num">Records</th><th class="num">Share</th></tr></thead>
+              <tbody>
+                <tr><td>OSA ≥ 90%, no stockout</td><td class="num">974,587</td><td class="num">97.46%</td></tr>
+                <tr><td>OSA ≥ 90%, stockout</td><td class="num">0</td><td class="num">0.00%</td></tr>
+                <tr><td>OSA &lt; 90%, no stockout</td><td class="num">0</td><td class="num">0.00%</td></tr>
+                <tr><td>OSA &lt; 90%, stockout</td><td class="num">25,413</td><td class="num">2.54%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Variable</th><th class="num">Missing</th><th class="num">Promo 0/1</th><th class="num">Stockout 0/1</th></tr></thead>
+              <tbody>
+                <tr><td>Supplier_Fill_Rate</td><td class="num">80,309 (8.03%)</td><td class="num">8.04 / 7.97%</td><td class="num">8.03 / 8.12%</td></tr>
+                <tr><td>Remaining_Shelf_Life</td><td class="num">50,187 (5.02%)</td><td class="num">5.01 / 5.05%</td><td class="num">5.02 / 5.10%</td></tr>
+                <tr><td>Store_Footfall</td><td class="num">40,235 (4.02%)</td><td class="num">4.02 / 4.05%</td><td class="num">4.02 / 4.05%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p style="margin-top:12px">Records complete: 83.8% · one field missing: 15.3% · two: 0.87% · all three: 147 records. Same-period OSA exactly separates the stockout label, so it cannot be a predictor. Similar missingness across groups does not by itself prove random missingness.</p>
+      </details>
+
+      <details class="card reveal" style="margin-bottom:12px">
+        <summary style="cursor:pointer"><b>Segment consistency and ABT grain feasibility</b></summary>
+        <div class="grid g2" style="margin-top:14px">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Dimension</th><th class="num">Stockout rate</th><th>Other indicator</th></tr></thead>
+              <tbody>
+                <tr><td>6 categories</td><td class="num">2.37–2.65%</td><td>OSA 96.78–96.82%</td></tr>
+                <tr><td>1,000 stores</td><td class="num">1.1–4.4%</td><td>OSA 96.31–97.24%</td></tr>
+                <tr><td>Weekdays</td><td class="num">2.42–2.65%</td><td>Mean units 26.6–27.1</td></tr>
+                <tr><td>Months</td><td class="num">2.47–2.65%</td><td>Mean units 26.3–27.3</td></tr>
+                <tr><td>Ramadan (approx.)</td><td class="num">2.60% vs 2.54%</td><td>Mean units 26.90 vs 26.87</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Grain</th><th class="num">Cells</th><th class="num">Records / cell</th></tr></thead>
+              <tbody>
+                <tr><td>Store × SKU × Day</td><td class="num">999,997</td><td class="num">1.0</td></tr>
+                <tr><td>Store × SKU</td><td class="num">996,731</td><td class="num">1.0</td></tr>
+                <tr><td>Store × Week</td><td class="num">104,987</td><td class="num">9.5</td></tr>
+                <tr><td>Store × Category × Month</td><td class="num">143,861</td><td class="num">7.0</td></tr>
+                <tr><td>Category × Day</td><td class="num">4,380</td><td class="num">228.3</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p style="margin-top:12px">993,473 of 996,731 store–SKU pairs (99.67%) have one distinct day. The Store × SKU × Day ABT is not feasible as-is; an aggregated grain is proposed.</p>
+      </details>
+
+      <details class="card reveal">
+        <summary style="cursor:pointer"><b>Open questions for the data owner</b></summary>
+        <ol style="margin:14px 0 0; padding-left:20px; color:var(--text-secondary); display:grid; gap:8px">
+          <li>Why does one Store_ID appear under several cities, regions and DCs?</li>
+          <li>Is Store_Footfall a daily store count or a value per record?</li>
+          <li>Is Stockout_Flag defined as OSA &lt; 90%? How should zero-inventory records be labelled?</li>
+          <li>Why are 9,825 Units_Sold values 4–22× the sales value ÷ price?</li>
+          <li>What do the 128,686 records dated after 28 Sep 2026 represent?</li>
+          <li>Which categories count as fresh, and what near-expiry threshold applies to each?</li>
+          <li>Can longer, consistent store–SKU histories be provided?</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Files</h2>
+      <div class="card file-row">
+        <span class="file-icon">PPTX</span>
+        <div class="file-meta"><b>PANDA_Phase2_Data_Understanding_v2.pptx</b><span>21 slides · Phase 2 presentation · 643 KB</span></div>
+        <a class="btn" href="files/PANDA_Phase2_Data_Understanding_v2.pptx" download>Download</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0"><div class="wrap"><div data-phase-pager="2"></div></div></section>
+</main>
+
+<script src="assets/app.js"></script>
+<script src="assets/data.js"></script>
+</body>
+</html>

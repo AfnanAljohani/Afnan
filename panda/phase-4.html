@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 4 · Modelling</title>
+<meta name="description" content="PANDA Team Phase 4 — classification, forecasting, anomaly detection and replenishment simulation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23a6be3c%27/%3E%3Ctext x=%2716%27 y=%2721%27 font-family=%27monospace%27 font-size=%2712%27 font-weight=%27800%27 text-anchor=%27middle%27 fill=%27%230b130f%27%3EP10%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="phase-4">
+
+<main>
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Overview</a> / Phases / 04</div>
+      <span class="tag planned">Planned</span>
+      <h1 style="margin-top:14px">Phase 4 · Modelling</h1>
+      <p class="lead" style="max-width:760px">Building models for stockout and near-expiry risk, demand forecasting, anomaly detection and replenishment policy simulation.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Modelling approach</span>
+        <h2>Four analytical tracks on the same data</h2>
+      </div>
+      <div class="note warn"><b>Planned.</b> This content is the plan proposed at the end of Phase 2. It will be replaced with actual results when the Phase 4 files are delivered.</div>
+      <div class="grid g2">
+        <div class="card reveal"><span class="tag">Track 1</span><h3>Classification</h3>
+          <ul class="list-check"><li><b>Target:</b> Stockout_Flag; near-expiry risk</li><li><b>Methods:</b> Logistic Regression · Random Forest · XGBoost</li><li><b>Evaluation:</b> Recall, PR-AUC, F1</li></ul></div>
+        <div class="card reveal"><span class="tag">Track 2</span><h3>Regression &amp; time series</h3>
+          <ul class="list-check"><li><b>Target:</b> Units_Sold at Category × Day / Store × Category × Week</li><li><b>Methods:</b> Seasonal naïve baseline · SARIMA / Prophet · LightGBM with lags</li><li><b>Evaluation:</b> MAE, RMSE, MAPE (target &lt; 15%) on a time holdout</li></ul></div>
+        <div class="card reveal"><span class="tag">Track 3</span><h3>Anomaly detection</h3>
+          <ul class="list-check"><li><b>Target:</b> Units vs sales-value mismatch; waste spikes</li><li><b>Methods:</b> Isolation Forest · robust z-score</li><li><b>Evaluation:</b> Precision on the 9,825 known inflated records</li></ul></div>
+        <div class="card reveal"><span class="tag">Track 4</span><h3>Replenishment simulation</h3>
+          <ul class="list-check"><li><b>Target:</b> Order quantity policies</li><li><b>Methods:</b> Forecast-driven vs current rule</li><li><b>Evaluation:</b> Waste, OSA and stockouts per policy</li></ul></div>
+      </div>
+      <div class="note">Features use only information available before the prediction date.</div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Files</h2>
+      <div class="empty">Phase 4 deliverables will appear here once uploaded. <a href="files.html">All files →</a></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0"><div class="wrap"><div data-phase-pager="4"></div></div></section>
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PANDA Dashboard</title>
+<meta name="description" content="PANDA Team dashboard — project progress and key indicators for demand, stockouts, waste and data quality.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23a6be3c%27/%3E%3Ctext x=%2716%27 y=%2721%27 font-family=%27monospace%27 font-size=%2712%27 font-weight=%27800%27 text-anchor=%27middle%27 fill=%27%230b130f%27%3EP10%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="dashboard">
+
+<main>
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Overview</a> / Dashboard</div>
+      <h1>Project dashboard</h1>
+      <p class="lead" style="max-width:760px">Project progress and the key indicators from the 1,000,000-record dataset. Hover any bar for the exact value, or open “View as table”.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="grid g4">
+        <div class="card stat"><span class="label">Project progress</span><span class="value" id="kpi-progress">—</span><span class="sub" id="kpi-progress-sub"></span></div>
+        <div class="card stat"><span class="label">Stockout rate</span><span class="value">2.54%</span><span class="sub">25,413 of 1,000,000 records</span></div>
+        <div class="card stat"><span class="label">Mean on-shelf availability</span><span class="value">96.80%</span><span class="sub">Stockouts 50.0–89.9%</span></div>
+        <div class="card stat"><span class="label">Waste rate</span><span class="value">3.23%</span><span class="sub">of units handled</span></div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3>Phase progress</h3>
+        <div class="table-wrap" style="margin-top:12px">
+          <table>
+            <thead><tr><th>Phase</th><th>Status</th><th style="width:40%">Progress</th><th class="num">%</th></tr></thead>
+            <tbody id="phase-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Phase 2 indicators</span>
+        <h2>Data insights</h2>
+      </div>
+      <div class="toolbar" role="group" aria-label="Filter topic" data-tabs="#panels">
+        <button class="chip" data-key="all">All</button>
+        <button class="chip" data-key="demand">Demand</button>
+        <button class="chip" data-key="stockout">Stockouts</button>
+        <button class="chip" data-key="waste">Waste</button>
+        <button class="chip" data-key="quality">Data quality</button>
+      </div>
+
+      <div id="panels" class="grid g2">
+        <div class="card chart-card" data-panel="demand"><h3>Promotion lift</h3><p class="chart-sub">Median units sold per record · +56%</p><div data-chart="promo-units"></div></div>
+        <div class="card chart-card" data-panel="demand"><h3>Store traffic</h3><p class="chart-sub">Mean units sold by footfall quintile · ≈ 3×</p><div data-chart="footfall-units"></div></div>
+        <div class="card chart-card" data-panel="demand waste"><h3>What moves together</h3><p class="chart-sub">Strongest Spearman associations (ρ)</p><div data-chart="spearman"></div></div>
+
+        <div class="card chart-card" data-panel="stockout"><h3>Stockout class balance</h3><p class="chart-sub">Records by Stockout_Flag · ≈ 1 : 38</p><div data-chart="stockout-split"></div></div>
+        <div class="card chart-card" data-panel="stockout"><h3>Stock on hand during promotions</h3><p class="chart-sub">Mean units on hand · stockouts carry ~3× less stock</p><div data-chart="promo-onhand"></div></div>
+        <div class="card chart-card" data-panel="stockout"><h3>No segment hot-spot</h3><p class="chart-sub">Lowest vs highest stockout rate within each segment</p><div data-chart="category-stockout"></div></div>
+
+        <div class="card chart-card" data-panel="waste"><h3>Waste by remaining shelf life</h3><p class="chart-sub">Mean waste per record (units) · 3.6% of records carry 27.8% of waste</p><div data-chart="waste-shelf"></div></div>
+        <div class="card chart-card" data-panel="waste"><h3>Waste by stock cover</h3><p class="chart-sub">Mean waste by inventory ÷ (units sold + 1), quintile</p><div data-chart="waste-cover"></div></div>
+
+        <div class="card chart-card" data-panel="quality"><h3>Missing values</h3><p class="chart-sub">% of records · 83.8% fully complete</p><div data-chart="missing"></div></div>
+        <div class="card chart-card" data-panel="quality"><h3>Records per category</h3><p class="chart-sub">Raw labels · the ' produce ' variant merges into Produce in Phase 3</p><div data-chart="category-records"></div></div>
+        <div class="card" data-panel="quality">
+          <h3>Audit issues to treat</h3>
+          <div class="table-wrap" style="margin-top:12px">
+            <table>
+              <thead><tr><th>Issue</th><th class="num">Records</th></tr></thead>
+              <tbody>
+                <tr><td>Future-dated (after 28 Sep 2026)</td><td class="num">128,686</td></tr>
+                <tr><td>Units_Sold inflated vs sales value</td><td class="num">9,825</td></tr>
+                <tr><td>Category label variant</td><td class="num">3,027</td></tr>
+                <tr><td>Zero inventory, Stockout_Flag = 0</td><td class="num">964</td></tr>
+                <tr><td>Price at bounds (2 / 250 SAR)</td><td class="num">234</td></tr>
+                <tr><td>Repeated Store × SKU × Date keys</td><td class="num">3</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="note">Associations, not causal effects. Indicators will be extended with model results as Phases 3–6 are delivered.</div>
+    </div>
+  </section>
+</main>
+
+<script src="assets/app.js"></script>
+<script src="assets/data.js"></script>
+<script>
+(function () {
+  var P = window.PANDA.PHASES, L = window.PANDA.STATUS_LABEL;
+  var total = Math.round(P.reduce(function (a, p) { return a + p.progress; }, 0) / P.length);
+  var done = P.filter(function (p) { return p.status === "done"; }).length;
+  document.getElementById("kpi-progress").textContent = total + "%";
+  document.getElementById("kpi-progress-sub").textContent = done + " of " + P.length + " phases completed";
+  document.getElementById("phase-rows").innerHTML = P.map(function (p) {
+    return '<tr><td><a href="' + p.slug + '">0' + p.n + ' · ' + p.title + '</a></td>' +
+      '<td><span class="tag ' + p.status + '">' + L[p.status] + '</span></td>' +
+      '<td><div class="progress"><span style="width:' + p.progress + '%"></span></div></td>' +
+      '<td class="num">' + p.progress + '%</td></tr>';
+  }).join("");
+})();
+</script>
+</body>
+</html>

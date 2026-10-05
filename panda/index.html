@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PANDA Fresh Food AI</title>
+<meta name="description" content="PANDA Team (Group 10) — AI-powered fresh food demand and inventory optimization. CRISP-DM project from Phase 1 to Phase 6.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23a6be3c%27/%3E%3Ctext x=%2716%27 y=%2721%27 font-family=%27monospace%27 font-size=%2712%27 font-weight=%27800%27 text-anchor=%27middle%27 fill=%27%230b130f%27%3EP10%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="home">
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">EWA · InnovatiCS · Group 10</span>
+        <h1>AI-Powered <span class="hl">Fresh Food</span> Demand &amp; Inventory Optimization</h1>
+        <p class="lead">Fresh food forces a trade-off between availability and waste. We use one million store × SKU × batch records to forecast demand, predict stockout and near-expiry risk, and support smarter replenishment.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="dashboard.html">Open dashboard →</a>
+          <a class="btn" href="#phases">Explore the 6 phases</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <img src="assets/img/cover.jpg" alt="Shopper and child placing a watermelon on a supermarket checkout counter" width="840" height="809">
+        <div class="hero-badge">
+          <span><b>1,000,000</b>records</span>
+          <span><b>730</b>days</span>
+          <span><b>149,827</b>SKUs</span>
+          <span><b>1,000</b>stores</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap grid g4">
+      <div class="card stat reveal"><span class="label">Records</span><span class="value">1M</span><span class="sub">26 columns · 2025–2026</span></div>
+      <div class="card stat reveal"><span class="label">Stockout rate</span><span class="value">2.54%</span><span class="sub">≈ 1 : 38 class imbalance</span></div>
+      <div class="card stat reveal"><span class="label">Waste concentration</span><span class="value">27.8%</span><span class="sub">of waste in 3.6% of records</span></div>
+      <div class="card stat reveal"><span class="label">Promotion lift</span><span class="value">+56%</span><span class="sub">median units, all 6 categories</span></div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">The problem</span>
+        <h2>Too much stock is waste. Too little is lost sales.</h2>
+        <p>Panda's store and DC replenishment of short-shelf-life products is driven by uncertain demand. Our scope is <b>Product · Supplier · Store</b>.</p>
+      </div>
+      <div class="grid g2">
+        <div class="card reveal" style="border-top:3px solid var(--series-2)">
+          <span class="tag crit">Overstock</span>
+          <h3>Markdown · expiry · waste</h3>
+          <p>Excess inventory on fresh SKUs ends in price markdowns, expiry and disposal.</p>
+        </div>
+        <div class="card reveal" style="border-top:3px solid var(--series-1)">
+          <span class="tag warn">Understock</span>
+          <h3>Stockouts · lost sales</h3>
+          <p>Too little stock leaves empty shelves, lost sales and lower on-shelf availability.</p>
+        </div>
+      </div>
+      <div class="grid g3" style="margin-top:16px">
+        <div class="card reveal"><span class="tag">Objective 1</span><h3>Forecast demand</h3><p>Predict units sold at a grain with enough history.</p></div>
+        <div class="card reveal"><span class="tag">Objective 2</span><h3>Predict risk</h3><p>Flag stockout and near-expiry risk before it happens.</p></div>
+        <div class="card reveal"><span class="tag">Objective 3</span><h3>Support replenishment</h3><p>Turn forecasts into better order-quantity decisions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="phases">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">CRISP-DM roadmap</span>
+        <h2>Six phases, from business question to deployment</h2>
+        <p>Each phase has its own page with findings, decisions and the files delivered.</p>
+      </div>
+      <div class="timeline" data-phase-timeline></div>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">People</span>
+        <h2>Project team and stakeholders</h2>
+      </div>
+      <div class="grid g3">
+        <div class="card member reveal"><span class="avatar">SA</span><div><b>Sara Alsahmrani</b><span>AI Engineer / Team Lead</span></div></div>
+        <div class="card member reveal"><span class="avatar">AA</span><div><b>Afnan Aljohani</b><span>AI Engineer</span></div></div>
+        <div class="card member reveal"><span class="avatar">SM</span><div><b>Sahad Marwi</b><span>AI Engineer</span></div></div>
+        <div class="card member reveal"><span class="avatar">RA</span><div><b>Rahaf Alhadrmi</b><span>AI Engineer</span></div></div>
+        <div class="card member reveal"><span class="avatar">KA</span><div><b>Khalid Alharbi</b><span>AI Engineer</span></div></div>
+      </div>
+      <div class="table-wrap" style="margin-top:16px">
+        <table>
+          <thead><tr><th>Stakeholder</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td>Marwan Al-haj</td><td>Trainee Coordinator</td></tr>
+            <tr><td>Mohamed Al Shirshabi &amp; Tarek Elnagdy</td><td>Business Experts</td></tr>
+            <tr><td>Ahmed Batwa</td><td>Data Expert</td></tr>
+            <tr><td>Shaik Zaheeruddin</td><td>Developer</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
