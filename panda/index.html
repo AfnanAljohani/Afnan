@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بندة · تحسين الطلب والمخزون للأغذية الطازجة</title>
+<meta name="description" content="مشروع أكاديمي: تحسين الطلب والمخزون للأغذية الطازجة بالذكاء الاصطناعي لبندة — المرحلة الثانية (فهم البيانات) والمرحلة الثالثة (تجهيز البيانات).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/panda.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="الرئيسية">
+      <img src="assets/panda-white.png" alt="Panda">
+      <span class="sep"></span>
+      <small>Fresh Food AI<br>Demand &amp; Inventory</small>
+    </a>
+    <button class="menu-toggle" aria-label="القائمة" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+    <ul id="menu">
+      <li><a href="#problem">المشكلة</a></li>
+      <li><a href="#journey">رحلة المشروع</a></li>
+      <li><a href="#phase2">المرحلة الثانية</a></li>
+      <li><a href="#phase3">المرحلة الثالثة</a></li>
+      <li><a href="dashboard.html">الداشبورد</a></li>
+    </ul>
+    <a class="btn btn-gold" href="dashboard.html">افتح الداشبورد ←</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="container">
+    <div>
+      <span class="eyebrow">PANDA · FRESH FOOD AI</span>
+      <h1>تحسين <em>الطلب والمخزون</em> للأغذية الطازجة بالذكاء الاصطناعي</h1>
+      <p class="lead">نحوّل مليون سجل من بيانات المنتجات والموردين والفروع ومراكز التوزيع إلى قرارات أدق: كمية الطلب، وتوقيت إعادة التموين، وتقليل الهدر ونفاد المخزون.</p>
+      <div class="actions">
+        <a class="btn btn-gold" href="dashboard.html">استعرض الداشبورد التفاعلي</a>
+        <a class="btn btn-ghost" href="#phase2">المرحلة الثانية والثالثة</a>
+      </div>
+    </div>
+    <div class="photo">
+      <img src="assets/cover.jpg" alt="تسوق الخضار والفواكه الطازجة في بندة">
+      <div class="badge badge2"><b class="num">96.80%</b><span>متوسط توفر المنتج على الرف</span></div>
+      <div class="badge"><b class="num">871,314</b><span>سجلًا جاهزًا للنمذجة</span></div>
+    </div>
+  </div>
+  <div class="kpi-strip">
+    <div class="container">
+      <div><b class="num" data-count="1000000">1,000,000</b><span>سجل</span></div>
+      <div><b class="num" data-count="26">26</b><span>متغيرًا</span></div>
+      <div><b class="num" data-count="1000">1,000</b><span>فرع</span></div>
+      <div><b class="num" data-count="149827">149,827</b><span>منتج (SKU)</span></div>
+      <div><b class="num" data-count="532564">532,564</b><span>دفعة (Batch)</span></div>
+      <div><b class="num" data-count="12000">12,000</b><span>مورد</span></div>
+      <div><b class="num" data-count="30">30</b><span>مركز توزيع</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PROBLEM ============ -->
+<section id="problem">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">فهم الأعمال</span>
+      <h2>الأغذية الطازجة لا تنتظر: كل يوم خطأ في الطلب له تكلفة</h2>
+      <p>عمر المنتجات الطازجة على الرف قصير، فأي خطأ في التقدير يظهر فورًا إما كرف فارغ أو كمنتج منتهي الصلاحية. هدف المشروع هو الموازنة بين الطلب والمخزون وإعادة التموين باستخدام بيانات المنتج والمورد والفرع/مركز التوزيع.</p>
+    </div>
+    <div class="problem reveal">
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 6-6"/></svg></div>
+        <h3>نقص المخزون <span class="tag red">Understock</span></h3>
+        <p>نفاد المنتج من الرف ← مبيعات ضائعة وعميل غير راضٍ.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></div>
+        <h3>فائض المخزون <span class="tag orange">Overstock</span></h3>
+        <p>تخفيضات قسرية وانتهاء صلاحية ← هدر مباشر في الهامش.</p>
+      </div>
+    </div>
+    <div class="criteria reveal">
+      <div class="card"><b class="num">&lt; 15%</b><span>MAPE دقة التنبؤ بالطلب</span></div>
+      <div class="card"><b class="num">≥ 85%</b><span>Recall لاكتشاف المنتجات قرب الانتهاء</span></div>
+      <div class="card"><b class="num">−20–25%</b><span>خفض الهدر</span></div>
+      <div class="card"><b class="num">−25–30%</b><span>خفض حالات نفاد المخزون</span></div>
+      <div class="card"><b class="num">+3–5</b><span>نقاط في توفر المنتج على الرف</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY ============ -->
+<section class="section-dark" id="journey">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">رحلة المشروع</span>
+      <h2>من سؤال الأعمال إلى نموذج جاهز للتشغيل</h2>
+      <p>يتبع المشروع منهجية CRISP-DM. يعرض هذا الموقع المرحلتين الثانية والثالثة بالتفصيل.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl done"><div class="dot num">1</div><h3>فهم الأعمال</h3><p>تعريف المشكلة والأهداف ومعايير النجاح.</p><span class="tag gold">مكتملة</span></div>
+      <div class="tl done"><div class="dot num">2</div><h3>فهم البيانات</h3><p>الإحصاء الوصفي والعلاقات وتقرير جودة البيانات و10 أسئلة تحليلية.</p><span class="tag gold">مكتملة</span></div>
+      <div class="tl done"><div class="dot num">3</div><h3>تجهيز البيانات</h3><p>معالجة كل مشكلة، وهندسة الخصائص، وبناء جدولين تحليليين جاهزين.</p><span class="tag gold">مكتملة</span></div>
+      <div class="tl"><div class="dot num">4</div><h3>النمذجة والتقييم</h3><p>تدريب نماذج أساسية ومتقدمة وتقييمها على أسابيع الاختبار.</p><span class="tag">التالي</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHASE 2 ============ -->
+<div class="phase-banner" id="phase2">
+  <div class="container">
+    <div>
+      <span class="eyebrow">PHASE 2 · DATA UNDERSTANDING</span>
+      <h2>المرحلة الثانية: فهم البيانات</h2>
+      <p>ماذا تقول البيانات؟ حجمها ومصدرها وأدوار المتغيرات، والإحصاءات الوصفية، والعلاقات، ومشاكل الجودة، وإجابات 10 أسئلة أعمال.</p>
+    </div>
+    <div class="big">02</div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">نظرة عامة على البيانات</span>
+      <h2>ماذا يمثل السجل الواحد؟</h2>
+      <p>كل سجل هو ملاحظة مخزون/مبيعات تربط بين: التاريخ ← الفرع ← المنتج ← الدفعة/المورد/مركز التوزيع ← السعر والعرض ← الكمية المباعة ← المخزون المتاح والمطلوب ← مدة الصلاحية ← الهدر ← النفاد والتوفر.</p>
+    </div>
+    <div class="grid g3 reveal">
+      <div class="card"><div class="stat"><b class="num">730</b><span>يومًا مختلفًا · 01 Jan 2025 → 31 Dec 2026</span></div></div>
+      <div class="card"><div class="stat"><b>بيانات أكاديمية</b><span>بيانات اصطناعية لأغراض أكاديمية · بلا أي بيانات شخصية للعملاء</span></div></div>
+      <div class="card"><div class="stat"><b class="num">26 / 33</b><span>عمودًا فعليًا مقابل 33 متغيرًا في وصف المشروع</span></div></div>
+    </div>
+
+    <h3 style="margin:48px 0 18px;font-size:22px" class="reveal">أدوار المتغيرات</h3>
+    <div class="grid g3 roles reveal">
+      <div class="card"><h3>المعرّفات (IDs)</h3><div class="chips"><span class="chip">Record_ID</span><span class="chip">Store_ID</span><span class="chip">SKU_ID</span><span class="chip">Batch_ID</span><span class="chip">Supplier_ID</span><span class="chip">DC_ID</span></div></div>
+      <div class="card"><h3>المنتج والسياق</h3><div class="chips"><span class="chip">Category</span><span class="chip">Brand</span><span class="chip">Temperature_Zone</span><span class="chip">Promotion_Flag</span></div></div>
+      <div class="card"><h3>الطلب والمبيعات</h3><div class="chips"><span class="chip">Units_Sold</span><span class="chip">Sales_Value_SAR</span><span class="chip">Regular_Price</span><span class="chip">Promo_Price</span></div></div>
+      <div class="card"><h3>المخزون</h3><div class="chips"><span class="chip">On_Hand_Qty</span><span class="chip">On_Order_Qty</span><span class="chip">Remaining_Shelf_Life_Days</span></div></div>
+      <div class="card"><h3>المورد</h3><div class="chips"><span class="chip">Lead_Time_Days</span><span class="chip">Supplier_Fill_Rate</span></div></div>
+      <div class="card"><h3>المخرجات / المتغيرات الهدف</h3><div class="chips"><span class="chip">Stockout_Flag</span><span class="chip">Waste_Qty</span><span class="chip">On_Shelf_Availability_Pct</span></div></div>
+    </div>
+    <div class="note reveal"><b>ملاحظة على المتغيرات الهدف:</b> <span class="ltr">Stockout_Flag</span> متغير ثنائي (0/1) ويُعالج كتصنيف، و<span class="ltr">Units_Sold</span> للتنبؤ/الانحدار، و<span class="ltr">Waste_Qty</span> للانحدار. عدد القيم الفريدة مرتفع جدًا في المعرّفات: <span class="num">SKU 149,827 · Supplier 12,000 · Store 1,000</span>، بينما <span class="ltr">DC_ID</span> له <span class="num">30</span> قيمة فقط.</div>
+  </div>
+</section>
+
+<section class="section-tint">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">التحليل الإحصائي</span>
+      <h2>الإحصاءات الوصفية والعلاقات الرئيسية</h2>
+      <p>الطلب والمخزون والهدر لها ذيول طويلة في القيم العليا. الارتباط يدل على علاقة وليس على سببية.</p>
+    </div>
+    <div class="grid reveal stats-split">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>المتغير</th><th>Mean</th><th>Median</th><th>Std Dev</th><th>Min</th><th>Max</th></tr></thead>
+          <tbody>
+            <tr><td>Units_Sold</td><td>26.87</td><td>17.00</td><td>49.68</td><td>0</td><td>5,092</td></tr>
+            <tr><td>On_Hand_Qty</td><td>36.43</td><td>23.00</td><td>44.25</td><td>0</td><td>1,896</td></tr>
+            <tr><td>Lead_Time_Days</td><td>7.50</td><td>8.00</td><td>4.03</td><td>1</td><td>14</td></tr>
+            <tr><td>Supplier_Fill_Rate</td><td>0.92</td><td>0.93</td><td>0.07</td><td>0.57</td><td>1.00</td></tr>
+            <tr><td>Waste_Qty</td><td>0.90</td><td>0.00</td><td>2.52</td><td>0</td><td>267</td></tr>
+            <tr><td>On_Shelf_Availability_Pct</td><td>96.80</td><td>97.44</td><td>4.84</td><td>50.03</td><td>100</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:18px">قوة العلاقة (Spearman ρ)</h3>
+        <div class="corr">
+          <div class="corr-row"><span>المخزون ↔ المبيعات</span><div class="corr-track"><div class="corr-fill" style="width:87.6%"></div></div><b class="num">0.876</b></div>
+          <div class="corr-row"><span>المخزون ↔ الهدر</span><div class="corr-track"><div class="corr-fill" style="width:67%"></div></div><b class="num">0.670</b></div>
+          <div class="corr-row"><span>المبيعات ↔ الهدر</span><div class="corr-track"><div class="corr-fill" style="width:58.8%"></div></div><b class="num">0.588</b></div>
+          <div class="corr-row"><span>الصلاحية ↔ الهدر</span><div class="corr-track"><div class="corr-fill neg" style="width:9.7%"></div></div><b class="num">−0.097</b></div>
+          <div class="corr-row"><span>نسبة التلبية ↔ التوفر</span><div class="corr-track"><div class="corr-fill" style="width:.4%"></div></div><b class="num">0.0004</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g4 reveal" style="margin-top:20px">
+      <div class="card"><div class="stat"><b class="num">2.54%</b><span>معدل نفاد المخزون ← تصنيف غير متوازن</span></div></div>
+      <div class="card"><div class="stat"><b class="num" style="font-size:30px">38.98 · 24.55</b><span>متوسط المبيعات مع العروض مقابل بدونها</span></div></div>
+      <div class="card"><div class="stat"><b class="num">7.15%</b><span>سجلات قريبة من الانتهاء (≤ 3 أيام)</span></div></div>
+      <div class="card"><div class="stat"><b class="num">99.67%</b><span>من أزواج الفرع-المنتج تظهر في يوم واحد فقط</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">تقرير جودة البيانات</span>
+      <h2>8 مشاكل مهمة، ولكل واحدة معالجة محددة</h2>
+      <p>كل مشكلة مقيسة بالأرقام ومرتبطة بمعالجة واضحة في المرحلة الثالثة.</p>
+    </div>
+    <div class="dq reveal">
+      <div class="card"><h3>القيم المفقودة <span class="tag red">Missing</span></h3><p class="ev num">Fill rate 8.03% · Shelf life 5.02% · Footfall 4.02%</p><div class="fix">تعويض حسب كل حقل + مؤشرات للقيم المفقودة</div></div>
+      <div class="card"><h3>تسميات الفئات <span class="tag red">Label</span></h3><p class="ev"><span class="num">3,027</span> سجلًا مكتوب فيها <span class="ltr">" produce "</span></p><div class="fix">إزالة المسافات وتوحيد الصيغة مع حفظ القيمة الأصلية</div></div>
+      <div class="card"><h3>ربط الكيانات <span class="tag orange">Mapping</span></h3><p class="ev">الفرع مرتبط بعدة مدن/مناطق/مراكز توزيع</p><div class="fix">التحقق من مصدر موثوق للربط</div></div>
+      <div class="card"><h3>تاريخ متفرق <span class="tag orange">Sparse</span></h3><p class="ev"><span class="num">99.67%</span> من أزواج الفرع-المنتج في يوم واحد</p><div class="fix">تغيير مستوى التجميع (Grain)</div></div>
+      <div class="card"><h3>تسرّب المعلومات <span class="tag red">Leakage</span></h3><p class="ev">نسبة التوفر في نفس اليوم تكشف النفاد</p><div class="fix">إزالة الخصائص غير المتاحة وقت التنبؤ أو تأخيرها</div></div>
+      <div class="card"><h3>التعريفات <span class="tag orange">Definition</span></h3><p class="ev num">952,694 fractional footfall · 168,689 sales mismatches</p><div class="fix">تأكيد الوحدات والمعادلات قبل التصحيح</div></div>
+      <div class="card"><h3>القيم الشاذة <span class="tag gold">Outliers</span></h3><p class="ev">قيم متطرفة (IQR) في المبيعات والهدر والمخزون</p><div class="fix">التحقق من النطاقات المنطقية مع الإبقاء على القمم الحقيقية</div></div>
+      <div class="card"><h3>فجوة المخطط <span class="tag gold">Schema</span></h3><p class="ev"><span class="num">26</span> عمودًا فعليًا مقابل <span class="num">33</span> في الوصف</p><div class="fix">اشتقاق حقول التقويم وطلب الحقول الناقصة</div></div>
+    </div>
+    <div class="checks reveal">
+      <span>Exact duplicates = 0</span><span>Duplicate Record_ID = 0</span><span>Invalid dates = 0</span><span>Invalid binary flags = 0</span><span>Negative quantities = 0</span>
+    </div>
+  </div>
+</section>
+
+<section class="section-tint" id="questions">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">أسئلة الأعمال</span>
+      <h2>5 أسئلة وصفية و5 أسئلة تشخيصية، والإجابة من البيانات</h2>
+      <p>الأسئلة الوصفية تجيب عن "ماذا حدث؟" والتشخيصية عن "لماذا حدث؟"</p>
+    </div>
+    <div class="tabs reveal">
+      <button class="tab active" data-set="dq">وصفية · ماذا حدث؟</button>
+      <button class="tab" data-set="gq">تشخيصية · لماذا حدث؟</button>
+    </div>
+    <div class="qgrid reveal">
+      <div class="qlist" id="qlist"></div>
+      <div class="qpanel" id="qpanel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHASE 3 ============ -->
+<div class="phase-banner" id="phase3">
+  <div class="container">
+    <div>
+      <span class="eyebrow">PHASE 3 · DATA PREPARATION</span>
+      <h2>المرحلة الثالثة: تجهيز البيانات للنمذجة</h2>
+      <p>من مليون سجل خام إلى جدولين تحليليين نظيفين، بلا تسرّب للمعلومات، ومقسّمين حسب الزمن، وجاهزين للمرحلة الرابعة.</p>
+    </div>
+    <div class="big">03</div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">نظرة سريعة</span>
+      <h2>من مليون سجل إلى جدولين جاهزين للنمذجة</h2>
+    </div>
+    <div class="flow reveal">
+      <div class="card"><span class="tag red">RAW · PANDA.csv</span><b class="num">1,000,000</b><p>سجل × 26 عمودًا · Jan 2025 – Dec 2026</p></div>
+      <div class="arrow">←</div>
+      <div class="card"><span class="tag">نافذة النمذجة النظيفة</span><b class="num">871,314</b><p>سجل في أسابيع كاملة حتى تاريخ الاستخراج 27 Sep 2026</p></div>
+      <div class="arrow">←</div>
+      <div class="abt">
+        <div class="card"><span class="tag gold">ABT-A · التنبؤ</span><div><b class="num" style="color:var(--green-600)">435,406</b><p>سجل = فئة واحدة في فرع واحد في أسبوع واحد · الهدف: المبيعات الأسبوعية</p></div></div>
+        <div class="card"><span class="tag gold">ABT-B · التصنيف</span><div><b class="num" style="color:var(--green-600)">871,314</b><p>سجل = دفعة لمنتج في فرع في يوم · الهدف: النفاد وقرب الانتهاء</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tint">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">حل مشاكل الجودة</span>
+      <h2>كل مشكلة من المرحلة الثانية لها الآن معالجة مطبّقة ونتيجة مقيسة</h2>
+      <p>لا تُستبدل الأعمدة الأصلية أبدًا. كل تصحيح ينشئ حقلًا مُجهزًا جديدًا ومؤشرًا (Flag) بجانبه.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table>
+        <thead><tr><th>المشكلة</th><th>المعالجة في المرحلة الثالثة</th><th>قبل</th><th>بعد</th></tr></thead>
+        <tbody>
+          <tr><td><b>القيم المفقودة</b></td><td>تعويض بالوسيط الهرمي (من بيانات التدريب فقط) + 3 مؤشرات</td><td><span class="before num">8.03 · 5.02 · 4.02 %</span></td><td><span class="after">0% + 3 مؤشرات</span></td></tr>
+          <tr><td><b>تسميات الفئات</b></td><td>إزالة المسافات، دمج الفراغات، Title Case (مع حفظ الأصل)</td><td><span class="before">7 تسميات</span></td><td><span class="after">6 تسميات</span></td></tr>
+          <tr><td><b>ربط الكيانات</b></td><td>تُحفظ كخاصية على مستوى السجل ولا يُجمّع بها</td><td><span class="before">معرّفات متعددة-لمتعددة</span></td><td><span class="after">خاصية على مستوى السجل</span></td></tr>
+          <tr><td><b>تاريخ متفرق</b></td><td>اختبار مستوى التجميع ← فرع × فئة × أسبوع للتنبؤ</td><td><span class="before num">99.67% = 1 day</span></td><td><span class="after">Store × Cat × Week</span></td></tr>
+          <tr><td><b>تسرّب المعلومات</b></td><td>فحص AUC لكل خاصية؛ نتائج اليوم نفسه تُستخدم بتأخير فقط</td><td><span class="before">OSA يكشف النفاد</span></td><td><span class="after">مستبعدة / متأخرة فقط</span></td></tr>
+          <tr><td><b>التعريفات</b></td><td>قاعدة السعر الفعلي؛ قيمة المبيعات للتحقق فقط</td><td><span class="before num">168,689 mismatches</span></td><td><span class="after">للتحقق فقط</span></td></tr>
+          <tr><td><b>القيم الشاذة</b></td><td>نطاقات أعمال؛ قص المتغيرات المستقلة عند P99.9 من التدريب</td><td><span class="before num">0.3–8.0% IQR</span></td><td><span class="after">المستقلة مقصوصة</span></td></tr>
+          <tr><td><b>فجوة المخطط</b></td><td>اشتقاق التقويم وتاريخ الانتهاء وطلب الباقي</td><td><span class="before">7 حقول ناقصة</span></td><td><span class="after">3 مشتقة · 4 مطلوبة</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin:48px 0 18px;font-size:22px" class="reveal">القيم المفقودة: قبل وبعد</h3>
+    <div class="mv reveal">
+      <div class="card"><span class="chip">Supplier_Fill_Rate</span><div class="row num"><span class="before">8.03%</span>→<span class="after">0%</span></div><p>مورد ← فئة × منطقة حرارة ← الوسيط العام</p></div>
+      <div class="card"><span class="chip">Remaining_Shelf_Life_Days</span><div class="row num"><span class="before">5.02%</span>→<span class="after">0%</span></div><p>منتج ← فئة × منطقة حرارة ← العام. هدف قرب الانتهاء يستخدم القيم المرصودة فقط</p></div>
+      <div class="card"><span class="chip">Store_Footfall</span><div class="row num"><span class="before">4.02%</span>→<span class="after">0%</span></div><p>فرع ← الوسيط العام</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">اكتشافات جديدة</span>
+      <h2>ثلاث مشاكل جديدة ظهرت في المرحلة الثالثة وتم تصحيحها بقواعد أعمال</h2>
+    </div>
+    <div class="grid g3 issues3 reveal">
+      <div class="card"><span class="tag red">NEW IN P3</span><b class="num">9,825</b><h3>مبيعات مضخّمة</h3><p>Units_Sold أكبر من 1.5 × الكمية المستنتجة من القيمة ÷ السعر الفعلي ← تصحيح + مؤشر.</p></div>
+      <div class="card"><span class="tag red">NEW IN P3</span><b class="num">964</b><h3>مخزون صفر بدون نفاد</h3><p>On_Hand = 0 لكن Stockout_Flag = 0 ← Stockout_Flag_Prepared = 1 (مع حفظ الأصل).</p></div>
+      <div class="card"><span class="tag red">NEW IN P3</span><b class="num">128,686</b><h3>سجلات بتواريخ مستقبلية</h3><p>تاريخها بعد تاريخ الاستخراج 27 Sep 2026 ← لا تحتوي مبيعات فعلية ← مستبعدة.</p></div>
+    </div>
+
+    <div class="section-head reveal" style="margin-top:80px">
+      <span class="eyebrow">قرار مستوى التجميع</span>
+      <h2>فرع × منتج × يوم بلا تاريخ، لذلك انتقل التنبؤ إلى فرع × فئة × أسبوع</h2>
+    </div>
+    <div class="grain reveal">
+      <div class="card bad"><span class="tag red">Store × SKU × Day</span><b class="num">99.67%</b><p>من أزواج الفرع-المنتج تظهر في يوم واحد فقط، فلا يمكن حساب lags أو متوسطات متحركة.</p></div>
+      <div class="card"><span class="tag">ABT-A · Store × Category × Week</span><b class="num">79.8%</b><p>من أسابيع الفرع-الفئة فيها بيانات ← مناسب للتنبؤ بالطلب الأسبوعي.</p></div>
+      <div class="card"><span class="tag">ABT-B · Store × SKU × Batch × Day</span><b>تفاصيل الدفعة</b><p>يحتفظ بمستوى الدفعة لتصنيف النفاد وقرب الانتهاء.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tint">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">تعريف المتغيرات الهدف</span>
+      <h2>لكل هدف قرار أعمال واضح ونقطة تنبؤ محددة</h2>
+    </div>
+    <div class="grid g3 reveal">
+      <div class="card"><span class="tag gold">ABT-A · Regression</span><h3 style="margin-top:12px" class="ltr">Units_Sold (weekly)</h3><p>طلب الأسبوع القادم لكل فرع-فئة. يُنمذج بـ log1p، وMAPE على السلاسل عالية الحركة.</p><p style="margin-top:12px"><span class="tag">التنبؤ قبل بداية الأسبوع</span></p></div>
+      <div class="card"><span class="tag gold">ABT-B · Classification</span><h3 style="margin-top:12px" class="ltr">Stockout_Flag_Prepared</h3><div class="stat"><b class="num">2.54%</b></div><p>هل سينفد هذا المنتج اليوم؟ مع تصحيح تعارضات المخزون الصفري.</p><p style="margin-top:12px"><span class="tag">التنبؤ قبل بداية اليوم</span></p></div>
+      <div class="card"><span class="tag gold">ABT-B · Classification</span><h3 style="margin-top:12px" class="ltr">Near_Expiry_Risk</h3><div class="stat"><b class="num">7.15%</b></div><p>دفعة متبقٍ على انتهائها ≤ 3 أيام. حقول الصلاحية مستبعدة من المتغيرات المستقلة.</p><p style="margin-top:12px"><span class="tag">عند الاستلام / بداية اليوم</span></p></div>
+    </div>
+
+    <div class="grid g2 reveal" style="margin-top:48px">
+      <div class="card">
+        <h3>منع تسرّب المعلومات (Leakage)</h3>
+        <p style="margin-bottom:14px">الحقول التي تكشف النتيجة تُستبعد أو تُستخدم من الفترة السابقة فقط (t − 1).</p>
+        <div class="table-wrap" style="box-shadow:none">
+          <table>
+            <tbody>
+              <tr><td class="ltr" style="text-align:left">On_Shelf_Availability_Pct</td><td>نفس اليوم؛ يفصل النفاد تمامًا</td></tr>
+              <tr><td class="ltr" style="text-align:left">On_Hand_Qty</td><td>مخزون نهاية اليوم؛ 0 تعني نفاد</td></tr>
+              <tr><td class="ltr" style="text-align:left">Units_Sold · Sales_Value</td><td>نتيجة نفس اليوم</td></tr>
+              <tr><td class="ltr" style="text-align:left">Waste_Qty</td><td>يُقاس بعد انتهاء اليوم</td></tr>
+              <tr><td class="ltr" style="text-align:left">Shelf life · Expiry_Date</td><td>تُعرّف هدف قرب الانتهاء</td></tr>
+              <tr><td class="ltr" style="text-align:left">Record_ID · Batch_ID</td><td>معرّفات؛ خطر الحفظ</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h3>تقسيم زمني، وليس عشوائيًا</h3>
+        <p>الأسابيع من الأحد إلى السبت. الأسابيع الجزئية والسجلات المستقبلية مستبعدة.</p>
+        <div class="split num">
+          <div class="tr"><b>73 weeks</b>Train</div>
+          <div class="va"><b>9</b>Validation</div>
+          <div class="te"><b>8</b>Test</div>
+        </div>
+        <div class="table-wrap" style="box-shadow:none">
+          <table>
+            <thead><tr><th></th><th>Train</th><th>Validation</th><th>Test</th></tr></thead>
+            <tbody>
+              <tr><td>الفترة</td><td>05 Jan 2025 – 30 May 2026</td><td>31 May – 01 Aug 2026</td><td>02 Aug – 26 Sep 2026</td></tr>
+              <tr><td style="white-space:nowrap">ABT-A</td><td>354,014</td><td>43,073</td><td>38,319</td></tr>
+              <tr><td style="white-space:nowrap">ABT-B</td><td>700,070</td><td>86,310</td><td>76,716</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">الجداول التحليلية النهائية</span>
+      <h2>جدولان نظيفان، بلا تسرّب، وجاهزان للمرحلة الرابعة</h2>
+    </div>
+    <div class="grid g2 reveal">
+      <div class="card">
+        <span class="tag gold">ABT-A · Forecasting</span>
+        <div class="grid g3" style="margin:18px 0">
+          <div class="stat"><b class="num">435,406</b><span>سجل</span></div>
+          <div class="stat"><b class="num">29</b><span>عمودًا</span></div>
+          <div class="stat"><b class="num">24</b><span>خاصية للنموذج</span></div>
+        </div>
+        <div class="checks" style="margin:0"><span>0% missing</span><span>0 duplicate keys</span><span>No leakage fields</span><span>Time-aware split</span></div>
+      </div>
+      <div class="card">
+        <span class="tag gold">ABT-B · Classification</span>
+        <div class="grid g3" style="margin:18px 0">
+          <div class="stat"><b class="num">871,314</b><span>سجل</span></div>
+          <div class="stat"><b class="num">37</b><span>عمودًا</span></div>
+          <div class="stat"><b class="num">28</b><span>خاصية للنموذج</span></div>
+        </div>
+        <div class="checks" style="margin:0"><span>0% missing</span><span>0 duplicate keys</span><span>No leakage fields</span><span>Time-aware split</span></div>
+      </div>
+    </div>
+
+    <h3 style="margin:56px 0 18px;font-size:22px" class="reveal">أسلوب النمذجة والتقييم</h3>
+    <div class="table-wrap reveal">
+      <table>
+        <thead><tr><th>المهمة</th><th>النموذج الأساسي</th><th>النماذج المتقدمة</th><th>المقاييس</th><th>حد النجاح</th></tr></thead>
+        <tbody>
+          <tr><td><b>التنبؤ بالمبيعات الأسبوعية</b> (ABT-A)</td><td class="ltr" style="text-align:left">Seasonal naive · Moving average</td><td class="ltr" style="text-align:left">LightGBM / XGBoost · SARIMA / Prophet</td><td class="ltr" style="text-align:left">MAE · RMSE · WAPE · MAPE</td><td>MAPE &lt; 15% للسلاسل عالية الحركة</td></tr>
+          <tr><td><b>تصنيف النفاد</b> (ABT-B)</td><td class="ltr" style="text-align:left">Logistic Regression</td><td class="ltr" style="text-align:left">Random Forest · XGBoost</td><td class="ltr" style="text-align:left">Recall · Precision · F1 · PR-AUC</td><td>Recall ≥ 85%</td></tr>
+          <tr><td><b>تصنيف قرب الانتهاء</b> (ABT-B)</td><td class="ltr" style="text-align:left">≤ 3-day rule · Logistic Regression</td><td class="ltr" style="text-align:left">XGBoost</td><td class="ltr" style="text-align:left">Recall · PR-AUC</td><td>Recall ≥ 85%</td></tr>
+          <tr><td><b>محاكاة إعادة التموين</b></td><td>القاعدة الحالية</td><td>تنبؤ + مخزون أمان (Order-up-to)</td><td>الهدر · التوفر · النفاد</td><td>يتفوق على الأساس في الثلاثة</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid g3 reveal" style="margin-top:20px">
+      <div class="card"><div class="stat"><b class="num">165.7%</b><span>MAPE لأفضل نموذج ساذج على السلاسل عالية الحركة: الرقم المطلوب التفوق عليه (الهدف &lt; 15%)</span></div></div>
+      <div class="card"><div class="stat"><b class="num">≈ 0.025</b><span>PR-AUC بلا مهارة للنفاد (= نسبة الانتشار). الدقة (Accuracy) بلا معنى مع هذا الخلل</span></div></div>
+      <div class="card"><div class="stat"><b class="num">≈ 0.072</b><span>PR-AUC بلا مهارة لخطر قرب الانتهاء</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">خط المعالجة</span>
+      <h2>10 خطوات قابلة لإعادة الإنتاج من دفتر واحد</h2>
+    </div>
+    <div class="pipeline reveal">
+      <div class="step"><i>01</i><h4>التحميل والمخطط</h4><p>توحيد 26 عمودًا</p></div>
+      <div class="step"><i>02</i><h4>التوحيد</h4><p>التسميات والمعرّفات والتواريخ</p></div>
+      <div class="step"><i>03</i><h4>التحقق والتصحيح</h4><p>قاعدة المبيعات، التضخم، النفاد، التواريخ المستقبلية</p></div>
+      <div class="step"><i>04</i><h4>حدود التقسيم</h4><p>أسابيع أحد–سبت؛ تدريب/تحقق/اختبار</p></div>
+      <div class="step"><i>05</i><h4>التعويض</h4><p>وسيط من التدريب + مؤشرات</p></div>
+      <div class="step"><i>06</i><h4>القيم الشاذة</h4><p>قص P99.9؛ الأهداف بلا قص</p></div>
+      <div class="step"><i>07</i><h4>هندسة الخصائص</h4><p>الأسعار، التقويم، رمضان، مخاطر التوريد</p></div>
+      <div class="step"><i>08</i><h4>بناء الجداول</h4><p>A: lags أسبوعية · B: سياق الدفعة</p></div>
+      <div class="step"><i>09</i><h4>الترميز والتحجيم</h4><p>One-hot / Frequency / Scaler</p></div>
+      <div class="step"><i>10</i><h4>التصدير</h4><p>Parquet، CSV، الرسوم، العرض</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">نتيجة المرحلة الثالثة</span>
+      <h2>البيانات جاهزة للمرحلة الرابعة، مع أربعة تأكيدات معلّقة من فريق الأعمال</h2>
+    </div>
+    <div class="grid g2 pending reveal">
+      <div class="card"><div class="q">?</div><div><h3>قاعدة النفاد</h3><p>هل <span class="ltr">On_Hand_Qty</span> مخزون بداية اليوم أم نهايته؟</p></div></div>
+      <div class="card"><div class="q">?</div><div><h3>حد قرب الانتهاء</h3><p>≤ 3 أيام لكل الفئات، أم حد خاص لكل فئة؟</p></div></div>
+      <div class="card"><div class="q">?</div><div><h3>تاريخ المرجع</h3><p>تأكيد تاريخ الاستخراج <span class="num">27 Sep 2026</span></p></div></div>
+      <div class="card"><div class="q">?</div><div><h3>حقول المصدر الناقصة</h3><p class="ltr" style="text-align:right">Promo_Type · Shelf_Capacity · Reorder_Point · Markdown_Flag</p></div></div>
+    </div>
+
+    <div class="cta reveal" style="margin-top:72px">
+      <div>
+        <h2>شاهد الأرقام بشكل تفاعلي</h2>
+        <p>داشبورد يجمع مؤشرات المرحلتين الثانية والثالثة، مع مستكشف تفاعلي لعينة من 10,000 سجل.</p>
+      </div>
+      <a class="btn btn-gold" href="dashboard.html">افتح الداشبورد ←</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logos"><img src="assets/panda-white.png" alt="Panda"><img src="assets/savola-white.png" alt="Savola"></div>
+    <div class="disc">مشروع أكاديمي: AI-Powered Fresh Food Demand &amp; Inventory Optimization · EWA · InnovatiCS · Group 10. الأرقام ناتجة عن بيانات اصطناعية لأغراض أكاديمية، وليست مؤشرات تشغيلية رسمية لبندة.</div>
+  </div>
+</footer>
+
+<script>
+/* ---------- P2 questions ---------- */
+const Q = {
+  dq: [
+    {id:"DQ1", t:"المبيعات والهدر حسب الفئة", en:"What are the sales volumes and waste quantities across product categories and stores?", ar:"ما كميات المبيعات والهدر عبر فئات المنتجات والفروع؟",
+     a:["متوسط المبيعات متقارب جدًا بين الفئات الست (~26.8–27.0 وحدة).","متوسط الهدر متقارب أيضًا (0.886–0.908 وحدة).","المقارنة على مستوى الفرع محدودة بسبب عدم اتساق ربط الفروع."], k:"~27", ks:"وحدة متوسط المبيعات لكل فئة"},
+    {id:"DQ2", t:"النفاد: مع العروض مقابل بدونها", en:"What differences exist in stockout rates between promotional and non-promotional periods?", ar:"ما الفروق في معدلات نفاد المخزون بين فترات العروض والفترات دون عروض؟",
+     a:["معدل النفاد 2.55% بدون عروض مقابل 2.49% مع العروض.","الفرق −0.06 نقطة مئوية فقط.","العروض ترفع متوسط المبيعات لكنها لا ترفع معدل النفاد."], k:"−0.06 pp", ks:"فرق معدل النفاد بين الفترتين"},
+    {id:"DQ3", t:"مستويات التوفر على الرف", en:"What are the on-shelf availability levels across stores and product categories, and where are they lowest?", ar:"ما مستويات توفر المنتجات على الرفوف، وأين تسجل أدنى مستوياتها؟",
+     a:["متوسط التوفر العام حوالي 96.80%.","متوسطات الفئات بين 96.78% و96.82% فقط.","المجمدات هي الأقل حاليًا (96.78%)."], k:"96.80%", ks:"متوسط التوفر على الرف"},
+    {id:"DQ4", t:"الصلاحية المتبقية وقرب الانتهاء", en:"What is the distribution of remaining shelf life, and what proportion of inventory records is near expiry?", ar:"ما توزيع مدة الصلاحية المتبقية، وما نسبة السجلات القريبة من الانتهاء؟",
+     a:["7.15% من السجلات قريبة من الانتهاء (≤ 3 أيام).","أي 67,950 من أصل 949,813 سجلًا صالحًا.","يجب تأكيد الحد مع فريق الأعمال في المرحلة الثالثة."], k:"7.15%", ks:"67,950 سجلًا قرب الانتهاء"},
+    {id:"DQ5", t:"مدد التوريد ونسب التلبية", en:"What differences exist in supplier lead times and fill rates across suppliers and DCs?", ar:"ما الفروق في مدد التوريد ونسب تلبية الطلبات عبر الموردين ومراكز التوزيع؟",
+     a:["متوسط مدة التوريد 7.50 يوم.","متوسط نسبة التلبية 92.16%.","ترتيب الموردين/المراكز يحتاج ربطًا موثوقًا للكيانات أولًا."], k:"92.16%", ks:"متوسط نسبة تلبية الموردين"}
+  ],
+  gq: [
+    {id:"GQ1", t:"لماذا يختلف معدل النفاد؟", en:"Why do stockout rates vary, considering supplier lead times and on-hand inventory?", ar:"لماذا تختلف معدلات نفاد المخزون، بالنظر إلى مدد التوريد والمخزون المتاح؟",
+     a:["سجلات النفاد مخزونها أقل بكثير: 18.33 مقابل 53.85 وحدة.","مدة التوريد شبه ثابتة: 7.45 مقابل 7.50 يوم.","الدليل يشير إلى وضع المخزون أكثر من مدة التوريد."], k:"18.33 vs 53.85", ks:"متوسط المخزون: نفاد مقابل بدون نفاد"},
+    {id:"GQ2", t:"لماذا يختلف الهدر؟", en:"Why do waste quantities vary, considering inventory levels, sales volumes, and remaining shelf life?", ar:"لماذا تختلف كميات الهدر، بالنظر إلى المخزون والمبيعات ومدة الصلاحية؟",
+     a:["الهدر مرتبط إيجابيًا بالمخزون (ρ = 0.670).","ومرتبط أيضًا بالمبيعات (ρ = 0.588).","الصلاحية المتبقية لها علاقة سلبية ضعيفة (ρ = −0.097)."], k:"ρ 0.670", ks:"ارتباط الهدر بالمخزون"},
+    {id:"GQ3", t:"لماذا لا ترفع العروض النفاد؟", en:"Why do stockout rates differ between promotional and non-promotional periods?", ar:"لماذا تختلف معدلات النفاد بين فترات العروض وبدونها؟",
+     a:["العروض ترفع متوسط المبيعات من 24.55 إلى 38.98.","معدل النفاد شبه ثابت: 2.55% مقابل 2.49%.","البيانات لا تُظهر نفادًا أعلى خلال العروض."], k:"+59%", ks:"زيادة متوسط المبيعات مع العروض"},
+    {id:"GQ4", t:"لماذا يختلف التوفر بين الفروع؟", en:"Why do on-shelf availability levels vary across stores, considering supplier fill rates and lead times?", ar:"لماذا يختلف التوفر بين الفروع، بالنظر إلى نسب تلبية الموردين ومدد التوريد؟",
+     a:["العلاقة بين نسبة التلبية والتوفر شبه معدومة (ρ ≈ 0.00038).","نسبة التلبية وحدها لا تفسر اختلاف التوفر.","نحتاج ربطًا أنظف للفروع لتشخيص أعمق."], k:"ρ ≈ 0", ks:"التلبية ↔ التوفر"},
+    {id:"GQ5", t:"لماذا يختلف قرب الانتهاء بين الفروع؟", en:"Why does the proportion of near-expiry inventory vary across stores, considering product mix, sales and footfall?", ar:"لماذا تختلف نسبة المخزون القريب من الانتهاء بين الفروع؟",
+     a:["نسبة قرب الانتهاء قابلة للقياس: 7.15%.","276,474 مجموعة فرع-يوم فيها أكثر من قيمة لعدد الزوار.","يجب التحقق من بيانات الزوار قبل استخدامها في التفسير."], k:"276,474", ks:"مجموعة فرع-يوم بقيم زوار متعددة"}
+  ]
+};
+let set="dq", idx=0;
+function renderQ(){
+  const list=document.getElementById('qlist'), p=document.getElementById('qpanel'), qs=Q[set];
+  list.innerHTML=qs.map((q,i)=>`<button class="qbtn ${i===idx?'active':''}" data-i="${i}"><b>${q.id}</b>${q.t}</button>`).join('');
+  const q=qs[idx];
+  p.innerHTML=`<div><span class="tag gold">${q.id}</span><h3>${q.t}</h3><p class="ar">${q.ar}</p><p class="en">${q.en}</p><b style="font-size:14px;color:var(--green-600)">الإجابة من البيانات</b><ul>${q.a.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  <div class="hl"><b class="num">${q.k}</b><span>${q.ks}</span></div>`;
+  list.querySelectorAll('.qbtn').forEach(b=>b.onclick=()=>{idx=+b.dataset.i;renderQ()});
+}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');set=t.dataset.set;idx=0;renderQ()});
+renderQ();
+
+/* ---------- reveal + counters ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const end=+el.dataset.count, t0=performance.now(), d=1600;
+    (function step(t){const k=Math.min(1,(t-t0)/d), v=Math.round(end*(1-Math.pow(1-k,3)));el.textContent=v.toLocaleString('en-US');if(k<1)requestAnimationFrame(step)})(t0);
+  });
+}
+document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
+</script>
+</body>
+</html>

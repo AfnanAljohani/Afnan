@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>داشبورد بندة · Fresh Food AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/panda.png">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  body{background:#F2F5F3}
+  .app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+  .side{background:var(--green-900);color:#CFE0D6;padding:24px 18px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:28px}
+  .side .logo{display:flex;align-items:center;gap:12px;padding:0 8px}
+  .side .logo img{height:28px;width:auto}
+  .side .logo small{font-size:11px;color:#8FAE9E;line-height:1.3}
+  .side nav{display:flex;flex-direction:column;gap:4px}
+  .side nav button{font-family:inherit;display:flex;align-items:center;gap:12px;background:none;border:0;color:#CFE0D6;font-size:14.5px;padding:12px 14px;border-radius:12px;cursor:pointer;text-align:start;transition:.15s}
+  .side nav button svg{width:18px;height:18px;flex-shrink:0}
+  .side nav button:hover{background:rgba(255,255,255,.06)}
+  .side nav button.active{background:var(--gold);color:var(--green-900);font-weight:600}
+  .side .foot{margin-top:auto;font-size:12px;color:#7F9A8C;padding:0 8px}
+  .side .foot a{display:block;color:var(--gold);margin-bottom:10px;font-size:13px}
+
+  main{padding:28px 32px 48px;min-width:0}
+  .top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+  .top h1{margin:0;font-size:26px}
+  .top p{margin:4px 0 0;color:var(--ink-3);font-size:14px}
+  .pill{font-size:12.5px;background:#fff;border:1px solid var(--line);padding:6px 12px;border-radius:999px;color:var(--ink-2)}
+  .pill b{color:var(--green-600)}
+
+  .view{display:none}
+  .view.active{display:block;animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:18px}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+  .kpi span{display:block;font-size:12.5px;color:var(--ink-3)}
+  .kpi b{display:block;font-size:26px;line-height:1.3;margin-top:6px;color:var(--ink)}
+  .kpi small{font-size:12px;color:var(--ink-3)}
+  .kpi.hero{background:linear-gradient(150deg,var(--green-800),var(--green-600));border:0;color:#fff}
+  .kpi.hero span,.kpi.hero small{color:#CFE0D6}
+  .kpi.hero b{color:var(--gold)}
+
+  .panels{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 20px 16px;box-shadow:var(--shadow);min-width:0}
+  .panel h3{margin:0;font-size:15.5px}
+  .panel .sub{margin:2px 0 14px;font-size:12.5px;color:var(--ink-3)}
+  .panel .cv{position:relative;height:260px}
+  .panel .cv.sm{height:210px}
+  .panel .cv.lg{height:300px}
+  .s3{grid-column:span 3}.s4{grid-column:span 4}.s5{grid-column:span 5}.s6{grid-column:span 6}.s7{grid-column:span 7}.s8{grid-column:span 8}.s12{grid-column:span 12}
+  .insight{font-size:13px;color:var(--ink-2);background:var(--green-50);border-radius:10px;padding:10px 12px;margin-top:12px}
+  .insight b{color:var(--green-700)}
+
+  .legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--ink-2);margin-bottom:8px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:6px;vertical-align:-1px}
+
+  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:16px;box-shadow:var(--shadow)}
+  .filters label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--ink-3)}
+  .filters select{font-family:inherit;font-size:14px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--green-50);color:var(--ink);min-width:130px}
+  .filters .btn{padding:9px 16px}
+  .filters .count{margin-inline-start:auto;font-size:13px;color:var(--ink-2)}
+  .filters .count b{color:var(--green-600);font-size:16px}
+
+  .funnel{display:flex;flex-direction:column;gap:10px}
+  .fstep{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;font-size:13px}
+  .fbar{height:38px;border-radius:8px;background:var(--green-600);color:#fff;display:flex;align-items:center;padding:0 12px;font-weight:600;font-size:14px;white-space:nowrap}
+  .fbar.out{background:var(--danger-soft);color:var(--danger)}
+  .fbar.gold{background:var(--gold);color:var(--green-900)}
+
+  .mini-table{width:100%;font-size:13px}
+  .mini-table th,.mini-table td{padding:9px 10px}
+  .ok{color:var(--ok);font-weight:600}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:6px}
+
+  canvas{direction:ltr}
+  @media (max-width:1280px){.kpis{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:1100px){.s3,.s4,.s5{grid-column:span 6}.s7,.s8{grid-column:span 12}}
+  @media (max-width:900px){
+    .app{grid-template-columns:1fr}
+    .side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;padding:10px 12px;gap:10px;overflow-x:auto}
+    .side .logo small,.side .foot{display:none}
+    .side nav{flex-direction:row}
+    .side nav button{white-space:nowrap;padding:9px 12px;font-size:13px}
+    .side nav button svg{display:none}
+    main{padding:20px 16px 40px}
+    .s3,.s4,.s5,.s6,.s7,.s8{grid-column:span 12}
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .fstep{grid-template-columns:110px 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo"><a href="index.html"><img src="assets/panda-white.png" alt="Panda"></a><small>Fresh Food AI<br>Dashboard</small></div>
+    <nav id="tabs">
+      <button class="active" data-v="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>نظرة عامة</button>
+      <button data-v="p2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-6"/></svg>المرحلة 2 · فهم البيانات</button>
+      <button data-v="p3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>المرحلة 3 · تجهيز البيانات</button>
+      <button data-v="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>مستكشف البيانات</button>
+    </nav>
+    <div class="foot"><a href="index.html">→ العودة للموقع</a>مشروع أكاديمي · EWA · InnovatiCS · Group 10<br>بيانات اصطناعية، وليست مؤشرات رسمية لبندة.</div>
+  </aside>
+
+  <main>
+    <!-- ================= OVERVIEW ================= -->
+    <section class="view active" id="overview" style="padding:0">
+      <div class="top">
+        <div><h1>لوحة المؤشرات التنفيذية</h1><p>تحسين الطلب والمخزون للأغذية الطازجة · ملخص المرحلتين الثانية والثالثة على البيانات الكاملة</p></div>
+        <span class="pill">مصدر الأرقام: <b class="num">1,000,000</b> سجل · Jan 2025 – Dec 2026</span>
+      </div>
+      <div class="kpis">
+        <div class="kpi hero"><span>إجمالي السجلات</span><b class="num">1,000,000</b><small>26 متغيرًا · 730 يومًا</small></div>
+        <div class="kpi"><span>معدل نفاد المخزون</span><b class="num">2.54%</b><small>تصنيف غير متوازن</small></div>
+        <div class="kpi"><span>التوفر على الرف</span><b class="num">96.80%</b><small>متوسط OSA</small></div>
+        <div class="kpi"><span>قرب الانتهاء (≤ 3 أيام)</span><b class="num">7.15%</b><small class="num">67,950 records</small></div>
+        <div class="kpi"><span>نسبة تلبية الموردين</span><b class="num">92.16%</b><small>مدة التوريد 7.50 يوم</small></div>
+        <div class="kpi"><span>سجلات جاهزة للنمذجة</span><b class="num">871,314</b><small>بعد المرحلة الثالثة</small></div>
+      </div>
+      <div class="panels">
+        <div class="panel s4"><h3>حجم الكيانات</h3><p class="sub">عدد القيم الفريدة (مقياس لوغاريتمي)</p><div class="cv"><canvas id="cEntities"></canvas></div></div>
+        <div class="panel s4"><h3>أثر العروض على المبيعات</h3><p class="sub">متوسط الوحدات المباعة لكل سجل</p><div class="cv"><canvas id="cPromoUnits"></canvas></div><div class="insight">العروض ترفع المبيعات <b class="num">+59%</b> بدون زيادة في النفاد.</div></div>
+        <div class="panel s4"><h3>ما الذي يفسر النفاد؟</h3><p class="sub">متوسط المخزون المتاح (وحدات)</p><div class="cv"><canvas id="cStockoutOH"></canvas></div><div class="insight">المخزون، وليس مدة التوريد (<span class="num">7.45 vs 7.50</span> يوم)، هو المحرك.</div></div>
+        <div class="panel s7"><h3>رحلة البيانات</h3><p class="sub">من الملف الخام إلى الجداول التحليلية</p>
+          <div class="funnel">
+            <div class="fstep"><span>الملف الخام</span><div class="fbar num" style="width:100%">1,000,000</div></div>
+            <div class="fstep"><span>تواريخ مستقبلية (مستبعدة)</span><div class="fbar out num" style="width:12.9%;min-width:110px">−128,686</div></div>
+            <div class="fstep"><span>نافذة النمذجة · ABT-B</span><div class="fbar num" style="width:87.1%">871,314</div></div>
+            <div class="fstep"><span>ABT-A · فرع×فئة×أسبوع</span><div class="fbar gold num" style="width:43.5%">435,406</div></div>
+          </div>
+          <div class="insight"><span class="num">1,000,000 − 128,686 = 871,314</span> سجلًا في نافذة النمذجة. ABT-A يجمعها على مستوى فرع × فئة × أسبوع.</div>
+        </div>
+        <div class="panel s5"><h3>أهداف النجاح للمرحلة الرابعة</h3><p class="sub">معايير المشروع الأكاديمية</p>
+          <table class="mini-table">
+            <tbody>
+              <tr><td>دقة التنبؤ (MAPE)</td><td class="num"><b>&lt; 15%</b></td><td class="num" style="color:var(--ink-3)">baseline 165.7%</td></tr>
+              <tr><td>Recall قرب الانتهاء</td><td class="num"><b>≥ 85%</b></td><td class="num" style="color:var(--ink-3)">no-skill PR-AUC ≈ 0.072</td></tr>
+              <tr><td>Recall النفاد</td><td class="num"><b>≥ 85%</b></td><td class="num" style="color:var(--ink-3)">no-skill PR-AUC ≈ 0.025</td></tr>
+              <tr><td>خفض الهدر</td><td class="num"><b>−20–25%</b></td><td></td></tr>
+              <tr><td>خفض النفاد</td><td class="num"><b>−25–30%</b></td><td></td></tr>
+              <tr><td>رفع التوفر</td><td class="num"><b>+3–5 pts</b></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 2 ================= -->
+    <section class="view" id="p2" style="padding:0">
+      <div class="top">
+        <div><h1>المرحلة الثانية · فهم البيانات</h1><p>الإحصاء الوصفي، والعلاقات، وجودة البيانات، والأسئلة الوصفية والتشخيصية</p></div>
+        <span class="pill">Data Understanding &amp; Visualization</span>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><span>متوسط المبيعات</span><b class="num">26.87</b><small class="num">median 17 · max 5,092</small></div>
+        <div class="kpi"><span>متوسط المخزون</span><b class="num">36.43</b><small class="num">median 23 · max 1,896</small></div>
+        <div class="kpi"><span>متوسط الهدر</span><b class="num">0.90</b><small class="num">median 0 · max 267</small></div>
+        <div class="kpi"><span>مدة التوريد</span><b class="num">7.50</b><small class="num">1 – 14 days</small></div>
+        <div class="kpi"><span>أزواج فرع-منتج بيوم واحد</span><b class="num">99.67%</b><small>تاريخ متفرق جدًا</small></div>
+        <div class="kpi"><span>سجلات مكررة</span><b class="num ok">0</b><small>لا تكرار في Record_ID</small></div>
+      </div>
+      <div class="panels">
+        <div class="panel s6"><h3>قوة العلاقات بين المتغيرات</h3><p class="sub">Spearman ρ · الارتباط لا يعني السببية</p><div class="cv"><canvas id="cCorr"></canvas></div></div>
+        <div class="panel s6"><h3>القيم المفقودة</h3><p class="sub">نسبة السجلات المفقودة لكل حقل (%)</p><div class="cv"><canvas id="cMissing"></canvas></div></div>
+        <div class="panel s4"><h3>معدل النفاد: عروض مقابل بدون</h3><p class="sub">% من السجلات</p><div class="cv sm"><canvas id="cPromoSO"></canvas></div><div class="insight">الفرق <b class="num">−0.06</b> نقطة فقط.</div></div>
+        <div class="panel s4"><h3>التوفر على الرف حسب الفئة</h3><p class="sub">المدى بين الفئات ضيق جدًا</p><div class="cv sm"><canvas id="cOSAcat"></canvas></div><div class="insight">المدى <b class="num">96.78% – 96.82%</b>؛ المجمدات الأقل.</div></div>
+        <div class="panel s4"><h3>مشاكل التعريف والجودة</h3><p class="sub">عدد السجلات المتأثرة</p><div class="cv sm"><canvas id="cDefs"></canvas></div></div>
+        <div class="panel s12"><h3>تقرير جودة البيانات</h3><p class="sub">كل مشكلة مقيسة ولها معالجة في المرحلة الثالثة</p>
+          <div class="table-wrap" style="box-shadow:none">
+            <table class="mini-table">
+              <thead><tr><th>المشكلة</th><th>الدليل</th><th>المعالجة</th></tr></thead>
+              <tbody>
+                <tr><td>القيم المفقودة</td><td class="num">8.03% fill rate · 5.02% shelf life · 4.02% footfall</td><td>تعويض حسب كل حقل + مؤشرات</td></tr>
+                <tr><td>التسميات</td><td class="num">3,027 rows = " produce "</td><td>إزالة المسافات وتوحيد الصيغة</td></tr>
+                <tr><td>ربط الكيانات</td><td>الفروع مرتبطة بعدة مدن/مناطق/مراكز</td><td>التحقق من مصدر الربط</td></tr>
+                <tr><td>تاريخ متفرق</td><td class="num">99.67% Store-SKU pairs on 1 day</td><td>تغيير مستوى التجميع</td></tr>
+                <tr><td>التسرّب</td><td>OSA في نفس اليوم يكشف النفاد</td><td>إزالة أو تأخير الخصائص</td></tr>
+                <tr><td>التعريفات</td><td class="num">952,694 fractional footfall · 168,689 sales mismatches</td><td>تأكيد الوحدات والمعادلات</td></tr>
+                <tr><td>القيم الشاذة</td><td>قيم IQR متطرفة في المبيعات والهدر والمخزون</td><td>التحقق من النطاقات مع الإبقاء على القمم الحقيقية</td></tr>
+                <tr><td>فجوة المخطط</td><td class="num">26 actual vs 33 brief columns</td><td>اشتقاق حقول التقويم وطلب الناقص</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 3 ================= -->
+    <section class="view" id="p3" style="padding:0">
+      <div class="top">
+        <div><h1>المرحلة الثالثة · تجهيز البيانات</h1><p>معالجة الجودة، وهندسة الخصائص، والتقسيم الزمني، وجاهزية النمذجة</p></div>
+        <span class="pill">Data Preparation &amp; Modeling Readiness</span>
+      </div>
+      <div class="kpis">
+        <div class="kpi hero"><span>ABT-A · التنبؤ</span><b class="num">435,406</b><small>29 عمودًا · 24 خاصية</small></div>
+        <div class="kpi hero"><span>ABT-B · التصنيف</span><b class="num">871,314</b><small>37 عمودًا · 28 خاصية</small></div>
+        <div class="kpi"><span>القيم المفقودة بعد المعالجة</span><b class="num ok">0%</b><small>+ 3 مؤشرات</small></div>
+        <div class="kpi"><span>انحراف المبيعات (Skew)</span><b class="num">4.04 → 0.02</b><small>بعد log1p</small></div>
+        <div class="kpi"><span>أسابيع التدريب/التحقق/الاختبار</span><b class="num">73 · 9 · 8</b><small>أحد – سبت</small></div>
+        <div class="kpi"><span>مشاكل جديدة مكتشفة</span><b class="num">3</b><small>مصححة بقواعد أعمال</small></div>
+      </div>
+      <div class="panels">
+        <div class="panel s6"><h3>القيم المفقودة: قبل وبعد</h3><p class="sub">% من السجلات · التعويض من بيانات التدريب فقط</p>
+          <div class="legend"><span><i style="background:#B7C2BC"></i>قبل (P2)</span><span><i style="background:#1F7A4D"></i>بعد (P3)</span></div>
+          <div class="cv sm"><canvas id="cMissBA"></canvas></div><div class="insight">بعد المعالجة: <b>0%</b> في كل الحقول المجهزة.</div></div>
+        <div class="panel s6"><h3>المشاكل الجديدة في المرحلة الثالثة</h3><p class="sub">عدد السجلات المتأثرة</p><div class="cv sm"><canvas id="cNew"></canvas></div><div class="insight">التواريخ المستقبلية (بعد 27 Sep 2026) لا تحتوي مبيعات فعلية، لذلك استُبعدت.</div></div>
+        <div class="panel s8"><h3>التقسيم الزمني للجدولين</h3><p class="sub">عدد السجلات في كل جزء · ليس تقسيمًا عشوائيًا</p>
+          <div class="legend"><span><i style="background:#1F7A4D"></i>Train · 05 Jan 2025 – 30 May 2026</span><span><i style="background:#D4A017"></i>Validation · 31 May – 01 Aug 2026</span><span><i style="background:#2F6FB0"></i>Test · 02 Aug – 26 Sep 2026</span></div>
+          <div class="cv sm"><canvas id="cSplit"></canvas></div></div>
+        <div class="panel s4"><h3>قرار مستوى التجميع</h3><p class="sub">يوم: % الأزواج التي لها أكثر من يوم · أسبوع: % الأسابيع التي فيها بيانات</p><div class="cv sm"><canvas id="cGrain"></canvas></div></div>
+        <div class="panel s6"><h3>نسب المتغيرات الهدف</h3><p class="sub">% من السجلات = PR-AUC بلا مهارة</p><div class="cv sm"><canvas id="cTargets"></canvas></div></div>
+        <div class="panel s6"><h3>خطة النمذجة</h3><p class="sub">نموذج أساسي مقابل نماذج متقدمة</p>
+          <table class="mini-table">
+            <thead><tr><th>المهمة</th><th>Baseline</th><th>Advanced</th><th>الحد</th></tr></thead>
+            <tbody>
+              <tr><td>التنبؤ الأسبوعي</td><td class="ltr">Seasonal naive</td><td class="ltr">LightGBM / XGBoost · SARIMA</td><td class="num">MAPE &lt; 15%</td></tr>
+              <tr><td>النفاد</td><td class="ltr">Logistic Reg.</td><td class="ltr">Random Forest · XGBoost</td><td class="num">Recall ≥ 85%</td></tr>
+              <tr><td>قرب الانتهاء</td><td class="ltr">≤ 3-day rule</td><td class="ltr">XGBoost</td><td class="num">Recall ≥ 85%</td></tr>
+              <tr><td>إعادة التموين</td><td>القاعدة الحالية</td><td>تنبؤ + مخزون أمان</td><td>أفضل في 3 مؤشرات</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPLORER ================= -->
+    <section class="view" id="explore" style="padding:0">
+      <div class="top">
+        <div><h1>مستكشف البيانات التفاعلي</h1><p>عينة من <b class="num">10,000</b> سجل (1%) مأخوذة من ملف المليون سجل، وتُحسب كل الأرقام مباشرة حسب الفلاتر</p></div>
+        <span class="pill">PANDA_sample_10000.csv</span>
+      </div>
+      <div class="filters">
+        <label>السنة<select id="fYear"><option value="">الكل</option><option value="0">2025</option><option value="1">2026</option></select></label>
+        <label>المنطقة<select id="fRegion"></select></label>
+        <label>الفئة<select id="fCat"></select></label>
+        <label>منطقة الحرارة<select id="fTemp"></select></label>
+        <label>العروض<select id="fPromo"><option value="">الكل</option><option value="1">مع عرض</option><option value="0">بدون عرض</option></select></label>
+        <button class="btn btn-green" id="fReset">إعادة ضبط</button>
+        <span class="count">السجلات المطابقة: <b class="num" id="fCount">10,000</b></span>
+      </div>
+      <div class="kpis" id="xKpis"></div>
+      <div class="panels">
+        <div class="panel s8"><h3>اتجاه المبيعات الشهري</h3><p class="sub">متوسط الوحدات المباعة لكل سجل</p><div class="cv"><canvas id="xTrend"></canvas></div></div>
+        <div class="panel s4"><h3>معدل النفاد حسب المنطقة</h3><p class="sub">% من السجلات</p><div class="cv"><canvas id="xRegion"></canvas></div></div>
+        <div class="panel s6"><h3>متوسط المبيعات حسب الفئة</h3><p class="sub">وحدات لكل سجل</p><div class="cv sm"><canvas id="xCatUnits"></canvas></div></div>
+        <div class="panel s6"><h3>متوسط الهدر حسب الفئة</h3><p class="sub">وحدات لكل سجل</p><div class="cv sm"><canvas id="xCatWaste"></canvas></div></div>
+        <div class="panel s7"><h3>توزيع الصلاحية المتبقية</h3><p class="sub">عدد السجلات حسب الأيام المتبقية · الأحمر = قرب الانتهاء (≤ 3 أيام)</p><div class="cv"><canvas id="xShelf"></canvas></div></div>
+        <div class="panel s5"><h3>العروض مقابل بدون عروض</h3><p class="sub">متوسط الوحدات المباعة</p><div class="cv"><canvas id="xPromo"></canvas></div></div>
+        <div class="panel s12"><h3>ملخص حسب الفئة</h3><p class="sub">عرض جدولي لنفس الأرقام</p><div class="table-wrap" style="box-shadow:none"><table class="mini-table" id="xTable"></table></div></div>
+        <div class="panel s12"><h3>التحقق: هل العينة تمثل المليون سجل؟</h3><p class="sub">مقارنة العينة الكاملة (بدون فلاتر) بأرقام الملف الكامل من المرحلة الثانية</p><div class="table-wrap" style="box-shadow:none"><table class="mini-table" id="xVerify"></table></div>
+          <div class="insight">هذا الملف يحتوي <b class="num">10,000</b> سجل وليس 1,000,000، لكنه موزع على كامل نطاق المعرّفات (PAN-000000070 → PAN-000999993)، وكل المتوسطات قريبة جدًا من الملف الكامل، لذلك هو عينة ممثلة. أرقام اللوحات التنفيذية والمرحلتين 2 و3 محسوبة على المليون سجل كاملًا.</div></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="data/sample.js"></script>
+<script>
+/* ---------- palette (validated: categorical, light surface) ---------- */
+const GREEN='#1F7A4D', GOLD='#D4A017', BLUE='#2F6FB0', ORANGE='#C2410C', VIOLET='#7C3AED', TEAL='#0E9F9F';
+const GRAY='#B7C2BC', RED='#B42318', INK='#44524A', MUTED='#6B7A72', GRID='#E8EDEA';
+const CAT_COLORS={Produce:GREEN,Dairy:BLUE,Bakery:GOLD,Meat:ORANGE,Frozen:VIOLET,Grocery:TEAL};
+const AR={Produce:'خضار وفواكه',Dairy:'ألبان',Bakery:'مخبوزات',Meat:'لحوم',Frozen:'مجمدات',Grocery:'بقالة',
+  Eastern:'الشرقية',Northern:'الشمالية',Western:'الغربية',Central:'الوسطى',Southern:'الجنوبية',Chilled:'مبرد',Ambient:'جاف'};
+const ar=k=>AR[k]||k;
+const fmt=(v,d=0)=>Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+/* ---------- Chart.js defaults ---------- */
+Chart.defaults.font.family='"IBM Plex Sans Arabic",system-ui,sans-serif';
+Chart.defaults.font.size=12;
+Chart.defaults.color=MUTED;
+Chart.defaults.maintainAspectRatio=false;
+Chart.defaults.plugins.legend.display=false;
+Object.assign(Chart.defaults.plugins.tooltip,{rtl:true,backgroundColor:'#0F2A1E',padding:10,cornerRadius:8,titleFont:{weight:'600'},displayColors:true,boxPadding:4});
+Chart.defaults.elements.bar.borderRadius=4;
+Chart.defaults.elements.bar.borderSkipped='start';
+Chart.defaults.elements.line.borderWidth=2;
+Chart.defaults.scale.grid.color=GRID;
+Chart.defaults.scale.border={display:false};
+
+/* draw value labels on bars (direct labels; selective) */
+const valueLabels={id:'valueLabels',afterDatasetsDraw(chart,args,opts){
+  if(!opts||!opts.enabled)return;const {ctx}=chart;ctx.save();
+  ctx.font='600 11.5px "IBM Plex Sans Arabic",sans-serif';ctx.fillStyle=INK;
+  chart.data.datasets.forEach((ds,di)=>{const meta=chart.getDatasetMeta(di);if(meta.hidden)return;
+    meta.data.forEach((el,i)=>{const v=ds.data[i];if(v==null||Number.isNaN(v))return;
+      const txt=opts.format?opts.format(v,i,di):fmt(v);const horiz=chart.options.indexAxis==='y';
+      if(horiz){ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(txt,Math.max(el.x,el.base)+6,el.y)}
+      else{ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(txt,el.x,Math.min(el.y,el.base)-4)}});});
+  ctx.restore();}};
+Chart.register(valueLabels);
+
+const charts={};
+function mk(id,cfg){if(charts[id])charts[id].destroy();charts[id]=new Chart(document.getElementById(id),cfg);return charts[id];}
+function bar(id,labels,data,{colors=GREEN,horiz=false,fmtv,yMax,yMin,log=false,suffix=''}={}){
+  const vAxis={beginAtZero:!log&&yMin==null,min:log?10:yMin,max:yMax,type:log?'logarithmic':'linear',ticks:{maxRotation:0,callback:v=>log?(([10,1e3,1e5].includes(v))?fmt(v):''):Number(v).toLocaleString('en-US',{maximumFractionDigits:2})+suffix}};
+  const cAxis={grid:{display:false},ticks:{color:INK}};
+  return mk(id,{type:'bar',data:{labels,datasets:[{data,backgroundColor:colors,maxBarThickness:46,categoryPercentage:.7}]},
+    options:{indexAxis:horiz?'y':'x',layout:{padding:{top:18,right:horiz?72:0}},
+      scales:horiz?{x:{...vAxis,position:'bottom'},y:cAxis}:{x:cAxis,y:vAxis},
+      plugins:{valueLabels:{enabled:true,format:fmtv},tooltip:{callbacks:{label:c=>' '+(fmtv?fmtv(c.raw):fmt(c.raw))}}}}});
+}
+
+/* ================= OVERVIEW ================= */
+bar('cEntities',['السجلات','الدفعات','المنتجات','الموردون','الفروع','مراكز التوزيع'],[1000000,532564,149827,12000,1000,30],{log:true,horiz:true});
+bar('cPromoUnits',['بدون عرض','مع عرض'],[24.55,38.98],{colors:[GRAY,GREEN],fmtv:v=>fmt(v,2)});
+bar('cStockoutOH',['بدون نفاد','مع نفاد'],[53.85,18.33],{colors:[GREEN,RED],fmtv:v=>fmt(v,2)});
+
+/* ================= PHASE 2 ================= */
+let p2done=false;
+function drawP2(){ if(p2done)return; p2done=true;
+  bar('cCorr',['المخزون ↔ المبيعات','المخزون ↔ الهدر','المبيعات ↔ الهدر','الصلاحية ↔ الهدر','التلبية ↔ التوفر'],[0.876,0.670,0.588,-0.097,0.0004],
+    {horiz:true,colors:[GREEN,GREEN,GREEN,ORANGE,GRAY],fmtv:v=>v===0.0004?'0.0004':fmt(v,3),yMin:-0.2,yMax:1});
+  bar('cMissing',['Supplier_Fill_Rate','Remaining_Shelf_Life','Store_Footfall'],[8.03,5.02,4.02],{colors:ORANGE,fmtv:v=>fmt(v,2)+'%',suffix:'%'});
+  bar('cPromoSO',['بدون عرض','مع عرض'],[2.55,2.49],{colors:[GRAY,GREEN],fmtv:v=>fmt(v,2)+'%',suffix:'%'});
+  bar('cOSAcat',['المدى الأعلى','المجمدات (الأقل)','المتوسط العام'],[96.82,96.78,96.80],{colors:[GREEN,VIOLET,GRAY],fmtv:v=>fmt(v,2)+'%',yMin:96.7,yMax:96.86});
+  bar('cDefs',['Fractional footfall','Sales mismatches','Footfall conflicts','" produce " labels'],[952694,168689,276474,3027],{horiz:true,colors:ORANGE,log:true});
+}
+
+/* ================= PHASE 3 ================= */
+let p3done=false;
+function drawP3(){ if(p3done)return; p3done=true;
+  mk('cMissBA',{type:'bar',data:{labels:['Supplier_Fill_Rate','Shelf_Life','Footfall'],datasets:[
+      {label:'قبل',data:[8.03,5.02,4.02],backgroundColor:GRAY,maxBarThickness:40},
+      {label:'بعد',data:[0,0,0],backgroundColor:GREEN,maxBarThickness:40,minBarLength:3}]},
+    options:{layout:{padding:{top:18}},scales:{x:{grid:{display:false},ticks:{color:INK}},y:{beginAtZero:true,ticks:{callback:v=>v+'%'}}},
+      plugins:{valueLabels:{enabled:true,format:v=>fmt(v,v?2:0)+'%'},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${fmt(c.raw,2)}%`}}}}});
+  bar('cNew',['تواريخ مستقبلية','مبيعات مضخّمة','مخزون 0 بدون نفاد'],[128686,9825,964],{horiz:true,colors:RED});
+  mk('cSplit',{type:'bar',data:{labels:['ABT-A','ABT-B'],datasets:[
+      {label:'Train',data:[354014,700070],backgroundColor:GREEN},
+      {label:'Validation',data:[43073,86310],backgroundColor:GOLD},
+      {label:'Test',data:[38319,76716],backgroundColor:BLUE}]},
+    options:{indexAxis:'y',datasets:{bar:{borderColor:'#fff',borderWidth:{left:2,right:2},borderSkipped:false,borderRadius:4,maxBarThickness:42}},
+      scales:{x:{stacked:true,ticks:{callback:v=>fmt(v)}},y:{stacked:true,grid:{display:false},ticks:{color:INK,font:{weight:'600'}}}},
+      plugins:{tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${fmt(c.raw)}`}}}}});
+  bar('cGrain',['Store×SKU×Day','Store×Cat×Week'],[0.33,79.8],{colors:[RED,GREEN],fmtv:v=>fmt(v,v<1?2:1)+'%',suffix:'%',yMax:100});
+  bar('cTargets',['نفاد المخزون','قرب الانتهاء'],[2.54,7.15],{colors:[BLUE,GOLD],fmtv:v=>fmt(v,2)+'%',suffix:'%'});
+}
+
+/* ================= EXPLORER (10k sample) ================= */
+const D=window.PANDA_SAMPLE, N=D.meta.rows, M=D.meta;
+const months=Array.from({length:24},(_,i)=>{const y=2025+Math.floor(i/12),m=i%12+1;return `${y}-${String(m).padStart(2,'0')}`});
+function opts(sel,arr){sel.innerHTML='<option value="">الكل</option>'+arr.map((v,i)=>`<option value="${i}">${ar(v)}</option>`).join('')}
+opts(fRegion,M.regions);opts(fCat,M.categories);opts(fTemp,M.temps);
+
+function stats(idx){
+  let u=0,v=0,w=0,s=0,osa=0,ne=0,neN=0,fr=0,frN=0;
+  for(const i of idx){u+=D.u[i];v+=D.v[i];w+=D.w[i];s+=D.s[i];osa+=D.osa[i];
+    if(D.sl[i]>=0){neN++;if(D.sl[i]<=3)ne++} if(D.fr[i]>=0){frN++;fr+=D.fr[i]}}
+  const n=idx.length||1;
+  return {n:idx.length,u:u/n,v,w:w/n,s:s/n*100,osa:osa/n,ne:neN?ne/neN*100:0,fr:frN?fr/frN/10:0};
+}
+function filtered(){
+  const y=fYear.value,r=fRegion.value,c=fCat.value,t=fTemp.value,p=fPromo.value,out=[];
+  for(let i=0;i<N;i++){
+    if(y!==''&&Math.floor(D.m[i]/12)!=y)continue;
+    if(r!==''&&D.r[i]!=r)continue;
+    if(c!==''&&D.c[i]!=c)continue;
+    if(t!==''&&D.t[i]!=t)continue;
+    if(p!==''&&D.p[i]!=p)continue;
+    out.push(i);}
+  return out;
+}
+function groupMean(idx,key,val,k){const s=new Array(k).fill(0),n=new Array(k).fill(0);for(const i of idx){s[D[key][i]]+=val(i);n[D[key][i]]++}return s.map((x,j)=>n[j]?x/n[j]:null)}
+
+function drawExplore(){
+  const idx=filtered(), S=stats(idx);
+  fCount.textContent=fmt(S.n);
+  xKpis.innerHTML=[
+    ['hero','السجلات المطابقة',fmt(S.n),'من 10,000 في العينة'],
+    ['','متوسط المبيعات',fmt(S.u,2),'وحدة لكل سجل'],
+    ['','قيمة المبيعات',fmt(S.v/1e6,2)+'M','ريال سعودي (SAR)'],
+    ['','معدل النفاد',fmt(S.s,2)+'%','Stockout_Flag'],
+    ['','التوفر على الرف',fmt(S.osa,2)+'%','متوسط OSA'],
+    ['','قرب الانتهاء',fmt(S.ne,2)+'%','≤ 3 أيام']
+  ].map(([c,a,b,d])=>`<div class="kpi ${c}"><span>${a}</span><b class="num">${b}</b><small>${d}</small></div>`).join('');
+
+  const trend=groupMean(idx,'m',i=>D.u[i],24);
+  mk('xTrend',{type:'line',data:{labels:months,datasets:[{data:trend,borderColor:GREEN,backgroundColor:'rgba(31,122,77,.10)',fill:true,tension:.35,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:GREEN,pointHoverBorderColor:'#fff',pointHoverBorderWidth:2,spanGaps:true}]},
+    options:{interaction:{mode:'index',intersect:false},scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:8}},y:{beginAtZero:true}},
+      plugins:{tooltip:{callbacks:{label:c=>' متوسط المبيعات: '+fmt(c.raw,2)}}}}});
+
+  const reg=groupMean(idx,'r',i=>D.s[i]*100,M.regions.length);
+  bar('xRegion',M.regions.map(ar),reg,{colors:GREEN,fmtv:v=>v==null?'–':fmt(v,2)+'%',suffix:'%'});
+  const cu=groupMean(idx,'c',i=>D.u[i],6), cw=groupMean(idx,'c',i=>D.w[i],6), cc=M.categories.map(c=>CAT_COLORS[c]);
+  bar('xCatUnits',M.categories.map(ar),cu,{colors:cc,fmtv:v=>v==null?'–':fmt(v,1)});
+  bar('xCatWaste',M.categories.map(ar),cw,{colors:cc,fmtv:v=>v==null?'–':fmt(v,2)});
+
+  const hist=new Array(30).fill(0);for(const i of idx){if(D.sl[i]>=0)hist[Math.min(29,D.sl[i])]++}
+  mk('xShelf',{type:'bar',data:{labels:hist.map((_,i)=>i),datasets:[{data:hist,backgroundColor:hist.map((_,i)=>i<=3?RED:GREEN),categoryPercentage:.9,barPercentage:.92}]},
+    options:{scales:{x:{grid:{display:false},title:{display:true,text:'الأيام المتبقية على انتهاء الصلاحية'},ticks:{autoSkip:true,maxTicksLimit:15}},y:{beginAtZero:true}},
+      plugins:{tooltip:{callbacks:{title:c=>c[0].label+' يوم',label:c=>' '+fmt(c.raw)+' سجل'}}}}});
+
+  const pm=[0,1].map(p=>{let s=0,n=0;for(const i of idx)if(D.p[i]===p){s+=D.u[i];n++}return n?s/n:null});
+  bar('xPromo',['بدون عرض','مع عرض'],pm,{colors:[GRAY,GREEN],fmtv:v=>v==null?'–':fmt(v,2)});
+
+  const rows=M.categories.map((c,j)=>{const ci=idx.filter(i=>D.c[i]===j),st=stats(ci);return {c,st}});
+  xTable.innerHTML='<thead><tr><th>الفئة</th><th>السجلات</th><th>متوسط المبيعات</th><th>متوسط الهدر</th><th>النفاد %</th><th>التوفر %</th><th>قرب الانتهاء %</th></tr></thead><tbody>'+
+    rows.map(({c,st})=>`<tr><td><span class="swatch" style="background:${CAT_COLORS[c]}"></span>${ar(c)} <span class="ltr" style="color:var(--ink-3)">${c}</span></td><td class="num">${fmt(st.n)}</td><td class="num">${st.n?fmt(st.u,2):'–'}</td><td class="num">${st.n?fmt(st.w,2):'–'}</td><td class="num">${st.n?fmt(st.s,2):'–'}</td><td class="num">${st.n?fmt(st.osa,2):'–'}</td><td class="num">${st.n?fmt(st.ne,2):'–'}</td></tr>`).join('')+'</tbody>';
+}
+/* verification table: full sample vs 1M figures from Phase 2 */
+(function(){
+  const all=Array.from({length:N},(_,i)=>i), S=stats(all);
+  let oh=0,lt=0;for(const i of all){oh+=D.oh[i];lt+=D.lt[i]}
+  const r=[['عدد السجلات','1,000,000',fmt(N),'عينة 1%'],
+    ['متوسط المبيعات (Units_Sold)','26.87',fmt(S.u,2)],
+    ['متوسط المخزون (On_Hand_Qty)','36.43',fmt(oh/N,2)],
+    ['متوسط الهدر (Waste_Qty)','0.90',fmt(S.w,2)],
+    ['متوسط مدة التوريد (يوم)','7.50',fmt(lt/N,2)],
+    ['نسبة تلبية الموردين','92.16%',fmt(S.fr,2)+'%'],
+    ['التوفر على الرف (OSA)','96.80%',fmt(S.osa,2)+'%'],
+    ['معدل النفاد','2.54%',fmt(S.s,2)+'%'],
+    ['قرب الانتهاء (≤ 3 أيام)','7.15%',fmt(S.ne,2)+'%']];
+  xVerify.innerHTML='<thead><tr><th>المؤشر</th><th>الملف الكامل (1,000,000)</th><th>هذه العينة (10,000)</th><th>الحكم</th></tr></thead><tbody>'+
+    r.map(x=>`<tr><td>${x[0]}</td><td class="num">${x[1]}</td><td class="num">${x[2]}</td><td>${x[3]?'<span style="color:var(--warn);font-weight:600">'+x[3]+'</span>':'<span class="ok">✓ متقارب</span>'}</td></tr>`).join('')+'</tbody>';
+})();
+let exDone=false;
+[fYear,fRegion,fCat,fTemp,fPromo].forEach(s=>s.onchange=drawExplore);
+fReset.onclick=()=>{[fYear,fRegion,fCat,fTemp,fPromo].forEach(s=>s.value='');drawExplore()};
+
+/* ---------- tabs ---------- */
+function show(v){
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id===v));
+  if(v==='p2')drawP2(); if(v==='p3')drawP3(); if(v==='explore'&&!exDone){exDone=true;drawExplore()}
+  if(location.hash.slice(1)!==v)history.replaceState(null,'','#'+v); window.scrollTo({top:0});
+}
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+function fromHash(){const h=location.hash.slice(1)||'overview';if(['overview','p2','p3','explore'].includes(h))show(h)}
+window.addEventListener('hashchange',fromHash); fromHash();
+</script>
+</body>
+</html>
