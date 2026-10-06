@@ -40,7 +40,7 @@ a{color:inherit;text-decoration:none}
 .nav .brand img{height:30px;width:auto}
 .nav .brand .sep{width:1px;height:26px;background:rgba(255,255,255,.25)}
 .nav .brand small{color:#CFE0D6;font-size:12px;line-height:1.3}
-.nav ul{display:flex;gap:4px;list-style:none;margin:0 auto 0 0;padding:0}
+.nav ul{display:flex;gap:4px;list-style:none;margin:0;margin-inline-end:auto;padding:0}
 .nav ul a{color:#D9E7DF;font-size:14px;padding:8px 14px;border-radius:999px;transition:.2s}
 .nav ul a:hover,.nav ul a.active{background:rgba(255,255,255,.08);color:#fff}
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;border:0;cursor:pointer;transition:.2s}
@@ -85,6 +85,7 @@ section{padding:96px 0}
 .section-tint{background:var(--green-50)}
 .phase-banner{background:linear-gradient(135deg,var(--green-800),var(--green-600));color:#fff;padding:64px 0;position:relative;overflow:hidden}
 .phase-banner .container{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.phase-banner .container>div:first-child{flex:1;min-width:260px}
 .phase-banner .big{font-family:var(--font-en);font-size:clamp(64px,10vw,140px);line-height:.9;color:rgba(255,255,255,.12);font-weight:700}
 .phase-banner h2{font-size:clamp(30px,4vw,48px);margin:8px 0}
 .phase-banner p{color:#CFE0D6;margin:0;max-width:640px}
@@ -277,3 +278,11 @@ footer .disc{max-width:620px;font-size:13px;color:#7F9A8C}
   .split .va,.split .te{min-width:84px}
   .nav .brand small{display:none}
 }
+
+/* ---------- language switch ---------- */
+.lang{display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:13px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:7px 14px;transition:.2s;white-space:nowrap}
+.lang:hover{background:rgba(255,255,255,.1);border-color:var(--gold);color:var(--gold)}
+.lang svg{width:15px;height:15px}
+html[dir="ltr"] .qbtn b{text-align:start}
+html[dir="ltr"] body{font-family:"IBM Plex Sans Arabic","Inter",system-ui,sans-serif}
+@media (max-width:860px){.nav .lang{margin-inline-start:auto}.menu-toggle{margin-inline-start:4px;order:5}}
