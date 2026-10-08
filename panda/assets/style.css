@@ -434,3 +434,40 @@ html[dir="rtl"] .ticker .track{animation-name:tickRtl}
 }
 .tab-kpis .k b{white-space:nowrap}
 @media (max-width:860px){.tab-kpis .k{padding:12px 14px}.tab-kpis .k b{font-size:19px}.tab-kpis .k small{display:block;margin:2px 0 0}}
+
+/* =====================================================================
+   Panda visit gallery
+   ===================================================================== */
+.visit-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.visit-head .section-head{margin-bottom:0}
+.visit-meta{display:flex;gap:10px;flex-wrap:wrap}
+.visit-meta span{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:#D9E7DF;border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:7px 14px}
+.visit-meta span b{color:var(--gold)}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:14px;grid-template-areas:
+  "g g w t"
+  "g g w t"
+  "n n m q"
+  "a a m d"}
+.bento .tile{position:relative;overflow:hidden;border-radius:20px;border:0;padding:0;cursor:zoom-in;background:#0b1f16;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.bento .tile img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .5s}
+.bento .tile:hover img{transform:scale(1.07)}
+.bento .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,30,20,.85) 0%,rgba(10,30,20,0) 55%);transition:opacity .4s}
+.bento .tile .cap{position:absolute;inset-inline:18px;bottom:16px;z-index:1;color:#fff;text-align:start;transform:translateY(6px);transition:transform .4s}
+.bento .tile:hover .cap{transform:none}
+.bento .tile .cap b{display:block;font-size:16px}
+.bento .tile .cap small{font-size:12.5px;color:#CFE0D6}
+.bento .tile.g .cap b{font-size:22px}
+.bento .g{grid-area:g}.bento .w{grid-area:w}.bento .t{grid-area:t}.bento .n{grid-area:n}.bento .m{grid-area:m}.bento .a{grid-area:a}.bento .d{grid-area:d}
+.bento .q{grid-area:q;border-radius:20px;background:linear-gradient(150deg,var(--gold),#E9CB7C);color:var(--green-900);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:18px;gap:4px;position:relative;overflow:hidden}
+.bento .q::before{content:"";position:absolute;width:160px;height:160px;border:2px solid rgba(15,42,30,.18);border-radius:46% 54% 50% 50%;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bento .q b{font-size:30px;line-height:1.2;position:relative}
+.bento .q span{font-size:15px;font-weight:600;letter-spacing:.06em;position:relative}
+.bento .tile.reveal{transform:translateY(30px) scale(.98)}
+.bento .tile.reveal.in{transform:none}
+@media (max-width:860px){
+  .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px;grid-template-areas:
+    "g g" "g g" "w t" "w t" "n n" "m q" "m d" "a a"}
+}
+@media (prefers-reduced-motion:reduce){.bento .q::before{animation:none}}
+.bento .tile{font-family:inherit;color:inherit}

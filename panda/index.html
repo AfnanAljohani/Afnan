@@ -24,9 +24,9 @@
     </a>
     <button class="menu-toggle" aria-label="القائمة" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
     <ul id="menu">
-      <li><a href="#problem">المشكلة</a></li>
-      <li><a href="#deck">العرض التقديمي</a></li>
+            <li><a href="#deck">العرض التقديمي</a></li>
       <li><a href="#tableau">Tableau</a></li>
+      <li><a href="#visit">الزيارة</a></li>
       <li><a href="#phase2">المرحلة الثانية</a></li>
       <li><a href="#phase3">المرحلة الثالثة</a></li>
       <li><a href="dashboard.html">الداشبورد</a></li>
@@ -164,6 +164,24 @@
         <div class="k"><span>Promotion Sales Share</span><b class="num">19.1%</b><small class="down num">−1.1 pp vs PY</small></div>
         <div class="k"><span>Unit Sales</span><b class="num">1.14M</b><small class="up num">+0.24% vs PY</small></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section class="section-dark" id="visit">
+  <div class="container">
+    <div class="visit-head reveal">
+      <div class="section-head">
+        <span class="eyebrow">PANDA VISIT · زيارة شركة بندة</span>
+        <h2>زيارتنا لشركة بندة</h2>
+        <p>زرنا مقر مجموعة صافولا في جدة، والتقينا بفريق بندة، وعرضنا عليهم مشروعنا ونقاشنا معهم في بيانات الأغذية الطازجة وتحدياتها على أرض الواقع.</p>
+      </div>
+      <div class="visit-meta"><span>📍 <b>جدة</b> · Savola Group HQ</span><span>🤝 <b>EWA</b> × Panda Retail</span></div>
+    </div>
+    <div class="bento">
+      <button class="tile g reveal" data-src="assets/visit/team.jpg" aria-label="فريق Group 10 في بندة"><img src="assets/visit/team.jpg" alt="فريق Group 10 في بندة" loading="lazy"><span class="cap"><b>فريق Group 10 في بندة</b><small>برنامج EWA للذكاء الاصطناعي وعلوم البيانات × بندة للتجزئة</small></span></button><button class="tile w reveal" data-src="assets/visit/window.jpg" aria-label="إطلالة من مكاتب بندة"><img src="assets/visit/window.jpg" alt="إطلالة من مكاتب بندة" loading="lazy"><span class="cap"><b>إطلالة من مكاتب بندة</b><small>مساحة عمل تطل على البحر</small></span></button><button class="tile t reveal" data-src="assets/visit/tower.jpg" aria-label="برج المقر"><img src="assets/visit/tower.jpg" alt="برج المقر" loading="lazy"><span class="cap"><b>برج المقر</b><small>كورنيش جدة</small></span></button><button class="tile n reveal" data-src="assets/visit/hq-night.jpg" aria-label="مقر مجموعة صافولا ليلًا"><img src="assets/visit/hq-night.jpg" alt="مقر مجموعة صافولا ليلًا" loading="lazy"><span class="cap"><b>مقر مجموعة صافولا ليلًا</b><small>جدة</small></span></button><button class="tile m reveal" data-src="assets/visit/meeting.jpg" aria-label="جلسة الاجتماع"><img src="assets/visit/meeting.jpg" alt="جلسة الاجتماع" loading="lazy"><span class="cap"><b>جلسة الاجتماع</b><small>عرض ونقاش مع فريق بندة</small></span></button><button class="tile a reveal" data-src="assets/visit/corniche.jpg" aria-label="كورنيش جدة من الأعلى"><img src="assets/visit/corniche.jpg" alt="كورنيش جدة من الأعلى" loading="lazy"><span class="cap"><b>كورنيش جدة من الأعلى</b><small>موقع المقر على البحر</small></span></button><button class="tile d reveal" data-src="assets/visit/hq-day.jpg" aria-label="المقر نهارًا"><img src="assets/visit/hq-day.jpg" alt="المقر نهارًا" loading="lazy"><span class="cap"><b>المقر نهارًا</b><small>مجموعة صافولا</small></span></button>
+      <div class="q reveal" aria-label="Better Together"><b>معك تفرق</b><span>BETTER TOGETHER</span></div>
     </div>
   </div>
 </section>
@@ -617,6 +635,7 @@ document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElemen
   stage.addEventListener('dblclick',()=>open(src(cur),true));
   document.getElementById('tabZoom').onclick=()=>open('assets/tableau-dashboard.jpg',false);
   document.getElementById('lbX').onclick=close;
+  document.querySelectorAll('.bento .tile').forEach(t=>t.onclick=()=>open(t.dataset.src,false));
   document.getElementById('lbN').onclick=e=>{e.stopPropagation();go(cur+1)};
   document.getElementById('lbP').onclick=e=>{e.stopPropagation();go(cur-1)};
   lb.addEventListener('click',e=>{if(e.target===lb)close()});

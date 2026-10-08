@@ -24,9 +24,9 @@
     </a>
     <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
     <ul id="menu">
-      <li><a href="#problem">Problem</a></li>
-      <li><a href="#deck">Presentation</a></li>
+            <li><a href="#deck">Presentation</a></li>
       <li><a href="#tableau">Tableau</a></li>
+      <li><a href="#visit">Visit</a></li>
       <li><a href="#phase2">Phase 2</a></li>
       <li><a href="#phase3">Phase 3</a></li>
       <li><a href="dashboard-en.html">Dashboard</a></li>
@@ -164,6 +164,24 @@
         <div class="k"><span>Promotion Sales Share</span><b class="num">19.1%</b><small class="down num">−1.1 pp vs PY</small></div>
         <div class="k"><span>Unit Sales</span><b class="num">1.14M</b><small class="up num">+0.24% vs PY</small></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section class="section-dark" id="visit">
+  <div class="container">
+    <div class="visit-head reveal">
+      <div class="section-head">
+        <span class="eyebrow">PANDA VISIT · FIELD VISIT</span>
+        <h2>Our visit to Panda</h2>
+        <p>We visited Savola Group headquarters in Jeddah, met the Panda team, presented our project and discussed the real-world challenges behind fresh-food data.</p>
+      </div>
+      <div class="visit-meta"><span>📍 <b>Jeddah</b> · Savola Group HQ</span><span>🤝 <b>EWA</b> × Panda Retail</span></div>
+    </div>
+    <div class="bento">
+      <button class="tile g reveal" data-src="assets/visit/team.jpg" aria-label="Group 10 at Panda"><img src="assets/visit/team.jpg" alt="Group 10 at Panda" loading="lazy"><span class="cap"><b>Group 10 at Panda</b><small>EWA AI &amp; Data Science Program × Panda Retail</small></span></button><button class="tile w reveal" data-src="assets/visit/window.jpg" aria-label="The view from Panda offices"><img src="assets/visit/window.jpg" alt="The view from Panda offices" loading="lazy"><span class="cap"><b>The view from Panda offices</b><small>Ocean-view workspace</small></span></button><button class="tile t reveal" data-src="assets/visit/tower.jpg" aria-label="The HQ tower"><img src="assets/visit/tower.jpg" alt="The HQ tower" loading="lazy"><span class="cap"><b>The HQ tower</b><small>Jeddah Corniche</small></span></button><button class="tile n reveal" data-src="assets/visit/hq-night.jpg" aria-label="Savola Group HQ at night"><img src="assets/visit/hq-night.jpg" alt="Savola Group HQ at night" loading="lazy"><span class="cap"><b>Savola Group HQ at night</b><small>Jeddah</small></span></button><button class="tile m reveal" data-src="assets/visit/meeting.jpg" aria-label="Meeting session"><img src="assets/visit/meeting.jpg" alt="Meeting session" loading="lazy"><span class="cap"><b>Meeting session</b><small>Presenting and discussing with the Panda team</small></span></button><button class="tile a reveal" data-src="assets/visit/corniche.jpg" aria-label="Jeddah Corniche from above"><img src="assets/visit/corniche.jpg" alt="Jeddah Corniche from above" loading="lazy"><span class="cap"><b>Jeddah Corniche from above</b><small>The HQ by the sea</small></span></button><button class="tile d reveal" data-src="assets/visit/hq-day.jpg" aria-label="HQ by day"><img src="assets/visit/hq-day.jpg" alt="HQ by day" loading="lazy"><span class="cap"><b>HQ by day</b><small>Savola Group</small></span></button>
+      <div class="q reveal" aria-label="Better Together"><b>معك تفرق</b><span>BETTER TOGETHER</span></div>
     </div>
   </div>
 </section>
@@ -617,6 +635,7 @@ document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElemen
   stage.addEventListener('dblclick',()=>open(src(cur),true));
   document.getElementById('tabZoom').onclick=()=>open('assets/tableau-dashboard.jpg',false);
   document.getElementById('lbX').onclick=close;
+  document.querySelectorAll('.bento .tile').forEach(t=>t.onclick=()=>open(t.dataset.src,false));
   document.getElementById('lbN').onclick=e=>{e.stopPropagation();go(cur+1)};
   document.getElementById('lbP').onclick=e=>{e.stopPropagation();go(cur-1)};
   lb.addEventListener('click',e=>{if(e.target===lb)close()});
