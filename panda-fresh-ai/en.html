@@ -25,7 +25,8 @@
     <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
     <ul id="menu">
       <li><a href="#problem">Problem</a></li>
-      <li><a href="#journey">Journey</a></li>
+      <li><a href="#deck">Presentation</a></li>
+      <li><a href="#tableau">Tableau</a></li>
       <li><a href="#phase2">Phase 2</a></li>
       <li><a href="#phase3">Phase 3</a></li>
       <li><a href="dashboard-en.html">Dashboard</a></li>
@@ -36,32 +37,35 @@
 </nav>
 
 <!-- ============ HERO ============ -->
-<header class="hero" id="top">
-  <div class="container">
+<header class="hero hero2" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="bg" style="background-image:url(assets/hero-1.jpg)"></div>
+    <div class="bg" style="background-image:url(assets/hero-2.jpg)"></div>
+    <div class="bg" style="background-image:url(assets/hero-3.jpg)"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="container hero-grid">
     <div>
-      <span class="eyebrow">PANDA · FRESH FOOD AI</span>
-      <h1>AI-powered <em>demand &amp; inventory</em> optimization for fresh food</h1>
+      <div class="hero-brand"><img class="icon" src="assets/panda-icon.png" alt=""><img class="word" src="assets/panda-white.png" alt="Panda"><span class="bar"></span><img class="sv" src="assets/savola-white.png" alt="Savola"></div>
+      <span class="eyebrow"><span class="live-dot"></span>PANDA × EWA · GROUP 10 · PHASE 2 &amp; 3</span>
+      <h1><span class="ln"><span>AI-powered <em class="shine">demand &amp; inventory</em></span></span><span class="ln"><span>optimization</span></span><span class="ln"><span>for fresh food</span></span></h1>
       <p class="lead">We turn one million records of product, supplier, store and distribution-center data into sharper decisions: how much to order, when to replenish, and how to cut waste and stockouts.</p>
-      <div class="actions">
-        <a class="btn btn-gold" href="dashboard-en.html">Explore the interactive dashboard</a>
-        <a class="btn btn-ghost" href="#phase2">Phase 2 &amp; Phase 3</a>
-      </div>
+      <div class="actions"><a class="btn btn-gold" href="#deck">▶ Watch our presentation</a><a class="btn btn-ghost" href="dashboard-en.html">Interactive dashboard</a></div>
     </div>
     <div class="photo">
-      <img src="assets/cover.jpg" alt="Shopping for fresh fruit and vegetables at Panda">
-      <div class="badge badge2"><b class="num">96.80%</b><span>Average on-shelf availability</span></div>
-      <div class="badge"><b class="num">871,314</b><span>Records ready for modeling</span></div>
+      <div class="frame" id="tilt">
+        <img src="assets/cover.jpg" alt="Shopping for fresh fruit and vegetables at Panda">
+        <div class="badge badge2"><b class="num">96.80%</b><span>Average on-shelf availability</span></div>
+        <div class="badge"><b class="num">871,314</b><span>Records ready for modeling</span></div>
+      </div>
     </div>
   </div>
+  <a class="scroll-cue" href="#problem" aria-label="Scroll down"></a>
+  <div class="ticker" aria-hidden="true"><div class="track"><div class="item"><b class="num">1,000,000</b>records</div><div class="item"><b class="num">871,314</b>clean, model-ready records</div><div class="item"><b class="num">96.80%</b>on-shelf availability</div><div class="item"><b class="num">7.15%</b>near-expiry share</div><div class="item"><b class="num">2.54%</b>stockout rate</div><div class="item"><b class="num">+59%</b>sales uplift on promotion</div><div class="item"><b class="num">SAR 19.41M</b>total sales · Tableau</div><div class="item"><b class="num">0%</b>missing after preparation</div><div class="item"><b class="num">1,000</b>stores</div><div class="item"><b class="num">30</b>distribution centers</div><div class="item"><b class="num">1,000,000</b>records</div><div class="item"><b class="num">871,314</b>clean, model-ready records</div><div class="item"><b class="num">96.80%</b>on-shelf availability</div><div class="item"><b class="num">7.15%</b>near-expiry share</div><div class="item"><b class="num">2.54%</b>stockout rate</div><div class="item"><b class="num">+59%</b>sales uplift on promotion</div><div class="item"><b class="num">SAR 19.41M</b>total sales · Tableau</div><div class="item"><b class="num">0%</b>missing after preparation</div><div class="item"><b class="num">1,000</b>stores</div><div class="item"><b class="num">30</b>distribution centers</div></div></div>
   <div class="kpi-strip">
     <div class="container">
-      <div><b class="num" data-count="1000000">1,000,000</b><span>Records</span></div>
-      <div><b class="num" data-count="26">26</b><span>Variables</span></div>
-      <div><b class="num" data-count="1000">1,000</b><span>Stores</span></div>
-      <div><b class="num" data-count="149827">149,827</b><span>SKUs</span></div>
-      <div><b class="num" data-count="532564">532,564</b><span>Batches</span></div>
-      <div><b class="num" data-count="12000">12,000</b><span>Suppliers</span></div>
-      <div><b class="num" data-count="30">30</b><span>Distribution centers</span></div>
+      <div><b class="num" data-count="1000000">1,000,000</b><span>Records</span></div><div><b class="num" data-count="26">26</b><span>Variables</span></div><div><b class="num" data-count="1000">1,000</b><span>Stores</span></div><div><b class="num" data-count="149827">149,827</b><span>SKUs</span></div><div><b class="num" data-count="532564">532,564</b><span>Batches</span></div><div><b class="num" data-count="12000">12,000</b><span>Suppliers</span></div><div><b class="num" data-count="30">30</b><span>Distribution centers</span></div>
     </div>
   </div>
 </header>
@@ -109,6 +113,57 @@
       <div class="tl done"><div class="dot num">2</div><h3>Data Understanding</h3><p>Descriptive statistics, relationships, a data quality report and 10 analytical questions.</p><span class="tag gold">Completed</span></div>
       <div class="tl done"><div class="dot num">3</div><h3>Data Preparation</h3><p>Every issue treated, features engineered, and two model-ready analytical tables built.</p><span class="tag gold">Completed</span></div>
       <div class="tl"><div class="dot num">4</div><h3>Modeling &amp; Evaluation</h3><p>Train baseline and advanced models, evaluated on held-out test weeks.</p><span class="tag">Next</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRESENTATION ============ -->
+<section class="section-dark" id="deck">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">OUR PRESENTATION</span>
+      <h2>Our presentation: Phase 2 &amp; Phase 3</h2>
+      <p>19 slides covering our journey: business and data understanding, data preparation, the Tableau dashboard, and our visit to Panda. Use the arrows, your keyboard, or swipe on mobile.</p>
+    </div>
+    <div class="deck-wrap reveal">
+      <div class="stage" id="stage" tabindex="0" aria-roledescription="carousel" aria-label="Presentation slides">
+        <img class="on" src="assets/slides/slide-01.jpg" alt="Cover: AI-Powered Fresh Food Demand & Inventory Optimization">
+        <button class="nav-btn prev" id="dPrev" aria-label="Previous">‹</button>
+        <button class="nav-btn next" id="dNext" aria-label="Next">›</button>
+        <div class="progress"><i id="dProg" style="width:5.26%"></i></div>
+      </div>
+      <div class="deck-bar">
+        <div class="cap"><span id="dCap">Cover: AI-Powered Fresh Food Demand & Inventory Optimization</span><small><span class="num" id="dNum">1 / 19</span> · PANDA · Group 10</small></div>
+        <div class="tools">
+          <button class="btn btn-ghost" id="dFull">⛶ Full screen</button>
+          <a class="btn btn-gold" href="assets/PANDA_Group10_Phase2-3_Presentation.pptx" download>⬇ Download deck (PPTX)</a>
+        </div>
+      </div>
+      <div class="thumbs" id="thumbs"><button data-i="0" aria-label="Slide 1"><img src="assets/slides/thumbs/slide-01.jpg" alt="" loading="lazy"><span class="num">1</span></button><button data-i="1" aria-label="Slide 2"><img src="assets/slides/thumbs/slide-02.jpg" alt="" loading="lazy"><span class="num">2</span></button><button data-i="2" aria-label="Slide 3"><img src="assets/slides/thumbs/slide-03.jpg" alt="" loading="lazy"><span class="num">3</span></button><button data-i="3" aria-label="Slide 4"><img src="assets/slides/thumbs/slide-04.jpg" alt="" loading="lazy"><span class="num">4</span></button><button data-i="4" aria-label="Slide 5"><img src="assets/slides/thumbs/slide-05.jpg" alt="" loading="lazy"><span class="num">5</span></button><button data-i="5" aria-label="Slide 6"><img src="assets/slides/thumbs/slide-06.jpg" alt="" loading="lazy"><span class="num">6</span></button><button data-i="6" aria-label="Slide 7"><img src="assets/slides/thumbs/slide-07.jpg" alt="" loading="lazy"><span class="num">7</span></button><button data-i="7" aria-label="Slide 8"><img src="assets/slides/thumbs/slide-08.jpg" alt="" loading="lazy"><span class="num">8</span></button><button data-i="8" aria-label="Slide 9"><img src="assets/slides/thumbs/slide-09.jpg" alt="" loading="lazy"><span class="num">9</span></button><button data-i="9" aria-label="Slide 10"><img src="assets/slides/thumbs/slide-10.jpg" alt="" loading="lazy"><span class="num">10</span></button><button data-i="10" aria-label="Slide 11"><img src="assets/slides/thumbs/slide-11.jpg" alt="" loading="lazy"><span class="num">11</span></button><button data-i="11" aria-label="Slide 12"><img src="assets/slides/thumbs/slide-12.jpg" alt="" loading="lazy"><span class="num">12</span></button><button data-i="12" aria-label="Slide 13"><img src="assets/slides/thumbs/slide-13.jpg" alt="" loading="lazy"><span class="num">13</span></button><button data-i="13" aria-label="Slide 14"><img src="assets/slides/thumbs/slide-14.jpg" alt="" loading="lazy"><span class="num">14</span></button><button data-i="14" aria-label="Slide 15"><img src="assets/slides/thumbs/slide-15.jpg" alt="" loading="lazy"><span class="num">15</span></button><button data-i="15" aria-label="Slide 16"><img src="assets/slides/thumbs/slide-16.jpg" alt="" loading="lazy"><span class="num">16</span></button><button data-i="16" aria-label="Slide 17"><img src="assets/slides/thumbs/slide-17.jpg" alt="" loading="lazy"><span class="num">17</span></button><button data-i="17" aria-label="Slide 18"><img src="assets/slides/thumbs/slide-18.jpg" alt="" loading="lazy"><span class="num">18</span></button><button data-i="18" aria-label="Slide 19"><img src="assets/slides/thumbs/slide-19.jpg" alt="" loading="lazy"><span class="num">19</span></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TABLEAU ============ -->
+<section id="tableau">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">TABLEAU · SALES &amp; OPERATIONS</span>
+      <h2>Tableau dashboard: Sales &amp; Operations</h2>
+      <p>A dashboard we built in Tableau covering sales, waste, stockouts and promotion share versus the previous year, plus sales by city and stockout rate by category. Click the image to enlarge it.</p>
+    </div>
+    <div class="showcase reveal">
+      <div class="window">
+        <div class="bar"><i></i><i></i><i></i><span>PANDA | Sales &amp; Operations Dashboard</span></div>
+        <button id="tabZoom" aria-label="Enlarge dashboard"><img src="assets/tableau-dashboard.jpg" alt="PANDA Tableau sales and operations dashboard" loading="lazy"></button>
+      </div>
+      <div class="tab-kpis">
+        <div class="k"><span>Total Sales</span><b class="num">SAR 19.41M</b><small class="down num">−0.02% vs PY</small></div>
+        <div class="k"><span>Waste Qty</span><b class="num">37,247</b><small class="up num">−2.0% vs PY</small></div>
+        <div class="k"><span>Stockout Rate</span><b class="num">2.5%</b><small class="up num">−0.03 pp vs PY</small></div>
+        <div class="k"><span>Promotion Sales Share</span><b class="num">19.1%</b><small class="down num">−1.1 pp vs PY</small></div>
+        <div class="k"><span>Unit Sales</span><b class="num">1.14M</b><small class="up num">+0.24% vs PY</small></div>
+      </div>
     </div>
   </div>
 </section>
@@ -521,6 +576,59 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
   });
 }
 document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
+</script>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true"><button class="x" id="lbX" aria-label="Close">✕</button><button class="lb-prev" id="lbP" aria-label="Previous">‹</button><img id="lbImg" alt=""><button class="lb-next" id="lbN" aria-label="Next">›</button></div>
+<script>
+/* ---------- presentation viewer ---------- */
+(function(){
+  const N=19, CAPS=["Cover: AI-Powered Fresh Food Demand & Inventory Optimization", "Stakeholders definition", "Agenda", "Business understanding: problem & objectives", "Data at a glance", "DQ4 · Remaining shelf life & near-expiry", "DQ2 · Stockout: promotion vs. non-promotion", "GQ3 · Why stockout differs with promotions", "What the data tells us: three findings", "Appendix: skewness of Units_Sold", "Phase 3 · Data preparation", "What we found in the data", "How we fixed it (1)", "How we fixed it (2)", "How we will analyse it", "Tableau dashboard", "Panda visit", "Inside the visit", "Thank you"];
+  const stage=document.getElementById('stage'), thumbs=[...document.querySelectorAll('#thumbs button')];
+  const src=i=>`assets/slides/slide-${String(i+1).padStart(2,'0')}.jpg`;
+  let cur=0;
+  function go(i){
+    i=(i+N)%N; if(i===cur && stage.querySelector('img.on')) {}
+    const old=stage.querySelector('img.on'), im=new Image();
+    im.src=src(i); im.alt=CAPS[i];
+    stage.insertBefore(im,stage.firstChild);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{im.classList.add('on');if(old&&old!==im){old.classList.remove('on');setTimeout(()=>old.remove(),600)}}));
+    cur=i;
+    document.getElementById('dCap').textContent=CAPS[i];
+    document.getElementById('dNum').textContent=(i+1)+' / '+N;
+    document.getElementById('dProg').style.width=((i+1)/N*100)+'%';
+    thumbs.forEach((t,k)=>t.classList.toggle('on',k===i));
+    const t=thumbs[i]; t.parentNode.scrollTo({left:t.offsetLeft-t.parentNode.clientWidth/2+t.clientWidth/2,behavior:'smooth'});
+    [i+1,i-1].forEach(k=>{const p=new Image();p.src=src((k+N)%N)});
+    if(lb.classList.contains('deck')) lbImg.src=src(i);
+  }
+  thumbs.forEach(t=>t.onclick=()=>go(+t.dataset.i));
+  thumbs[0].classList.add('on');
+  document.getElementById('dNext').onclick=()=>go(cur+1);
+  document.getElementById('dPrev').onclick=()=>go(cur-1);
+  const fwd=1; // ArrowRight moves forward in LTR, backward in RTL
+  function key(e){if(e.key==='ArrowRight')go(cur+fwd);else if(e.key==='ArrowLeft')go(cur-fwd);else if(e.key==='Escape')close();}
+  stage.addEventListener('keydown',key);
+  let x0=null; stage.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  stage.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)go(cur+(dx<0?fwd:-fwd));x0=null});
+  /* lightbox */
+  const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
+  function open(srcUrl,isDeck){lbImg.src=srcUrl;lb.classList.toggle('deck',!!isDeck);lb.classList.add('open');document.body.style.overflow='hidden';document.getElementById('lbX').focus()}
+  function close(){lb.classList.remove('open','deck');document.body.style.overflow=''}
+  document.getElementById('dFull').onclick=()=>open(src(cur),true);
+  stage.addEventListener('dblclick',()=>open(src(cur),true));
+  document.getElementById('tabZoom').onclick=()=>open('assets/tableau-dashboard.jpg',false);
+  document.getElementById('lbX').onclick=close;
+  document.getElementById('lbN').onclick=e=>{e.stopPropagation();go(cur+1)};
+  document.getElementById('lbP').onclick=e=>{e.stopPropagation();go(cur-1)};
+  lb.addEventListener('click',e=>{if(e.target===lb)close()});
+  document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();else if(lb.classList.contains('deck'))key(e)});
+})();
+/* ---------- hero photo tilt ---------- */
+(function(){
+  const f=document.getElementById('tilt'); if(!f||matchMedia('(prefers-reduced-motion: reduce)').matches||matchMedia('(hover: none)').matches)return;
+  const hero=document.querySelector('.hero2');
+  hero.addEventListener('pointermove',e=>{const r=f.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;f.style.transform=`rotateY(${x*8}deg) rotateX(${-y*8}deg)`});
+  hero.addEventListener('pointerleave',()=>f.style.transform='');
+})();
 </script>
 </body>
 </html>
