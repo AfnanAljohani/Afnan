@@ -454,6 +454,47 @@ footer .mono{font-size:12.5px}
 .btn-sm{padding:9px 16px;font-size:14px}
 .btn-danger{border:1px solid color-mix(in srgb,#ef4444 50%,transparent);color:#ef4444}
 
+
+/* ===== phone & tablet fit ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+@media (max-width:760px){
+  section.block{padding:64px 0}
+  .hero{padding:28px 0 48px;min-height:0}
+  .lede{font-size:16.5px}
+  .status{font-size:13px;padding:7px 12px}
+  .status .mono{font-size:12px}
+  .card,.code-card,.nav.scrolled,.nav-links{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .card,.code-card{background:var(--panel-solid)}
+  .nav.scrolled{background:color-mix(in srgb,var(--bg) 97%,transparent)}
+  .tbl thead{display:none}
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl tr{padding:14px 16px;border-bottom:1px solid var(--line)}
+  .tbl tr:last-child{border-bottom:0}
+  .tbl td{padding:3px 0;border:0;text-align:right!important}
+  .tbl td[data-label]::before{content:attr(data-label);display:block;font-size:12px;color:var(--mute);margin-top:6px}
+  .tbl td:first-child::before{display:none}
+  .tbl td:first-child b{font-size:17px;color:var(--accent)}
+  .meter{flex-direction:column;align-items:flex-start;gap:14px}
+  .meter p{min-width:0}
+  .fcard{flex-wrap:wrap}
+  .fcard .info{min-width:calc(100% - 80px)}
+  .fcard .dl{width:100%;justify-content:center}
+  .fcard .lock{width:100%;justify-content:flex-end}
+  .pdf-frame{display:none}
+  .sub-title b{display:block;margin:4px 0 0;font-size:19px}
+  .hb{gap:6px 12px}
+  .join{padding:40px 20px}
+  .modal .box{padding:18px;max-height:calc(100dvh - 32px)}
+}
+@media (max-width:760px) and (hover:none){
+  .code-card{transform:none!important}
+}
+/* iOS zooms into inputs smaller than 16px */
+@media (max-width:760px){
+  input,select,textarea,.erow input,.erow select,.modal select,.search input{font-size:16px!important}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
@@ -965,12 +1006,12 @@ let W, H, traces = [], pulses = [], pads = [];
 const G = 28;
 function css(v){ return getComputedStyle(root).getPropertyValue(v).trim(); }
 function buildCircuit(){
-  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const dpr = Math.min(devicePixelRatio || 1, innerWidth < 760 ? 1.5 : 2);
   W = innerWidth; H = innerHeight;
   cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr,0,0,dpr,0,0);
   traces = []; pads = [];
   const cols = Math.ceil(W / G), rows = Math.ceil(H / G);
-  const n = Math.round(cols * rows / 26);
+  const n = Math.round(cols * rows / (W < 760 ? 40 : 26));
   for (let i = 0; i < n; i++){
     let x = Math.floor(Math.random()*cols)*G, y = Math.floor(Math.random()*rows)*G;
     const pts = [[x,y]]; let dir = Math.floor(Math.random()*4);
@@ -987,7 +1028,7 @@ function buildCircuit(){
     traces.push({pts, L});
   }
   for (let i = 0; i < Math.round(W*H/90000); i++) pads.push({x: Math.random()*W, y: Math.random()*H, w: 40+Math.random()*70, h: 40+Math.random()*70});
-  pulses = Array.from({length: Math.min(28, traces.length)}, () => newPulse());
+  pulses = Array.from({length: Math.min(W < 760 ? 14 : 28, traces.length)}, () => newPulse());
 }
 function newPulse(){ const t = traces[Math.floor(Math.random()*traces.length)]; return {t, d: 0, v: .6 + Math.random()*1.4}; }
 function pointAt(t, d){
@@ -1025,7 +1066,7 @@ function draw(){
   if (!reduce) requestAnimationFrame(draw);
 }
 buildCircuit(); draw();
-let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { buildCircuit(); if (reduce) draw(); }, 200); });
+let rt, lastW = innerWidth; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (innerWidth === lastW && Math.abs(innerHeight - H) < 160){ return; } lastW = innerWidth; buildCircuit(); if (reduce) draw(); }, 200); });
 
 /* ---------- circuit title ---------- */
 const FONT = {
@@ -1505,6 +1546,9 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
     Promise.resolve(u.canEdit()).then(ok => { canEdit = !!ok; $('#editHeroes').classList.toggle('on', canEdit); });
   });
 })();
+
+/* ---------- tables stack on phones: label each cell with its column ---------- */
+$$('table.tbl').forEach(t => { const hs = $$('thead th', t).map(th => th.textContent.trim()); $$('tbody tr', t).forEach(tr => [...tr.children].forEach((td,i) => hs[i] && td.setAttribute('data-label', hs[i]))); });
 
 /* ---------- reveal + counters + bars ---------- */
 function countUp(el){
