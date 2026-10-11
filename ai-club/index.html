@@ -455,6 +455,24 @@ footer .mono{font-size:12.5px}
 .btn-danger{border:1px solid color-mix(in srgb,#ef4444 50%,transparent);color:#ef4444}
 
 
+
+/* saudi edition gallery */
+.saudi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.saudi > *,.workshop > *{min-width:0}
+.saudi figure,.workshop figure{margin:0;border:1px solid var(--line-strong);border-radius:var(--r);overflow:hidden;background:var(--panel-solid);display:flex;flex-direction:column}
+.saudi img,.workshop img{display:block;width:100%;height:auto;max-width:100%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.saudi figure:hover img,.workshop figure:hover img{transform:scale(1.03)}
+.saudi figure > div,.workshop figure > div{overflow:hidden}
+.saudi figcaption,.workshop figcaption{padding:12px 16px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;font-weight:600;border-top:1px solid var(--line)}
+.saudi figcaption .mono,.workshop figcaption .mono{font-size:11px;color:var(--mute);font-weight:500;direction:ltr}
+.workshop{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:14px;margin-bottom:56px;align-items:stretch}
+.workshop .card{display:flex;flex-direction:column;justify-content:center;gap:10px}
+.workshop .card h3{font-size:24px}
+.workshop .card .when{font-size:17px;font-weight:600;color:var(--accent)}
+.workshop .card .cta{margin-top:10px}
+@media (max-width:860px){.saudi{grid-template-columns:1fr 1fr}.saudi figure:last-child{grid-column:1 / -1}.workshop{grid-template-columns:1fr}.workshop figure{max-width:440px;width:100%;justify-self:center}}
+@media (max-width:560px){.saudi{grid-template-columns:1fr}}
+
 /* ===== phone & tablet fit ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
@@ -605,6 +623,23 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         <figure class="fig"><canvas data-art="vision" aria-hidden="true"></canvas><span class="corner">detect · 3 objects</span><figcaption><span>الرؤية الحاسوبية</span><span class="mono">fig.02 · yolo.scan()</span></figcaption></figure>
         <figure class="fig"><canvas data-art="water" aria-hidden="true"></canvas><figcaption><span>بيانات المياه</span><span class="mono" id="flowLbl">fig.03 · flow</span></figcaption></figure>
         <figure class="fig wide"><canvas data-art="energy" aria-hidden="true"></canvas><figcaption><span>التنبؤ باستهلاك الطاقة · تحدي نوفمبر</span><span class="mono" id="maeLbl">fig.04 · MAE 2.1%</span></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="sub-title reveal">SAUDI EDITION // <b>بلمسة سعودية</b></div>
+    <div class="saudi reveal">
+      <figure><div><img src="img/saudi-riyadh.webp" width="1600" height="1000" loading="lazy" alt="سماء الرياض ليلًا تتحول نجومها إلى شبكة بيانات فوق بيوت نجدية وأبراج ونخيل"></div><figcaption><span>الرياض الذكية</span><span class="mono">fig.05 · riyadh.night</span></figcaption></figure>
+      <figure><div><img src="img/saudi-solar.webp" width="1600" height="1000" loading="lazy" alt="شروق الشمس على كثبان الصحراء مع ألواح شمسية وتوربينات رياح ومنحنى تنبؤ"></div><figcaption><span>طاقة الصحراء</span><span class="mono">fig.06 · solar.forecast</span></figcaption></figure>
+      <figure><div><img src="img/saudi-sadu.webp" width="1600" height="1000" loading="lazy" alt="نقشة السدو تتحول خيوطها إلى شبكة عصبية"></div><figcaption><span>من السدو إلى الشبكات العصبية</span><span class="mono">fig.07 · sadu</span></figcaption></figure>
+    </div>
+    <div class="workshop reveal">
+      <figure><div><img src="img/saudi-poster.webp" width="1080" height="1350" loading="lazy" alt="بوستر ورشة التهيئة: أساسيات Python للبيانات، الأربعاء 28 أكتوبر 2026"></div><figcaption><span>بوستر الورشة</span><span class="mono">poster · 1080×1350</span></figcaption></figure>
+      <div class="card">
+        <span class="kicker">NEXT WORKSHOP //</span>
+        <h3>ورشة تهيئة: أساسيات Python للبيانات</h3>
+        <div class="when">الأربعاء 28 أكتوبر 2026 · أول «أربعاء الذكاء»</div>
+        <p>يقدّمها قسم التدريب والتطوير.</p>
+        <div class="cta"><a class="btn btn-ghost btn-sm" href="#plan">الجدول الزمني</a></div>
       </div>
     </div>
 
