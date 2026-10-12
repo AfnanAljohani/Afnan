@@ -6,4 +6,4 @@
 
 ## التحضير الذكي
 
-مجلد [`attendance/`](attendance/) فيه نظام تحضير بالموقع لـ 6 محاضرات يومية وشاشة عرض للحاضرين. الخطوات في [`attendance/README.md`](attendance/README.md).
+مجلد [`attendance/`](attendance/) فيه نظام تحضير بالموقع لـ 6 محاضرات يومية وشاشة عرض للحاضرين، والحضور ينحفظ في Google Sheet. الخطوات في [`attendance/README.md`](attendance/README.md).
