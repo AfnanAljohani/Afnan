@@ -1,7 +1,7 @@
 // سجل أسماء متدربي دبلوم الذكاء الاصطناعي وعلوم البيانات (104 متدرب، 10 مجموعات)
 // المصدر: EWA AI Diploma - Students Groups · Made with Love by AFNAN aljohani
 // لإضافة أو تعديل اسم: عدّلي السطر حقه. ar = الاسم بالعربي، grp = رقم المجموعة
-window.ATT_GROUPS = {"1": "ACWA 1", "2": "ACWA 2", "3": "DevoTeam 1", "4": "DevoTeam 2", "5": "Maaden 1", "6": "Maaden 2", "7": "Maaden 3", "8": "DataVolt & Saudi Tabreed", "9": "Vision Industries, Miahona & Advanced Piping", "10": "ICON, Panda & JIGPC"};
+window.ATT_GROUPS = {"1": "ACWA 1", "2": "ACWA 2", "3": "DevoTeam 1", "4": "DevoTeam 2", "5": "Maaden 1", "6": "Maaden 2", "7": "Maaden 3", "8": "DataVolt & Saudi Tabreed", "9": "Vision Industries, Miahona & Advanced Piping", "10": "ICON, Panda, JIGPC & GIB"};
 window.ATT_ROSTER = [
   {"ar": "عبدالله ياسين صالح آل لعجم", "en": "Abdullah Yaseen Saleh Al Lajam", "grp": 1},
   {"ar": "أميره حسين حاسن الطلحي", "en": "Ameera Hussein Hasan Al Talhi", "grp": 1},
@@ -105,6 +105,6 @@ window.ATT_ROSTER = [
   {"ar": "يحيى محمد جابر مدخلي", "en": "Yahya Mohammed Jaber Madkhali", "grp": 10},
   {"ar": "ميمونه احمد محمد جعفري", "en": "Maimona Ahmed Mohammed Jaafari", "grp": 10},
   {"ar": "الوليد احمد محمد المطمي", "en": "Alwaleed Ahmed Mohammed Al Mutami", "grp": 10},
-  {"ar": "عبير العكوز", "en": "Abeer Al Akouz", "grp": 10},
-  {"ar": "زياد الزهراني", "en": "Ziyad Al Zahrani", "grp": 10},
+  {"ar": "عبير محمد العكوز", "en": "Abeer Mohammed Al Akouz", "grp": 10},
+  {"ar": "زياد صالح الزهراني", "en": "Ziyad Saleh Al Zahrani", "grp": 10},
 ];
