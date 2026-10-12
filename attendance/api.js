@@ -1,20 +1,18 @@
-// اتصال بسيط بـ Supabase عن طريق REST، بدون مكتبات
+// اتصال بـ Google Apps Script (الحضور ينحفظ في Google Sheet)
 (function () {
   const cfg = window.ATTENDANCE_CONFIG || {};
-  const ready = Boolean(cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY);
+  const ready = Boolean(cfg.SCRIPT_URL);
 
-  async function call(path, { method = "GET", body } = {}) {
-    const res = await fetch(cfg.SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/" + path, {
-      method,
-      headers: {
-        apikey: cfg.SUPABASE_ANON_KEY,
-        Authorization: "Bearer " + cfg.SUPABASE_ANON_KEY,
-        "Content-Type": "application/json",
-      },
-      body: body ? JSON.stringify(body) : undefined,
-    });
+  async function request(options) {
+    let res;
+    try {
+      res = await fetch(cfg.SCRIPT_URL + (options ? "" : "?t=" + Date.now()), options);
+    } catch {
+      throw new Error("ما قدرنا نوصل للسيرفر. تأكد من الإنترنت وحاول مرة ثانية");
+    }
     const data = await res.json().catch(() => null);
-    if (!res.ok) throw new Error((data && data.message) || "صار خطأ في الاتصال، حاول مرة ثانية");
+    if (!data) throw new Error("صار خطأ في الاتصال، حاول مرة ثانية");
+    if (!data.ok) throw new Error(data.error);
     return data;
   }
 
@@ -22,15 +20,10 @@
   function riyadhNow() {
     const p = Object.fromEntries(
       new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Asia/Riyadh", hour12: false,
-        year: "numeric", month: "2-digit", day: "2-digit",
-        hour: "2-digit", minute: "2-digit", second: "2-digit",
+        timeZone: "Asia/Riyadh", hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit",
       }).formatToParts(new Date()).map((x) => [x.type, x.value])
     );
-    return {
-      date: `${p.year}-${p.month}-${p.day}`,
-      minutes: (+p.hour % 24) * 60 + +p.minute + +p.second / 60,
-    };
+    return { minutes: (+p.hour % 24) * 60 + +p.minute + +p.second / 60 };
   }
 
   const toMin = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
@@ -53,14 +46,17 @@
     new Date(iso).toLocaleTimeString("ar-SA-u-nu-latn", { timeZone: "Asia/Riyadh", hour: "numeric", minute: "2-digit" });
 
   window.Att = {
-    ready, call, riyadhNow, toMin, lectureState, fmtTime,
-    loadSchedule: async () => {
-      const [lectures, settings] = await Promise.all([
-        call("lectures?select=*&order=starts_at"),
-        call("settings?select=*&id=eq.1"),
-      ]);
-      lectures.forEach((l) => { l.starts_at = l.starts_at.slice(0, 5); l.ends_at = l.ends_at.slice(0, 5); });
-      return { lectures, settings: settings[0] };
-    },
+    ready, lectureState, fmtTime,
+    loadSchedule: async () => ({
+      lectures: cfg.LECTURES || [],
+      settings: { open_before_min: cfg.OPEN_BEFORE_MIN ?? 10, close_after_min: cfg.CLOSE_AFTER_MIN ?? 20 },
+    }),
+    today: async () => (await request()).rows,
+    // text/plain عشان المتصفح ما يرسل طلب CORS إضافي لـ Google
+    checkIn: (body) => request({
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(body),
+    }),
   };
 })();

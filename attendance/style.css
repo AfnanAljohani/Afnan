@@ -41,3 +41,7 @@ h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
   background: var(--ink2); color: var(--mute);
 }
 .notice code { color: var(--y); font-family: var(--mono); }
+.credit {
+  text-align: center; padding: 8px 16px 28px; color: var(--mute);
+  font: 500 14px var(--mono); letter-spacing: .04em;
+}
