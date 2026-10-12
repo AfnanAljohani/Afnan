@@ -45,3 +45,15 @@ h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
   text-align: center; padding: 8px 16px 28px; color: var(--mute);
   font: 500 14px var(--mono); letter-spacing: .04em;
 }
+.nav {
+  position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px clamp(16px, 3vw, 48px); background: rgba(3, 8, 6, .82); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .brand { color: var(--on); text-decoration: none; font: 700 16px var(--body); white-space: nowrap; }
+.nav .brand span { color: var(--y); margin: 0 6px; }
+.nav .links { display: flex; align-items: center; gap: 4px; }
+.nav .links a { color: var(--mute); text-decoration: none; font: 600 15px var(--body); padding: 8px 12px; border-radius: 10px; white-space: nowrap; }
+.nav .links a:hover, .nav .links a.on { color: var(--on); background: var(--ink3); }
+.nav .links a.go { background: var(--y); color: #02140d; margin-inline-start: 6px; }
+@media (max-width: 480px) { .nav .brand { display: none; } .nav { justify-content: center; } .nav .links a { padding: 8px 10px; font-size: 14px; } }
