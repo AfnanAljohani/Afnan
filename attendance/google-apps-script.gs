@@ -12,7 +12,8 @@ const CONFIG = {
   OPEN_BEFORE_MIN: 10,  // التحضير يفتح قبل المحاضرة بكم دقيقة
   CLOSE_AFTER_MIN: 20,  // ويقفل بعد بدايتها بكم دقيقة
   LATE_AFTER_MIN: 5,    // بعدها يعتبر متأخر
-  ALWAYS_OPEN: false,   // خليها true للتجربة بس: التحضير يفتح أي وقت ويُحسب على المحاضرة الأولى
+  // وضع التجربة: التحضير مفتوح أي وقت ومن أي مكان، ويطفي لحاله بعد هالوقت (توقيت الرياض)
+  TEST_UNTIL: '2026-10-12T07:45:00+03:00',
   LECTURES: [
     { num: 1, title: 'المحاضرة الأولى',  starts_at: '08:00' },
     { num: 2, title: 'المحاضرة الثانية', starts_at: '09:00' },
@@ -28,9 +29,12 @@ const HEADERS = ['التاريخ', 'المحاضرة', 'الاسم', 'الرقم
                  'الدقائق بعد البداية', 'الحالة', 'المسافة (م)', 'الجهاز'];
 
 function doGet() {
-  const today = Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd');
+  const now = new Date();
+  const today = Utilities.formatDate(now, TZ, 'yyyy-MM-dd');
+  const testing = isTesting_(now);
+  // تسجيلات التجربة تختفي من الشاشة أول ما ينتهي وضع التجربة
   const rows = getSheet_().getDataRange().getDisplayValues().slice(1)
-    .filter((r) => r[0] === today)
+    .filter((r) => r[0] === today && (r[6] === 'تجربة') === testing)
     .map(toPublic_);
   return json_({ ok: true, rows: rows });
 }
@@ -45,22 +49,23 @@ function doPost(e) {
     if (name.length < 2 || name.length > 80) return fail_('اكتب اسمك الكامل');
     if (!/^[0-9A-Z-]{3,20}$/.test(aid)) return fail_('الرقم الأكاديمي غير صحيح');
     if (typeof b.lat !== 'number' || typeof b.lng !== 'number') return fail_('لازم تسمح للموقع يوصل لمكانك');
-    if (!(b.accuracy <= CONFIG.MAX_ACCURACY_M)) {
+    if (!isTesting_(new Date()) && !(b.accuracy <= CONFIG.MAX_ACCURACY_M)) {
       return fail_('دقة الموقع ضعيفة (' + Math.round(b.accuracy || 9999) + ' م). شغّل GPS وحاول مرة ثانية');
     }
-    const dist = distanceM_(b.lat, b.lng, CONFIG.ACADEMY.lat, CONFIG.ACADEMY.lng);
-    if (dist > CONFIG.RADIUS_M) return fail_('أنت خارج موقع الأكاديمية (تبعد ' + Math.round(dist) + ' م)');
-
     const now = new Date();
+    const testing = isTesting_(now);
+    const dist = distanceM_(b.lat, b.lng, CONFIG.ACADEMY.lat, CONFIG.ACADEMY.lng);
+    if (!testing && dist > CONFIG.RADIUS_M) return fail_('أنت خارج موقع الأكاديمية (تبعد ' + Math.round(dist) + ' م)');
+
     const today = Utilities.formatDate(now, TZ, 'yyyy-MM-dd');
     const nowMin = toMin_(Utilities.formatDate(now, TZ, 'HH:mm')) + now.getSeconds() / 60;
-    const lec = currentLecture_(nowMin);
+    const lec = currentLecture_(nowMin) || (testing ? CONFIG.LECTURES[0] : null);
     if (!lec) {
       return fail_('التحضير مقفل الحين. يفتح قبل كل محاضرة بـ ' + CONFIG.OPEN_BEFORE_MIN +
                    ' دقائق ويقفل بعد بدايتها بـ ' + CONFIG.CLOSE_AFTER_MIN + ' دقيقة');
     }
     const mins = Math.max(0, Math.floor(nowMin - toMin_(lec.starts_at)));
-    const status = mins > CONFIG.LATE_AFTER_MIN ? 'متأخر' : 'في الوقت';
+    const status = testing ? 'تجربة' : mins > CONFIG.LATE_AFTER_MIN ? 'متأخر' : 'في الوقت';
 
     // قفل عشان تسجيلين بنفس اللحظة ما يتكررون
     const lock = LockService.getScriptLock();
@@ -68,7 +73,7 @@ function doPost(e) {
     try {
       const sh = getSheet_();
       const rows = sh.getDataRange().getDisplayValues().slice(1)
-        .filter((r) => r[0] === today && Number(r[1]) === lec.num);
+        .filter((r) => r[0] === today && Number(r[1]) === lec.num && (r[6] === 'تجربة') === testing);
       const mine = rows.find((r) => r[3] === aid);
       if (mine) return json_(Object.assign({ ok: true, already: true, title: lec.title }, toPublic_(mine)));
       if (device && rows.some((r) => r[8] === device)) return fail_('هذا الجوال سجّل حضور شخص ثاني في هالمحاضرة');
@@ -106,9 +111,12 @@ function getSheet_() {
 }
 
 function currentLecture_(nowMin) {
-  const open = CONFIG.LECTURES.find((l) => nowMin >= toMin_(l.starts_at) - CONFIG.OPEN_BEFORE_MIN &&
-                                           nowMin <= toMin_(l.starts_at) + CONFIG.CLOSE_AFTER_MIN);
-  return open || (CONFIG.ALWAYS_OPEN ? CONFIG.LECTURES[0] : null);
+  return CONFIG.LECTURES.find((l) => nowMin >= toMin_(l.starts_at) - CONFIG.OPEN_BEFORE_MIN &&
+                                     nowMin <= toMin_(l.starts_at) + CONFIG.CLOSE_AFTER_MIN);
+}
+
+function isTesting_(now) {
+  return Boolean(CONFIG.TEST_UNTIL) && now < new Date(CONFIG.TEST_UNTIL);
 }
 
 // الشاشة تشوف الاسم والوقت بس، مو الرقم الأكاديمي
