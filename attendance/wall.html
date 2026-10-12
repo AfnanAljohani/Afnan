@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <style>
 main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
 .top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
@@ -38,6 +38,8 @@ main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
 .p .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .p .t { font: 600 26px var(--mono); }
 .empty { grid-column: 1 / -1; text-align: center; padding: 60px 16px; color: var(--mute); font-size: 20px; }
+.dl { cursor: pointer; color: var(--on); font: inherit; text-align: right; }
+.dl:hover { border-color: var(--y); }
 .toast {
   position: fixed; bottom: 24px; inset-inline: 0; margin: auto; width: fit-content; max-width: calc(100% - 32px);
   background: var(--y); color: #141519; font: 800 22px var(--display); padding: 14px 26px; border-radius: 16px;
@@ -58,11 +60,12 @@ main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
       <div class="stat g"><b class="mono" id="sOn">0</b><span class="muted">في الوقت</span></div>
       <div class="stat o"><b class="mono" id="sLate">0</b><span class="muted">متأخرين</span></div>
       <div class="stat"><b class="mono clock" id="clock">--:--</b><span class="muted">توقيت الرياض</span></div>
+      <button class="stat dl" id="download" type="button"><b>⬇</b><span class="muted">تنزيل Excel</span></button>
     </div>
   </div>
 
   <div id="setup" class="notice" hidden>
-    الشاشة تحتاج ربط بقاعدة البيانات. الصقي رابط Google Apps Script في <code>attendance/config.js</code> (الخطوات في <code>attendance/README.md</code>).
+    الشاشة تحتاج إعداد. شوفي <code>attendance/config.js</code> (الخطوات في <code>attendance/README.md</code>).
   </div>
 
   <nav class="tabs" id="tabs"></nav>
@@ -71,8 +74,8 @@ main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
 <footer class="credit">Made with Love by AFNAN aljohani</footer>
 <div class="toast" id="toast" hidden></div>
 
-<script src="config.js?v=5"></script>
-<script src="api.js?v=5"></script>
+<script src="config.js?v=6"></script>
+<script src="api.js?v=6"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 let schedule = null, rows = [], selected = null, pinned = false, seen = null, toastTimer;
@@ -116,9 +119,41 @@ function render() {
 
 const key = (r) => r.full_name + "|" + r.lecture + "|" + r.checked_in_at;
 
+// نسخة احتياطية على جهاز الشاشة، لأن رسائل ntfy تنحذف بعد 12 ساعة
+const archiveKey = () => "att-archive-" + new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Riyadh" });
+const rowId = (r) => r.lecture + "|" + (r.academic_id || r.full_name) + "|" + (r.test ? 1 : 0);
+function merge(fetched) {
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem(archiveKey()) || "[]"); } catch {}
+  const testing = Att.testing();
+  const byId = new Map(saved.filter((r) => Boolean(r.test) === testing).map((r) => [rowId(r), r]));
+  for (const r of fetched) if (!byId.has(rowId(r))) byId.set(rowId(r), r);
+  const all = [...byId.values()];
+  try { localStorage.setItem(archiveKey(), JSON.stringify(all)); } catch {}
+  return all;
+}
+
+$("download").addEventListener("click", () => {
+  const head = ["التاريخ", "المحاضرة", "الاسم", "الرقم الأكاديمي", "وقت التسجيل", "الدقائق بعد البداية", "الحالة", "المسافة (م)"];
+  const day = archiveKey().slice(12);
+  const lines = rows.slice().sort((a, b) => a.lecture - b.lecture || a.checked_in_at.localeCompare(b.checked_in_at)).map((r) => [
+    day, (Att.lectures.find((l) => l.num === r.lecture) || {}).title || r.lecture, r.full_name, r.academic_id || "",
+    new Date(r.checked_in_at).toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" }), r.minutes_from_start,
+    r.test ? "تجربة" : r.status === "late" ? "متأخر" : "في الوقت", r.distance ?? "",
+  ]);
+  const csv = "\ufeff" + [head, ...lines].map((l) => l.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+  a.download = `attendance-${day}.csv`;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
 async function refresh() {
   try {
-    rows = await Att.today();
+    rows = merge(await Att.today());
     if (seen) {
       const fresh = rows.filter((r) => !seen.has(key(r)));
       if (fresh.length) {
@@ -146,10 +181,10 @@ $("tabs").addEventListener("click", (e) => {
 (async () => {
   tick(); setInterval(tick, 1000);
   if (!Att.ready) { $("setup").hidden = false; return; }
-  schedule = await Att.loadSchedule();
+  schedule = { lectures: Att.lectures };
   tick();
   await refresh();
-  setInterval(refresh, 4000);
+  setInterval(refresh, 6000);
 })();
 </script>
 </body>

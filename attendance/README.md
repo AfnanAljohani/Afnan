@@ -8,19 +8,14 @@ Made with Love by AFNAN aljohani
 | `checkin.html` | التحضير: الاسم + الرقم الأكاديمي بس، وجنبه قائمة الحاضرين |
 | `wall.html` | شاشة العرض (بروجكتر): الأسماء تطلع مع دقيقة التسجيل |
 
-الحضور ينحفظ في **Google Sheet في Drive حقك**. ما فيه قاعدة بيانات ولا حسابات ثانية.
+الحضور يمر عبر **ntfy.sh** (خدمة مجانية بدون حساب)، فالموقع يشتغل على طول بدون أي إعداد.
 
-## التشغيل (مرة وحدة، 3 دقايق)
+- الرسائل تنحذف من ntfy بعد **12 ساعة**، فاضغطي **"تنزيل Excel"** في شاشة العرض آخر اليوم. شاشة العرض بعد تحفظ نسخة على جهازها.
+- الأسماء والأرقام الأكاديمية تمر على سيرفر عام: اللي يعرف اسم القناة (`NTFY_TOPIC` في `config.js`) يقدر يشوفها أو يضيف أسماء.
+- كل اتصال إنترنت يقدر يرسل 250 تسجيل باليوم، فخلي المتدربين يستخدمون **بيانات الجوال** مو واي فاي الأكاديمية.
+- التحقق من الموقع والوقت يصير في الجوال، والوقت المعتمد هو وقت سيرفر ntfy (تغيير ساعة الجوال ما يفيد).
 
-1. افتحي [script.google.com](https://script.google.com) ← **New project**.
-2. امسحي اللي مكتوب، والصقي محتوى `google-apps-script.gs` كامل ← **Save** 💾.
-3. **Deploy ← New deployment** ← اضغطي ⚙️ واختاري **Web app**:
-   - Execute as: **Me**
-   - Who has access: **Anyone**
-   - ← **Deploy** ← **Authorize access** ← اختاري حسابك ← **Advanced ← Go to project ← Allow**
-4. انسخي **Web app URL** (ينتهي بـ `/exec`) وحطيه في `config.js` مكان `SCRIPT_URL`.
-
-أول ما أحد يسجّل، بيطلع ملف **"التحضير الذكي · AI Trainees"** في Google Drive حقك، وفيه كل الأسماء والأرقام الأكاديمية والأوقات.
+**تبين حماية أقوى؟** سوي Google Apps Script من `google-apps-script.gs` (الخطوات تحت) وحطي رابط `/exec` في `SCRIPT_URL`، ويصير الحضور ينحفظ في Google Sheet في Drive حقك والتحقق في سيرفر Google.
 
 ## القواعد
 
@@ -31,8 +26,15 @@ Made with Love by AFNAN aljohani
 
 ## وضع التجربة 🧪
 
-`TEST_UNTIL` في `google-apps-script.gs` و `config.js`: لين هالوقت التحضير مفتوح أي وقت ومن أي مكان، ويطفي **لحاله** بعده.
+`TEST_UNTIL` في `config.js` (وفي `google-apps-script.gs` إذا تستخدمينه): لين هالوقت التحضير مفتوح أي وقت ومن أي مكان، ويطفي **لحاله** بعده.
 تسجيلات التجربة تنحفظ في الشيت بحالة "تجربة"، وما تأثر على التحضير الحقيقي وتختفي من الشاشة أول ما تنتهي التجربة.
-لتجربة ثانية: غيري الوقت في الملفين ← **Deploy ← Manage deployments ← ✏️ ← Version: New version ← Deploy**.
+لتجربة ثانية: غيري الوقت في `config.js` وارفعيه.
 
 تغيير الأوقات أو المسافة بنفس الطريقة (وغيري الأوقات بعد في `config.js` عشان تطلع صح في الصفحات).
+
+## اختياري: Google Sheets بدل ntfy (3 دقايق)
+
+1. افتحي [script.google.com/create](https://script.google.com/create)، امسحي اللي مكتوب، والصقي محتوى `google-apps-script.gs` ← **Ctrl + S**.
+2. **Deploy ← New deployment** ← ⚙️ ← **Web app** ← Who has access: **Anyone** ← **Deploy**.
+3. **Authorize access** ← حسابك ← **Advanced ← Go to project ← Allow**.
+4. انسخي **Web app URL** (ينتهي بـ `/exec`) وحطيه في `SCRIPT_URL` في `config.js`.
