@@ -3,157 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#141519">
-<title>تسجيل الحضور · أكاديمية الطاقة والمياه</title>
+<meta name="theme-color" content="#030806">
+<title>AI Trainees Hub · منصة متدربي الذكاء الاصطناعي</title>
+<meta name="description" content="منصة متدربي الذكاء الاصطناعي في أكاديمية الطاقة والمياه: الحضور الذكي والروابط الرسمية في مكان واحد.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <link rel="stylesheet" href="style.css">
 <style>
-main { max-width: 440px; margin: 0 auto; padding: 32px 16px 48px; }
-header { margin-bottom: 24px; }
-header h1 { font-size: 28px; margin: 12px 0 4px; }
-.card { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; }
-label { display: block; font-weight: 600; margin-bottom: 6px; }
-input {
-  width: 100%; height: 52px; padding: 0 16px; margin-bottom: 18px;
-  border-radius: 12px; border: 1px solid var(--line); background: var(--ink);
-  color: var(--on); font: 500 17px var(--body);
-}
-input:focus { outline: 2px solid var(--y); outline-offset: 1px; border-color: transparent; }
-input.ltr { direction: ltr; text-align: right; font-family: var(--mono); }
-button {
-  width: 100%; height: 56px; border: 0; border-radius: 14px; cursor: pointer;
-  background: var(--y); color: #141519; font: 800 18px var(--display);
-}
-button:disabled { opacity: .45; cursor: not-allowed; }
-.hint { font-size: 14px; color: var(--mute); margin-top: 12px; text-align: center; }
-.error { color: #ff8a8e; background: rgba(229, 72, 77, .12); border-radius: 12px; padding: 12px 14px; margin-top: 14px; }
-.done { text-align: center; }
-.done .big { font-size: 56px; line-height: 1; margin-bottom: 8px; }
-.done h2 { font-size: 24px; margin-bottom: 6px; }
-.done .time { font-size: 40px; color: var(--y); margin: 14px 0 4px; }
-.link { display: block; text-align: center; margin-top: 18px; color: var(--mute); font-size: 14px; }
-[hidden] { display: none !important; }
+main { max-width: 1000px; margin: 0 auto; padding: 56px 16px 64px; }
+.tag { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line); background: var(--ink2); color: var(--y); border-radius: 999px; padding: 6px 16px; font: 600 15px var(--body); }
+.tag i { width: 8px; height: 8px; border-radius: 50%; background: var(--y); }
+h1 { font-size: clamp(48px, 10vw, 96px); font-weight: 700; line-height: 1.1; margin: 28px 0 22px; }
+h1 span { background: linear-gradient(90deg, var(--y), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { font-size: clamp(17px, 2.2vw, 21px); color: var(--mute); max-width: 680px; margin: 0 0 32px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 26px; border-radius: 16px; text-decoration: none; font: 700 17px var(--body); }
+.btn.primary { background: var(--y); color: #02140d; }
+.btn.ghost { border: 1px solid var(--line); color: var(--on); background: var(--ink2); }
+.feat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 44px; }
+.feat div { border: 1px solid var(--line); background: var(--ink2); border-radius: 24px; padding: 20px 22px; }
+.feat b { display: block; margin-top: 10px; font-size: 17px; }
+.feat small { color: var(--mute); }
+.feat svg, .q svg { width: 22px; height: 22px; stroke: var(--y); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.label { font: 600 14px var(--mono); letter-spacing: .14em; color: var(--mute); margin-bottom: 14px; }
+.quick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.q { display: block; position: relative; border: 1px solid var(--line); background: var(--ink2); border-radius: 26px; padding: 22px 24px; color: var(--on); text-decoration: none; transition: border-color .2s, transform .2s; }
+.q:hover { border-color: var(--y); transform: translateY(-2px); }
+.q .ext { position: absolute; top: 22px; left: 22px; stroke: var(--mute); }
+.q b { display: block; font-size: 19px; margin-top: 18px; }
+.q small { color: var(--mute); }
+@media (max-width: 640px) { .feat, .quick { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <main>
-  <header>
-    <span id="state" class="pill"><span class="dot"></span><span>جاري التحميل…</span></span>
-    <h1>تسجيل الحضور</h1>
-    <div class="muted">أكاديمية الطاقة والمياه · لازم تكون داخل الأكاديمية</div>
-  </header>
+  <span class="tag"><i></i>AI Trainees Program · 2026–2027</span>
+  <h1>مكان واحد.<br><span>لننمو بالذكاء.</span></h1>
+  <p class="lead">منصة المتدربين في أكاديمية الطاقة والمياه: الحضور الذكي بالموقع، والروابط الرسمية، في تجربة وحدة آمنة وسريعة.</p>
 
-  <div id="setup" class="notice" hidden>
-    الموقع يحتاج ربط بقاعدة البيانات. عبّي <code>attendance/config.js</code> (الخطوات في <code>attendance/README.md</code>).
+  <div class="cta">
+    <a class="btn primary" href="checkin.html">
+      <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      سجّل حضورك الآن
+    </a>
+    <a class="btn ghost" href="wall.html">شاشة الحضور</a>
   </div>
 
-  <form id="form" class="card" hidden>
-    <label for="name">الاسم الكامل</label>
-    <input id="name" autocomplete="name" required minlength="2" maxlength="80" placeholder="مثال: أفنان الجهني">
-    <label for="aid">الرقم الأكاديمي</label>
-    <input id="aid" class="ltr" inputmode="numeric" autocomplete="off" required minlength="3" maxlength="20" placeholder="000000">
-    <button id="submit" type="submit">سجّل حضوري</button>
-    <div id="error" class="error" hidden></div>
-    <div class="hint">بنطلب موقعك مرة وحدة عشان نتأكد إنك داخل الأكاديمية. ما نحفظ موقعك، بس المسافة.</div>
-  </form>
-
-  <div id="done" class="card done" hidden>
-    <div class="big" id="doneIcon">✅</div>
-    <h2 id="doneTitle">تم تسجيل حضورك</h2>
-    <div class="muted" id="doneName"></div>
-    <div class="time mono" id="doneTime"></div>
-    <span class="pill" id="doneStatus"></span>
+  <div class="feat">
+    <div>
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+      <b>تحقق آمن</b><small>مرة وحدة لكل محاضرة، والرقم الأكاديمي ما يطلع لأحد</small>
+    </div>
+    <div>
+      <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      <b>حضور ذكي</b><small>بس من داخل الأكاديمية، ويفتح ويقفل لحاله مع كل محاضرة</small>
+    </div>
+    <div>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <b>6 محاضرات يوميًا</b><small>من 8 الصبح، بتوقيت الرياض</small>
+    </div>
   </div>
 
-  <a class="link" href="wall.html">شاشة الحضور ←</a>
+  <div class="label">QUICK ACCESS · روابط رسمية</div>
+  <div class="quick">
+    <a class="q" href="https://ewa-sys.info/apex/r/ewa/trainee-portal245157183/login?tz=Asia/Riyadh" target="_blank" rel="noopener">
+      <svg class="ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+      <b>EWA Portal</b><small>بوابة المتدرب · تسجيل الدخول</small>
+    </a>
+    <a class="q" href="https://lms.ewa.edu.sa/" target="_blank" rel="noopener">
+      <svg class="ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+      <b>LMS EWA</b><small>منصة التعلم · المحاضرات والمواد</small>
+    </a>
+  </div>
 </main>
-
-<script src="config.js"></script>
-<script src="api.js"></script>
-<script>
-const $ = (id) => document.getElementById(id);
-let schedule = null;
-
-// معرّف ثابت للجهاز عشان الجوال الواحد ما يحضّر لأكثر من شخص
-function deviceId() {
-  try {
-    let id = localStorage.getItem("att-device");
-    if (!id) { id = crypto.randomUUID(); localStorage.setItem("att-device", id); }
-    return id;
-  } catch { return null; }
-}
-
-function renderState() {
-  if (!schedule) return;
-  const st = Att.lectureState(schedule.lectures, schedule.settings);
-  const el = $("state");
-  el.className = "pill " + (st.kind === "open" ? "open" : st.kind === "wait" ? "wait" : "");
-  el.lastElementChild.textContent =
-    st.kind === "open" ? `${st.lecture.title} · التحضير مفتوح (يقفل بعد ${st.closesIn} د)` :
-    st.kind === "wait" ? `${st.lecture.title} · يفتح بعد ${st.opensIn >= 60 ? Math.floor(st.opensIn / 60) + " س " : ""}${st.opensIn % 60} د` :
-    "خلصت محاضرات اليوم";
-}
-
-function getPosition() {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) return reject(new Error("جهازك ما يدعم تحديد الموقع"));
-    navigator.geolocation.getCurrentPosition(resolve, (e) => reject(new Error(
-      e.code === 1 ? "لازم تسمح للموقع يوصل لمكانك. من إعدادات المتصفح فعّل الموقع وحاول مرة ثانية" :
-      "ما قدرنا نحدد موقعك. شغّل GPS وحاول مرة ثانية"
-    )), { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
-  });
-}
-
-$("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const btn = $("submit");
-  $("error").hidden = true;
-  btn.disabled = true;
-  try {
-    btn.textContent = "نحدد موقعك…";
-    const pos = await getPosition();
-    btn.textContent = "نسجّل…";
-    const r = await Att.call("rpc/check_in", { method: "POST", body: {
-      p_name: $("name").value, p_academic_id: $("aid").value,
-      p_lat: pos.coords.latitude, p_lng: pos.coords.longitude, p_accuracy: pos.coords.accuracy,
-      p_device: deviceId(),
-    }});
-    try { localStorage.setItem("att-me", JSON.stringify({ name: $("name").value, aid: $("aid").value })); } catch {}
-    $("form").hidden = true;
-    $("done").hidden = false;
-    $("doneIcon").textContent = r.already ? "👌" : "✅";
-    $("doneTitle").textContent = r.already ? "حضورك مسجل من قبل" : "تم تسجيل حضورك";
-    $("doneName").textContent = `${r.full_name} · ${r.title}`;
-    $("doneTime").textContent = Att.fmtTime(r.checked_in_at);
-    $("doneStatus").className = "pill " + (r.status === "late" ? "late" : "open");
-    $("doneStatus").textContent = r.minutes === 0 ? "في الوقت" :
-      r.status === "late" ? `متأخر ${r.minutes} د` : `بعد البداية بـ ${r.minutes} د`;
-  } catch (err) {
-    $("error").textContent = err.message;
-    $("error").hidden = false;
-  } finally {
-    btn.disabled = false;
-    btn.textContent = "سجّل حضوري";
-  }
-});
-
-(async () => {
-  if (!Att.ready) { $("setup").hidden = false; $("state").hidden = true; return; }
-  try {
-    const me = JSON.parse(localStorage.getItem("att-me") || "null");
-    if (me) { $("name").value = me.name; $("aid").value = me.aid; }
-  } catch {}
-  $("form").hidden = false;
-  try {
-    schedule = await Att.loadSchedule();
-    renderState();
-    setInterval(renderState, 15000);
-  } catch (err) {
-    $("state").lastElementChild.textContent = err.message;
-  }
-})();
-</script>
 </body>
 </html>

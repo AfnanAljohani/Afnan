@@ -2,7 +2,8 @@
 
 | الصفحة | لمين |
 |---|---|
-| `index.html` | المتدرب يفتحها من جواله: الاسم + الرقم الأكاديمي بس |
+| `index.html` | الصفحة الرئيسية: زر التحضير + روابط EWA Portal و LMS |
+| `checkin.html` | التحضير: الاسم + الرقم الأكاديمي بس، وجنبه قائمة الحاضرين مباشرة |
 | `wall.html` | شاشة العرض (بروجكتر / تلفزيون): الأسماء تطلع لحظيًا مع دقيقة التسجيل |
 
 ## كيف يشتغل
@@ -20,7 +21,8 @@
 3. من **Project Settings → API** انسخي `Project URL` و `anon public key` وحطيهم في `config.js`.
 4. في GitHub: **Settings → Pages** ← Source: `Deploy from a branch` ← اختاري الفرع و `/ (root)`.
 5. الروابط بتصير:
-   - التحضير: `https://<username>.github.io/<repo>/attendance/`
+   - الرئيسية: `https://<username>.github.io/<repo>/attendance/`
+   - التحضير: `https://<username>.github.io/<repo>/attendance/checkin.html`
    - الشاشة: `https://<username>.github.io/<repo>/attendance/wall.html`
 
 ## تعديل الإعدادات
