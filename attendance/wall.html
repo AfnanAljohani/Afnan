@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 <style>
 main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
 .top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
@@ -40,6 +40,18 @@ main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
 .empty { grid-column: 1 / -1; text-align: center; padding: 60px 16px; color: var(--mute); font-size: 20px; }
 .dl { cursor: pointer; color: var(--on); font: inherit; text-align: right; }
 .dl:hover { border-color: var(--y); }
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--ink2); }
+.seg button { border: 0; background: none; color: var(--mute); padding: 9px 16px; font: 600 15px var(--body); cursor: pointer; }
+.seg button.on { background: var(--y); color: #141519; }
+select.grp { height: 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink2); color: var(--on); padding: 0 12px; font: 500 15px var(--body); max-width: 100%; }
+.stat.r b { color: #ff8a8e; }
+.rate { font: 600 14px var(--mono); color: var(--mute); }
+.abs { display: grid; gap: 18px; }
+.abs h4 { font: 700 16px var(--display); margin: 0 0 10px; color: var(--mute); }
+.abs .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.abs .chip { padding: 8px 14px; border-radius: 12px; border: 1px solid rgba(229,72,77,.35); background: rgba(229,72,77,.08); font-weight: 600; }
+.p .grp { font-size: 12px; color: var(--mute); margin: -8px 0 10px; padding-left: 36px; }
 .toast {
   position: fixed; bottom: 24px; inset-inline: 0; margin: auto; width: fit-content; max-width: calc(100% - 32px);
   background: var(--y); color: #141519; font: 800 22px var(--display); padding: 14px 26px; border-radius: 16px;
@@ -59,6 +71,7 @@ main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
     <div class="stats">
       <div class="stat g"><b class="mono" id="sOn">0</b><span class="muted">في الوقت</span></div>
       <div class="stat o"><b class="mono" id="sLate">0</b><span class="muted">متأخرين</span></div>
+      <div class="stat r"><b class="mono" id="sAbs">0</b><span class="muted">غائبين</span></div>
       <div class="stat"><b class="mono clock" id="clock">--:--</b><span class="muted">توقيت الرياض</span></div>
       <button class="stat dl" id="download" type="button"><b>⬇</b><span class="muted">تنزيل Excel</span></button>
     </div>
@@ -69,18 +82,27 @@ main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
   </div>
 
   <nav class="tabs" id="tabs"></nav>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="العرض">
+      <button type="button" class="on" data-v="in">الحاضرين</button><button type="button" data-v="out">الغائبين</button>
+    </div>
+    <select class="grp" id="grp" aria-label="المجموعة"><option value="">كل المجموعات</option></select>
+    <span class="rate" id="rate"></span>
+  </div>
   <section class="grid" id="grid"></section>
 </main>
 <footer class="credit">Made with Love by AFNAN aljohani</footer>
 <div class="toast" id="toast" hidden></div>
 
-<script src="config.js?v=6"></script>
-<script src="api.js?v=6"></script>
+<script src="config.js?v=7"></script>
+<script src="roster.js?v=8"></script>
+<script src="api.js?v=7"></script>
 <script>
 const $ = (id) => document.getElementById(id);
-let schedule = null, rows = [], selected = null, pinned = false, seen = null, toastTimer;
+let schedule = null, rows = [], selected = null, pinned = false, seen = null, toastTimer, view = "in", grp = "";
 
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+const $$ = (q) => Array.from(document.querySelectorAll(q));
 
 function tick() {
   $("clock").textContent = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh", hour: "2-digit", minute: "2-digit" });
@@ -99,17 +121,32 @@ function tick() {
 
 function render() {
   if (!schedule) return;
+  const inGrp = (r) => !grp || (Att.findStudent(r.full_name) || {}).grp === +grp;
+  const roster = Att.roster.filter((s) => !grp || s.grp === +grp);
   $("tabs").innerHTML = schedule.lectures.map((l) => {
-    const n = rows.filter((r) => r.lecture === l.num).length;
-    return `<button class="tab ${l.num === selected ? "on" : ""}" data-n="${l.num}">${esc(l.title)}<span class="n">${n}</span><small dir="ltr">${l.starts_at}–${l.ends_at}</small></button>`;
+    const n = rows.filter((r) => r.lecture === l.num && inGrp(r)).length;
+    return `<button class="tab ${l.num === selected ? "on" : ""}" data-n="${l.num}">${esc(l.title)}<span class="n">${n}${roster.length ? "/" + roster.length : ""}</span><small dir="ltr">${l.starts_at}–${l.ends_at}</small></button>`;
   }).join("");
-  const list = rows.filter((r) => r.lecture === selected).sort((a, b) => a.checked_in_at.localeCompare(b.checked_in_at));
+  const list = rows.filter((r) => r.lecture === selected && inGrp(r)).sort((a, b) => a.checked_in_at.localeCompare(b.checked_in_at));
+  const present = new Set(list.map((r) => Att.norm(r.full_name)));
+  const absent = roster.filter((s) => !present.has(Att.norm(s.ar)));
   $("sOn").textContent = list.filter((r) => r.status === "on_time").length;
   $("sLate").textContent = list.filter((r) => r.status === "late").length;
+  $("sAbs").textContent = absent.length;
+  $("rate").textContent = roster.length ? `نسبة الحضور ${Math.round(100 * (roster.length - absent.length) / roster.length)}%` : "";
+  $$(".seg button").forEach((b) => b.classList.toggle("on", b.dataset.v === view));
+  if (view === "out") {
+    const by = {};
+    absent.forEach((s) => (by[s.grp] = by[s.grp] || []).push(s));
+    $("grid").innerHTML = absent.length ? `<div class="abs" style="grid-column:1/-1">${Object.keys(by).sort((a, b) => a - b).map((g) =>
+      `<div><h4>المجموعة ${g}${Att.groups[g] ? " · " + esc(Att.groups[g]) : ""} <span class="mono">(${by[g].length})</span></h4><div class="chips">${by[g].map((s) => `<span class="chip">${esc(s.ar)}</span>`).join("")}</div></div>`).join("")}</div>`
+      : `<div class="empty">ما فيه غياب في هالمحاضرة 🎉</div>`;
+    return;
+  }
   $("grid").innerHTML = list.length ? list.map((r, i) => `
     <article class="p ${seen && !seen.has(key(r)) ? "new" : ""}">
       <span class="rank">#${i + 1}</span>
-      <h3 class="nm">${esc(r.full_name)}</h3>
+      <h3 class="nm">${esc(r.full_name)}</h3>${(() => { const st = Att.findStudent(r.full_name); return st ? `<div class="grp">المجموعة ${st.grp}</div>` : ""; })()}
       <div class="row">
         <span class="t">${Att.fmtTime(r.checked_in_at)}</span>
         <span class="pill ${r.status === "late" ? "late" : "open"}">${r.minutes_from_start === 0 ? "في الوقت" : (r.status === "late" ? "متأخر " : "+") + r.minutes_from_start + " د"}</span>
@@ -134,13 +171,23 @@ function merge(fetched) {
 }
 
 $("download").addEventListener("click", () => {
-  const head = ["التاريخ", "المحاضرة", "الاسم", "الرقم الأكاديمي", "وقت التسجيل", "الدقائق بعد البداية", "الحالة", "المسافة (م)"];
+  // ملف Excel: لكل محاضرة بدأت اليوم، كل متدرب في السجل وحالته (حاضر / متأخر / غائب)
+  const head = ["التاريخ", "المحاضرة", "وقت المحاضرة", "المجموعة", "الاسم", "الرقم الأكاديمي", "الحالة", "وقت التسجيل", "الدقائق بعد البداية"];
   const day = archiveKey().slice(12);
-  const lines = rows.slice().sort((a, b) => a.lecture - b.lecture || a.checked_in_at.localeCompare(b.checked_in_at)).map((r) => [
-    day, (Att.lectures.find((l) => l.num === r.lecture) || {}).title || r.lecture, r.full_name, r.academic_id || "",
-    new Date(r.checked_in_at).toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" }), r.minutes_from_start,
-    r.test ? "تجربة" : r.status === "late" ? "متأخر" : "في الوقت", r.distance ?? "",
-  ]);
+  const nowM = (() => { const p = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Riyadh", hour12: false, hour: "2-digit", minute: "2-digit" }).formatToParts(new Date()); return (+p.find((x) => x.type === "hour").value % 24) * 60 + +p.find((x) => x.type === "minute").value; })();
+  const lines = [];
+  for (const l of Att.lectures) {
+    const recs = rows.filter((r) => r.lecture === l.num);
+    if (!recs.length && nowM < Att.toMin(l.starts_at)) continue; // محاضرة ما بدأت
+    const byName = new Map(recs.map((r) => [Att.norm(r.full_name), r]));
+    const people = Att.roster.map((s) => ({ s, r: byName.get(Att.norm(s.ar)) }));
+    recs.filter((r) => !Att.findStudent(r.full_name)).forEach((r) => people.push({ s: null, r }));
+    for (const { s, r } of people) {
+      lines.push([day, l.title, `${l.starts_at}-${l.ends_at}`, s ? s.grp : "", s ? s.ar : r.full_name, r ? r.academic_id || "" : "",
+        !r ? "غائب" : r.test ? "تجربة" : r.status === "late" ? "متأخر" : "حاضر",
+        r ? new Date(r.checked_in_at).toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" }) : "", r ? r.minutes_from_start : ""]);
+    }
+  }
   const csv = "\ufeff" + [head, ...lines].map((l) => l.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\r\n");
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
@@ -170,6 +217,9 @@ async function refresh() {
   }
 }
 
+document.querySelector(".seg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; view = b.dataset.v; render(); });
+$("grp").addEventListener("change", (e) => { grp = e.target.value; render(); });
+
 $("tabs").addEventListener("click", (e) => {
   const b = e.target.closest(".tab");
   if (!b) return;
@@ -182,6 +232,7 @@ $("tabs").addEventListener("click", (e) => {
   tick(); setInterval(tick, 1000);
   if (!Att.ready) { $("setup").hidden = false; return; }
   schedule = { lectures: Att.lectures };
+  $("grp").innerHTML += Object.keys(Att.groups).sort((a, b) => a - b).map((g) => `<option value="${g}">المجموعة ${g} · ${esc(Att.groups[g])}</option>`).join("");
   tick();
   await refresh();
   setInterval(refresh, 6000);
