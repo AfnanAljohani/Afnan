@@ -1,26 +1,57 @@
+/* ألوان مأخوذة من شعار أكاديمية الطاقة والمياه: فيروزي، برتقالي، رمادي مزرق */
 :root {
   color-scheme: dark;
-  --ink: #030806; --ink2: #07120e; --ink3: #0d1d17; --line: #16302a;
-  --on: #e9f3ef; --mute: #8fa39b;
-  --y: #1fd39a; --y-soft: rgba(31, 211, 154, .12); --cyan: #18c6e0;
-  --green: #2e9e6a; --green-soft: rgba(46, 158, 106, .16);
-  --orange: #f5a524; --orange-soft: rgba(245, 165, 36, .16);
-  --red: #e5484d;
+  --ink: #061214; --ink2: #0b1c1f; --ink3: #12292d; --line: #1c383d;
+  --on: #e7f3f3; --mute: #8ba6a9;
+  --y: #2cc0c2; --y-soft: rgba(44, 192, 194, .14); --on-y: #022426;
+  --cyan: #82adbe; --brand-orange: #f15922;
+  --good: #4fd19a; --good-soft: rgba(79, 209, 154, .14);
+  --orange: #f7a23b; --orange-soft: rgba(247, 162, 59, .15);
+  --bad: #ff8a8e; --bad-soft: rgba(229, 72, 77, .10); --bad-line: rgba(229, 72, 77, .35);
+  --grid: rgba(255, 255, 255, .025); --glow: rgba(44, 192, 194, .10); --glow2: rgba(241, 89, 34, .07);
+  --nav-bg: rgba(6, 18, 20, .82); --shadow: 0 18px 40px rgba(0, 0, 0, .45);
   --display: "IBM Plex Sans Arabic", "Alexandria", system-ui, sans-serif;
   --body: "IBM Plex Sans Arabic", "Alexandria", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   --r: 18px;
 }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --ink: #f3f8f8; --ink2: #ffffff; --ink3: #e6f0f0; --line: #d3e2e3;
+    --on: #0e2a2d; --mute: #587276;
+    --y: #158486; --y-soft: rgba(29, 156, 158, .12); --on-y: #ffffff;
+    --good: #18804f; --good-soft: rgba(24, 128, 79, .10);
+    --orange: #b8620a; --orange-soft: rgba(247, 162, 59, .16);
+    --bad: #c42f35; --bad-soft: rgba(229, 72, 77, .07); --bad-line: rgba(196, 47, 53, .30);
+    --grid: rgba(14, 42, 45, .04); --glow: rgba(29, 156, 158, .12); --glow2: rgba(241, 89, 34, .08);
+    --nav-bg: rgba(243, 248, 248, .85); --shadow: 0 18px 40px rgba(14, 42, 45, .12);
+  }
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ink: #f3f8f8; --ink2: #ffffff; --ink3: #e6f0f0; --line: #d3e2e3;
+  --on: #0e2a2d; --mute: #587276;
+  --y: #158486; --y-soft: rgba(29, 156, 158, .12); --on-y: #ffffff;
+  --good: #18804f; --good-soft: rgba(24, 128, 79, .10);
+  --orange: #b8620a; --orange-soft: rgba(247, 162, 59, .16);
+  --bad: #c42f35; --bad-soft: rgba(229, 72, 77, .07); --bad-line: rgba(196, 47, 53, .30);
+  --grid: rgba(14, 42, 45, .04); --glow: rgba(29, 156, 158, .12); --glow2: rgba(241, 89, 34, .08);
+  --nav-bg: rgba(243, 248, 248, .85); --shadow: 0 18px 40px rgba(14, 42, 45, .12);
+}
+html[lang="en"] { --display: "IBM Plex Sans Arabic", system-ui, sans-serif; }
 * { box-sizing: border-box; }
 body {
   margin: 0; min-height: 100vh; background: var(--ink); color: var(--on);
   font-family: var(--body); line-height: 1.6;
   background-image:
-    radial-gradient(circle at 100% 100%, rgba(31, 211, 154, .10), transparent 40%),
-    linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px);
-  background-size: auto, 48px 48px, 48px 48px;
+    radial-gradient(circle at 100% 100%, var(--glow), transparent 40%),
+    radial-gradient(circle at 0% 0%, var(--glow2), transparent 35%),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px;
   background-attachment: fixed;
+  transition: background-color .25s, color .25s;
 }
 h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
@@ -30,7 +61,7 @@ h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
   border-radius: 999px; font-size: 14px; font-weight: 600;
   background: var(--ink3); color: var(--mute);
 }
-.pill.open { background: var(--green-soft); color: #5fd39c; }
+.pill.open { background: var(--good-soft); color: var(--good); }
 .pill.wait { background: var(--y-soft); color: var(--y); }
 .pill.late { background: var(--orange-soft); color: var(--orange); }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
@@ -45,15 +76,35 @@ h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
   text-align: center; padding: 8px 16px 28px; color: var(--mute);
   font: 500 14px var(--mono); letter-spacing: .04em;
 }
+.credit b { color: var(--brand-orange); font-weight: 500; }
+
+/* ───── شريط التنقل ───── */
 .nav {
   position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 12px clamp(16px, 3vw, 48px); background: rgba(3, 8, 6, .82); backdrop-filter: blur(10px);
+  padding: 10px clamp(16px, 3vw, 48px); background: var(--nav-bg); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
-.nav .brand { color: var(--on); text-decoration: none; font: 700 16px var(--body); white-space: nowrap; }
-.nav .brand span { color: var(--y); margin: 0 6px; }
+.nav .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--on); text-decoration: none; font: 700 16px var(--body); white-space: nowrap; }
+.nav .brand img { width: 34px; height: 34px; object-fit: contain; }
 .nav .links { display: flex; align-items: center; gap: 4px; }
 .nav .links a { color: var(--mute); text-decoration: none; font: 600 15px var(--body); padding: 8px 12px; border-radius: 10px; white-space: nowrap; }
 .nav .links a:hover, .nav .links a.on { color: var(--on); background: var(--ink3); }
-.nav .links a.go { background: var(--y); color: #02140d; margin-inline-start: 6px; }
-@media (max-width: 480px) { .nav .brand { display: none; } .nav { justify-content: center; } .nav .links a { padding: 8px 10px; font-size: 14px; } }
+.nav .links a.go { background: var(--y); color: var(--on-y); margin-inline-start: 6px; }
+.nav .ic {
+  display: inline-grid; place-items: center; min-width: 38px; height: 38px; padding: 0 8px; margin-inline-start: 4px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--ink2); color: var(--on);
+  font: 700 14px var(--body); cursor: pointer;
+}
+.nav .ic:hover { border-color: var(--y); }
+.nav .ic svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+:root[data-mode="dark"] .nav .ic .moon, :root:not([data-mode="dark"]) .nav .ic .sun { display: none; }
+@media (max-width: 560px) {
+  .nav { padding: 8px 10px; gap: 6px; }
+  .nav .brand span { display: none; }
+  .nav .brand img { width: 30px; height: 30px; }
+  .nav .links { gap: 2px; }
+  .nav .links a { padding: 7px 8px; font-size: 13.5px; }
+  .nav .links a.go { margin-inline-start: 2px; }
+  .nav .ic { min-width: 34px; height: 34px; padding: 0 6px; margin-inline-start: 2px; font-size: 13px; }
+}
+@media (max-width: 370px) { .nav .links a:not(.go):not(.on) { display: none; } }
