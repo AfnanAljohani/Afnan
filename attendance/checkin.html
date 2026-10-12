@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <style>
 main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
 .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
@@ -69,7 +69,7 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
   </div>
 
   <div id="setup" class="notice" hidden>
-    الموقع يحتاج ربط بقاعدة البيانات. الصقي رابط Google Apps Script في <code>attendance/config.js</code> (الخطوات في <code>attendance/README.md</code>).
+    الموقع يحتاج إعداد. شوفي <code>attendance/config.js</code> (الخطوات في <code>attendance/README.md</code>).
   </div>
 
   <div class="cols">
@@ -98,7 +98,7 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
       <div class="live-head">
         <div>
           <h2 id="listTitle">حضور اليوم</h2>
-          <div class="sub">الأسماء ووقت التسجيل · تحديث تلقائي كل 10 ثواني</div>
+          <div class="sub">الأسماء ووقت التسجيل · التحديث المباشر على شاشة العرض</div>
         </div>
         <span class="live"><i></i>LIVE</span>
       </div>
@@ -109,8 +109,8 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
 </main>
 <footer class="credit">Made with Love by AFNAN aljohani</footer>
 
-<script src="config.js?v=5"></script>
-<script src="api.js?v=5"></script>
+<script src="config.js?v=6"></script>
+<script src="api.js?v=6"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 let schedule = null, current = null, seen = null;
@@ -138,11 +138,18 @@ function tick() {
     "خلصت محاضرات اليوم";
 }
 
-async function refresh() {
-  try {
-    const rows = (await Att.today()).slice().reverse();
-    const lec = current ? current.num : Math.max(0, ...rows.map((r) => r.lecture));
-    const list = rows.filter((r) => r.lecture === lec);
+// القائمة تنحمّل مرة وحدة بس عشان ما نضغط على الخدمة، والتحديث المباشر على شاشة العرض
+let rows = [];
+async function load() {
+  try { rows = await Att.today(); } catch {}
+  render();
+}
+
+function render() {
+  {
+    const all = rows.slice().reverse();
+    const lec = current ? current.num : Math.max(0, ...all.map((r) => r.lecture));
+    const list = all.filter((r) => r.lecture === lec);
     const title = schedule.lectures.find((l) => l.num === lec);
     $("listTitle").textContent = title ? `حضور ${title.title}` : "حضور اليوم";
     const key = (r) => r.full_name + r.checked_in_at;
@@ -155,7 +162,7 @@ async function refresh() {
         <span class="t">${Att.fmtTime(r.checked_in_at)}</span>
       </li>`).join("");
     seen = new Set(rows.map(key));
-  } catch {}
+  }
 }
 
 function getPosition() {
@@ -192,7 +199,8 @@ $("form").addEventListener("submit", async (e) => {
     $("doneStatus").className = "pill " + (r.status === "late" ? "late" : "open");
     $("doneStatus").textContent = r.minutes_from_start === 0 ? "في الوقت" :
       r.status === "late" ? `متأخر ${r.minutes_from_start} د` : `بعد البداية بـ ${r.minutes_from_start} د`;
-    refresh();
+    if (!r.already) rows.push(r);
+    render();
   } catch (err) {
     $("error").textContent = err.message;
     $("error").hidden = false;
@@ -214,10 +222,9 @@ $("form").addEventListener("submit", async (e) => {
     if (me) { $("name").value = me.name; $("aid").value = me.aid; }
   } catch {}
   try {
-    schedule = await Att.loadSchedule();
+    schedule = { lectures: Att.lectures };
     tick();
-    await refresh();
-    setInterval(refresh, 10000);
+    await load();
   } catch (err) {
     $("state").lastElementChild.textContent = err.message;
   }
