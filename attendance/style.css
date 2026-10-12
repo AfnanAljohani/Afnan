@@ -1,12 +1,12 @@
 :root {
   color-scheme: dark;
-  --ink: #141519; --ink2: #1c1e23; --ink3: #282b32; --line: #34373f;
-  --on: #f5f4f0; --mute: #9ea0a8;
-  --y: #ffc400; --y-soft: rgba(255, 196, 0, .13);
+  --ink: #030806; --ink2: #07120e; --ink3: #0d1d17; --line: #16302a;
+  --on: #e9f3ef; --mute: #8fa39b;
+  --y: #1fd39a; --y-soft: rgba(31, 211, 154, .12); --cyan: #18c6e0;
   --green: #2e9e6a; --green-soft: rgba(46, 158, 106, .16);
   --orange: #f5a524; --orange-soft: rgba(245, 165, 36, .16);
   --red: #e5484d;
-  --display: "Alexandria", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --display: "IBM Plex Sans Arabic", "Alexandria", system-ui, sans-serif;
   --body: "IBM Plex Sans Arabic", "Alexandria", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   --r: 18px;
@@ -15,7 +15,12 @@
 body {
   margin: 0; min-height: 100vh; background: var(--ink); color: var(--on);
   font-family: var(--body); line-height: 1.6;
-  background-image: radial-gradient(circle at 85% -10%, var(--y-soft), transparent 45%);
+  background-image:
+    radial-gradient(circle at 100% 100%, rgba(31, 211, 154, .10), transparent 40%),
+    linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+  background-attachment: fixed;
 }
 h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }

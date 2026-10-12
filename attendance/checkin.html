@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#030806">
+<title>سجّل حضورك · AI Trainees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
+.head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
+.head h1 { font-size: clamp(34px, 6vw, 64px); font-weight: 700; margin: 12px 0 6px; }
+.back { color: var(--mute); text-decoration: none; font-size: 14px; }
+.clock { border: 1px solid var(--line); background: var(--ink2); border-radius: 22px; padding: 14px 24px; }
+.clock small { display: block; font: 600 12px var(--mono); letter-spacing: .14em; color: var(--mute); }
+.clock b { font: 600 24px var(--mono); color: var(--y); direction: ltr; display: block; text-align: right; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+.card { background: var(--ink2); border: 1px solid var(--line); border-radius: 24px; padding: 26px; }
+.card h2 { font-size: 24px; font-weight: 700; }
+.card .sub { color: var(--mute); margin: 4px 0 22px; }
+label { display: block; font-weight: 600; margin-bottom: 8px; }
+input {
+  width: 100%; height: 56px; padding: 0 18px; margin-bottom: 20px;
+  border-radius: 14px; border: 1px solid var(--line); background: var(--ink);
+  color: var(--on); font: 500 17px var(--body);
+}
+input:focus { outline: 2px solid var(--y); outline-offset: 1px; border-color: transparent; }
+input.ltr { direction: ltr; text-align: right; font-family: var(--mono); }
+.info { border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; color: var(--mute); font-size: 14px; margin-bottom: 18px; }
+button.go {
+  width: 100%; height: 58px; border: 0; border-radius: 16px; cursor: pointer;
+  background: var(--y); color: #02140d; font: 700 18px var(--body);
+}
+button.go:disabled { opacity: .45; cursor: not-allowed; }
+.error { color: #ff8a8e; background: rgba(229, 72, 77, .12); border-radius: 12px; padding: 12px 14px; margin-top: 14px; }
+.done { text-align: center; padding: 10px 0; }
+.done .big { font-size: 52px; line-height: 1; margin-bottom: 8px; }
+.done h3 { font-size: 22px; margin-bottom: 4px; }
+.done .time { font: 600 38px var(--mono); color: var(--y); margin: 12px 0 6px; }
+.live-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.live { display: inline-flex; align-items: center; gap: 8px; font: 600 14px var(--mono); color: var(--y); }
+.live i { width: 12px; height: 12px; border-radius: 50%; background: var(--y); box-shadow: 0 0 0 4px var(--y-soft); animation: pulse 1.4s infinite; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.list li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--ink); }
+.list li.new { animation: arrive .9s ease-out; border-color: var(--y); }
+@keyframes arrive { from { transform: translateY(10px); opacity: 0; } }
+.av { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--ink3); color: var(--y); font-weight: 700; }
+.list .nm { flex: 1; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list .t { font: 600 15px var(--mono); }
+.empty { text-align: center; padding: 48px 12px; border: 1px dashed var(--line); border-radius: 18px; color: var(--mute); }
+.empty b { display: block; color: var(--on); font-size: 18px; margin-bottom: 4px; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="head">
+    <div>
+      <a class="back" href="./">→ الرئيسية</a><br>
+      <span id="state" class="pill"><span class="dot"></span><span>جاري التحميل…</span></span>
+      <h1>سجّل حضورك الآن</h1>
+      <div class="muted">اكتب اسمك ورقمك الأكاديمي بس. لازم تكون داخل أكاديمية الطاقة والمياه.</div>
+    </div>
+    <div class="clock"><small>RIYADH LIVE TIME</small><b id="clock">--:--:--</b></div>
+  </div>
+
+  <div id="setup" class="notice" hidden>
+    الموقع يحتاج ربط بقاعدة البيانات. عبّي <code>attendance/config.js</code> (الخطوات في <code>attendance/README.md</code>).
+  </div>
+
+  <div class="cols">
+    <section class="card">
+      <form id="form">
+        <h2>بيانات الحضور</h2>
+        <div class="sub">الرقم الأكاديمي ما يطلع في لوحة الحضور، نستخدمه بس عشان ما يتكرر التسجيل.</div>
+        <label for="name">الاسم الكامل</label>
+        <input id="name" autocomplete="name" required minlength="2" maxlength="80" placeholder="اكتب اسمك الكامل">
+        <label for="aid">الرقم الأكاديمي</label>
+        <input id="aid" class="ltr" inputmode="numeric" autocomplete="off" required minlength="3" maxlength="20" placeholder="Academic ID">
+        <div class="info">📍 بنطلب موقعك مرة وحدة عشان نتأكد إنك داخل الأكاديمية. ما نحفظ موقعك، بس المسافة. ووقت الحضور ينحسب بتوقيت الرياض.</div>
+        <button id="submit" class="go" type="submit">تسجيل الحضور</button>
+        <div id="error" class="error" hidden></div>
+      </form>
+      <div id="done" class="done" hidden>
+        <div class="big" id="doneIcon">✅</div>
+        <h3 id="doneTitle">تم تسجيل حضورك</h3>
+        <div class="muted" id="doneName"></div>
+        <div class="time" id="doneTime"></div>
+        <span class="pill" id="doneStatus"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="live-head">
+        <div>
+          <h2 id="listTitle">حضور اليوم</h2>
+          <div class="sub">الأسماء ووقت التسجيل · تحديث تلقائي كل 3 ثواني</div>
+        </div>
+        <span class="live"><i></i>LIVE</span>
+      </div>
+      <ul class="list" id="list"></ul>
+      <div class="empty" id="empty"><b>ما أحد سجّل حضوره للحين</b>أول اسم بيطلع هنا مباشرة بعد التسجيل.</div>
+    </section>
+  </div>
+</main>
+
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+let schedule = null, current = null, seen = null;
+const esc = (s) => { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; };
+
+// معرّف ثابت للجهاز عشان الجوال الواحد ما يحضّر لأكثر من شخص
+function deviceId() {
+  try {
+    let id = localStorage.getItem("att-device");
+    if (!id) { id = crypto.randomUUID(); localStorage.setItem("att-device", id); }
+    return id;
+  } catch { return null; }
+}
+
+function tick() {
+  $("clock").textContent = new Date().toLocaleString("en-GB", { timeZone: "Asia/Riyadh", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  if (!schedule) return;
+  const st = Att.lectureState(schedule.lectures, schedule.settings);
+  current = st.kind === "done" ? null : st.lecture;
+  $("state").className = "pill " + (st.kind === "open" ? "open" : st.kind === "wait" ? "wait" : "");
+  $("state").lastElementChild.textContent =
+    st.kind === "open" ? `${st.lecture.title} · التحضير مفتوح (يقفل بعد ${st.closesIn} د)` :
+    st.kind === "wait" ? `${st.lecture.title} · يفتح بعد ${st.opensIn >= 60 ? Math.floor(st.opensIn / 60) + " س " : ""}${st.opensIn % 60} د` :
+    "خلصت محاضرات اليوم";
+}
+
+async function refresh() {
+  try {
+    const rows = await Att.call("rpc/wall", { method: "POST", body: {} });
+    const lec = current ? current.num : Math.max(0, ...rows.map((r) => r.lecture));
+    const list = rows.filter((r) => r.lecture === lec);
+    const title = schedule.lectures.find((l) => l.num === lec);
+    $("listTitle").textContent = title ? `حضور ${title.title}` : "حضور اليوم";
+    const key = (r) => r.full_name + r.checked_in_at;
+    $("empty").hidden = list.length > 0;
+    $("list").innerHTML = list.map((r) => `
+      <li class="${seen && !seen.has(key(r)) ? "new" : ""}">
+        <span class="av">${esc(r.full_name.trim().charAt(0))}</span>
+        <span class="nm">${esc(r.full_name)}</span>
+        <span class="pill ${r.status === "late" ? "late" : "open"}">${r.minutes_from_start === 0 ? "في الوقت" : (r.status === "late" ? "متأخر " : "+") + r.minutes_from_start + " د"}</span>
+        <span class="t">${Att.fmtTime(r.checked_in_at)}</span>
+      </li>`).join("");
+    seen = new Set(rows.map(key));
+  } catch {}
+}
+
+function getPosition() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) return reject(new Error("جهازك ما يدعم تحديد الموقع"));
+    navigator.geolocation.getCurrentPosition(resolve, (e) => reject(new Error(
+      e.code === 1 ? "لازم تسمح للموقع يوصل لمكانك. من إعدادات المتصفح فعّل الموقع وحاول مرة ثانية" :
+      "ما قدرنا نحدد موقعك. شغّل GPS وحاول مرة ثانية"
+    )), { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
+  });
+}
+
+$("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = $("submit");
+  $("error").hidden = true;
+  btn.disabled = true;
+  try {
+    btn.textContent = "نحدد موقعك…";
+    const pos = await getPosition();
+    btn.textContent = "نسجّل…";
+    const r = await Att.call("rpc/check_in", { method: "POST", body: {
+      p_name: $("name").value, p_academic_id: $("aid").value,
+      p_lat: pos.coords.latitude, p_lng: pos.coords.longitude, p_accuracy: pos.coords.accuracy,
+      p_device: deviceId(),
+    }});
+    try { localStorage.setItem("att-me", JSON.stringify({ name: $("name").value, aid: $("aid").value })); } catch {}
+    $("form").hidden = true;
+    $("done").hidden = false;
+    $("doneIcon").textContent = r.already ? "👌" : "✅";
+    $("doneTitle").textContent = r.already ? "حضورك مسجل من قبل" : "تم تسجيل حضورك";
+    $("doneName").textContent = `${r.full_name} · ${r.title}`;
+    $("doneTime").textContent = Att.fmtTime(r.checked_in_at);
+    $("doneStatus").className = "pill " + (r.status === "late" ? "late" : "open");
+    $("doneStatus").textContent = r.minutes === 0 ? "في الوقت" :
+      r.status === "late" ? `متأخر ${r.minutes} د` : `بعد البداية بـ ${r.minutes} د`;
+    refresh();
+  } catch (err) {
+    $("error").textContent = err.message;
+    $("error").hidden = false;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "تسجيل الحضور";
+  }
+});
+
+(async () => {
+  tick(); setInterval(tick, 1000);
+  if (!Att.ready) { $("setup").hidden = false; $("state").hidden = true; return; }
+  try {
+    const me = JSON.parse(localStorage.getItem("att-me") || "null");
+    if (me) { $("name").value = me.name; $("aid").value = me.aid; }
+  } catch {}
+  try {
+    schedule = await Att.loadSchedule();
+    tick();
+    await refresh();
+    setInterval(refresh, 3000);
+  } catch (err) {
+    $("state").lastElementChild.textContent = err.message;
+  }
+})();
+</script>
+</body>
+</html>
