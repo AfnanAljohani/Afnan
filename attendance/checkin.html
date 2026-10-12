@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 <style>
 main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
 .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
@@ -53,6 +53,46 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
 .list .t { font: 600 15px var(--mono); }
 .empty { text-align: center; padding: 48px 12px; border: 1px dashed var(--line); border-radius: 18px; color: var(--mute); }
 .empty b { display: block; color: var(--on); font-size: 18px; margin-bottom: 4px; }
+.combo { position: relative; }
+.combo input { margin-bottom: 0; }
+.sug { position: absolute; z-index: 20; inset-inline: 0; top: calc(100% + 6px); list-style: none; margin: 0; padding: 6px;
+  background: var(--ink2); border: 1px solid var(--line); border-radius: 14px; max-height: 300px; overflow-y: auto; box-shadow: 0 18px 40px rgba(0,0,0,.45); }
+.sug li { padding: 10px 12px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.sug li small { color: var(--mute); font: 500 12px var(--mono); white-space: nowrap; }
+.sug li[aria-selected="true"], .sug li:hover { background: var(--ink3); }
+.sug .none { color: var(--mute); cursor: default; }
+.sug .none:hover { background: none; }
+.who { margin: 10px 0 20px; font-size: 14px; color: var(--y); display: flex; align-items: center; gap: 8px; }
+.who::before { content: "✓"; font-weight: 700; }
+.gap { height: 20px; }
+.aid-wrap { display: flex; align-items: stretch; margin-bottom: 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--ink); overflow: hidden; }
+.aid-wrap:focus-within { outline: 2px solid var(--y); outline-offset: 1px; border-color: transparent; }
+.aid-wrap .wp { display: grid; place-items: center; padding: 0 16px; font: 600 18px var(--mono); color: var(--y); background: var(--ink3); border-inline-end: 1px solid var(--line); }
+.aid-wrap input { margin: 0; border: 0; border-radius: 0; background: transparent; text-align: left; letter-spacing: .06em; }
+.aid-wrap input:focus { outline: none; }
+.sched-card { margin-bottom: 20px; }
+.sched-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 16px; }
+.sched-head .sub { margin: 0; }
+.lecs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 1000px) { .lecs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 560px) {
+  .lecs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .lec { padding: 10px 11px; }
+  .lec b { font-size: 14px; }
+  .lec .tm { font-size: 13px; }
+  .lec .win { font-size: 11px; }
+  .lec .row2 { flex-wrap: wrap; }
+}
+.lec .tm, .lec .pill, .lec .cnt, .lec .win span { white-space: nowrap; }
+.lec { text-align: right; cursor: pointer; border: 1px solid var(--line); background: var(--ink); color: var(--on); border-radius: 16px; padding: 12px 14px; font: inherit; display: grid; gap: 4px; }
+.lec:hover { border-color: var(--y); }
+.lec.sel { border-color: var(--y); box-shadow: 0 0 0 3px var(--y-soft); }
+.lec b { font-size: 15px; }
+.lec .tm { font: 600 15px var(--mono); direction: ltr; text-align: right; }
+.lec .win { font-size: 12px; color: var(--mute); }
+.lec .row2 { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: 4px; }
+.lec .cnt { font: 600 13px var(--mono); color: var(--mute); }
+.lec .pill { font-size: 12px; padding: 3px 9px; }
 [hidden] { display: none !important; }
 </style>
 </head>
@@ -72,15 +112,32 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
     الموقع يحتاج إعداد. شوفي <code>attendance/config.js</code> (الخطوات في <code>attendance/README.md</code>).
   </div>
 
+  <section class="card sched-card">
+    <div class="sched-head">
+      <h2>محاضرات اليوم</h2>
+      <div class="sub" id="schedSub"></div>
+    </div>
+    <div class="lecs" id="lecs"></div>
+  </section>
+
   <div class="cols">
     <section class="card">
       <form id="form">
         <h2>بيانات الحضور</h2>
-        <div class="sub">الرقم الأكاديمي ما يطلع في لوحة الحضور، نستخدمه بس عشان ما يتكرر التسجيل.</div>
-        <label for="name">الاسم الكامل</label>
-        <input id="name" autocomplete="name" required minlength="2" maxlength="80" placeholder="اكتب اسمك الكامل">
+        <div class="sub" id="aidHint">اختر اسمك من القائمة واكتب أرقام رقمك الأكاديمي بعد WP. الرقم ما يطلع في لوحة الحضور.</div>
+        <label for="name">الاسم</label>
+        <div class="combo">
+          <input id="name" autocomplete="off" spellcheck="false" required maxlength="80" placeholder="ابحث عن اسمك واختره من القائمة"
+            role="combobox" aria-expanded="false" aria-controls="sug" aria-autocomplete="list">
+          <ul id="sug" class="sug" role="listbox" hidden></ul>
+        </div>
+        <div id="who" class="who" hidden></div>
+        <div id="whoGap" class="gap"></div>
         <label for="aid">الرقم الأكاديمي</label>
-        <input id="aid" class="ltr" autocapitalize="characters" autocomplete="off" spellcheck="false" required minlength="3" maxlength="20" placeholder="Academic ID">
+        <div class="aid-wrap" dir="ltr">
+          <span class="wp">WP</span>
+          <input id="aid" inputmode="numeric" autocomplete="off" spellcheck="false" required maxlength="12" placeholder="2630069" aria-describedby="aidHint">
+        </div>
         <div class="info">📍 بنطلب موقعك مرة وحدة عشان نتأكد إنك داخل الأكاديمية. ما نحفظ موقعك، بس المسافة. ووقت الحضور ينحسب بتوقيت الرياض.</div>
         <button id="submit" class="go" type="submit">تسجيل الحضور</button>
         <div id="error" class="error" hidden></div>
@@ -109,11 +166,12 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
 </main>
 <footer class="credit">Made with Love by AFNAN aljohani</footer>
 
-<script src="config.js?v=6"></script>
-<script src="api.js?v=6"></script>
+<script src="config.js?v=7"></script>
+<script src="roster.js?v=7"></script>
+<script src="api.js?v=7"></script>
 <script>
 const $ = (id) => document.getElementById(id);
-let schedule = null, current = null, seen = null;
+let schedule = null, current = null, seen = null, picked = null, pinnedLec = null;
 const esc = (s) => { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; };
 
 // معرّف ثابت للجهاز عشان الجوال الواحد ما يحضّر لأكثر من شخص
@@ -136,6 +194,36 @@ function tick() {
     st.kind === "open" ? `${st.lecture.title} · التحضير مفتوح (يقفل بعد ${st.closesIn} د)` :
     st.kind === "wait" ? `${st.lecture.title} · يفتح بعد ${st.opensIn >= 60 ? Math.floor(st.opensIn / 60) + " س " : ""}${st.opensIn % 60} د` :
     "خلصت محاضرات اليوم";
+  renderLecs();
+}
+
+// جدول محاضرات اليوم: الوقت، نافذة التحضير، الحالة، وعدد الحاضرين
+const hhmm = (m) => String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(Math.round(m % 60)).padStart(2, "0");
+function nowMin() {
+  const p = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Riyadh", hour12: false, hour: "2-digit", minute: "2-digit" }).formatToParts(new Date());
+  const g = (t) => +p.find((x) => x.type === t).value;
+  return (g("hour") % 24) * 60 + g("minute");
+}
+let lecsHtml = "";
+function renderLecs() {
+  if (!schedule) return;
+  const cfg = window.ATTENDANCE_CONFIG, n = nowMin(), shown = shownLecture();
+  $("schedSub").textContent = `التحضير يفتح قبل كل محاضرة بـ ${cfg.OPEN_BEFORE_MIN} دقائق ويقفل بعد بدايتها بـ ${cfg.CLOSE_AFTER_MIN} دقيقة`;
+  const html = schedule.lectures.map((l) => {
+    const s = Att.toMin(l.starts_at), o = s - cfg.OPEN_BEFORE_MIN, c = s + cfg.CLOSE_AFTER_MIN;
+    const st = Att.testing() ? ["open", "مفتوح (تجربة)"] : n < o ? ["wait", "يفتح " + hhmm(o)] : n <= c ? ["open", "التحضير مفتوح"] : ["", "انتهى التحضير"];
+    const cnt = rows.filter((r) => r.lecture === l.num).length;
+    return `<button type="button" class="lec ${l.num === shown ? "sel" : ""}" data-n="${l.num}">
+      <b>${esc(l.title)}</b><span class="tm">${l.starts_at} – ${l.ends_at}</span>
+      <span class="win">التحضير <span dir="ltr">${hhmm(o)} – ${hhmm(c)}</span></span>
+      <span class="row2"><span class="pill ${st[0]}">${st[1]}</span><span class="cnt">${cnt} حاضر</span></span></button>`;
+  }).join("");
+  if (html !== lecsHtml) { $("lecs").innerHTML = html; lecsHtml = html; }
+}
+function shownLecture() {
+  if (pinnedLec) return pinnedLec;
+  if (current) return current.num;
+  return Math.max(0, ...rows.map((r) => r.lecture)) || (schedule && schedule.lectures[0].num);
 }
 
 // القائمة تنحمّل مرة وحدة بس عشان ما نضغط على الخدمة، والتحديث المباشر على شاشة العرض
@@ -148,7 +236,7 @@ async function load() {
 function render() {
   {
     const all = rows.slice().reverse();
-    const lec = current ? current.num : Math.max(0, ...all.map((r) => r.lecture));
+    const lec = shownLecture();
     const list = all.filter((r) => r.lecture === lec);
     const title = schedule.lectures.find((l) => l.num === lec);
     $("listTitle").textContent = title ? `حضور ${title.title}` : "حضور اليوم";
@@ -163,6 +251,7 @@ function render() {
       </li>`).join("");
     seen = new Set(rows.map(key));
   }
+  renderLecs();
 }
 
 function getPosition() {
@@ -179,17 +268,21 @@ $("form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const btn = $("submit");
   $("error").hidden = true;
+  const digits = $("aid").value.replace(/\D/g, "");
+  const student = Att.findStudent($("name").value);
+  if (!student) { $("error").textContent = "اختر اسمك من القائمة اللي تطلع تحت خانة الاسم"; $("error").hidden = false; $("name").focus(); return; }
+  if (!/^\d{6,8}$/.test(digits)) { $("error").textContent = "اكتب أرقام رقمك الأكاديمي بعد WP، مثل 2630069"; $("error").hidden = false; $("aid").focus(); return; }
   btn.disabled = true;
   try {
     btn.textContent = "نحدد موقعك…";
     const pos = await getPosition();
     btn.textContent = "نسجّل…";
     const r = await Att.checkIn({
-      name: $("name").value, academic_id: $("aid").value,
+      name: student.ar, academic_id: "WP" + digits,
       lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy,
       device: deviceId(),
     });
-    try { localStorage.setItem("att-me", JSON.stringify({ name: $("name").value, aid: $("aid").value })); } catch {}
+    try { localStorage.setItem("att-me", JSON.stringify({ name: student.ar, aid: digits })); } catch {}
     $("form").hidden = true;
     $("done").hidden = false;
     $("doneIcon").textContent = r.already ? "👌" : "✅";
@@ -210,6 +303,49 @@ $("form").addEventListener("submit", async (e) => {
   }
 });
 
+// ───── اختيار الاسم من السجل ─────
+const groupLabel = (g) => `المجموعة ${g}` + (Att.groups[g] ? ` · ${Att.groups[g]}` : "");
+let sugItems = [], sugIdx = -1;
+function pick(st) {
+  picked = st; $("name").value = st.ar;
+  $("who").textContent = groupLabel(st.grp); $("who").hidden = false; $("whoGap").hidden = true;
+  closeSug();
+}
+function closeSug() { $("sug").hidden = true; $("name").setAttribute("aria-expanded", "false"); sugIdx = -1; }
+function showSug() {
+  const q = Att.norm($("name").value);
+  const words = q.split(" ").filter(Boolean);
+  sugItems = !words.length ? [] : Att.roster.filter((r) => { const n = Att.norm(r.ar); return words.every((w) => n.includes(w)); }).slice(0, 8);
+  $("sug").innerHTML = sugItems.length
+    ? sugItems.map((r, i) => `<li role="option" id="opt${i}" data-i="${i}" aria-selected="${i === sugIdx}">${esc(r.ar)}<small>م ${r.grp}</small></li>`).join("")
+    : (words.length ? `<li class="none">ما لقينا الاسم. جرّب اسمك الأول بس</li>` : "");
+  const open = Boolean($("sug").innerHTML);
+  $("sug").hidden = !open; $("name").setAttribute("aria-expanded", String(open));
+}
+$("name").addEventListener("input", () => {
+  if (picked && Att.norm($("name").value) !== Att.norm(picked.ar)) { picked = null; $("who").hidden = true; $("whoGap").hidden = false; }
+  sugIdx = -1; showSug();
+});
+$("name").addEventListener("focus", () => { if (!picked) showSug(); });
+$("name").addEventListener("keydown", (e) => {
+  if ($("sug").hidden || !sugItems.length) return;
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+    e.preventDefault(); sugIdx = (sugIdx + (e.key === "ArrowDown" ? 1 : -1) + sugItems.length) % sugItems.length; showSug();
+    $("name").setAttribute("aria-activedescendant", "opt" + sugIdx);
+  } else if (e.key === "Enter" && sugIdx >= 0) { e.preventDefault(); pick(sugItems[sugIdx]); $("aid").focus(); }
+  else if (e.key === "Escape") closeSug();
+});
+$("sug").addEventListener("mousedown", (e) => { const li = e.target.closest("li[data-i]"); if (!li) return; e.preventDefault(); pick(sugItems[+li.dataset.i]); $("aid").focus(); });
+document.addEventListener("click", (e) => { if (!e.target.closest(".combo")) closeSug(); });
+
+// الرقم الأكاديمي: WP ثابتة، والمتدرب يكتب الأرقام بس (ولو لصق الرقم كامل نشيل WP)
+$("aid").addEventListener("input", () => { const v = $("aid").value.replace(/^\s*wp/i, "").replace(/\D/g, "").slice(0, 8); if (v !== $("aid").value) $("aid").value = v; });
+
+$("lecs").addEventListener("click", (e) => {
+  const b = e.target.closest(".lec"); if (!b) return;
+  const n = +b.dataset.n; pinnedLec = pinnedLec === n ? null : n; render();
+});
+
 (async () => {
   tick(); setInterval(tick, 1000);
   if (!Att.ready) {
@@ -219,7 +355,7 @@ $("form").addEventListener("submit", async (e) => {
   }
   try {
     const me = JSON.parse(localStorage.getItem("att-me") || "null");
-    if (me) { $("name").value = me.name; $("aid").value = me.aid; }
+    if (me) { const st = Att.findStudent(me.name); if (st) pick(st); $("aid").value = String(me.aid || "").replace(/^WP/i, "").replace(/\D/g, ""); }
   } catch {}
   try {
     schedule = { lectures: Att.lectures };

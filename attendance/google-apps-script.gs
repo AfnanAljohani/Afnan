@@ -47,7 +47,7 @@ function doPost(e) {
     const device = String(b.device || '').slice(0, 64);
 
     if (name.length < 2 || name.length > 80) return fail_('اكتب اسمك الكامل');
-    if (!/^[0-9A-Z-]{3,20}$/.test(aid)) return fail_('الرقم الأكاديمي غير صحيح');
+    if (!/^WP\d{6,8}$/.test(aid)) return fail_('الرقم الأكاديمي لازم يبدأ بـ WP وبعده أرقام، مثل WP2630069');
     if (typeof b.lat !== 'number' || typeof b.lng !== 'number') return fail_('لازم تسمح للموقع يوصل لمكانك');
     if (!isTesting_(new Date()) && !(b.accuracy <= CONFIG.MAX_ACCURACY_M)) {
       return fail_('دقة الموقع ضعيفة (' + Math.round(b.accuracy || 9999) + ' م). شغّل GPS وحاول مرة ثانية');

@@ -5,6 +5,15 @@
   const ready = useScript || Boolean(cfg.NTFY_TOPIC);
   const NTFY = "https://ntfy.sh/" + cfg.NTFY_TOPIC;
   const lectures = cfg.LECTURES || [];
+  const roster = window.ATT_ROSTER || [];
+  const groups = window.ATT_GROUPS || {};
+  const AID_RE = /^WP\d{6,8}$/; // الرقم الأكاديمي: WP وبعده أرقام
+
+  // توحيد الكتابة العربية للبحث والمطابقة (أ إ آ ← ا، ة ← ه، ى ← ي)
+  const norm = (s) => String(s || "").replace(/[\u064B-\u0652\u0640]/g, "").replace(/[أإآ]/g, "ا")
+    .replace(/ة/g, "ه").replace(/ى/g, "ي").replace(/\s+/g, " ").trim().toLowerCase();
+  const byName = new Map(roster.map((r) => [norm(r.ar), r]));
+  const findStudent = (name) => byName.get(norm(name)) || null;
 
   // ───────── الوقت ─────────
 
@@ -71,7 +80,7 @@
       if (t.date !== today || test !== nowTesting) continue;
       const name = String(b.name || "").trim().replace(/\s+/g, " ");
       const aid = String(b.academic_id || "").trim().toUpperCase();
-      if (name.length < 2 || name.length > 80 || !/^[0-9A-Z-]{3,20}$/.test(aid)) continue;
+      if (name.length < 2 || name.length > 80 || !AID_RE.test(aid)) continue;
       const lec = openLecture(t.minutes) || (test ? lectures[0] : null);
       if (!lec) continue;
       if (!test && !(b.distance <= cfg.RADIUS_M && b.accuracy <= cfg.MAX_ACCURACY_M)) continue;
@@ -113,7 +122,8 @@
     const aid = String(body.academic_id || "").trim().toUpperCase();
     const name = String(body.name || "").trim().replace(/\s+/g, " ");
     if (name.length < 2 || name.length > 80) throw new Error("اكتب اسمك الكامل");
-    if (!/^[0-9A-Z-]{3,20}$/.test(aid)) throw new Error("الرقم الأكاديمي غير صحيح");
+    if (!AID_RE.test(aid)) throw new Error("الرقم الأكاديمي لازم يبدأ بـ WP وبعده أرقام، مثل WP2630069");
+    if (roster.length && !findStudent(name)) throw new Error("اختر اسمك من قائمة الأسماء");
 
     const rows = lastRows || await ntfyToday();
     const mine = rows.find((r) => r.lecture === lec.num && r.academic_id === aid);
@@ -143,7 +153,7 @@
   }
 
   window.Att = {
-    ready, fmtTime, testing, lectures, lectureState,
+    ready, fmtTime, testing, lectures, lectureState, roster, groups, norm, findStudent, AID_RE, toMin,
     today: async () => {
       lastRows = useScript ? (await script()).rows : await ntfyToday();
       return lastRows;
