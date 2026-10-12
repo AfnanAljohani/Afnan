@@ -28,9 +28,15 @@
 
   const toMin = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
 
+  const testing = () => Boolean(cfg.TEST_UNTIL) && Date.now() < new Date(cfg.TEST_UNTIL).getTime();
+
   // وش المحاضرة اللي التحضير لها مفتوح الحين (أو الجاية)
   function lectureState(lectures, s) {
     const now = riyadhNow().minutes;
+    if (testing() && lectures.length) {
+      const open = lectures.find((l) => now >= toMin(l.starts_at) - s.open_before_min && now <= toMin(l.starts_at) + s.close_after_min);
+      return { kind: "open", lecture: open || lectures[0], test: true };
+    }
     for (const l of lectures) {
       const start = toMin(l.starts_at);
       if (now >= start - s.open_before_min && now <= start + s.close_after_min) {
@@ -46,7 +52,7 @@
     new Date(iso).toLocaleTimeString("ar-SA-u-nu-latn", { timeZone: "Asia/Riyadh", hour: "numeric", minute: "2-digit" });
 
   window.Att = {
-    ready, lectureState, fmtTime,
+    ready, lectureState, fmtTime, testing,
     loadSchedule: async () => ({
       lectures: cfg.LECTURES || [],
       settings: { open_before_min: cfg.OPEN_BEFORE_MIN ?? 10, close_after_min: cfg.CLOSE_AFTER_MIN ?? 20 },

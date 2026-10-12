@@ -3,6 +3,9 @@
 window.ATTENDANCE_CONFIG = {
   SCRIPT_URL: "",
 
+  // وضع التجربة (نفس الوقت اللي في google-apps-script.gs): يطلع شريط "وضع التجربة" لين هالوقت
+  TEST_UNTIL: "2026-10-12T07:45:00+03:00",
+
   // للعرض في الصفحات بس. إذا غيرتي الأوقات، غيريها بعد في google-apps-script.gs
   OPEN_BEFORE_MIN: 10,
   CLOSE_AFTER_MIN: 20,

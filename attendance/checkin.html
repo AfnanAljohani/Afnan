@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 <style>
 main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
 .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
@@ -109,8 +109,8 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
 </main>
 <footer class="credit">Made with Love by AFNAN aljohani</footer>
 
-<script src="config.js?v=4"></script>
-<script src="api.js?v=4"></script>
+<script src="config.js?v=5"></script>
+<script src="api.js?v=5"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 let schedule = null, current = null, seen = null;
@@ -132,6 +132,7 @@ function tick() {
   current = st.kind === "done" ? null : st.lecture;
   $("state").className = "pill " + (st.kind === "open" ? "open" : st.kind === "wait" ? "wait" : "");
   $("state").lastElementChild.textContent =
+    st.test ? "🧪 وضع التجربة · التحضير مفتوح من أي مكان" :
     st.kind === "open" ? `${st.lecture.title} · التحضير مفتوح (يقفل بعد ${st.closesIn} د)` :
     st.kind === "wait" ? `${st.lecture.title} · يفتح بعد ${st.opensIn >= 60 ? Math.floor(st.opensIn / 60) + " س " : ""}${st.opensIn % 60} د` :
     "خلصت محاضرات اليوم";
