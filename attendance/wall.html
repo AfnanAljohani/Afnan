@@ -23,7 +23,7 @@ main { padding: 28px clamp(16px, 3vw, 48px) 48px; }
   flex: 0 0 auto; border: 1px solid var(--line); background: var(--ink2); color: var(--mute);
   border-radius: 12px; padding: 8px 16px; cursor: pointer; font: 600 15px var(--body); text-align: right;
 }
-.tab small { display: block; font-family: var(--mono); font-size: 12px; }
+.tab small { display: block; text-align: right; font-family: var(--mono); font-size: 12px; }
 .tab.on { background: var(--y); color: #141519; border-color: var(--y); }
 .tab .n { font-family: var(--mono); margin-inline-start: 6px; opacity: .8; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
@@ -96,7 +96,7 @@ function render() {
   if (!schedule) return;
   $("tabs").innerHTML = schedule.lectures.map((l) => {
     const n = rows.filter((r) => r.lecture === l.num).length;
-    return `<button class="tab ${l.num === selected ? "on" : ""}" data-n="${l.num}">${esc(l.title)}<span class="n">${n}</span><small>${l.starts_at}–${l.ends_at}</small></button>`;
+    return `<button class="tab ${l.num === selected ? "on" : ""}" data-n="${l.num}">${esc(l.title)}<span class="n">${n}</span><small dir="ltr">${l.starts_at}–${l.ends_at}</small></button>`;
   }).join("");
   const list = rows.filter((r) => r.lecture === selected).sort((a, b) => a.checked_in_at.localeCompare(b.checked_in_at));
   $("sOn").textContent = list.filter((r) => r.status === "on_time").length;
