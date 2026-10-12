@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 <style>
 main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
 .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
@@ -80,7 +80,7 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
         <label for="name">الاسم الكامل</label>
         <input id="name" autocomplete="name" required minlength="2" maxlength="80" placeholder="اكتب اسمك الكامل">
         <label for="aid">الرقم الأكاديمي</label>
-        <input id="aid" class="ltr" inputmode="numeric" autocomplete="off" required minlength="3" maxlength="20" placeholder="Academic ID">
+        <input id="aid" class="ltr" autocapitalize="characters" autocomplete="off" spellcheck="false" required minlength="3" maxlength="20" placeholder="Academic ID">
         <div class="info">📍 بنطلب موقعك مرة وحدة عشان نتأكد إنك داخل الأكاديمية. ما نحفظ موقعك، بس المسافة. ووقت الحضور ينحسب بتوقيت الرياض.</div>
         <button id="submit" class="go" type="submit">تسجيل الحضور</button>
         <div id="error" class="error" hidden></div>
@@ -108,8 +108,8 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
   </div>
 </main>
 
-<script src="config.js"></script>
-<script src="api.js"></script>
+<script src="config.js?v=3"></script>
+<script src="api.js?v=3"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 let schedule = null, current = null, seen = null;
@@ -195,14 +195,18 @@ $("form").addEventListener("submit", async (e) => {
     $("error").textContent = err.message;
     $("error").hidden = false;
   } finally {
-    btn.disabled = false;
+    btn.disabled = !Att.ready;
     btn.textContent = "تسجيل الحضور";
   }
 });
 
 (async () => {
   tick(); setInterval(tick, 1000);
-  if (!Att.ready) { $("setup").hidden = false; $("state").hidden = true; return; }
+  if (!Att.ready) {
+    $("setup").hidden = false; $("state").hidden = true;
+    $("submit").disabled = true; $("submit").textContent = "التسجيل يفتح بعد ربط قاعدة البيانات";
+    return;
+  }
   try {
     const me = JSON.parse(localStorage.getItem("att-me") || "null");
     if (me) { $("name").value = me.name; $("aid").value = me.aid; }
