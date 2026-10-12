@@ -1,14 +1,16 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-doc="ci.doc">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#030806">
+<meta name="theme-color" content="#061214">
+<link rel="icon" type="image/png" href="favicon.png">
 <title>سجّل حضورك · AI Trainees</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=10">
+<script src="i18n.js?v=10"></script>
 <style>
 main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
 .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
@@ -16,10 +18,11 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
 .back { color: var(--mute); text-decoration: none; font-size: 14px; }
 .clock { border: 1px solid var(--line); background: var(--ink2); border-radius: 22px; padding: 14px 24px; }
 .clock small { display: block; font: 600 12px var(--mono); letter-spacing: .14em; color: var(--mute); }
-.clock b { font: 600 24px var(--mono); color: var(--y); direction: ltr; display: block; text-align: right; }
+.clock b { font: 600 24px var(--mono); color: var(--y); direction: ltr; display: block; text-align: start; }
+html[dir="rtl"] .clock b { text-align: right; }
 .cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 20px; align-items: start; }
 @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
-.card { background: var(--ink2); border: 1px solid var(--line); border-radius: 24px; padding: 26px; }
+.card { background: var(--ink2); border: 1px solid var(--line); border-radius: 24px; padding: 26px; box-shadow: var(--shadow); }
 .card h2 { font-size: 24px; font-weight: 700; }
 .card .sub { color: var(--mute); margin: 4px 0 22px; }
 label { display: block; font-weight: 600; margin-bottom: 8px; }
@@ -29,14 +32,14 @@ input {
   color: var(--on); font: 500 17px var(--body);
 }
 input:focus { outline: 2px solid var(--y); outline-offset: 1px; border-color: transparent; }
-input.ltr { direction: ltr; text-align: right; font-family: var(--mono); }
+input.ltr { direction: ltr; text-align: start; font-family: var(--mono); }
 .info { border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; color: var(--mute); font-size: 14px; margin-bottom: 18px; }
 button.go {
   width: 100%; height: 58px; border: 0; border-radius: 16px; cursor: pointer;
-  background: var(--y); color: #02140d; font: 700 18px var(--body);
+  background: var(--y); color: var(--on-y); font: 700 18px var(--body);
 }
 button.go:disabled { opacity: .45; cursor: not-allowed; }
-.error { color: #ff8a8e; background: rgba(229, 72, 77, .12); border-radius: 12px; padding: 12px 14px; margin-top: 14px; }
+.error { color: var(--bad); background: var(--bad-soft); border: 1px solid var(--bad-line); border-radius: 12px; padding: 12px 14px; margin-top: 14px; }
 .done { text-align: center; padding: 10px 0; }
 .done .big { font-size: 52px; line-height: 1; margin-bottom: 8px; }
 .done h3 { font-size: 22px; margin-bottom: 4px; }
@@ -49,14 +52,15 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
 .list li.new { animation: arrive .9s ease-out; border-color: var(--y); }
 @keyframes arrive { from { transform: translateY(10px); opacity: 0; } }
 .av { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--ink3); color: var(--y); font-weight: 700; }
-.list .nm { flex: 1; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.list li { flex-wrap: wrap; }
+.list .nm { flex: 1 1 150px; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
 .list .t { font: 600 15px var(--mono); }
 .empty { text-align: center; padding: 48px 12px; border: 1px dashed var(--line); border-radius: 18px; color: var(--mute); }
 .empty b { display: block; color: var(--on); font-size: 18px; margin-bottom: 4px; }
 .combo { position: relative; }
 .combo input { margin-bottom: 0; }
 .sug { position: absolute; z-index: 20; inset-inline: 0; top: calc(100% + 6px); list-style: none; margin: 0; padding: 6px;
-  background: var(--ink2); border: 1px solid var(--line); border-radius: 14px; max-height: 300px; overflow-y: auto; box-shadow: 0 18px 40px rgba(0,0,0,.45); }
+  background: var(--ink2); border: 1px solid var(--line); border-radius: 14px; max-height: 300px; overflow-y: auto; box-shadow: var(--shadow); }
 .sug li { padding: 10px 12px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; gap: 10px; align-items: center; }
 .sug li small { color: var(--mute); font: 500 12px var(--mono); white-space: nowrap; }
 .sug li[aria-selected="true"], .sug li:hover { background: var(--ink3); }
@@ -84,11 +88,11 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
   .lec .row2 { flex-wrap: wrap; }
 }
 .lec .tm, .lec .pill, .lec .cnt, .lec .win span { white-space: nowrap; }
-.lec { text-align: right; cursor: pointer; border: 1px solid var(--line); background: var(--ink); color: var(--on); border-radius: 16px; padding: 12px 14px; font: inherit; display: grid; gap: 4px; }
+.lec { text-align: start; cursor: pointer; border: 1px solid var(--line); background: var(--ink); color: var(--on); border-radius: 16px; padding: 12px 14px; font: inherit; display: grid; gap: 4px; }
 .lec:hover { border-color: var(--y); }
 .lec.sel { border-color: var(--y); box-shadow: 0 0 0 3px var(--y-soft); }
 .lec b { font-size: 15px; }
-.lec .tm { font: 600 15px var(--mono); direction: ltr; text-align: right; }
+.lec .tm { font: 600 15px var(--mono); }
 .lec .win { font-size: 12px; color: var(--mute); }
 .lec .row2 { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: 4px; }
 .lec .cnt { font: 600 13px var(--mono); color: var(--mute); }
@@ -97,24 +101,31 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
 </style>
 </head>
 <body>
-<nav class="nav"><a class="brand" href="./">AI Trainees<span>·</span>EWA</a><div class="links"><a href="./">الرئيسية</a><a href="wall.html">المحاضرات</a><a class="go on" href="checkin.html">سجّل حضورك</a></div></nav>
+<nav class="nav">
+  <a class="brand" href="./"><img src="ewa-logo.png" alt="EWA" width="34" height="34"><span>AI Trainees</span></a>
+  <div class="links">
+    <a href="./" data-i18n="nav.home">الرئيسية</a>
+    <a href="wall.html" data-i18n="nav.lectures">المحاضرات</a>
+    <a class="go on" aria-current="page" href="checkin.html" data-i18n="nav.checkin">سجّل حضورك</a>
+    <button class="ic" id="langBtn" type="button">EN</button>
+    <button class="ic" id="themeBtn" type="button" aria-label="تبديل الوضع الليلي والفاتح"><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
+  </div>
+</nav>
 <main>
   <div class="head">
     <div>
-      <span id="state" class="pill"><span class="dot"></span><span>جاري التحميل…</span></span>
-      <h1>سجّل حضورك الآن</h1>
-      <div class="muted">اكتب اسمك ورقمك الأكاديمي بس. لازم تكون داخل أكاديمية الطاقة والمياه.</div>
+      <span id="state" class="pill"><span class="dot"></span><span data-i18n="loading">جاري التحميل…</span></span>
+      <h1 data-i18n="ci.h1">سجّل حضورك الآن</h1>
+      <div class="muted" data-i18n="ci.lead">اكتب اسمك ورقمك الأكاديمي بس. لازم تكون داخل أكاديمية الطاقة والمياه.</div>
     </div>
     <div class="clock"><small>RIYADH LIVE TIME</small><b id="clock">--:--:--</b></div>
   </div>
 
-  <div id="setup" class="notice" hidden>
-    الموقع يحتاج إعداد. شوفي <code>attendance/config.js</code> (الخطوات في <code>attendance/README.md</code>).
-  </div>
+  <div id="setup" class="notice" hidden data-i18n="setup">الموقع يحتاج إعداد.</div>
 
   <section class="card sched-card">
     <div class="sched-head">
-      <h2>محاضرات اليوم</h2>
+      <h2 data-i18n="ci.sched">محاضرات اليوم</h2>
       <div class="sub" id="schedSub"></div>
     </div>
     <div class="lecs" id="lecs"></div>
@@ -123,23 +134,23 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
   <div class="cols">
     <section class="card">
       <form id="form">
-        <h2>بيانات الحضور</h2>
-        <div class="sub" id="aidHint">اختر اسمك من القائمة واكتب أرقام رقمك الأكاديمي بعد WP. الرقم ما يطلع في لوحة الحضور.</div>
-        <label for="name">الاسم</label>
+        <h2 data-i18n="ci.form">بيانات الحضور</h2>
+        <div class="sub" id="aidHint" data-i18n="ci.hint">اختر اسمك من القائمة واكتب أرقام رقمك الأكاديمي بعد WP. الرقم ما يطلع في لوحة الحضور.</div>
+        <label for="name" data-i18n="ci.name">الاسم</label>
         <div class="combo">
-          <input id="name" autocomplete="off" spellcheck="false" required maxlength="80" placeholder="ابحث عن اسمك واختره من القائمة"
+          <input id="name" autocomplete="off" spellcheck="false" required maxlength="80" placeholder="ابحث عن اسمك واختره من القائمة" data-i18n-ph="ci.namePh"
             role="combobox" aria-expanded="false" aria-controls="sug" aria-autocomplete="list">
           <ul id="sug" class="sug" role="listbox" hidden></ul>
         </div>
         <div id="who" class="who" hidden></div>
         <div id="whoGap" class="gap"></div>
-        <label for="aid">الرقم الأكاديمي</label>
+        <label for="aid" data-i18n="ci.aid">الرقم الأكاديمي</label>
         <div class="aid-wrap" dir="ltr">
           <span class="wp">WP</span>
           <input id="aid" inputmode="numeric" autocomplete="off" spellcheck="false" required maxlength="12" placeholder="2630069" aria-describedby="aidHint">
         </div>
-        <div class="info">📍 بنطلب موقعك مرة وحدة عشان نتأكد إنك داخل الأكاديمية. ما نحفظ موقعك، بس المسافة. ووقت الحضور ينحسب بتوقيت الرياض.</div>
-        <button id="submit" class="go" type="submit">تسجيل الحضور</button>
+        <div class="info" data-i18n="ci.info">📍 بنطلب موقعك مرة وحدة عشان نتأكد إنك داخل الأكاديمية. ما نحفظ موقعك، بس المسافة. ووقت الحضور ينحسب بتوقيت الرياض.</div>
+        <button id="submit" class="go" type="submit" data-i18n="ci.submit">تسجيل الحضور</button>
         <div id="error" class="error" hidden></div>
       </form>
       <div id="done" class="done" hidden>
@@ -155,24 +166,28 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
       <div class="live-head">
         <div>
           <h2 id="listTitle">حضور اليوم</h2>
-          <div class="sub">الأسماء ووقت التسجيل · التحديث المباشر على شاشة العرض</div>
+          <div class="sub" data-i18n="ci.listSub">الأسماء ووقت التسجيل · التحديث المباشر في صفحة المحاضرات</div>
         </div>
         <span class="live"><i></i>LIVE</span>
       </div>
       <ul class="list" id="list"></ul>
-      <div class="empty" id="empty"><b>ما أحد سجّل حضوره للحين</b>أول اسم بيطلع هنا مباشرة بعد التسجيل.</div>
+      <div class="empty" id="empty"><b data-i18n="ci.emptyT">ما أحد سجّل حضوره للحين</b><span data-i18n="ci.emptyD">أول اسم بيطلع هنا مباشرة بعد التسجيل.</span></div>
     </section>
   </div>
 </main>
-<footer class="credit">Made with Love by AFNAN aljohani</footer>
+<footer class="credit">Made with <b>Love</b> by AFNAN aljohani</footer>
 
-<script src="config.js?v=7"></script>
-<script src="roster.js?v=9"></script>
-<script src="api.js?v=7"></script>
+<script src="config.js?v=10"></script>
+<script src="roster.js?v=10"></script>
+<script src="api.js?v=10"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 let schedule = null, current = null, seen = null, picked = null, pinnedLec = null;
 const esc = (s) => { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; };
+const T = (k, v) => I18N.t(k, v);
+const dur = (m) => (m >= 60 ? T("dur.hm", { h: Math.floor(m / 60), m: m % 60 }) : T("dur.m", { m }));
+const statusText = (r) => r.minutes_from_start === 0 ? T("st.ontime") : T(r.status === "late" ? "st.late" : "st.after", { m: r.minutes_from_start });
+let lastDone = null;
 
 // معرّف ثابت للجهاز عشان الجوال الواحد ما يحضّر لأكثر من شخص
 function deviceId() {
@@ -190,10 +205,10 @@ function tick() {
   current = st.kind === "done" ? null : st.lecture;
   $("state").className = "pill " + (st.kind === "open" ? "open" : st.kind === "wait" ? "wait" : "");
   $("state").lastElementChild.textContent =
-    st.test ? "🧪 وضع التجربة · التحضير مفتوح من أي مكان" :
-    st.kind === "open" ? `${st.lecture.title} · التحضير مفتوح (يقفل بعد ${st.closesIn} د)` :
-    st.kind === "wait" ? `${st.lecture.title} · يفتح بعد ${st.opensIn >= 60 ? Math.floor(st.opensIn / 60) + " س " : ""}${st.opensIn % 60} د` :
-    "خلصت محاضرات اليوم";
+    st.test ? T("state.test") :
+    st.kind === "open" ? T("state.openFor", { title: Att.lecTitle(st.lecture), m: st.closesIn }) :
+    st.kind === "wait" ? T("state.wait", { title: Att.lecTitle(st.lecture), t: dur(st.opensIn) }) :
+    T("state.done");
   renderLecs();
 }
 
@@ -208,15 +223,15 @@ let lecsHtml = "";
 function renderLecs() {
   if (!schedule) return;
   const cfg = window.ATTENDANCE_CONFIG, n = nowMin(), shown = shownLecture();
-  $("schedSub").textContent = `التحضير يفتح قبل كل محاضرة بـ ${cfg.OPEN_BEFORE_MIN} دقائق ويقفل بعد بدايتها بـ ${cfg.CLOSE_AFTER_MIN} دقيقة`;
+  $("schedSub").textContent = T("ci.schedSub", { o: cfg.OPEN_BEFORE_MIN, c: cfg.CLOSE_AFTER_MIN });
   const html = schedule.lectures.map((l) => {
     const s = Att.toMin(l.starts_at), o = s - cfg.OPEN_BEFORE_MIN, c = s + cfg.CLOSE_AFTER_MIN;
-    const st = Att.testing() ? ["open", "مفتوح (تجربة)"] : n < o ? ["wait", "يفتح " + hhmm(o)] : n <= c ? ["open", "التحضير مفتوح"] : ["", "انتهى التحضير"];
+    const st = Att.testing() ? ["open", T("lec.test")] : n < o ? ["wait", T("lec.opensAt", { t: hhmm(o) })] : n <= c ? ["open", T("lec.open")] : ["", T("lec.closed")];
     const cnt = rows.filter((r) => r.lecture === l.num).length;
     return `<button type="button" class="lec ${l.num === shown ? "sel" : ""}" data-n="${l.num}">
-      <b>${esc(l.title)}</b><span class="tm">${l.starts_at} – ${l.ends_at}</span>
-      <span class="win">التحضير <span dir="ltr">${hhmm(o)} – ${hhmm(c)}</span></span>
-      <span class="row2"><span class="pill ${st[0]}">${st[1]}</span><span class="cnt">${cnt} حاضر</span></span></button>`;
+      <b>${esc(Att.lecTitle(l))}</b><span class="tm"><span dir="ltr">${l.starts_at} – ${l.ends_at}</span></span>
+      <span class="win">${T("lec.window")} <span dir="ltr">${hhmm(o)} – ${hhmm(c)}</span></span>
+      <span class="row2"><span class="pill ${st[0]}">${st[1]}</span><span class="cnt">${T("lec.count", { n: cnt })}</span></span></button>`;
   }).join("");
   if (html !== lecsHtml) { $("lecs").innerHTML = html; lecsHtml = html; }
 }
@@ -239,14 +254,14 @@ function render() {
     const lec = shownLecture();
     const list = all.filter((r) => r.lecture === lec);
     const title = schedule.lectures.find((l) => l.num === lec);
-    $("listTitle").textContent = title ? `حضور ${title.title}` : "حضور اليوم";
+    $("listTitle").textContent = title ? T("ci.listOf", { title: Att.lecTitle(title) }) : T("ci.listToday");
     const key = (r) => r.full_name + r.checked_in_at;
     $("empty").hidden = list.length > 0;
     $("list").innerHTML = list.map((r) => `
       <li class="${seen && !seen.has(key(r)) ? "new" : ""}">
-        <span class="av">${esc(r.full_name.trim().charAt(0))}</span>
-        <span class="nm">${esc(r.full_name)}</span>
-        <span class="pill ${r.status === "late" ? "late" : "open"}">${r.minutes_from_start === 0 ? "في الوقت" : (r.status === "late" ? "متأخر " : "+") + r.minutes_from_start + " د"}</span>
+        <span class="av">${esc(Att.displayName(r.full_name).trim().charAt(0))}</span>
+        <span class="nm">${esc(Att.displayName(r.full_name))}</span>
+        <span class="pill ${r.status === "late" ? "late" : "open"}">${statusText(r)}</span>
         <span class="t">${Att.fmtTime(r.checked_in_at)}</span>
       </li>`).join("");
     seen = new Set(rows.map(key));
@@ -256,11 +271,9 @@ function render() {
 
 function getPosition() {
   return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) return reject(new Error("جهازك ما يدعم تحديد الموقع"));
-    navigator.geolocation.getCurrentPosition(resolve, (e) => reject(new Error(
-      e.code === 1 ? "لازم تسمح للموقع يوصل لمكانك. من إعدادات المتصفح فعّل الموقع وحاول مرة ثانية" :
-      "ما قدرنا نحدد موقعك. شغّل GPS وحاول مرة ثانية"
-    )), { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
+    if (!navigator.geolocation) return reject(new Error(T("err.noGeo")));
+    navigator.geolocation.getCurrentPosition(resolve, (e) => reject(new Error(T(e.code === 1 ? "err.geoDenied" : "err.geoFail"))),
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
   });
 }
 
@@ -270,13 +283,13 @@ $("form").addEventListener("submit", async (e) => {
   $("error").hidden = true;
   const digits = $("aid").value.replace(/\D/g, "");
   const student = Att.findStudent($("name").value);
-  if (!student) { $("error").textContent = "اختر اسمك من القائمة اللي تطلع تحت خانة الاسم"; $("error").hidden = false; $("name").focus(); return; }
-  if (!/^\d{6,8}$/.test(digits)) { $("error").textContent = "اكتب أرقام رقمك الأكاديمي بعد WP، مثل 2630069"; $("error").hidden = false; $("aid").focus(); return; }
+  if (!student) { $("error").textContent = T("err.pickName"); $("error").hidden = false; $("name").focus(); return; }
+  if (!/^\d{6,8}$/.test(digits)) { $("error").textContent = T("err.aidDigits"); $("error").hidden = false; $("aid").focus(); return; }
   btn.disabled = true;
   try {
-    btn.textContent = "نحدد موقعك…";
+    btn.textContent = T("ci.locating");
     const pos = await getPosition();
-    btn.textContent = "نسجّل…";
+    btn.textContent = T("ci.sending");
     const r = await Att.checkIn({
       name: student.ar, academic_id: "WP" + digits,
       lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy,
@@ -285,13 +298,8 @@ $("form").addEventListener("submit", async (e) => {
     try { localStorage.setItem("att-me", JSON.stringify({ name: student.ar, aid: digits })); } catch {}
     $("form").hidden = true;
     $("done").hidden = false;
-    $("doneIcon").textContent = r.already ? "👌" : "✅";
-    $("doneTitle").textContent = r.already ? "حضورك مسجل من قبل" : "تم تسجيل حضورك";
-    $("doneName").textContent = `${r.full_name} · ${r.title}`;
-    $("doneTime").textContent = Att.fmtTime(r.checked_in_at);
-    $("doneStatus").className = "pill " + (r.status === "late" ? "late" : "open");
-    $("doneStatus").textContent = r.minutes_from_start === 0 ? "في الوقت" :
-      r.status === "late" ? `متأخر ${r.minutes_from_start} د` : `بعد البداية بـ ${r.minutes_from_start} د`;
+    lastDone = r;
+    renderDone();
     if (!r.already) rows.push(r);
     render();
   } catch (err) {
@@ -299,31 +307,42 @@ $("form").addEventListener("submit", async (e) => {
     $("error").hidden = false;
   } finally {
     btn.disabled = !Att.ready;
-    btn.textContent = "تسجيل الحضور";
+    btn.textContent = T("ci.submit");
   }
 });
 
+function renderDone() {
+  const r = lastDone; if (!r) return;
+  const lec = Att.lectures.find((l) => l.num === r.lecture);
+  $("doneIcon").textContent = r.already ? "👌" : "✅";
+  $("doneTitle").textContent = T(r.already ? "ci.already" : "ci.done");
+  $("doneName").textContent = `${Att.displayName(r.full_name)} · ${lec ? Att.lecTitle(lec) : r.title || ""}`;
+  $("doneTime").textContent = Att.fmtTime(r.checked_in_at);
+  $("doneStatus").className = "pill " + (r.status === "late" ? "late" : "open");
+  $("doneStatus").textContent = r.minutes_from_start === 0 ? T("st.ontime") :
+    T(r.status === "late" ? "st.late" : "st.afterLong", { m: r.minutes_from_start });
+}
+
 // ───── اختيار الاسم من السجل ─────
-const groupLabel = (g) => `المجموعة ${g}` + (Att.groups[g] ? ` · ${Att.groups[g]}` : "");
+const groupLabel = (g) => T("group", { g }) + (Att.groups[g] ? ` · ${Att.groups[g]}` : "");
 let sugItems = [], sugIdx = -1;
 function pick(st) {
-  picked = st; $("name").value = st.ar;
+  picked = st; $("name").value = Att.studentName(st);
   $("who").textContent = groupLabel(st.grp); $("who").hidden = false; $("whoGap").hidden = true;
   closeSug();
 }
 function closeSug() { $("sug").hidden = true; $("name").setAttribute("aria-expanded", "false"); sugIdx = -1; }
 function showSug() {
-  const q = Att.norm($("name").value);
-  const words = q.split(" ").filter(Boolean);
-  sugItems = !words.length ? [] : Att.roster.filter((r) => { const n = Att.norm(r.ar); return words.every((w) => n.includes(w)); }).slice(0, 8);
+  const words = Att.norm($("name").value).split(" ").filter(Boolean);
+  sugItems = Att.searchRoster($("name").value).slice(0, 8);
   $("sug").innerHTML = sugItems.length
-    ? sugItems.map((r, i) => `<li role="option" id="opt${i}" data-i="${i}" aria-selected="${i === sugIdx}">${esc(r.ar)}<small>م ${r.grp}</small></li>`).join("")
-    : (words.length ? `<li class="none">ما لقينا الاسم. جرّب اسمك الأول بس</li>` : "");
+    ? sugItems.map((r, i) => `<li role="option" id="opt${i}" data-i="${i}" aria-selected="${i === sugIdx}">${esc(Att.studentName(r))}<small>${T("group.short", { g: r.grp })}</small></li>`).join("")
+    : (words.length ? `<li class="none">${T("ci.noMatch")}</li>` : "");
   const open = Boolean($("sug").innerHTML);
   $("sug").hidden = !open; $("name").setAttribute("aria-expanded", String(open));
 }
 $("name").addEventListener("input", () => {
-  if (picked && Att.norm($("name").value) !== Att.norm(picked.ar)) { picked = null; $("who").hidden = true; $("whoGap").hidden = false; }
+  if (picked && Att.findStudent($("name").value) !== picked) { picked = null; $("who").hidden = true; $("whoGap").hidden = false; }
   sugIdx = -1; showSug();
 });
 $("name").addEventListener("focus", () => { if (!picked) showSug(); });
@@ -346,11 +365,19 @@ $("lecs").addEventListener("click", (e) => {
   const n = +b.dataset.n; pinnedLec = pinnedLec === n ? null : n; render();
 });
 
+// تغيير اللغة: نعيد رسم كل شي فيه نصوص
+document.addEventListener("langchange", () => {
+  lecsHtml = "";
+  if (picked) { $("name").value = Att.studentName(picked); $("who").textContent = groupLabel(picked.grp); }
+  if (!$("submit").disabled) $("submit").textContent = T("ci.submit");
+  tick(); if (schedule) render(); renderDone();
+});
+
 (async () => {
   tick(); setInterval(tick, 1000);
   if (!Att.ready) {
     $("setup").hidden = false; $("state").hidden = true;
-    $("submit").disabled = true; $("submit").textContent = "التسجيل يفتح بعد ربط قاعدة البيانات";
+    $("submit").disabled = true; $("submit").textContent = T("ci.notReady");
     return;
   }
   try {

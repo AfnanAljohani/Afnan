@@ -8,12 +8,26 @@
   const roster = window.ATT_ROSTER || [];
   const groups = window.ATT_GROUPS || {};
   const AID_RE = /^WP\d{6,8}$/; // الرقم الأكاديمي: WP وبعده أرقام
+  const T = (k, v) => (window.I18N ? I18N.t(k, v) : k);
+  const fail = (k, v) => new Error(T(k, v));
 
   // توحيد الكتابة العربية للبحث والمطابقة (أ إ آ ← ا، ة ← ه، ى ← ي)
   const norm = (s) => String(s || "").replace(/[\u064B-\u0652\u0640]/g, "").replace(/[أإآ]/g, "ا")
     .replace(/ة/g, "ه").replace(/ى/g, "ي").replace(/\s+/g, " ").trim().toLowerCase();
   const byName = new Map(roster.map((r) => [norm(r.ar), r]));
-  const findStudent = (name) => byName.get(norm(name)) || null;
+  const byEn = new Map(roster.filter((r) => r.en).map((r) => [norm(r.en), r]));
+  const findStudent = (name) => byName.get(norm(name)) || byEn.get(norm(name)) || null;
+  const isEn = () => window.I18N && I18N.lang === "en";
+  // الاسم حسب اللغة: بالإنجليزي من السجل إذا موجود
+  const displayName = (name) => { const st = isEn() && findStudent(name); return (st && st.en) || name; };
+  const studentName = (st) => (isEn() && st.en) || st.ar;
+  const lecTitle = (l) => (l ? T("lecture", { n: l.num, ar: l.title }) : "");
+  // بحث بالعربي أو الإنجليزي، كل كلمة لازم تكون موجودة
+  function searchRoster(q) {
+    const words = norm(q).split(" ").filter(Boolean);
+    if (!words.length) return [];
+    return roster.filter((r) => { const n = norm(r.ar) + " " + norm(r.en); return words.every((w) => n.includes(w)); });
+  }
 
   // ───────── الوقت ─────────
 
@@ -52,18 +66,19 @@
     return 2 * 6371000 * Math.asin(Math.sqrt(a));
   }
 
+  const locale = () => (window.I18N ? I18N.locale() : "ar-SA-u-ca-gregory-nu-latn");
   const fmtTime = (iso) =>
-    new Date(iso).toLocaleTimeString("ar-SA-u-nu-latn", { timeZone: "Asia/Riyadh", hour: "numeric", minute: "2-digit" });
+    new Date(iso).toLocaleTimeString(locale(), { timeZone: "Asia/Riyadh", hour: "numeric", minute: "2-digit" });
 
   // ───────── الشبكة ─────────
 
   async function http(url, options) {
     let res;
     try { res = await fetch(url, options); } catch {
-      throw new Error("ما قدرنا نوصل للسيرفر. تأكد من الإنترنت وحاول مرة ثانية");
+      throw fail("err.network");
     }
-    if (res.status === 429) throw new Error("الشبكة مزدحمة. طفّ الواي فاي واستخدم بيانات الجوال، وحاول بعد دقيقة");
-    if (!res.ok && !useScript) throw new Error("صار خطأ في الاتصال، حاول مرة ثانية");
+    if (res.status === 429) throw fail("err.busy");
+    if (!res.ok && !useScript) throw fail("err.generic");
     return res;
   }
 
@@ -112,24 +127,24 @@
     const test = testing();
     const dist = distanceM(body.lat, body.lng);
     if (!test && !(body.accuracy <= cfg.MAX_ACCURACY_M)) {
-      throw new Error(`دقة الموقع ضعيفة (${Math.round(body.accuracy || 9999)} م). شغّل GPS وحاول مرة ثانية`);
+      throw fail("err.accuracy", { m: Math.round(body.accuracy || 9999) });
     }
-    if (!test && dist > cfg.RADIUS_M) throw new Error(`أنت خارج موقع الأكاديمية (تبعد ${Math.round(dist)} م)`);
+    if (!test && dist > cfg.RADIUS_M) throw fail("err.outside", { m: Math.round(dist) });
     const now = riyadh();
     const lec = openLecture(now.minutes) || (test ? lectures[0] : null);
-    if (!lec) throw new Error(`التحضير مقفل الحين. يفتح قبل كل محاضرة بـ ${cfg.OPEN_BEFORE_MIN} دقائق ويقفل بعد بدايتها بـ ${cfg.CLOSE_AFTER_MIN} دقيقة`);
+    if (!lec) throw fail("err.closed", { o: cfg.OPEN_BEFORE_MIN, c: cfg.CLOSE_AFTER_MIN });
 
     const aid = String(body.academic_id || "").trim().toUpperCase();
     const name = String(body.name || "").trim().replace(/\s+/g, " ");
-    if (name.length < 2 || name.length > 80) throw new Error("اكتب اسمك الكامل");
-    if (!AID_RE.test(aid)) throw new Error("الرقم الأكاديمي لازم يبدأ بـ WP وبعده أرقام، مثل WP2630069");
-    if (roster.length && !findStudent(name)) throw new Error("اختر اسمك من قائمة الأسماء");
+    if (name.length < 2 || name.length > 80) throw fail("err.fullName");
+    if (!AID_RE.test(aid)) throw fail("err.aid");
+    if (roster.length && !findStudent(name)) throw fail("err.roster");
 
     const rows = lastRows || await ntfyToday();
     const mine = rows.find((r) => r.lecture === lec.num && r.academic_id === aid);
     if (mine) return { ok: true, already: true, ...mine };
     if (rows.some((r) => r.lecture === lec.num && body.device && r.device === body.device)) {
-      throw new Error("هذا الجوال سجّل حضور شخص ثاني في هالمحاضرة");
+      throw fail("err.device");
     }
 
     const res = await http(NTFY, {
@@ -137,7 +152,7 @@
       body: JSON.stringify({ v: 1, name, academic_id: aid, distance: Math.round(dist), accuracy: Math.round(body.accuracy || 0), device: body.device }),
     });
     const [rec] = toRecords([await res.json()]);
-    if (!rec) throw new Error("التحضير انقفل قبل ما يوصل تسجيلك");
+    if (!rec) throw fail("err.tooLate");
     lastRows = rows.concat(rec);
     return { ok: true, already: false, ...rec };
   }
@@ -147,13 +162,14 @@
   async function script(options) {
     const res = await http(cfg.SCRIPT_URL + (options ? "" : "?t=" + Date.now()), options);
     const data = await res.json().catch(() => null);
-    if (!data) throw new Error("صار خطأ في الاتصال، حاول مرة ثانية");
+    if (!data) throw fail("err.generic");
     if (!data.ok) throw new Error(data.error);
     return data;
   }
 
   window.Att = {
     ready, fmtTime, testing, lectures, lectureState, roster, groups, norm, findStudent, AID_RE, toMin,
+    displayName, studentName, lecTitle, searchRoster, locale,
     today: async () => {
       lastRows = useScript ? (await script()).rows : await ntfyToday();
       return lastRows;
