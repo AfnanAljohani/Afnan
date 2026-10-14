@@ -582,6 +582,22 @@ footer .mono{font-size:12.5px}
 @media (max-width:700px){.spk{padding:18px}.spk-grid,.spk-sessions{grid-template-columns:1fr}}
 @media (max-width:420px){.spk-phases{grid-template-columns:1fr}}
 
+
+/* join with posters */
+.join{text-align:right}
+.join-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:32px;align-items:center}
+.join-grid > *{min-width:0}
+.join h2{font-size:clamp(24px,3.2vw,36px);line-height:1.4}
+.join .lead{font-size:20px;font-weight:600;color:var(--ink);margin:14px 0 6px}
+.join p{margin:0 0 4px;max-width:none}
+.join .cta{justify-content:flex-start;margin-top:22px}
+.join-url{display:block;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--mute);text-align:right}
+.join-posters{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.join-posters a{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line-strong);transition:transform .3s}
+.join-posters a:hover{transform:translateY(-4px) rotate(-.5deg)}
+.join-posters img{display:block;width:100%;height:auto}
+@media (max-width:900px){.join-grid{grid-template-columns:1fr}.join{padding:32px 20px}}
+
 /* ===== phone & tablet fit ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
@@ -1197,12 +1213,23 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <section class="block" style="padding-top:20px">
   <div class="wrap">
     <div class="join reveal">
-      <span class="kicker mono" style="color:var(--accent);font-size:12px;letter-spacing:.14em">JOIN_US //</span>
-      <h2>جاهز تبني معنا؟</h2>
-      <p>كل أربعاء جلسة جديدة، وكل أسبوعين مختبر تطبيقي. ابدأ من المكتبة الرقمية، وتعال بفكرتك إلى أربعاء الذكاء القادم.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="https://lms.ewa.edu.sa/enrol/index.php?id=973" target="_blank" rel="noopener">التسجيل عبر منصة الأكاديمية</a>
-        <a class="btn btn-ghost" href="#plan">الجدول الزمني</a>
+      <div class="join-grid">
+        <div class="join-text">
+          <span class="kicker mono" style="color:var(--accent);font-size:12px;letter-spacing:.14em">JOIN_US //</span>
+          <h2>🤖 EWA AI Club | التسجيل يُغلق قريبًا!</h2>
+          <p class="lead">إذا ما سجّلت، سجّل معنا! 💙</p>
+          <p>ورش، تحديات ومشاريع نبدع فيها سوا.<br>خلّ شغفك يصير إنجاز، وكن جزءًا من أول نادي ذكاء اصطناعي في EWA.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="https://forms.gle/6Uf4i9uQXL6TXCPNA" target="_blank" rel="noopener">🔗 سجّل الآن</a>
+            <a class="btn btn-ghost" href="https://lms.ewa.edu.sa/enrol/index.php?id=973" target="_blank" rel="noopener">التسجيل عبر منصة الأكاديمية</a>
+            <a class="btn btn-ghost" href="#plan">الجدول الزمني</a>
+          </div>
+          <small class="join-url ltr">forms.gle/6Uf4i9uQXL6TXCPNA</small>
+        </div>
+        <div class="join-posters">
+          <a href="https://forms.gle/6Uf4i9uQXL6TXCPNA" target="_blank" rel="noopener"><img src="img/join-qr.webp" width="1080" height="1080" loading="lazy" alt="بوستر التسجيل في نادي الذكاء الاصطناعي مع باركود"></a>
+          <a href="https://forms.gle/6Uf4i9uQXL6TXCPNA" target="_blank" rel="noopener"><img src="img/join-promo.webp" width="1080" height="1080" loading="lazy" alt="بوستر: المستقبل ما ينتظر... إحنا نصنعه"></a>
+        </div>
       </div>
     </div>
   </div>
@@ -1421,10 +1448,10 @@ document.addEventListener('pointermove', e => {
 const MEMBERS = [
   ['أفنان فهد الجهني','lead','قائدة النادي'],['سارة الشمراني','lead','نائبة القائدة'],
   ['مروان الجهني','lead','قائد AI Speaker Club'],['فهد حمد اليامي','exec','مساعد قائد AI Speaker Club'],['عبدالرحمن قوتة','exec','مساعد قائد AI Speaker Club'],
-  ['Ahmed Mahmoud Alsayed','member'],['Abdullah Khaled Ibrahim Alghamdi','member'],
-  ['رغد يوسف المرشدي','exec'],['سارة منصور الوذيناني','exec'],['Reema Wasl Allah Alotaibi','exec'],['جوري ضيف الله الجعيد','exec'],['Khalid Ibrahim Al-Harbi','exec'],['شرق رجاالله السلمي','exec'],['لجين عبدالله السلمي','exec'],['سلطان حسين بالحارث','exec'],['شهد علي مروي','exec'],
+  ['أحمد محمود السيد','member'],['عبدالله خالد إبراهيم الغامدي','member'],
+  ['رغد يوسف المرشدي','exec'],['سارة منصور الوذيناني','exec'],['ريما وصل الله العتيبي','exec'],['جوري ضيف الله الجعيد','exec'],['خالد إبراهيم الحربي','exec'],['شرق رجاالله السلمي','exec'],['لجين عبدالله السلمي','exec'],['سلطان حسين بالحارث','exec'],['شهد علي مروي','exec'],
   ['رائد عوض الله العزيري','vol'],
-  ['أسيل سامي الجهني','member'],['الوليد احمد المطمي','member'],['رغد محمد الغامدي','member'],['Raghad ayedh altrisy','member'],['شموخ محبوب العتيبي','member'],['ندى ذياب الحربي','member'],['يارا علي حكمي','member'],['تاله عبدالخالق فيرق','member'],['Osama Adel Alrowithi','member'],['محمد إبراهيم المطيري','member'],['أبرار علي العسيري','member'],['ليلى صالح العرجاني','member'],['رنيم عوض الله السلمي','member'],['ميمونه احمد جعفري','member'],['غاده علي الظاهري','member'],['خالد محمد القرني','member'],['ساره مصطفى الشيخ','member']
+  ['أسيل سامي الجهني','member'],['الوليد احمد المطمي','member'],['رغد محمد الغامدي','member'],['رغد عايض الطريسي','member'],['شموخ محبوب العتيبي','member'],['ندى ذياب الحربي','member'],['يارا علي حكمي','member'],['تاله عبدالخالق فيرق','member'],['أسامة عادل الرويثي','member'],['محمد إبراهيم المطيري','member'],['أبرار علي العسيري','member'],['ليلى صالح العرجاني','member'],['رنيم عوض الله السلمي','member'],['ميمونه احمد جعفري','member'],['غاده علي الظاهري','member'],['خالد محمد القرني','member'],['ساره مصطفى الشيخ','member']
 ];
 const TYPE_LABEL = {lead:'قيادة', exec:'الفريق التنفيذي', vol:'متطوع في الفعاليات', member:'عضو مستفيد'};
 (function members(){
@@ -1455,10 +1482,10 @@ $('#props').innerHTML = PROPS.map(([t,d],i) => `<div class="card prop reveal"><s
 
 const VOICES = [
   ['استضافة شخصيات بارزة، والتعاون في مشاريع خارجية، وبناء فريق من أعضاء النادي يحضر الفعاليات ذات الصلة ويمثّل النادي والأكاديمية.','سارة منصور الوذيناني','الفريق التنفيذي'],
-  ['ترتيب هاكاثونات خاصة لطلاب النادي.','Khalid Ibrahim Al-Harbi','الفريق التنفيذي'],
-  ['AI in business, AI and cybersecurity.','Reema Wasl Allah Alotaibi','الفريق التنفيذي'],
+  ['ترتيب هاكاثونات خاصة لطلاب النادي.','خالد إبراهيم الحربي','الفريق التنفيذي'],
+  ['AI in business, AI and cybersecurity.','ريما وصل الله العتيبي','الفريق التنفيذي'],
   ['يفضّل أن يبقى النادي مركّزًا على الذكاء الاصطناعي، بفعاليات نوعية نتيجتها مثمرة بدل كثرة الفعاليات.','رغد يوسف المرشدي','الفريق التنفيذي'],
-  ['التنوّع والربط الاجتماعي ما بين فعاليات الحياة والذكاء الاصطناعي.','Raghad ayedh altrisy','عضو مستفيد'],
+  ['التنوّع والربط الاجتماعي ما بين فعاليات الحياة والذكاء الاصطناعي.','رغد عايض الطريسي','عضو مستفيد'],
   ['كل الدعم لهم.','شهد علي مروي','الفريق التنفيذي']
 ];
 $('#voices').innerHTML = VOICES.map(([q,n,t]) => `<div class="card quote reveal"><p${/^[A-Z]/.test(q) ? ' class="ltr" style="text-align:right"' : ''}>${esc(q)}</p><div class="who"><b${/[a-z]/i.test(n) ? ' class="ltr"' : ''}>${esc(n)}</b><span class="tag">${t}</span></div></div>`).join('');
