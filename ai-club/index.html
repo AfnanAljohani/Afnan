@@ -473,6 +473,37 @@ footer .mono{font-size:12.5px}
 @media (max-width:860px){.saudi{grid-template-columns:1fr 1fr}.saudi figure:last-child{grid-column:1 / -1}.workshop{grid-template-columns:1fr}.workshop figure{max-width:440px;width:100%;justify-self:center}}
 @media (max-width:560px){.saudi{grid-template-columns:1fr}}
 
+
+/* events */
+.events{display:flex;flex-direction:column;gap:22px}
+.evt{display:grid;grid-template-columns:1fr 1.25fr;gap:26px;align-items:start;padding:26px}
+.evt > *{min-width:0}
+.evt .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.evt .tag{font-size:12.5px;border-radius:999px;padding:3px 12px;border:1px solid var(--line-strong);color:var(--ink2)}
+.evt .tag.date{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.evt .tag.soon{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent)}
+.evt h3{font-size:22px;margin-bottom:10px}
+.evt p{font-size:15.5px;line-height:1.9}
+.evt .src{display:block;margin-top:8px;font-size:12.5px;color:var(--mute)}
+.evt .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.evt .shots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.evt .shots a{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line-strong);position:relative;background:var(--bg2)}
+.evt .shots a:first-child{grid-column:1 / -1}
+.evt .shots img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.evt .shots a:hover img{transform:scale(1.04)}
+.vid{display:grid;place-items:center;gap:10px;aspect-ratio:16/9;border-radius:12px;border:1px solid var(--line-strong);text-align:center;padding:18px;position:relative;overflow:hidden;
+  background:radial-gradient(420px 220px at 50% 40%,color-mix(in srgb,var(--accent) 30%,transparent),transparent),linear-gradient(135deg,var(--bg2),var(--panel-solid));transition:border-color .25s,transform .25s}
+.vid:hover{border-color:var(--accent);transform:translateY(-2px)}
+.vid .play{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;box-shadow:0 0 0 10px var(--accent-soft),0 14px 40px -10px var(--glow)}
+.vid .play svg{width:26px;height:26px;margin-inline-start:4px}
+.vid b{font-size:15px}
+.vid small{display:block;color:var(--mute);font-size:12.5px;font-family:var(--mono);direction:ltr}
+.vid.kaust{background:radial-gradient(420px 220px at 50% 40%,color-mix(in srgb,var(--ok) 26%,transparent),transparent),linear-gradient(135deg,var(--bg2),var(--panel-solid))}
+.vid.kaust .play{background:var(--ok)}
+.pending{display:grid;place-items:center;gap:8px;aspect-ratio:16/9;border:2px dashed var(--line-strong);border-radius:12px;color:var(--mute);text-align:center;padding:18px;font-size:14.5px}
+.pending svg{width:30px;height:30px;color:var(--accent)}
+@media (max-width:900px){.evt{grid-template-columns:1fr;padding:20px}}
+
 /* ===== phone & tablet fit ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
@@ -535,13 +566,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     <nav class="nav-links" id="navLinks" aria-label="التنقل الرئيسي">
       <a href="#about"><span>01.</span>about</a>
       <a href="#heroes"><span>02.</span>heroes</a>
-      <a href="#structure"><span>03.</span>structure</a>
-      <a href="#ideas"><span>04.</span>ideas</a>
-      <a href="#plan"><span>05.</span>plan</a>
-      <a href="#survey"><span>06.</span>survey</a>
-      <a href="#summary"><span>07.</span>summary</a>
-      <a href="#library"><span>08.</span>library</a>
-      <a href="#files"><span>09.</span>files</a>
+      <a href="#events"><span>03.</span>events</a>
+      <a href="#structure"><span>04.</span>structure</a>
+      <a href="#ideas"><span>05.</span>ideas</a>
+      <a href="#plan"><span>06.</span>plan</a>
+      <a href="#survey"><span>07.</span>survey</a>
+      <a href="#summary"><span>08.</span>summary</a>
+      <a href="#library"><span>09.</span>library</a>
+      <a href="#files"><span>10.</span>files</a>
     </nav>
     <div class="nav-tools">
       <button class="icon-btn" id="themeBtn" aria-label="تبديل الوضع الفاتح والداكن">
@@ -709,10 +741,60 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   </div>
 </section>
 
-<!-- ================= 03 STRUCTURE (file 1) ================= -->
+<!-- ================= 03 EVENTS ================= -->
+<section class="block" id="events">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">03.</span><h2>الفعاليات</h2><span class="rule"></span></div>
+    <p class="sec-sub reveal">أبرز محطات برنامج الذكاء الاصطناعي في أكاديمية الطاقة والمياه.</p>
+
+    <div class="events">
+      <article class="card evt reveal">
+        <div>
+          <div class="meta"><span class="tag">إطلاق</span><span class="tag soon">التفاصيل قريبًا</span></div>
+          <h3>تدشين برنامج الذكاء الاصطناعي</h3>
+          <p>انطلاقة برنامج الذكاء الاصطناعي في أكاديمية الطاقة والمياه.</p>
+        </div>
+        <div class="pending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span>صور التدشين والفيديو تُضاف قريبًا</span></div>
+      </article>
+
+      <article class="card evt reveal">
+        <div>
+          <div class="meta"><span class="tag">برنامج الذكاء الاصطناعي</span><span class="tag date">يوليو 2026</span></div>
+          <h3>برنامج الذكاء الاصطناعي</h3>
+          <p>إيمانًا بأهمية الذكاء الاصطناعي في صناعة المستقبل، شارك رئيس مجلس إدارة أكاديمية الطاقة والمياه م. ثامر بن سعود الشرهان متدربي برنامج الذكاء الاصطناعي، دعمًا لهم وتحفيزًا لمواصلة التميز والابتكار.</p>
+          <p style="margin-top:10px">وفي زيارته لمتدربي البرنامج تابع تجربتهم التدريبية، تأكيدًا على اهتمام الأكاديمية بإعداد الكفاءات الوطنية في مجال الذكاء الاصطناعي والتقنيات المستقبلية.</p>
+          <span class="src">المصدر: حساب أكاديمية الطاقة والمياه على LinkedIn</span>
+          <div class="actions"><a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/feed/update/urn:li:activity:7487062695414992896" target="_blank" rel="noopener">شاهد الزيارة على LinkedIn</a></div>
+        </div>
+        <div class="shots">
+          <a href="img/events/program-2.webp" target="_blank" rel="noopener"><img src="img/events/program-2.webp" width="1056" height="622" loading="lazy" alt="محاضر يشرح أنواع الأسئلة وأساليب التحليل أمام متدربي برنامج الذكاء الاصطناعي"></a>
+          <a href="img/events/program-1.webp" target="_blank" rel="noopener"><img src="img/events/program-1.webp" width="1052" height="655" loading="lazy" alt="المحاضر أمام شاشة تعرض تحليل السلاسل الزمنية"></a>
+          <a href="img/events/program-3.webp" target="_blank" rel="noopener"><img src="img/events/program-3.webp" width="1038" height="570" loading="lazy" alt="المحاضر يشرح التعلم العميق ومعالجة النصوص"></a>
+          <a class="vid" href="https://www.linkedin.com/feed/update/urn:li:activity:7487062695414992896" target="_blank" rel="noopener" style="grid-column:1 / -1"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span><b>فيديو زيارة رئيس مجلس الإدارة</b><small>LinkedIn · 26.07.2026</small></a>
+        </div>
+      </article>
+
+      <article class="card evt reveal">
+        <div>
+          <div class="meta"><span class="tag">زيارة علمية</span><span class="tag date">18 يوليو 2026</span></div>
+          <h3>زيارة جامعة الملك عبدالله للعلوم والتقنية (كاوست)</h3>
+          <p>في إطار تعزيز التكامل بين المعرفة الأكاديمية والتطبيق العملي، نظّمت أكاديمية الطاقة والمياه زيارة علمية لمتدربي تخصص الذكاء الاصطناعي إلى جامعة الملك عبدالله للعلوم والتقنية KAUST، للاطلاع على منظومات الابتكار واستكشاف أحدث التقنيات والأبحاث في مجال الذكاء الاصطناعي.</p>
+          <span class="src">المصدر: حساب أكاديمية الطاقة والمياه على LinkedIn</span>
+          <div class="actions"><a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/feed/update/urn:li:activity:7484263790730129408" target="_blank" rel="noopener">شاهد الزيارة على LinkedIn</a></div>
+        </div>
+        <div class="shots">
+          <a class="vid kaust" href="https://www.linkedin.com/feed/update/urn:li:activity:7484263790730129408" target="_blank" rel="noopener" style="grid-column:1 / -1"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span><b>فيديو زيارة كاوست</b><small>LinkedIn · 18.07.2026</small></a>
+          <div class="pending" style="grid-column:1 / -1;aspect-ratio:auto;padding:22px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span>صور الزيارة تُضاف قريبًا</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 STRUCTURE (file 1) ================= -->
 <section class="block" id="structure">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="num">03.</span><h2>الهيكل والأعضاء</h2><span class="rule"></span></div>
+    <div class="sec-head reveal"><span class="num">04.</span><h2>الهيكل والأعضاء</h2><span class="rule"></span></div>
     <div class="file-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>1 · Members &amp; Structure.docx</div>
     <p class="sec-sub reveal">كشف الأعضاء والهيكل التنظيمي للنادي — قيادة، وأربعة أقسام، وثلاثون عضوًا.</p>
 
@@ -774,7 +856,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <!-- ================= 03 SUGGESTIONS (file 2) ================= -->
 <section class="block" id="ideas">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="num">04.</span><h2>المقترحات والرغبة في الانضمام</h2><span class="rule"></span></div>
+    <div class="sec-head reveal"><span class="num">05.</span><h2>المقترحات والرغبة في الانضمام</h2><span class="rule"></span></div>
     <div class="file-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>2 · Members Suggestions.docx</div>
     <p class="sec-sub reveal">مقترحات قائدة النادي التسعة، وأبرز ما اقترحه الأعضاء عند التسجيل.</p>
 
@@ -796,7 +878,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <!-- ================= 04 PLAN (file 3) ================= -->
 <section class="block" id="plan">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="num">05.</span><h2>الخطة التشغيلية 2026–2027</h2><span class="rule"></span></div>
+    <div class="sec-head reveal"><span class="num">06.</span><h2>الخطة التشغيلية 2026–2027</h2><span class="rule"></span></div>
     <div class="file-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>3 · Operational Plan 2026–2027.docx</div>
     <p class="sec-sub reveal">من 14 أكتوبر 2026 إلى 31 مارس 2027 — خمس مراحل، وست ورش تطبيقية، وهاكاثون، ومعرض ختامي.</p>
 
@@ -858,7 +940,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <!-- ================= 05 SURVEY (file 4) ================= -->
 <section class="block" id="survey">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="num">06.</span><h2>نتائج استبيان الانضمام</h2><span class="rule"></span></div>
+    <div class="sec-head reveal"><span class="num">07.</span><h2>نتائج استبيان الانضمام</h2><span class="rule"></span></div>
     <div class="file-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>4 · AI Club Survey.xlsx</div>
     <p class="sec-sub reveal">30 ردًّا على استمارة الانضمام بين 6 و8 أكتوبر 2026 — النتائج مجمّعة دون بيانات شخصية.</p>
 
@@ -897,7 +979,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <!-- ================= 06 EXEC SUMMARY (file 5) ================= -->
 <section class="block" id="summary">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="num">07.</span><h2>الملخص التنفيذي</h2><span class="rule"></span></div>
+    <div class="sec-head reveal"><span class="num">08.</span><h2>الملخص التنفيذي</h2><span class="rule"></span></div>
     <div class="file-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>EWA AI Club — Executive Summary.pdf</div>
     <p class="sec-sub reveal">الفكرة، والهيكل، والخطة، والأثر المتوقع — في خمس صفحات.</p>
 
@@ -933,7 +1015,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <!-- ================= 07 LIBRARY ================= -->
 <section class="block" id="library">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="num">08.</span><h2>المكتبة الرقمية للذكاء الاصطناعي</h2><span class="rule"></span></div>
+    <div class="sec-head reveal"><span class="num">09.</span><h2>المكتبة الرقمية للذكاء الاصطناعي</h2><span class="rule"></span></div>
     <p class="sec-sub reveal">منصات التعلّم المعتمدة لأعضاء النادي — من بوابات الأكاديمية إلى أبرز الأكاديميات الوطنية.</p>
     <div class="toolbar lib-filter reveal">
       <div class="seg" role="group" aria-label="تصفية المكتبة" id="libFilter">
@@ -949,14 +1031,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <!-- ================= 08 FILES ================= -->
 <section class="block" id="files">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="num">09.</span><h2>ملفات النادي</h2><span class="rule"></span></div>
+    <div class="sec-head reveal"><span class="num">10.</span><h2>ملفات النادي</h2><span class="rule"></span></div>
     <p class="sec-sub reveal">الوثائق الرسمية للنادي، كل ملف في خانته.</p>
     <div class="grid g2">
       <div class="card fcard reveal"><span class="ext pdf">PDF</span><div class="info"><b>الملخص التنفيذي</b><small>EWA AI Club · 6 صفحات</small></div><a class="btn btn-ghost dl" href="files/ewa-ai-club-executive-summary.pdf" download>تحميل</a></div>
       <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>الخطة التشغيلية 2026–2027</b><small>المراحل، والجدول الأسبوعي، والمسؤوليات، والمؤشرات</small></div><a class="btn btn-ghost dl" href="files/operational-plan-2026-2027.docx" download>تحميل</a></div>
       <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>مقترحات الأعضاء ورغبتهم في الانضمام</b><small>مقترحات القائدة التسعة ومقترحات 30 عضوًا</small></div><a class="btn btn-ghost dl" href="files/members-suggestions.docx" download>تحميل</a></div>
-      <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>كشف الأعضاء والهيكل التنظيمي</b><small>معروض في القسم 03 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
-      <div class="card fcard reveal"><span class="ext xlsx">XLSX</span><div class="info"><b>استبيان الانضمام</b><small>معروض مجمّعًا في القسم 06 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
+      <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>كشف الأعضاء والهيكل التنظيمي</b><small>معروض في القسم 04 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
+      <div class="card fcard reveal"><span class="ext xlsx">XLSX</span><div class="info"><b>استبيان الانضمام</b><small>معروض مجمّعًا في القسم 07 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
     </div>
   </div>
 </section>
