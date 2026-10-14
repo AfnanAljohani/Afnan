@@ -877,23 +877,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       </div>
     </div>
 
-    <div class="sub-title reveal">BENCH // <b>خيارات إضافية لإدارة الأقسام (حسب المهارات)</b></div>
-    <div class="card tbl-wrap reveal">
-      <table class="tbl">
-        <thead><tr><th>القسم</th><th>الخيار الأول</th><th>الخيار الثاني</th></tr></thead>
-        <tbody>
-          <tr><td><b>التدريب والتطوير</b></td><td><span class="ltr">Ahmed Mahmoud Alsayed</span><small>خلفية في هندسة الميكاترونكس، ومشاريع Computer Vision وMachine Learning</small></td><td>شرق رجاالله السلمي<small>خبرة في بناء Agentic AI والكلاود والرؤية الحاسوبية</small></td></tr>
-          <tr><td><b>العلاقات العامة</b></td><td>لجين عبدالله السلمي<small>نائبة قائدة نادي Google في جامعة الإمام محمد بن سعود الإسلامية</small></td><td>غاده علي الظاهري<small>عضو سابق في نادي المخترعين الناشئين بجامعة جدة (الإدارة العامة)</small></td></tr>
-          <tr><td><b>الفعاليات والتصميم</b></td><td>تاله عبدالخالق فيرق<small>خبرة 3 سنوات في تنظيم الفعاليات</small></td><td><span class="ltr">Abdullah Khaled Ibrahim Alghamdi</span><small>محرر ومترجم ومطوّر محتوى مرئي في مجلة ميم السينمائية</small></td></tr>
-        </tbody>
-      </table>
-    </div>
-
     <div class="sub-title reveal">ROSTER // <b>قائمة الأعضاء</b></div>
     <div class="toolbar reveal">
       <div class="seg" role="group" aria-label="تصفية الأعضاء" id="memFilter">
         <button aria-pressed="true" data-f="all">الكل <span class="mono" id="cAll"></span></button>
-        <button aria-pressed="false" data-f="lead">الإدارة</button>
+        <button aria-pressed="false" data-f="lead">الإدارة والقادة</button>
         <button aria-pressed="false" data-f="exec">الفريق التنفيذي</button>
         <button aria-pressed="false" data-f="vol">متطوع</button>
         <button aria-pressed="false" data-f="member">عضو مستفيد</button>
@@ -1321,7 +1309,8 @@ document.addEventListener('pointermove', e => {
 /* ---------- data ---------- */
 const MEMBERS = [
   ['أفنان فهد الجهني','lead','قائدة النادي'],['سارة الشمراني','lead','نائبة القائدة'],
-  ['Ahmed Mahmoud Alsayed','member'],['فهد حمد اليامي','member','مساعد قائد AI Speaker Club'],['Abdullah Khaled Ibrahim Alghamdi','member'],
+  ['مروان الجهني','lead','قائد AI Speaker Club'],['فهد حمد اليامي','exec','مساعد قائد AI Speaker Club'],['عبدالرحمن قوتة','exec','مساعد قائد AI Speaker Club'],
+  ['Ahmed Mahmoud Alsayed','member'],['Abdullah Khaled Ibrahim Alghamdi','member'],
   ['رغد يوسف المرشدي','exec'],['سارة منصور الوذيناني','exec'],['Reema Wasl Allah Alotaibi','exec'],['جوري ضيف الله الجعيد','exec'],['Khalid Ibrahim Al-Harbi','exec'],['شرق رجاالله السلمي','exec'],['لجين عبدالله السلمي','exec'],['سلطان حسين بالحارث','exec'],['شهد علي مروي','exec'],
   ['رائد عوض الله العزيري','vol'],
   ['أسيل سامي الجهني','member'],['الوليد احمد المطمي','member'],['رغد محمد الغامدي','member'],['Raghad ayedh altrisy','member'],['شموخ محبوب العتيبي','member'],['ندى ذياب الحربي','member'],['يارا علي حكمي','member'],['تاله عبدالخالق فيرق','member'],['Osama Adel Alrowithi','member'],['محمد إبراهيم المطيري','member'],['أبرار علي العسيري','member'],['ليلى صالح العرجاني','member'],['رنيم عوض الله السلمي','member'],['ميمونه احمد جعفري','member'],['غاده علي الظاهري','member'],['خالد محمد القرني','member'],['ساره مصطفى الشيخ','member']
