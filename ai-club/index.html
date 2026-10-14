@@ -524,6 +524,11 @@ footer .mono{font-size:12.5px}
 .chair .tag{font-size:12.5px;border-radius:999px;padding:3px 12px;border:1px solid color-mix(in srgb,var(--warn) 45%,transparent);color:var(--warn)}
 @media (max-width:900px){.chair{grid-template-columns:1fr;padding:20px}}
 
+.dept .assist{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
+.dept .assist small{width:100%;color:var(--mute);font-size:12px}
+.dept .assist span{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;border:1px solid var(--line-strong);border-radius:999px;padding:3px 10px 3px 4px;background:var(--panel)}
+.dept .assist i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
+
 /* ===== phone & tablet fit ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
@@ -867,7 +872,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         <div class="card dept"><span class="dnum">DEPT_03 · القسم الثالث</span><h3>الفعاليات والتصميم</h3><p>تنظيم الفعاليات وتصميمها، والهوية والإعلانات والشهادات.</p>
           <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
         <div class="card dept"><span class="dnum">DEPT_04 · القسم الرابع</span><h3 class="ltr" style="text-align:right">AI Speaker Club</h3><p>الخطابة والإلقاء وعرض الأفكار.</p>
-          <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
+          <div class="leader"><span class="avatar">م</span><div><small>قائد القسم</small><b>مروان الجهني</b></div></div>
+          <div class="assist"><small>المساعدون</small><span><i>ف</i>فهد اليامي</span><span><i>ع</i>عبدالرحمن قوتة</span></div></div>
       </div>
     </div>
 
@@ -961,7 +967,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
           <tr><td><b>التدريب والتطوير</b></td><td>جاري تحديد القائد</td><td>تقديم المختبرات التطبيقية وجلسات AI Byte، وإعداد التحديات، ومستودع الموارد وكتيّبات الأقسام ودليل الدورات، ومرافقة فرق المشاريع.</td></tr>
           <tr><td><b>العلاقات العامة</b></td><td>جاري تحديد القائد</td><td>التواصل مع الخبراء والجهات المقترحة (سدايا، الأكاديمية السعودية الرقمية)، والشراكات مع الكافيهات والأندية، ودعوات المعرض، والنشر عن أنشطة النادي.</td></tr>
           <tr><td><b>الفعاليات والتصميم</b></td><td>جاري تحديد القائد</td><td>تنظيم اللقاء التعريفي وأربعاء الذكاء والهاكاثون ويوم التأسيس والمعرض الختامي، وتصميم الهوية والإعلانات والشهادات.</td></tr>
-          <tr><td><b class="ltr">AI Speaker Club</b></td><td>جاري تحديد القائد</td><td>الخطابة والإلقاء وعرض الأفكار.</td></tr>
+          <tr><td><b class="ltr">AI Speaker Club</b></td><td>مروان الجهني<small>المساعدون: فهد اليامي، عبدالرحمن قوتة</small></td><td>الخطابة والإلقاء وعرض الأفكار.</td></tr>
         </tbody>
       </table>
     </div>
@@ -1315,7 +1321,7 @@ document.addEventListener('pointermove', e => {
 /* ---------- data ---------- */
 const MEMBERS = [
   ['أفنان فهد الجهني','lead','قائدة النادي'],['سارة الشمراني','lead','نائبة القائدة'],
-  ['Ahmed Mahmoud Alsayed','member'],['فهد حمد اليامي','member'],['Abdullah Khaled Ibrahim Alghamdi','member'],
+  ['Ahmed Mahmoud Alsayed','member'],['فهد حمد اليامي','member','مساعد قائد AI Speaker Club'],['Abdullah Khaled Ibrahim Alghamdi','member'],
   ['رغد يوسف المرشدي','exec'],['سارة منصور الوذيناني','exec'],['Reema Wasl Allah Alotaibi','exec'],['جوري ضيف الله الجعيد','exec'],['Khalid Ibrahim Al-Harbi','exec'],['شرق رجاالله السلمي','exec'],['لجين عبدالله السلمي','exec'],['سلطان حسين بالحارث','exec'],['شهد علي مروي','exec'],
   ['رائد عوض الله العزيري','vol'],
   ['أسيل سامي الجهني','member'],['الوليد احمد المطمي','member'],['رغد محمد الغامدي','member'],['Raghad ayedh altrisy','member'],['شموخ محبوب العتيبي','member'],['ندى ذياب الحربي','member'],['يارا علي حكمي','member'],['تاله عبدالخالق فيرق','member'],['Osama Adel Alrowithi','member'],['محمد إبراهيم المطيري','member'],['أبرار علي العسيري','member'],['ليلى صالح العرجاني','member'],['رنيم عوض الله السلمي','member'],['ميمونه احمد جعفري','member'],['غاده علي الظاهري','member'],['خالد محمد القرني','member'],['ساره مصطفى الشيخ','member']
