@@ -548,6 +548,40 @@ footer .mono{font-size:12.5px}
 .growth small{font-size:10.5px;color:var(--mute);white-space:nowrap}
 @media (max-width:560px){.growth{margin-inline-start:0}}
 
+
+/* AI Speakers Club curriculum */
+.spk{padding:26px}
+.spk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.spk-top > div{flex:1;min-width:0;max-width:760px}
+.spk-top h3{font-size:21px;margin-bottom:8px}
+.spk-phases{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.spk-phases li{border:1px solid var(--line-strong);border-radius:12px;padding:12px 14px;background:var(--bg2);display:flex;flex-direction:column;gap:2px;min-width:0}
+.spk-phases b{font-size:15px;color:var(--accent)}
+.spk-phases small{font-size:12px;color:var(--mute)}
+.spk-phases span{font-size:13.5px;color:var(--ink2)}
+.spk-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+.spk-grid > *{min-width:0}
+.spk-h{font-size:16px;font-weight:700;margin-bottom:10px}
+.spk-h small{font-size:12.5px;color:var(--mute);font-weight:500}
+.spk-flow,.spk-roles{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.spk-flow li,.spk-roles li{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:baseline;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.spk-flow small{color:var(--accent2);font-family:var(--mono);font-size:12px;direction:ltr;text-align:left}
+.spk-flow span,.spk-roles span{grid-column:1 / -1;font-size:13.5px;color:var(--ink2)}
+.spk-roles b{font-size:14px}
+.spk-sessions{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ss{display:flex;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);min-width:0}
+.ss > div{min-width:0}
+.ss .sn{font-family:var(--mono);font-size:13px;color:var(--accent);border:1px solid var(--line-strong);border-radius:8px;width:34px;height:34px;display:grid;place-items:center;flex-shrink:0}
+.ss .sd{display:block;font-size:12px;color:var(--mute)}
+.ss b{display:block;font-size:14.5px;line-height:1.5}
+.ss p{font-size:13px;color:var(--ink2);margin-top:2px}
+.ss.past{opacity:.55}
+.ss.next{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.ss.next .sn{background:var(--accent);color:#fff;border-color:var(--accent)}
+@media (max-width:980px){.spk-phases{grid-template-columns:repeat(2,1fr)}.spk-sessions{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px){.spk{padding:18px}.spk-grid,.spk-sessions{grid-template-columns:1fr}}
+@media (max-width:420px){.spk-phases{grid-template-columns:1fr}}
+
 /* ===== phone & tablet fit ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
@@ -899,10 +933,58 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
           <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
         <div class="card dept"><span class="dnum">DEPT_03 · القسم الثالث</span><h3>الفعاليات والتصميم</h3><p>تنظيم الفعاليات وتصميمها، والهوية والإعلانات والشهادات.</p>
           <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept"><span class="dnum">DEPT_04 · القسم الرابع</span><h3 class="ltr" style="text-align:right">AI Speaker Club</h3><p>الخطابة والإلقاء وعرض الأفكار.</p>
+        <div class="card dept"><span class="dnum">DEPT_04 · القسم الرابع</span><h3 class="ltr" style="text-align:right">AI Speaker Club</h3><p>الخطابة والإلقاء وعرض الأفكار. <a href="#speakers" style="color:var(--accent);white-space:nowrap">المنهج ←</a></p>
           <div class="leader"><span class="avatar">م</span><div><small>قائد القسم</small><b>مروان الجهني</b></div></div>
           <div class="assist"><small>المساعدون</small><span><i>ف</i>فهد اليامي</span><span><i>ع</i>عبدالرحمن قوتة</span></div></div>
       </div>
+    </div>
+
+    <div class="sub-title reveal" id="speakers">SPEAKERS // <b>منهج AI Speakers Club</b></div>
+    <div class="card spk reveal">
+      <div class="spk-top">
+        <div>
+          <span class="kicker">CURRICULUM &amp; TIMELINE //</span>
+          <h3>12 جلسة كل أربعاء · من 21 أكتوبر 2026 إلى 17 مارس 2027</h3>
+          <p>الهدف: بناء الثقة والمهارة في الإلقاء والتواصل والعروض للأعضاء المبتدئين في برنامج الذكاء الاصطناعي التطبيقي. الجلسات عملية: الأعضاء يتعلمون بالتحدث لا بالاستماع، وكل جلسة حتى ساعتين.</p>
+          <span class="src" style="display:block;margin-top:8px;font-size:12.5px;color:var(--mute)">إعداد مروان الجهني · 13 أكتوبر 2026</span>
+        </div>
+        <a class="btn btn-ghost btn-sm" href="files/ai-speakers-club-curriculum.pdf" target="_blank" rel="noopener">المنهج PDF</a>
+      </div>
+      <ol class="spk-phases">
+        <li><b>1 · الأساسيات</b><small>أكتوبر – نوفمبر</small><span>الثقة، ولغة الجسد، والصوت</span></li>
+        <li><b>2 · التواصل</b><small>ديسمبر</small><span>الافتتاحيات، والقصة، والشرائح، والنقاش</span></li>
+        <li><b>3 · العروض</b><small>يناير – فبراير</small><span>تصميم الشرائح، والبيانات، وشرح التقنية</span></li>
+        <li><b>4 · التخرج</b><small>مارس</small><span>التدرّب على المشاريع والتخرج</span></li>
+      </ol>
+      <div class="spk-grid">
+        <div>
+          <div class="spk-h">هيكل الجلسة</div>
+          <ol class="spk-flow">
+            <li><b>الافتتاح</b><small>~10 د</small><span>رئيس الجلسة يرحّب ويشرح موضوع اليوم</span></li>
+            <li><b>الكلمات المعدّة والنشاط</b><small>~45 د</small><span>كلمات حضّرها الأعضاء ثم نشاط عملي</span></li>
+            <li><b>Table of Topics</b><small>~30 د</small><span>متطوعون يجيبون أسئلة مرتجلة في دقيقة أو دقيقتين</span></li>
+            <li><b>مشاركة معرفة</b><small>~10 د · اختياري</small><span>عضو يشارك شيئًا من خارج جدول اليوم</span></li>
+            <li><b>تقرير الوقت والختام</b><small>~10 د</small><span>ضابط الوقت يقدّم تقريره ورئيس الجلسة يختم</span></li>
+          </ol>
+        </div>
+        <div>
+          <div class="spk-h">أدوار الاجتماع <small>(تتبدّل أسبوعيًا)</small></div>
+          <ul class="spk-roles">
+            <li><b class="ltr">Sergeant at Arms</b><span>يدير الاجتماع كاملًا ويقدّم المتحدثين</span></li>
+            <li><b class="ltr">Prepared Speakers</b><span>يلقون كلمات محضّرة عن موضوع اليوم</span></li>
+            <li><b class="ltr">Table of Topics Master</b><span>يحضّر الأسئلة المرتجلة ويدير فقرتها</span></li>
+            <li><b class="ltr">Table of Topics Volunteers</b><span>يجيبون الأسئلة المرتجلة فورًا</span></li>
+            <li><b class="ltr">Timer</b><span>يتابع وقت الحديث وينبّه عند انتهائه</span></li>
+            <li><b class="ltr">Knowledge Sharer</b><span>اختياري: يشارك معلومة مفيدة من خارج الجدول</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="spk-h" style="margin-top:22px">الجدول الزمني</div>
+      <ol class="spk-sessions"><li class="ss" data-date="2026-10-21" data-ph="1"><span class="sn">01</span><div><span class="sd">الأربعاء 21 أكتوبر 2026</span><b class="ltr">Ice Breaker Night</b><p>كل عضو يقدّم كلمة «من أنا» في دقيقة إلى دقيقتين، وتُسجَّل كنقطة بداية.</p></div></li><li class="ss" data-date="2026-10-28" data-ph="1"><span class="sn">02</span><div><span class="sd">الأربعاء 28 أكتوبر 2026</span><b class="ltr">Table of Topics Starter</b><p>أسئلة «تفضّل؟» خفيفة بدقيقة لكل عضو، وأول تجربة لدور ضابط الوقت.</p></div></li><li class="ss" data-date="2026-11-04" data-ph="1"><span class="sn">03</span><div><span class="sd">الأربعاء 4 نوفمبر 2026</span><b class="ltr">Silent Speech</b><p>قصة قصيرة بالإشارات فقط ثم بالكلمات، والجمهور يخمّن القصة.</p></div></li><li class="ss" data-date="2026-11-11" data-ph="1"><span class="sn">04</span><div><span class="sd">الأربعاء 11 نوفمبر 2026</span><b class="ltr">Vocal Variety Challenge</b><p>جملة واحدة بخمس مشاعر، وكلمة دقيقة بدون كلمات حشو.</p></div></li><li class="ss" data-date="2026-12-09" data-ph="2"><span class="sn">05</span><div><span class="sd">الأربعاء 9 ديسمبر 2026</span><b class="ltr">Hook Battle</b><p>ثلاث افتتاحيات كل منها 30 ثانية، والمجموعة تصوّت لأقوى افتتاحية.</p></div></li><li class="ss" data-date="2026-12-16" data-ph="2"><span class="sn">06</span><div><span class="sd">الأربعاء 16 ديسمبر 2026</span><b class="ltr">Storytelling Circle</b><p>قصص شخصية في 3 دقائق، والجمهور يذكر نقطة قوة لكل متحدث.</p></div></li><li class="ss" data-date="2026-12-23" data-ph="2"><span class="sn">07</span><div><span class="sd">الأربعاء 23 ديسمبر 2026</span><b class="ltr">Explain Your Slide</b><p>كل عضو يسحب شريحة عشوائية ويشرحها فورًا بأسلوب PREP.</p></div></li><li class="ss" data-date="2026-12-30" data-ph="2"><span class="sn">08</span><div><span class="sd">الأربعاء 30 ديسمبر 2026</span><b class="ltr">AI Panel Discussion</b><p>الأعضاء يؤدون أدوار المحاور والمتحدثين والجمهور في نقاش عن الذكاء الاصطناعي.</p></div></li><li class="ss" data-date="2027-01-06" data-ph="3"><span class="sn">09</span><div><span class="sd">الأربعاء 6 يناير 2027</span><b class="ltr">Slide Makeover</b><p>ثنائيات يعيدون تصميم شريحة مزدحمة ويعرضونها في دقيقتين.</p></div></li><li class="ss" data-date="2027-01-27" data-ph="3"><span class="sn">10</span><div><span class="sd">الأربعاء 27 يناير 2027</span><b class="ltr">Chart Talk</b><p>كل عضو يشرح رسمًا بيانيًا في 90 ثانية.</p></div></li><li class="ss" data-date="2027-02-03" data-ph="3"><span class="sn">11</span><div><span class="sd">الأربعاء 3 فبراير 2027</span><b class="ltr">Explain It Simply</b><p>شرح مفهوم في الذكاء الاصطناعي في 3 دقائق لجمهور غير تقني يسأل أسئلة أساسية.</p></div></li><li class="ss" data-date="2027-03-17" data-ph="4"><span class="sn">12</span><div><span class="sd">الأربعاء 17 مارس 2027</span><b class="ltr">Graduation & Practice Your Project</b><p>عرض مشاريع البرنامج مع أسئلة الجمهور، ومقارنة بتسجيل البداية، وتكريم التخرج.</p></div></li></ol>
+      <ul class="note" style="margin-top:14px">
+        <li>تُنشر قائمة الأدوار قبل أسبوع ليستعد الأعضاء.</li>
+        <li>يُقاس التقدم بمقارنة تسجيل كل عضو في Ice Breaker بكلمة التخرج.</li>
+      </ul>
     </div>
 
     <div class="sub-title reveal">ROSTER // <b>قائمة الأعضاء</b></div>
@@ -1105,6 +1187,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <div class="card fcard reveal"><span class="ext pdf">PDF</span><div class="info"><b>الملخص التنفيذي</b><small>EWA AI Club · 6 صفحات</small></div><a class="btn btn-ghost dl" href="files/ewa-ai-club-executive-summary.pdf" download>تحميل</a></div>
       <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>الخطة التشغيلية 2026–2027</b><small>المراحل، والجدول الأسبوعي، والمسؤوليات، والمؤشرات</small></div><a class="btn btn-ghost dl" href="files/operational-plan-2026-2027.docx" download>تحميل</a></div>
       <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>مقترحات الأعضاء ورغبتهم في الانضمام</b><small>مقترحات القائدة التسعة ومقترحات 30 عضوًا</small></div><a class="btn btn-ghost dl" href="files/members-suggestions.docx" download>تحميل</a></div>
+      <div class="card fcard reveal"><span class="ext pdf">PDF</span><div class="info"><b>منهج AI Speakers Club</b><small>12 جلسة · إعداد مروان الجهني</small></div><a class="btn btn-ghost dl" href="files/ai-speakers-club-curriculum.pdf" download>تحميل</a></div>
       <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>كشف الأعضاء والهيكل التنظيمي</b><small>معروض في القسم 04 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
       <div class="card fcard reveal"><span class="ext xlsx">XLSX</span><div class="info"><b>استبيان الانضمام</b><small>معروض مجمّعًا في القسم 07 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
     </div>
@@ -1738,6 +1821,9 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
 
 /* ---------- tables stack on phones: label each cell with its column ---------- */
 $$('table.tbl').forEach(t => { const hs = $$('thead th', t).map(th => th.textContent.trim()); $$('tbody tr', t).forEach(tr => [...tr.children].forEach((td,i) => hs[i] && td.setAttribute('data-label', hs[i]))); });
+
+/* ---------- speakers club: past / next session ---------- */
+(() => { let marked = false; $$('.ss').forEach(li => { const d = D(li.dataset.date); if (d < today) li.classList.add('past'); else if (!marked){ li.classList.add('next'); marked = true; } }); })();
 
 /* ---------- reveal + counters + bars ---------- */
 function countUp(el){
