@@ -529,6 +529,25 @@ footer .mono{font-size:12.5px}
 .dept .assist span{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;border:1px solid var(--line-strong);border-radius:999px;padding:3px 10px 3px 4px;background:var(--panel)}
 .dept .assist i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
 
+
+/* academy front + survey pulse */
+.academy-front{padding:40px 0 24px}
+.academy-front .eyebrow{margin:0 0 12px}
+.pulse{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:24px;padding:16px 18px;border:1px solid var(--line-strong);border-radius:14px;background:var(--panel);max-width:560px}
+.pulse-num{display:flex;align-items:center;gap:12px;min-width:0}
+.pulse-num b{font-family:var(--mono);font-size:44px;font-weight:700;line-height:1;direction:ltr;background:linear-gradient(180deg,var(--ink),var(--ok));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pulse-num span{font-size:15px;font-weight:600;line-height:1.5}
+.pulse-num small{display:block;font-size:12.5px;color:var(--ok);font-weight:500}
+.growth{list-style:none;margin:0 0 0 auto;padding:0;display:flex;align-items:flex-end;gap:10px;height:86px}
+.growth li{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;width:46px}
+.growth i{display:block;width:22px;height:0;border-radius:4px 4px 2px 2px;background:var(--line-strong);transition:height 1.2s cubic-bezier(.2,.7,.2,1)}
+.pulse.in .growth i{height:calc(var(--h) * .52)}
+.growth li.now i{background:linear-gradient(180deg,var(--ok),var(--accent))}
+.growth b{font-family:var(--mono);font-size:13px;line-height:1}
+.growth li.now b{color:var(--ok)}
+.growth small{font-size:10.5px;color:var(--mute);white-space:nowrap}
+@media (max-width:560px){.growth{margin-inline-start:0}}
+
 /* ===== phone & tablet fit ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
@@ -612,8 +631,28 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </header>
 
 <main id="top">
+<!-- ================= CHAIRMAN VISIT ================= -->
+<section class="block academy-front" id="chairman">
+  <div class="wrap">
+    <div class="eyebrow reveal">// ENERGY &amp; WATER ACADEMY <span style="font-family:var(--sans);letter-spacing:0">· أكاديمية الطاقة والمياه</span></div>
+    <div class="sec-head reveal"><span class="num">★</span><h2>زيارة رئيس مجلس الإدارة</h2><span class="rule"></span></div>
+    <div class="card chair reveal">
+      <video controls preload="none" playsinline poster="img/events/chairman-poster.webp" aria-label="فيديو زيارة رئيس مجلس الإدارة لمتدربي برنامج الذكاء الاصطناعي">
+        <source src="vid/chairman-visit.mp4" type="video/mp4">
+      </video>
+      <div>
+        <span class="tag">يوليو 2026</span>
+        <h3>م. ثامر بن سعود الشرهان يزور متدربي برنامج الذكاء الاصطناعي</h3>
+        <p>جانب من زيارة رئيس مجلس إدارة أكاديمية الطاقة والمياه، م. ثامر بن سعود الشرهان، لمتدربي برنامج الذكاء الاصطناعي لمتابعة تجربتهم التدريبية، تأكيدًا على اهتمام الأكاديمية بإعداد الكفاءات الوطنية في مجال الذكاء الاصطناعي والتقنيات المستقبلية.</p>
+        <div class="who"><span class="av">ث</span><div><b>م. ثامر بن سعود الشرهان</b><small>رئيس مجلس إدارة أكاديمية الطاقة والمياه</small></div></div>
+        <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/feed/update/urn:li:activity:7487062695414992896" target="_blank" rel="noopener">المنشور على LinkedIn</a><a class="btn btn-ghost btn-sm" href="#events">كل الفعاليات</a><a class="btn btn-primary btn-sm" href="#club">واجهة النادي ↓</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= HERO ================= -->
-<section class="hero">
+<section class="hero" id="club">
   <div class="wrap hero-grid">
     <div>
       <div class="status reveal">
@@ -641,6 +680,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         <span class="chip">قيادة: <b>أفنان فهد الجهني</b></span>
         <span class="chip">أكتوبر 2026 – مارس 2027</span>
       </div>
+      <div class="pulse reveal" aria-label="عدد ردود استبيان الانضمام: 71، بدأ بـ 20 ثم 36">
+        <div class="pulse-num"><b data-count="71">0</b><span>ردًّا على استبيان الانضمام<small>وما زال العدد يكبر</small></span></div>
+        <ol class="growth">
+          <li style="--h:28%"><i></i><b>20</b><small>أول الردود</small></li>
+          <li style="--h:51%"><i></i><b>36</b><small>بعدها</small></li>
+          <li class="now" style="--h:100%"><i></i><b>71</b><small>الآن</small></li>
+        </ol>
+      </div>
       <a class="spot reveal" href="#chairman">
         <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
         <span><small>زيارة رئيس مجلس الإدارة</small><b>م. ثامر بن سعود الشرهان مع متدربي برنامج الذكاء الاصطناعي</b></span>
@@ -656,25 +703,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       </div>
       <pre class="code" id="code"></pre>
       <div class="code-foot"><span class="live">● status: building_the_future</span><span>UTF-8 · LF</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CHAIRMAN VISIT ================= -->
-<section class="block" id="chairman" style="padding-top:24px">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="num">★</span><h2>زيارة رئيس مجلس الإدارة</h2><span class="rule"></span></div>
-    <div class="card chair reveal">
-      <video controls preload="none" playsinline poster="img/events/chairman-poster.webp" aria-label="فيديو زيارة رئيس مجلس الإدارة لمتدربي برنامج الذكاء الاصطناعي">
-        <source src="vid/chairman-visit.mp4" type="video/mp4">
-      </video>
-      <div>
-        <span class="tag">يوليو 2026</span>
-        <h3>م. ثامر بن سعود الشرهان يزور متدربي برنامج الذكاء الاصطناعي</h3>
-        <p>جانب من زيارة رئيس مجلس إدارة أكاديمية الطاقة والمياه، م. ثامر بن سعود الشرهان، لمتدربي برنامج الذكاء الاصطناعي لمتابعة تجربتهم التدريبية، تأكيدًا على اهتمام الأكاديمية بإعداد الكفاءات الوطنية في مجال الذكاء الاصطناعي والتقنيات المستقبلية.</p>
-        <div class="who"><span class="av">ث</span><div><b>م. ثامر بن سعود الشرهان</b><small>رئيس مجلس إدارة أكاديمية الطاقة والمياه</small></div></div>
-        <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/feed/update/urn:li:activity:7487062695414992896" target="_blank" rel="noopener">المنشور على LinkedIn</a><a class="btn btn-ghost btn-sm" href="#events">كل الفعاليات</a></div>
-      </div>
     </div>
   </div>
 </section>
