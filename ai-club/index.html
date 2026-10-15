@@ -643,6 +643,41 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .reveal{opacity:1;transform:none}
   pre.code .ln{opacity:1;transform:none}
 }
+
+/* ---------- org chart v2 ---------- */
+.org2{display:flex;flex-direction:column;gap:18px}
+.o2-band{font-family:var(--mono);font-size:12.5px;color:var(--accent);display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+.o2-band b{font-family:inherit;color:var(--ink);font-size:15px}
+.o2-band span{font-family:var(--sans,inherit);color:var(--mute);font-size:13px}
+.o2-top{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:18px;align-items:stretch}
+.o2-mid{display:flex;justify-content:center}
+.o2-mid .o2{max-width:420px;width:100%}
+.o2{text-align:right;padding:20px 22px;position:relative}
+.o2 .o2-k{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--accent);margin-bottom:6px}
+.o2 h4{font-size:17px;margin:0 0 4px;line-height:1.5}
+.o2 .who{display:block;font-size:15px;color:var(--ink);margin-bottom:10px}
+.o2 .who.pend{color:var(--warn);font-size:14px}
+.o2 .assist{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line-strong)}
+.o2 .assist small{width:100%;color:var(--mute);font-size:12px}
+.o2 .assist span{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;border:1px solid var(--line-strong);border-radius:999px;padding:3px 10px 3px 4px;background:var(--panel)}
+.o2 .assist i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
+.o2 ul{margin:0;padding:0 18px 0 0;color:var(--ink2);font-size:13.5px;line-height:1.75}
+.o2 p{margin:4px 0 0;color:var(--ink2);font-size:13.5px;line-height:1.7}
+.o2.pres{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft),0 20px 50px -20px var(--glow);text-align:center}
+.o2.pres ul{text-align:right}
+.o2.pres .avatar{width:54px;height:54px;border-radius:50%;margin:4px auto 8px;display:grid;place-items:center;font-weight:700;font-size:20px;background:linear-gradient(135deg,var(--accent),var(--violet));color:#fff}
+.o2.adv{border-style:dashed}
+.o2.tbd{border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:linear-gradient(to bottom,color-mix(in srgb,var(--warn) 7%,transparent),var(--panel))}
+.o2-note{align-self:center;font-size:12.5px;color:var(--mute);border:1px solid var(--line-strong);border-radius:999px;padding:4px 14px}
+.o2-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.o2-pair > div{border-top:1px dashed var(--line-strong);padding-top:10px}
+.o2.rep.ewa .o2-k{color:var(--ok)} .o2.rep.inx .o2-k{color:var(--violet)}
+.o2-legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:12.5px;color:var(--mute);justify-content:center}
+.o2-legend span{display:inline-flex;align-items:center;gap:8px}
+.o2-legend i{display:inline-block;width:26px;height:0;border-top:2px solid var(--ink2)}
+.o2-legend .l-dash{border-top-style:dashed}
+.o2-legend .l-tbd{width:14px;height:14px;border:1px solid var(--warn);border-radius:4px;background:color-mix(in srgb,var(--warn) 12%,transparent)}
+@media (max-width:900px){.o2-top{grid-template-columns:1fr}.o2-top .pres{order:-1}.o2-pair{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -767,7 +802,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <div class="about-text reveal">
         <span class="kicker">WHO WE ARE //</span>
         <h3 class="about-h">نادٍ طلابي في أكاديمية الطاقة والمياه، ينقل الذكاء الاصطناعي من الشرائح إلى مشاريع تعمل.</h3>
-        <p>انطلق النادي في أكتوبر 2026 بثلاثين عضوًا من متدربي الأكاديمية، تحت إشراف د. أنمار الحجيلي وبقيادة أفنان فهد الجهني ونائبتها سارة الشمراني.</p>
+        <p>انطلق النادي في أكتوبر 2026 بثلاثين عضوًا من متدربي الأكاديمية، تحت إشراف د. أنمار الحجيلي وبقيادة أفنان فهد الجهني ومساعدتها الإدارية سارة الشمراني.</p>
         <p>نلتقي كل أربعاء في «أربعاء الذكاء»، ونبني كل أسبوعين نموذجًا أو أداة صغيرة في المختبر التطبيقي، ونخوض كل شهر تحديًا ببيانات حقيقية: التنبؤ باستهلاك الطاقة، وتصنيف الصور، وقراءة بيانات المياه.</p>
         <p>وكل أسبوعين نكرّم عشرة أبطال صنعوا الفرق، ونختم الموسم بمعرض EWA AI Showcase أمام إدارة الأكاديمية والشركاء.</p>
         <ul class="facts">
@@ -925,34 +960,48 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   <div class="wrap">
     <div class="sec-head reveal"><span class="num">04.</span><h2>الهيكل والأعضاء</h2><span class="rule"></span></div>
     <div class="file-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>1 · Members &amp; Structure.docx</div>
-    <p class="sec-sub reveal">كشف الأعضاء والهيكل التنظيمي للنادي — قيادة، وأربعة أقسام، وثلاثون عضوًا.</p>
+    <p class="sec-sub reveal">كشف الأعضاء والهيكل التنظيمي للنادي — قيادة، وثلاثة أقسام، وثلاثون عضوًا.</p>
 
     <div class="grid g4" style="margin-bottom:40px">
       <div class="card stat reveal"><div class="v" data-count="30">0</div><div class="l">عضوًا</div></div>
-      <div class="card stat reveal"><div class="v" data-count="4">0</div><div class="l">أقسام</div></div>
+      <div class="card stat reveal"><div class="v" data-count="3">0</div><div class="l">أقسام</div></div>
       <div class="card stat reveal"><div class="v" data-count="5">0</div><div class="l">أعضاء الإدارة</div></div>
       <div class="card stat reveal"><div class="v" data-count="22">0</div><div class="l">لديهم خبرة سابقة</div></div>
     </div>
 
-    <div class="org reveal">
-      <div class="org-row">
-        <div class="node lead"><div class="avatar">أ</div><div class="role">CLUB LEAD · قائدة النادي</div><div class="name">أفنان الجهني</div></div>
-        <div class="node lead"><div class="avatar">س</div><div class="role">VICE LEAD · نائبة القائدة</div><div class="name">سارة الشمراني</div></div>
+    <div class="org2 reveal">
+      <div class="o2-band">AI CLUB // <b>القيادة الطلابية</b><span>المركز التشغيلي · أنشطة يديرها متدربو الذكاء الاصطناعي وعلوم البيانات</span></div>
+      <div class="o2-top">
+        <div class="card o2 adv"><span class="o2-k">ADVISORY · استشاري</span><h4>مستشار الأعمال</h4><b class="who">فهد اليامي</b>
+          <ul><li>المشورة في الأعمال والتخطيط الاستراتيجي.</li><li>دعم التطوير التنظيمي واقتراح تحسينات على طريقة العمل.</li><li>ربط المبادرات الطلابية بأهداف الأعمال والتخطيط طويل المدى.</li></ul></div>
+        <div class="card o2 pres"><span class="o2-k">AI CLUB PRESIDENT · رئيسة النادي</span><div class="avatar">أ</div><h4>أفنان الجهني</h4>
+          <ul><li>قيادة التوجّه العام للنادي وتطويره، وتمثيله وأعضائه.</li><li>تحديد الأولويات ودعم التخطيط للمبادرات الطلابية.</li><li>التنسيق مع ممثلي الأكاديمية وشركة Innovatix.</li></ul></div>
+        <div class="card o2 tbd"><span class="o2-k">STUDENT-FACING · التنسيق مع الطلاب</span><h4>منسّق العلاقات الطلابية والشكاوى</h4><b class="who pend">لم يُحدَّد بعد</b>
+          <ul><li>استقبال شكاوى الطلاب وملاحظاتهم وفهمها وتوثيقها بمهنية.</li><li>إحالتها إلى المسؤول المناسب في الأكاديمية أو Innovatix ومتابعتها.</li><li>الحفاظ على السرية والتعامل المهني مع الموضوعات الحساسة.</li></ul></div>
       </div>
-      <div class="connector"></div>
-      <div class="bus"></div>
-      <div class="org-stems"><i></i><i></i><i></i><i></i></div>
-      <div class="grid g4" style="width:100%">
-        <div class="card dept"><span class="dnum">DEPT_01 · القسم الأول</span><h3>التدريب والتطوير</h3><p>تقديم ورش العمل والمختبرات التطبيقية وجلسات AI Byte.</p>
-          <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept"><span class="dnum">DEPT_02 · القسم الثاني</span><h3>العلاقات العامة</h3><p>الشراكات مع الكافيهات والأندية الأخرى والتواصل مع الخبراء.</p>
-          <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept"><span class="dnum">DEPT_03 · القسم الثالث</span><h3>الفعاليات والتصميم</h3><p>تنظيم الفعاليات وتصميمها، والهوية والإعلانات والشهادات.</p>
-          <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept"><span class="dnum">DEPT_04 · القسم الرابع</span><h3 class="ltr" style="text-align:right">AI Speaker Club</h3><p>الخطابة والإلقاء وعرض الأفكار. <a href="#speakers" style="color:var(--accent);white-space:nowrap">المنهج ←</a></p>
-          <div class="leader"><span class="avatar">م</span><div><small>قائد القسم</small><b>مروان الجهني</b></div></div>
-          <div class="assist"><small>المساعدون</small><span><i>ف</i>فهد اليامي</span><span><i>ع</i>عبدالرحمن قوتة</span></div></div>
+      <div class="o2-mid">
+        <div class="card o2"><span class="o2-k">OFFICE OF THE PRESIDENT · مكتب الرئيسة</span><h4>المساعدة الإدارية لرئيسة النادي</h4><b class="who">سارة الشمراني</b>
+          <ul><li>الدعم الإداري وتنسيق الاجتماعات والمواعيد.</li><li>تنظيم الوثائق وحفظ محاضر الاجتماعات.</li><li>متابعة المهام المكلّف بها الأعضاء ودعم التواصل الداخلي.</li></ul></div>
       </div>
+      <div class="o2-note">رؤساء الأقسام يرفعون تقاريرهم إلى رئيسة النادي</div>
+      <div class="grid g3 o2-depts">
+        <div class="card o2 tbd"><span class="o2-k">DEPT_01 · القسم الأول</span><h4>رئيس قسم العلاقات العامة</h4><b class="who pend">لم يُحدَّد بعد</b>
+          <ul><li>إدارة التواصل الداخلي والخارجي.</li><li>العلاقات مع أصحاب المصلحة والجهات المعنية.</li><li>تنسيق الإعلانات الرسمية ودعم صورة النادي.</li></ul></div>
+        <div class="card o2"><span class="o2-k">DEPT_02 · القسم الثاني</span><h4>رئيس قسم الخطابة والإلقاء</h4><b class="who">مروان الجهني</b>
+          <ul><li>تنظيم جلسات وورش الخطابة والإلقاء (AI Speaker Club).</li><li>تطوير مهارات تقديم العروض والتواصل.</li><li>تنسيق فرص التحدث أمام الجمهور. <a href="#speakers" style="color:var(--accent);white-space:nowrap">المنهج ←</a></li></ul>
+          <div class="assist"><small>المساعد</small><span><i>ع</i>عبدالرحمن قوتة</span></div></div>
+        <div class="card o2 tbd"><span class="o2-k">DEPT_03 · القسم الثالث</span><h4>رئيس قسم الفعاليات والتصوير</h4><b class="who pend">لم يُحدَّد بعد</b>
+          <ul><li>التخطيط للفعاليات الطلابية وتنسيقها.</li><li>إدارة التجهيزات والمواعيد.</li><li>تنظيم التصوير والتوثيق المرئي لأنشطة النادي.</li></ul></div>
+      </div>
+      <div class="grid g2 o2-reps">
+        <div class="card o2 rep ewa"><span class="o2-k">EWA · ممثلو الأكاديمية</span>
+          <div class="o2-pair"><div><h4>ممثّل الأكاديمية لدى النادي</h4><b class="who">د. أنمار الحجيلي</b><p>حلقة الوصل بين قيادة النادي والأكاديمية لضمان توافق الأنشطة مع متطلباتها.</p></div>
+          <div><h4>ممثّل شؤون وملاحظات الطلاب</h4><b class="who pend">لم يُحدَّد بعد</b><p>ينقل ملاحظات الطلاب ومخاوفهم إلى الجهات المختصة، ويرفعها إلى د. أنمار.</p></div></div></div>
+        <div class="card o2 rep inx"><span class="o2-k">INNOVATIX · ممثلو الشركة</span>
+          <div class="o2-pair"><div><h4>ممثّل Innovatix لدى النادي</h4><b class="who">د. مو مودواني</b><p>حلقة الوصل بين النادي والشركة لدعم التعاون والمبادرات التعليمية.</p></div>
+          <div><h4>المساعدة الإدارية</h4><b class="who">فتون</b><p>تنظيم الاجتماعات والمراسلات والمتابعات الإدارية من جهة الشركة.</p></div></div></div>
+      </div>
+      <div class="o2-legend"><span><i class="l-solid"></i>تبعية تشغيلية مباشرة</span><span><i class="l-dash"></i>علاقة استشارية أو تنسيق مؤسسي</span><span><i class="l-tbd"></i>منصب بانتظار التعيين</span></div>
     </div>
 
     <div class="sub-title reveal" id="speakers">SPEAKERS // <b>منهج AI Speakers Club</b></div>
@@ -1077,11 +1126,13 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <table class="tbl">
         <thead><tr><th>القسم</th><th>القائد</th><th>المسؤوليات خلال الخطة</th></tr></thead>
         <tbody>
-          <tr><td><b>الإدارة</b></td><td>أفنان الجهني وسارة الشمراني</td><td>التنسيق مع د. أنمار والأكاديمية، واعتماد التقويم، ومتابعة الأقسام وفرق المشاريع، ولوحة الشرف، والتقرير الختامي.</td></tr>
-          <tr><td><b>التدريب والتطوير</b></td><td>جاري تحديد القائد</td><td>تقديم المختبرات التطبيقية وجلسات AI Byte، وإعداد التحديات، ومستودع الموارد وكتيّبات الأقسام ودليل الدورات، ومرافقة فرق المشاريع.</td></tr>
-          <tr><td><b>العلاقات العامة</b></td><td>جاري تحديد القائد</td><td>التواصل مع الخبراء والجهات المقترحة (سدايا، الأكاديمية السعودية الرقمية)، والشراكات مع الكافيهات والأندية، ودعوات المعرض، والنشر عن أنشطة النادي.</td></tr>
-          <tr><td><b>الفعاليات والتصميم</b></td><td>جاري تحديد القائد</td><td>تنظيم اللقاء التعريفي وأربعاء الذكاء والهاكاثون ويوم التأسيس والمعرض الختامي، وتصميم الهوية والإعلانات والشهادات.</td></tr>
-          <tr><td><b class="ltr">AI Speaker Club</b></td><td>مروان الجهني<small>المساعدون: فهد اليامي، عبدالرحمن قوتة</small></td><td>الخطابة والإلقاء وعرض الأفكار.</td></tr>
+          <tr><td><b>رئيسة النادي</b></td><td>أفنان الجهني</td><td>قيادة التوجّه العام، وتحديد الأولويات، ومتابعة رؤساء الأقسام، والتنسيق مع د. أنمار (الأكاديمية) ود. مو مودواني (Innovatix).</td></tr>
+          <tr><td><b>المساعدة الإدارية</b></td><td>سارة الشمراني</td><td>تنسيق الاجتماعات والمواعيد، وحفظ المحاضر والوثائق، ومتابعة تنفيذ المهام.</td></tr>
+          <tr><td><b>مستشار الأعمال</b></td><td>فهد اليامي</td><td>المشورة الاستراتيجية، والتطوير التنظيمي، وربط المبادرات بأهداف الأعمال.</td></tr>
+          <tr><td><b>العلاقات العامة</b></td><td>لم يُحدَّد بعد</td><td>التواصل الداخلي والخارجي، والعلاقات مع الخبراء والجهات المقترحة، والإعلانات الرسمية، ودعوات المعرض.</td></tr>
+          <tr><td><b>الخطابة والإلقاء</b></td><td>مروان الجهني<small>المساعد: عبدالرحمن قوتة</small></td><td>جلسات AI Speaker Club، وتدريب الأعضاء على عرض AI Byte والمشاريع في الهاكاثون والمعرض الختامي.</td></tr>
+          <tr><td><b>الفعاليات والتصوير</b></td><td>لم يُحدَّد بعد</td><td>تنظيم اللقاء التعريفي وأربعاء الذكاء والهاكاثون ويوم التأسيس والمعرض الختامي، والتصوير والتوثيق المرئي.</td></tr>
+          <tr><td><b>العلاقات الطلابية والشكاوى</b></td><td>لم يُحدَّد بعد</td><td>استقبال ملاحظات الطلاب وتوثيقها وإحالتها للجهة المختصة ومتابعتها.</td></tr>
         </tbody>
       </table>
     </div>
@@ -1446,8 +1497,8 @@ document.addEventListener('pointermove', e => {
 
 /* ---------- data ---------- */
 const MEMBERS = [
-  ['أفنان فهد الجهني','lead','قائدة النادي'],['سارة الشمراني','lead','نائبة القائدة'],
-  ['مروان الجهني','lead','قائد AI Speaker Club'],['فهد حمد اليامي','exec','مساعد قائد AI Speaker Club'],['عبدالرحمن قوتة','exec','مساعد قائد AI Speaker Club'],
+  ['أفنان فهد الجهني','lead','رئيسة النادي'],['سارة الشمراني','lead','المساعدة الإدارية لرئيسة النادي'],
+  ['مروان الجهني','lead','رئيس قسم الخطابة والإلقاء'],['فهد حمد اليامي','lead','مستشار الأعمال'],['عبدالرحمن قوتة','exec','مساعد رئيس قسم الخطابة والإلقاء'],
   ['أحمد محمود السيد','member'],['عبدالله خالد إبراهيم الغامدي','member'],
   ['رغد يوسف المرشدي','exec'],['سارة منصور الوذيناني','exec'],['ريما وصل الله العتيبي','exec'],['جوري ضيف الله الجعيد','exec'],['خالد إبراهيم الحربي','exec'],['شرق رجاالله السلمي','exec'],['لجين عبدالله السلمي','exec'],['سلطان حسين بالحارث','exec'],['شهد علي مروي','exec'],
   ['رائد عوض الله العزيري','vol'],
