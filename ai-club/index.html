@@ -598,6 +598,56 @@ footer .mono{font-size:12.5px}
 .join-posters img{display:block;width:100%;height:auto}
 @media (max-width:900px){.join-grid{grid-template-columns:1fr}.join{padding:32px 20px}}
 
+
+/* ===== admin page ===== */
+.admin{position:relative;z-index:1;padding:40px 0 80px;min-height:100vh}
+body.admin-mode main,body.admin-mode footer,body.admin-mode .to-top{display:none}
+body.admin-mode .nav-links{visibility:hidden}
+.adm-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.adm-head h1{font-size:clamp(28px,4vw,40px);font-weight:700}
+.adm-state{color:var(--ink2);margin-top:6px;font-size:15px}
+.adm-state.ok{color:var(--ok)}
+.adm-state.warn{color:var(--warn)}
+.adm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.adm-grid > *{min-width:0}
+.adm-wide{grid-column:1 / -1}
+.adm-card h3{font-size:20px;margin-bottom:4px}
+.adm-card > p{font-size:14px;margin-bottom:10px}
+.adm-f{display:block;font-size:13px;color:var(--mute);margin:12px 0 6px}
+.adm-in{width:100%;background:var(--bg2);border:1px solid var(--line-strong);border-radius:10px;color:var(--ink);font:inherit;font-size:15px;padding:10px 12px;min-width:0;resize:vertical}
+.adm-in:focus{outline:2px solid var(--accent);outline-offset:1px}
+.adm-in:disabled{opacity:.55;cursor:not-allowed}
+.adm-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+.adm-actions .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.adm-msg{font-size:13.5px;color:var(--mute)}
+.adm-msg.ok{color:var(--ok)}
+.adm-msg.err{color:#ef4444}
+.adm-list{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.adm-list li{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.adm-list li > div{min-width:0}
+.adm-list b{display:block;font-size:14.5px;font-weight:500;overflow-wrap:anywhere}
+.adm-list small{color:var(--mute);font-size:12px}
+.adm-list button{flex-shrink:0;font-size:13px;color:#ef4444;border:1px solid color-mix(in srgb,#ef4444 45%,transparent);border-radius:8px;padding:4px 10px}
+.adm-list .empty{color:var(--mute);font-size:14px;justify-content:center;border-style:dashed}
+.adm-depts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.adm-dept{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel);min-width:0}
+.adm-dept b{display:block;font-size:15px;margin-bottom:2px}
+.adm-links{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.adm-links a{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--accent);background:var(--panel)}
+.adm-links a:hover{border-color:var(--accent)}
+@media (max-width:980px){.adm-depts{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.adm-grid,.adm-depts{grid-template-columns:1fr}.admin{padding-top:24px}}
+
+/* announcement bar (display page) */
+.announce{display:flex;align-items:center;gap:12px;margin-top:18px;padding:10px 16px;border:1px solid color-mix(in srgb,var(--accent2) 45%,transparent);border-radius:12px;background:linear-gradient(to left,color-mix(in srgb,var(--accent2) 12%,transparent),var(--panel));font-size:15px}
+.announce[hidden]{display:none}
+.announce .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--accent2);color:#04121c;flex-shrink:0}
+.announce .ic svg{width:17px;height:17px}
+.announce .txt{flex:1;min-width:0;overflow-wrap:anywhere;animation:annIn .5s ease}
+.announce .txt a{color:var(--accent2);font-weight:600;margin-inline-start:6px}
+.announce small{color:var(--mute);font-size:12px;white-space:nowrap}
+@keyframes annIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
 /* ===== phone & tablet fit ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
@@ -670,6 +720,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <a href="#files"><span>10.</span>files</a>
     </nav>
     <div class="nav-tools">
+      <a class="icon-btn" href="#admin" id="adminLink" aria-label="لوحة الإدارة" title="لوحة الإدارة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </a>
       <button class="icon-btn" id="themeBtn" aria-label="تبديل الوضع الفاتح والداكن">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="themeIco"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
@@ -681,6 +734,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </header>
 
 <main id="top">
+<div class="wrap"><div class="announce" id="announce" role="status" hidden></div></div>
 <!-- ================= CHAIRMAN VISIT ================= -->
 <section class="block academy-front" id="chairman">
   <div class="wrap">
@@ -730,9 +784,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         <span class="chip">قيادة: <b>أفنان فهد الجهني</b></span>
         <span class="chip">أكتوبر 2026 – مارس 2027</span>
       </div>
-      <div class="pulse reveal" aria-label="عدد ردود استبيان الانضمام: 71، بدأ بـ 20 ثم 36">
-        <div class="pulse-num"><b data-count="71">0</b><span>ردًّا على استبيان الانضمام<small>وما زال العدد يكبر</small></span></div>
-        <ol class="growth">
+      <div class="pulse reveal" id="pulse" aria-label="عدد ردود استبيان الانضمام: 71، بدأ بـ 20 ثم 36">
+        <div class="pulse-num"><b id="pulseCount" data-count="71">0</b><span>ردًّا على استبيان الانضمام<small>وما زال العدد يكبر</small></span></div>
+        <ol class="growth" id="growth">
           <li style="--h:28%"><i></i><b>20</b><small>أول الردود</small></li>
           <li style="--h:51%"><i></i><b>36</b><small>بعدها</small></li>
           <li class="now" style="--h:100%"><i></i><b>71</b><small>الآن</small></li>
@@ -943,13 +997,13 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <div class="bus"></div>
       <div class="org-stems"><i></i><i></i><i></i><i></i></div>
       <div class="grid g4" style="width:100%">
-        <div class="card dept"><span class="dnum">DEPT_01 · القسم الأول</span><h3>التدريب والتطوير</h3><p>تقديم ورش العمل والمختبرات التطبيقية وجلسات AI Byte.</p>
+        <div class="card dept" data-dept="1"><span class="dnum">DEPT_01 · القسم الأول</span><h3>التدريب والتطوير</h3><p>تقديم ورش العمل والمختبرات التطبيقية وجلسات AI Byte.</p>
           <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept"><span class="dnum">DEPT_02 · القسم الثاني</span><h3>العلاقات العامة</h3><p>الشراكات مع الكافيهات والأندية الأخرى والتواصل مع الخبراء.</p>
+        <div class="card dept" data-dept="2"><span class="dnum">DEPT_02 · القسم الثاني</span><h3>العلاقات العامة</h3><p>الشراكات مع الكافيهات والأندية الأخرى والتواصل مع الخبراء.</p>
           <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept"><span class="dnum">DEPT_03 · القسم الثالث</span><h3>الفعاليات والتصميم</h3><p>تنظيم الفعاليات وتصميمها، والهوية والإعلانات والشهادات.</p>
+        <div class="card dept" data-dept="3"><span class="dnum">DEPT_03 · القسم الثالث</span><h3>الفعاليات والتصميم</h3><p>تنظيم الفعاليات وتصميمها، والهوية والإعلانات والشهادات.</p>
           <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept"><span class="dnum">DEPT_04 · القسم الرابع</span><h3 class="ltr" style="text-align:right">AI Speaker Club</h3><p>الخطابة والإلقاء وعرض الأفكار. <a href="#speakers" style="color:var(--accent);white-space:nowrap">المنهج ←</a></p>
+        <div class="card dept" data-dept="4"><span class="dnum">DEPT_04 · القسم الرابع</span><h3 class="ltr" style="text-align:right">AI Speaker Club</h3><p>الخطابة والإلقاء وعرض الأفكار. <a href="#speakers" style="color:var(--accent);white-space:nowrap">المنهج ←</a></p>
           <div class="leader"><span class="avatar">م</span><div><small>قائد القسم</small><b>مروان الجهني</b></div></div>
           <div class="assist"><small>المساعدون</small><span><i>ف</i>فهد اليامي</span><span><i>ع</i>عبدالرحمن قوتة</span></div></div>
       </div>
@@ -1078,10 +1132,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         <thead><tr><th>القسم</th><th>القائد</th><th>المسؤوليات خلال الخطة</th></tr></thead>
         <tbody>
           <tr><td><b>الإدارة</b></td><td>أفنان الجهني وسارة الشمراني</td><td>التنسيق مع د. أنمار والأكاديمية، واعتماد التقويم، ومتابعة الأقسام وفرق المشاريع، ولوحة الشرف، والتقرير الختامي.</td></tr>
-          <tr><td><b>التدريب والتطوير</b></td><td>جاري تحديد القائد</td><td>تقديم المختبرات التطبيقية وجلسات AI Byte، وإعداد التحديات، ومستودع الموارد وكتيّبات الأقسام ودليل الدورات، ومرافقة فرق المشاريع.</td></tr>
-          <tr><td><b>العلاقات العامة</b></td><td>جاري تحديد القائد</td><td>التواصل مع الخبراء والجهات المقترحة (سدايا، الأكاديمية السعودية الرقمية)، والشراكات مع الكافيهات والأندية، ودعوات المعرض، والنشر عن أنشطة النادي.</td></tr>
-          <tr><td><b>الفعاليات والتصميم</b></td><td>جاري تحديد القائد</td><td>تنظيم اللقاء التعريفي وأربعاء الذكاء والهاكاثون ويوم التأسيس والمعرض الختامي، وتصميم الهوية والإعلانات والشهادات.</td></tr>
-          <tr><td><b class="ltr">AI Speaker Club</b></td><td>مروان الجهني<small>المساعدون: فهد اليامي، عبدالرحمن قوتة</small></td><td>الخطابة والإلقاء وعرض الأفكار.</td></tr>
+          <tr><td><b>التدريب والتطوير</b></td><td data-lead="1">جاري تحديد القائد</td><td>تقديم المختبرات التطبيقية وجلسات AI Byte، وإعداد التحديات، ومستودع الموارد وكتيّبات الأقسام ودليل الدورات، ومرافقة فرق المشاريع.</td></tr>
+          <tr><td><b>العلاقات العامة</b></td><td data-lead="2">جاري تحديد القائد</td><td>التواصل مع الخبراء والجهات المقترحة (سدايا، الأكاديمية السعودية الرقمية)، والشراكات مع الكافيهات والأندية، ودعوات المعرض، والنشر عن أنشطة النادي.</td></tr>
+          <tr><td><b>الفعاليات والتصميم</b></td><td data-lead="3">جاري تحديد القائد</td><td>تنظيم اللقاء التعريفي وأربعاء الذكاء والهاكاثون ويوم التأسيس والمعرض الختامي، وتصميم الهوية والإعلانات والشهادات.</td></tr>
+          <tr><td><b class="ltr">AI Speaker Club</b></td><td data-lead="4">مروان الجهني<small>المساعدون: فهد اليامي، عبدالرحمن قوتة</small></td><td>الخطابة والإلقاء وعرض الأفكار.</td></tr>
         </tbody>
       </table>
     </div>
@@ -1235,6 +1289,70 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   </div>
 </section>
 </main>
+
+<section class="admin" id="admin" aria-label="لوحة الإدارة" hidden>
+  <div class="wrap">
+    <div class="adm-head">
+      <div>
+        <span class="kicker">ADMIN //</span>
+        <h1>لوحة الإدارة</h1>
+        <p class="adm-state" id="admState">جارٍ التحقق من الصلاحية…</p>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="#top">صفحة العرض ←</a>
+    </div>
+
+    <div class="adm-grid">
+      <div class="card adm-card">
+        <span class="kicker">SURVEY //</span>
+        <h3>عدد ردود الاستبيان</h3>
+        <p>يظهر في واجهة النادي مع رسم النمو.</p>
+        <label class="adm-f" for="admCount">العدد الحالي</label>
+        <input class="adm-in" id="admCount" type="number" min="0" inputmode="numeric">
+        <label class="adm-f" for="admSteps">مراحل النمو (من الأقدم للأحدث، بينها فاصلة)</label>
+        <input class="adm-in ltr" id="admSteps" type="text" placeholder="20, 36, 71">
+        <div class="adm-actions"><button class="btn btn-primary btn-sm" id="admSaveSurvey" type="button">حفظ</button><span class="adm-msg" id="admMsgSurvey" role="status"></span></div>
+      </div>
+
+      <div class="card adm-card">
+        <span class="kicker">ANNOUNCEMENTS //</span>
+        <h3>الإعلانات</h3>
+        <p>تظهر في شريط أعلى صفحة العرض، الأحدث أولًا.</p>
+        <label class="adm-f" for="admAnnText">نص الإعلان</label>
+        <textarea class="adm-in" id="admAnnText" rows="2" placeholder="مثال: أول «أربعاء الذكاء» يوم 28 أكتوبر"></textarea>
+        <label class="adm-f" for="admAnnLink">رابط (اختياري)</label>
+        <input class="adm-in ltr" id="admAnnLink" type="url" placeholder="https://">
+        <div class="adm-actions"><button class="btn btn-primary btn-sm" id="admAddAnn" type="button">نشر الإعلان</button><span class="adm-msg" id="admMsgAnn" role="status"></span></div>
+        <ul class="adm-list" id="admAnnList"></ul>
+      </div>
+
+      <div class="card adm-card adm-wide">
+        <span class="kicker">DEPARTMENTS //</span>
+        <h3>قادة الأقسام</h3>
+        <p>اتركي خانة القائد فارغة ليظهر «جاري تحديد القائد». افصلي بين المساعدين بفاصلة.</p>
+        <div class="adm-depts" id="admDepts"></div>
+        <div class="adm-actions"><button class="btn btn-primary btn-sm" id="admSaveLeaders" type="button">حفظ القادة</button><span class="adm-msg" id="admMsgLeaders" role="status"></span></div>
+      </div>
+
+      <div class="card adm-card">
+        <span class="kicker">HEROES //</span>
+        <h3>أبطال النادي</h3>
+        <p>إدخال الأبطال العشرة لكل جولة (كل أسبوعين).</p>
+        <div class="adm-actions"><button class="btn btn-primary btn-sm" id="admHeroes" type="button">إدارة أبطال الجولة</button></div>
+      </div>
+
+      <div class="card adm-card">
+        <span class="kicker">LINKS //</span>
+        <h3>روابط سريعة</h3>
+        <ul class="adm-links">
+          <li><a href="https://forms.gle/6Uf4i9uQXL6TXCPNA" target="_blank" rel="noopener">نموذج التسجيل في النادي</a></li>
+          <li><a href="https://lms.ewa.edu.sa/enrol/index.php?id=973" target="_blank" rel="noopener">مقرر النادي على منصة الأكاديمية</a></li>
+          <li><a href="#events">الفعاليات في صفحة العرض</a></li>
+          <li><a href="#heroes">أبطال النادي في صفحة العرض</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap">
@@ -1843,6 +1961,125 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
   use('user').then(u => {
     if (!u) return;
     Promise.resolve(u.canEdit()).then(ok => { canEdit = !!ok; $('#editHeroes').classList.toggle('on', canEdit); });
+  });
+})();
+
+
+/* ---------- site config (admin page ↔ display page) ---------- */
+(function siteConfig(){
+  const DEPTS = ['التدريب والتطوير','العلاقات العامة','الفعاليات والتصميم','AI Speaker Club'];
+  const DEF = {
+    survey: {count: 71, steps: [20, 36, 71]},
+    leaders: [{leader:'',assist:[]},{leader:'',assist:[]},{leader:'',assist:[]},{leader:'مروان الجهني',assist:['فهد اليامي','عبدالرحمن قوتة']}],
+    announcements: []
+  };
+  let cfg = JSON.parse(JSON.stringify(DEF)), db = null, canEdit = false;
+  const merge = d => ({
+    survey: {count: Number.isFinite(+d?.survey?.count) ? +d.survey.count : DEF.survey.count, steps: Array.isArray(d?.survey?.steps) && d.survey.steps.length ? d.survey.steps.map(Number).filter(Number.isFinite) : DEF.survey.steps},
+    leaders: DEF.leaders.map((x,i) => { const l = d?.leaders?.[i]; return l ? {leader: String(l.leader || ''), assist: Array.isArray(l.assist) ? l.assist.map(String).filter(Boolean) : []} : x; }),
+    announcements: Array.isArray(d?.announcements) ? d.announcements.filter(a => a && a.text) : []
+  });
+  const initial = n => esc(String(n).trim()[0] || '…');
+
+  /* display page */
+  function applySurvey(){
+    const {count, steps} = cfg.survey, b = $('#pulseCount');
+    b.dataset.count = count; if ($('#pulse').classList.contains('in')) b.textContent = count;
+    const all = steps.length ? steps : [count], max = Math.max(...all, 1);
+    $('#growth').innerHTML = all.map((v,i) => `<li class="${i === all.length-1 ? 'now' : ''}" style="--h:${Math.max(8, Math.round(v/max*100))}%"><i></i><b>${v}</b><small>${i === 0 ? 'أول الردود' : i === all.length-1 ? 'الآن' : 'بعدها'}</small></li>`).join('');
+    $('#pulse').setAttribute('aria-label', `عدد ردود استبيان الانضمام: ${count}، مراحل النمو: ${all.join(' ثم ')}`);
+  }
+  function applyLeaders(){
+    cfg.leaders.forEach((l,i) => {
+      const card = $(`.dept[data-dept="${i+1}"]`); if (!card) return;
+      $$('.leader,.assist', card).forEach(e => e.remove());
+      card.insertAdjacentHTML('beforeend', `<div class="leader"><span class="avatar">${l.leader ? initial(l.leader) : '…'}</span><div><small>قائد القسم</small><b>${l.leader ? esc(l.leader) : 'جاري تحديد القائد'}</b></div></div>` +
+        (l.assist.length ? `<div class="assist"><small>المساعدون</small>${l.assist.map(a => `<span><i>${initial(a)}</i>${esc(a)}</span>`).join('')}</div>` : ''));
+      const td = $(`td[data-lead="${i+1}"]`);
+      if (td) td.innerHTML = (l.leader ? esc(l.leader) : 'جاري تحديد القائد') + (l.assist.length ? `<small>المساعدون: ${l.assist.map(esc).join('، ')}</small>` : '');
+    });
+  }
+  let annTimer;
+  function applyAnnouncements(){
+    const box = $('#announce'), list = [...cfg.announcements].sort((a,b) => String(b.at||'').localeCompare(String(a.at||'')));
+    clearInterval(annTimer);
+    if (!list.length){ box.hidden = true; return; }
+    box.hidden = false; let k = 0;
+    const show = () => { const a = list[k % list.length]; const safe = /^https?:\/\//i.test(a.link || '') ? a.link : '';
+      box.innerHTML = `<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></span><span class="txt">${esc(a.text)}${safe ? `<a href="${esc(safe)}" target="_blank" rel="noopener">التفاصيل ←</a>` : ''}</span>${list.length > 1 ? `<small class="mono">${k % list.length + 1}/${list.length}</small>` : ''}`; k++; };
+    show(); if (list.length > 1 && !reduce) annTimer = setInterval(show, 6000);
+  }
+  function applyAll(){ applySurvey(); applyLeaders(); applyAnnouncements(); fillAdmin(); }
+
+  /* admin page */
+  const fields = () => $$('#admin .adm-in, #admin .adm-actions .btn, #admin .adm-list button');
+  function setEditable(on){ fields().forEach(e => e.disabled = !on); $('#admHeroes').disabled = !on; }
+  function state(text, kind){ const e = $('#admState'); e.textContent = text; e.className = 'adm-state ' + (kind || ''); }
+  function fillAdmin(){
+    if (document.activeElement && document.activeElement.closest && document.activeElement.closest('#admin')) { renderAnnList(); return; }
+    $('#admCount').value = cfg.survey.count;
+    $('#admSteps').value = cfg.survey.steps.join(', ');
+    $('#admDepts').innerHTML = DEPTS.map((d,i) => `<div class="adm-dept"><b${i===3 ? ' class="ltr" style="text-align:right"' : ''}>${d}</b>
+      <label class="adm-f" for="admLead${i}">القائد</label><input class="adm-in" id="admLead${i}" value="${esc(cfg.leaders[i].leader)}" placeholder="جاري تحديد القائد" list="memberNames">
+      <label class="adm-f" for="admAss${i}">المساعدون</label><input class="adm-in" id="admAss${i}" value="${esc(cfg.leaders[i].assist.join('، '))}" placeholder="اسم، اسم"></div>`).join('');
+    renderAnnList(); setEditable(canEdit && !!db);
+  }
+  function renderAnnList(){
+    const list = [...cfg.announcements].map((a,i) => ({...a, i})).sort((a,b) => String(b.at||'').localeCompare(String(a.at||'')));
+    $('#admAnnList').innerHTML = list.length ? list.map(a => `<li><div><b>${esc(a.text)}</b><small>${a.at ? new Date(a.at).toLocaleDateString('ar-SA-u-ca-gregory',{day:'numeric',month:'long',year:'numeric'}) : ''}${a.link ? ' · <span class="ltr">' + esc(a.link) + '</span>' : ''}</small></div><button type="button" data-i="${a.i}"${canEdit && db ? '' : ' disabled'}>حذف</button></li>`).join('') : '<li class="empty">لا توجد إعلانات منشورة.</li>';
+    $$('#admAnnList button').forEach(b => b.onclick = () => { const next = cfg.announcements.filter((_,j) => j !== +b.dataset.i); save({announcements: next}, '#admMsgAnn', 'تم حذف الإعلان.'); });
+  }
+  async function save(patch, msgSel, okText){
+    const m = $(msgSel); m.className = 'adm-msg'; 
+    if (!db || !canEdit){ m.textContent = 'الحفظ متاح للمشرفين من رابط Claude فقط.'; m.className = 'adm-msg err'; return; }
+    m.textContent = 'جارٍ الحفظ…';
+    const next = {...cfg, ...patch};
+    try { await db.doc('site/config').set({survey: next.survey, leaders: next.leaders, announcements: next.announcements, updatedAt: new Date().toISOString()}); cfg = next; applyAll(); m.textContent = okText; m.className = 'adm-msg ok'; }
+    catch (e){ m.textContent = e && e.code === 'invalid_argument' ? 'ليس لديك صلاحية الحفظ.' : 'تعذّر الحفظ، حاولي مرة أخرى.'; m.className = 'adm-msg err'; }
+  }
+  $('#admSaveSurvey').onclick = () => {
+    const count = Math.max(0, Math.round(+$('#admCount').value || 0));
+    let steps = $('#admSteps').value.split(/[\s,،]+/).map(Number).filter(n => Number.isFinite(n) && n >= 0).slice(-6);
+    if (!steps.length || steps[steps.length-1] !== count) steps = [...steps, count].slice(-6);
+    save({survey: {count, steps}}, '#admMsgSurvey', 'تم الحفظ، ويظهر الآن في صفحة العرض.');
+  };
+  $('#admSaveLeaders').onclick = () => {
+    const leaders = DEPTS.map((_,i) => ({leader: $('#admLead'+i).value.trim().slice(0,80), assist: $('#admAss'+i).value.split(/[,،]+/).map(x => x.trim()).filter(Boolean).slice(0,6).map(x => x.slice(0,80))}));
+    save({leaders}, '#admMsgLeaders', 'تم حفظ القادة.');
+  };
+  $('#admAddAnn').onclick = () => {
+    const text = $('#admAnnText').value.trim().slice(0,240), link = $('#admAnnLink').value.trim().slice(0,400);
+    const m = $('#admMsgAnn');
+    if (!text){ m.textContent = 'اكتبي نص الإعلان أولًا.'; m.className = 'adm-msg err'; return; }
+    if (link && !/^https?:\/\//i.test(link)){ m.textContent = 'الرابط يبدأ بـ https://'; m.className = 'adm-msg err'; return; }
+    save({announcements: [...cfg.announcements, {text, link, at: new Date().toISOString()}].slice(-20)}, '#admMsgAnn', 'تم نشر الإعلان.').then(() => { if ($('#admMsgAnn').classList.contains('ok')){ $('#admAnnText').value = ''; $('#admAnnLink').value = ''; } });
+  };
+  $('#admHeroes').onclick = () => $('#editHeroes').click();
+
+  /* routing between display and admin */
+  function route(){
+    const admin = location.hash === '#admin';
+    document.body.classList.toggle('admin-mode', admin);
+    $('#admin').hidden = !admin;
+    if (admin){ scrollTo({top:0, behavior:'instant'}); fillAdmin(); }
+  }
+  addEventListener('hashchange', route);
+
+  applyAll(); route();
+
+  const use = window.claude && window.claude.use ? window.claude.use.bind(window.claude) : null;
+  if (!use){ state('هذه نسخة العرض العامة. لوحة الإدارة تعمل وتحفظ من رابط Claude فقط.', 'warn'); setEditable(false); return; }
+  state('جارٍ الاتصال…');
+  Promise.all([use('db'), use('user')]).then(([d, u]) => {
+    db = d;
+    return Promise.resolve(u ? u.canEdit() : false).then(ok => {
+      canEdit = !!ok;
+      if (!db) state('تعذّر الاتصال بقاعدة البيانات. سجّلي الدخول ثم أعيدي فتح الصفحة.', 'warn');
+      else if (!canEdit) state('هذه الصفحة للمشرفين فقط. يمكنك تصفّح صفحة العرض.', 'warn');
+      else state('متصلة · التعديلات تظهر مباشرة في صفحة العرض.', 'ok');
+      setEditable(canEdit && !!db); renderAnnList();
+      if (db) db.doc('site/config').onSnapshot(snap => { cfg = merge(snap.exists ? snap.data() : {}); applyAll(); }, () => {});
+    });
   });
 })();
 
