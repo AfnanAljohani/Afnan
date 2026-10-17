@@ -20,7 +20,7 @@
 
 ## النشر على Vercel
 
-الموقع منشور على **https://ewa-ai-club.vercel.app** (مشروع `ewa-ai-club`). لتحديثه بعد أي تعديل: `cd ai-club && npx vercel deploy --prod`.
+الموقع منشور على **https://ewa-ai.vercel.app** (مشروع `ewa-ai-club`، والرابط القديم `ewa-ai-club.vercel.app` يحوّل إليه). لتحديثه بعد أي تعديل: من جذر المستودع `npx vercel deploy --prod` (المشروع يقرأ من مجلد `ai-club`).
 
 لربط المستودع حتى يُنشر تلقائيًا مع كل تعديل:
 

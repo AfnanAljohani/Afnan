@@ -11,12 +11,21 @@
 <meta property="og:site_name" content="EWA AI Club">
 <meta property="og:title" content="EWA AI Club · نادي الذكاء الاصطناعي">
 <meta property="og:description" content="نتعلّم، نطبّق، نبتكر، نصنع الأثر — نادي الذكاء الاصطناعي في أكاديمية الطاقة والمياه.">
-<meta property="og:image" content="img/join-promo.webp">
+<meta property="og:url" content="https://ewa-ai.vercel.app/">
+<meta property="og:image" content="https://ewa-ai.vercel.app/img/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="EWA AI Club · نادي الذكاء الاصطناعي">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EWA AI Club · نادي الذكاء الاصطناعي">
+<meta name="twitter:description" content="نتعلّم، نطبّق، نبتكر، نصنع الأثر — نادي الذكاء الاصطناعي في أكاديمية الطاقة والمياه.">
+<meta name="twitter:image" content="https://ewa-ai.vercel.app/img/og-card.jpg">
+<link rel="canonical" href="https://ewa-ai.vercel.app/">
+<link rel="apple-touch-icon" href="img/og-card.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f4e1ad'/%3E%3Cstop offset='.5' stop-color='%23d9b76c'/%3E%3Cstop offset='1' stop-color='%23a8843a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='700' font-size='26' text-anchor='middle' fill='%23140f04'%3EAI%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Readex+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Readex+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <style>
 :root{
   --bg:#050b18; --bg2:#081226; --panel:rgba(10,20,40,.72); --panel-solid:#0a1428;
@@ -798,7 +807,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   --gold-soft:rgba(217,183,108,.12); --gold-line:rgba(217,183,108,.34);
   --accent-soft:rgba(95,141,255,.12); --glow:rgba(95,141,255,.40);
   --trace:rgba(217,183,108,.055); --pulse:#e2c27f;
-  --display:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --display:"Noto Kufi Arabic","Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif;
   --r:18px;
   --gold-grad:linear-gradient(135deg,var(--gold2) 0%,var(--gold) 45%,var(--gold3) 100%);
   --ease:cubic-bezier(.2,.7,.2,1);
@@ -895,7 +904,7 @@ body::after{content:"";position:fixed;inset:0;z-index:120;pointer-events:none;op
 .circuit-title g{filter:drop-shadow(0 0 8px rgba(217,183,108,.35))}
 .circuit-title circle{stroke:var(--gold2)}
 .hero h1{font-family:var(--display);font-size:clamp(34px,5.4vw,62px);font-weight:700;line-height:1.25;margin-top:20px;
-  background:linear-gradient(100deg,var(--ink) 0%,var(--gold2) 45%,var(--gold) 70%,var(--ink) 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 9s ease-in-out infinite}
+  background:linear-gradient(100deg,var(--ink) 0%,var(--gold2) 45%,var(--gold) 70%,var(--ink) 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 9s ease-in-out infinite;padding:.08em 0 .22em}
 @keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .tagline{color:var(--gold);font-family:var(--display);font-size:clamp(15px,1.7vw,19px);letter-spacing:.02em}
 .tagline .sep{color:var(--line-strong)}
@@ -972,7 +981,7 @@ section.block{padding:120px 0}
 
 /* stats */
 .stat{padding:30px 16px}
-.stat .v{font-family:var(--display);font-size:clamp(38px,4.6vw,54px);background-image:linear-gradient(180deg,var(--gold2),var(--gold) 55%,var(--gold3))}
+.stat .v{font-family:var(--display);font-size:clamp(38px,4.6vw,54px);padding-bottom:.12em;background-image:linear-gradient(180deg,var(--gold2),var(--gold) 55%,var(--gold3))}
 .stat .l{font-size:14.5px;letter-spacing:.01em}
 .goal .idx{font-family:var(--display);font-size:44px;-webkit-text-stroke:1px var(--gold)}
 .track .ico,.prop .pn,.ss .sn{border-radius:14px;background:var(--gold-soft);color:var(--gold);border-color:var(--gold-line)}
