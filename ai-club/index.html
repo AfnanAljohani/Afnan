@@ -675,6 +675,9 @@ body.admin-mode .nav-links{visibility:hidden}
 .cdate{display:flex;align-items:center;gap:6px;justify-content:flex-end;font-family:var(--mono);font-size:13px;color:var(--warn);direction:ltr}
 .cdate svg{width:15px;height:15px}
 .ccard.next{border-color:var(--warn);box-shadow:0 0 0 3px color-mix(in srgb,var(--warn) 18%,transparent)}
+.cstatus{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;border-radius:12px;font-weight:700;font-size:15px;color:#05281c;background:var(--ok)}
+.cstatus i{width:9px;height:9px;border-radius:50%;background:#05281c;box-shadow:0 0 0 0 rgba(5,40,28,.5);animation:ping 1.8s infinite}
+.cstatus:hover{filter:brightness(1.08)}
 .more-wrap{display:flex;justify-content:center;margin-top:26px}
 .more{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;border-radius:999px;border:1.5px solid var(--warn);color:var(--warn);font-weight:600;font-size:15px;transition:background .2s}
 .more:hover{background:color-mix(in srgb,var(--warn) 12%,transparent)}
@@ -2277,7 +2280,7 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
   const NEWS = [
     ['رسائل القبول 🎉','تُرسَل رسائل القبول للمقبولين في نادي الذكاء الاصطناعي عبر البريد الإلكتروني. نرجو تفقّد بريدكم، بما في ذلك البريد غير المهم (Spam)، فقد تكون رسالتكم بانتظاركم 📩','','img/news-accept.webp','#join'],
     ['تدشين نادي الذكاء الاصطناعي 🚀','تدشين نادي الذكاء الاصطناعي في أكاديمية الطاقة والمياه. موعد التدشين وتفاصيله تُعلن قريبًا.','','img/news-launch.webp','#events'],
-    ['التسجيل مفتوح الآن في نادي الذكاء الاصطناعي','المستقبل ما ينتظر… إحنا نصنعه. انضم إلى نادي الذكاء الاصطناعي في EWA: تعلّم، ابتكر، وشارك أفكارك مع مجتمع يصنع الفرق.','','img/join-promo.webp','https://forms.gle/6Uf4i9uQXL6TXCPNA'],
+    ['التسجيل مفتوح الآن في نادي الذكاء الاصطناعي','المستقبل ما ينتظر… إحنا نصنعه. انضم إلى نادي الذكاء الاصطناعي في EWA: تعلّم، ابتكر، وشارك أفكارك مع مجتمع يصنع الفرق.','open','img/join-promo.webp','https://forms.gle/6Uf4i9uQXL6TXCPNA'],
     ['زيارة رئيس مجلس الإدارة لبرنامج الذكاء الاصطناعي','م. ثامر بن سعود الشرهان يزور متدربي برنامج الذكاء الاصطناعي لمتابعة تجربتهم التدريبية، تأكيدًا على اهتمام الأكاديمية بإعداد الكفاءات الوطنية.','2026-07-26','img/events/chairman-poster.webp','#chairman'],
     ['زيارة علمية إلى كاوست','زيارة متدربي تخصص الذكاء الاصطناعي إلى جامعة الملك عبدالله للعلوم والتقنية للاطلاع على منظومات الابتكار وأحدث الأبحاث.','2026-07-18','img/events/kaust-1.webp','#events']
   ];
@@ -2285,7 +2288,7 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
     const ext = /^https?:/.test(link) ? ' target="_blank" rel="noopener"' : '';
     return `<article class="ccard reveal"><a class="ccover" href="${link}"${ext}><img src="${img}" alt="${esc(t)}" loading="lazy"></a>
       <div class="cbody"><h3><a href="${link}"${ext}>${esc(t)}</a>${EXT}</h3><p>${esc(x)}</p>
-      <div class="cfoot"><span class="cdate">${d ? `${CAL}${d}` : '<span style="font-family:var(--sans)">قريبًا</span>'}</span></div></div></article>`;
+      <div class="cfoot">${d === 'open' ? `<a class="cstatus" href="${link}"${ext}><i></i>التسجيل مفتوح · سجّل الآن</a>` : `<span class="cdate">${d ? `${CAL}${d}` : '<span style="font-family:var(--sans)">قريبًا</span>'}</span>`}</div></div></article>`;
   }).join('');
   pager('#news-list', '#newsMore');
 })();
