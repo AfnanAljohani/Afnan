@@ -644,6 +644,45 @@ body.admin-mode .nav-links{visibility:hidden}
 .adm-who{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;color:var(--ink2);font-size:14.5px}
 #admin .fcard{background:var(--bg2)}
 #admin .members{margin-top:4px}
+
+/* camps / news cards */
+.gold{color:var(--warn)}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cgrid > *{min-width:0}
+.ccard{display:flex;flex-direction:column;border:1px solid var(--line-strong);border-radius:20px;background:var(--panel);overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.ccard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--warn) 55%,transparent);box-shadow:0 22px 50px -26px color-mix(in srgb,var(--warn) 50%,transparent)}
+.ccard.hide{display:none}
+.ccover{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg2)}
+.ccover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.ccard:hover .ccover img{transform:scale(1.04)}
+.ccover.gen{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;padding:16px 18px;background:radial-gradient(380px 200px at 85% 10%,color-mix(in srgb,var(--accent) 35%,transparent),transparent),linear-gradient(135deg,#071a4a,#0a2f7c)}
+.ccover.gen::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(200,220,255,.18) 1.2px,transparent 1.3px);background-size:18px 18px;mask-image:linear-gradient(to bottom,#000,transparent)}
+.ccover .ct{position:relative;font-size:22px;font-weight:700;color:#fff;line-height:1.45}
+.ccover .cx{position:relative;display:flex;flex-wrap:wrap;gap:6px}
+.ccover .cx span{font-size:12px;color:#dbe6ff;border:1px solid rgba(200,220,255,.35);border-radius:999px;padding:2px 10px;background:rgba(4,14,40,.45)}
+.ctype{position:absolute;top:12px;right:12px;z-index:1;font-size:12.5px;font-weight:600;border-radius:999px;padding:3px 12px;background:var(--warn);color:#1b1205}
+.cbody{display:flex;flex-direction:column;gap:9px;padding:20px 22px 22px;flex:1}
+.cbody h3{font-size:19px;line-height:1.55;margin-bottom:4px}
+.cbody h3 a{color:inherit}
+.cbody h3 .ext{display:inline-block;width:16px;height:16px;color:var(--warn);vertical-align:-1px;margin-inline-start:6px}
+.cmeta{display:flex;align-items:center;gap:9px;font-size:14.5px;color:var(--ink2)}
+.cmeta svg{width:17px;height:17px;color:var(--warn);flex-shrink:0}
+.cbody p{font-size:14.5px;color:var(--ink2);line-height:1.85;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.cfoot{margin-top:auto;padding-top:12px}
+.cbtn{display:block;width:100%;text-align:center;padding:12px;border-radius:12px;font-weight:600;font-size:15px;border:1px solid var(--line-strong);background:var(--bg2);color:var(--mute)}
+.cbtn.open{background:var(--warn);color:#1b1205;border-color:var(--warn)}
+.cbtn.soon{color:var(--ink2)}
+.cdate{display:flex;align-items:center;gap:6px;justify-content:flex-end;font-family:var(--mono);font-size:13px;color:var(--warn);direction:ltr}
+.cdate svg{width:15px;height:15px}
+.ccard.next{border-color:var(--warn);box-shadow:0 0 0 3px color-mix(in srgb,var(--warn) 18%,transparent)}
+.more-wrap{display:flex;justify-content:center;margin-top:26px}
+.more{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;border-radius:999px;border:1.5px solid var(--warn);color:var(--warn);font-weight:600;font-size:15px;transition:background .2s}
+.more:hover{background:color-mix(in srgb,var(--warn) 12%,transparent)}
+.more svg{width:16px;height:16px;transition:transform .25s}
+.more[aria-expanded="true"] svg{transform:rotate(180deg)}
+.more[hidden]{display:none}
+@media (max-width:980px){.cgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.cgrid{grid-template-columns:1fr}}
 /* announcement bar (display page) */
 .announce{display:flex;align-items:center;gap:12px;margin-top:18px;padding:10px 16px;border:1px solid color-mix(in srgb,var(--accent2) 45%,transparent);border-radius:12px;background:linear-gradient(to left,color-mix(in srgb,var(--accent2) 12%,transparent),var(--panel));font-size:15px}
 .announce[hidden]{display:none}
@@ -752,6 +791,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <a href="#about"><span>01.</span>about</a>
       <a href="#heroes"><span>02.</span>heroes</a>
       <a href="#events"><span>03.</span>events</a>
+      <a href="#camps"><span>◆</span>camps</a>
+      <a href="#news"><span>◆</span>news</a>
       <a href="#structure"><span>04.</span>structure</a>
       <a href="#ideas"><span>05.</span>ideas</a>
       <a href="#plan"><span>06.</span>plan</a>
@@ -1011,6 +1052,29 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         </div>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- ================= CAMPS & WORKSHOPS ================= -->
+<section class="block" id="camps">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">◆</span><h2>المعسكرات والورش <span class="gold">واللقاءات</span></h2><span class="rule"></span></div>
+    <p class="sec-sub reveal">ورش تطبيقية، ومعسكرات، ولقاءات خبراء طوال الموسم. المواعيد مبدئية وتُعتمد بالتنسيق مع الأكاديمية.</p>
+    <div class="toolbar reveal"><div class="seg" role="group" aria-label="تصفية حسب النوع" id="campFilter">
+      <button aria-pressed="true" data-f="all">الكل</button><button aria-pressed="false" data-f="ورشة">ورش</button><button aria-pressed="false" data-f="معسكر">معسكرات</button><button aria-pressed="false" data-f="لقاء">لقاءات</button>
+    </div></div>
+    <div class="cgrid" id="camps-list"></div>
+    <div class="more-wrap"><button class="more" type="button" id="campMore" aria-expanded="false">عرض المزيد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button></div>
+  </div>
+</section>
+
+<!-- ================= NEWS ================= -->
+<section class="block" id="news">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">◆</span><h2>أحدث <span class="gold">الأخبار</span></h2><span class="rule"></span></div>
+    <p class="sec-sub reveal">آخر أخبار النادي وإعلاناته.</p>
+    <div class="cgrid" id="news-list"></div>
+    <div class="more-wrap"><button class="more" type="button" id="newsMore" aria-expanded="false">عرض المزيد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button></div>
   </div>
 </section>
 
@@ -1297,7 +1361,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
 <section class="block" style="padding-top:20px">
   <div class="wrap">
-    <div class="join reveal">
+    <div class="join reveal" id="join">
       <div class="join-grid">
         <div class="join-text">
           <span class="kicker mono" style="color:var(--accent);font-size:12px;letter-spacing:.14em">JOIN_US //</span>
@@ -2176,6 +2240,84 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
     });
   });
 })();
+
+
+/* ---------- camps, workshops & meetups ---------- */
+(function camps(){
+  const FORM = 'https://forms.gle/6Uf4i9uQXL6TXCPNA';
+  const CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+  const PPL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.8 6 5"/></svg>';
+  const CLK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+  const PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+  // type, title, topics, date, place, duration, poster
+  const ITEMS = [
+    ['ورشة','ورشة تهيئة: أساسيات Python للبيانات',['Python','Pandas','أول «أربعاء الذكاء»'],'2026-10-28','الأكاديمية','','img/saudi-poster.webp'],
+    ['ورشة','المختبر التطبيقي 1: تحليل البيانات وتصويرها',['Pandas','Power BI'],'2026-11-11','الأكاديمية','',''],
+    ['ورشة','المختبر التطبيقي 2: تعلّم الآلة',['الانحدار','التصنيف'],'2026-11-25','الأكاديمية','',''],
+    ['ورشة','المختبر التطبيقي 3: الرؤية الحاسوبية',['تصنيف الصور','تحدي ديسمبر'],'2026-12-09','الأكاديمية','',''],
+    ['لقاء','لقاء خبير: الذكاء الاصطناعي ومعالجة اللغة العربية',['اليوم العالمي للغة العربية','NLP'],'2026-12-16','الأكاديمية','',''],
+    ['ورشة','المختبر التطبيقي 4: الذكاء التوليدي وهندسة الأوامر',['GenAI','Prompt Engineering'],'2026-12-23','الأكاديمية','',''],
+    ['ورشة','المختبر التطبيقي 5: نشر النماذج وأساسيات MLOps',['Deployment','MLOps'],'2027-01-06','الأكاديمية','',''],
+    ['لقاء','لقاء خبير من قطاع الطاقة والمياه',['إعلان الهاكاثون','فتح التسجيل'],'2027-01-13','الأكاديمية','',''],
+    ['ورشة','ورشة الابتكار: التفكير التصميمي وعرض الأفكار',['Design Thinking','Pitching'],'2027-01-20','الأكاديمية','',''],
+    ['معسكر','هاكاثون EWA AI المصغّر',['تحدٍّ حقيقي','نموذج أولي','لجنة تحكيم'],'2027-01-27','الأكاديمية','يوم كامل',''],
+    ['ورشة','المختبر التطبيقي 6: أخلاقيات الذكاء الاصطناعي',['الذكاء الاصطناعي المسؤول'],'2027-02-17','عن بُعد','','']
+  ];
+  const fmt = d => { const x = D(d); return `${['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'][x.getDay()]} ${x.getDate()} ${MONTHS[x.getMonth()]} ${x.getFullYear()}`; };
+  const nextI = ITEMS.findIndex(it => D(it[3]) >= today);
+  $('#camps-list').innerHTML = ITEMS.map(([type,title,tags,date,place,dur,img],i) => {
+    const past = D(date) < today;
+    const btn = past ? '<span class="cbtn">انتهت</span>' : i === nextI ? `<a class="cbtn open" href="#plan">قريبًا · ${esc(fmt(date))}</a>` : '<span class="cbtn soon">التسجيل يُفتح قريبًا</span>';
+    const cover = img ? `<img src="${img}" alt="${esc(title)}" loading="lazy">` : `<div class="ct">${esc(title.split(':').pop().trim())}</div><div class="cx">${tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>`;
+    return `<article class="ccard reveal${i === nextI ? ' next' : ''}" data-type="${type}"><div class="ccover${img ? '' : ' gen'}"><span class="ctype">${type}</span>${cover}</div>
+      <div class="cbody"><h3>${esc(title)}</h3>
+      <div class="cmeta">${PPL}<span>الفئة: أعضاء النادي ومتدربو البرنامج</span></div>
+      <div class="cmeta">${CAL}<span>الموعد: ${esc(fmt(date))}</span></div>
+      <div class="cmeta">${PIN}<span>المكان: ${esc(place)}</span></div>
+      <div class="cmeta">${CLK}<span>المدة: ${esc(dur || 'تُعلن لاحقًا')}</span></div>
+      <div class="cfoot">${btn}</div></div></article>`;
+  }).join('');
+  pager('#camps-list', '#campMore', '#campFilter');
+})();
+
+/* ---------- latest news ---------- */
+(function news(){
+  const EXT = '<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+  const CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+  // title, text, date ('' = to be announced), image, link
+  const NEWS = [
+    ['رسائل القبول 🎉','تُرسَل رسائل القبول للمقبولين في نادي الذكاء الاصطناعي عبر البريد الإلكتروني. نرجو تفقّد بريدكم، بما في ذلك البريد غير المهم (Spam)، فقد تكون رسالتكم بانتظاركم 📩','','img/news-accept.webp','#join'],
+    ['تدشين نادي الذكاء الاصطناعي 🚀','تدشين نادي الذكاء الاصطناعي في أكاديمية الطاقة والمياه. موعد التدشين وتفاصيله تُعلن قريبًا.','','img/news-launch.webp','#events'],
+    ['التسجيل مفتوح الآن في نادي الذكاء الاصطناعي','المستقبل ما ينتظر… إحنا نصنعه. انضم إلى نادي الذكاء الاصطناعي في EWA: تعلّم، ابتكر، وشارك أفكارك مع مجتمع يصنع الفرق.','','img/join-promo.webp','https://forms.gle/6Uf4i9uQXL6TXCPNA'],
+    ['زيارة رئيس مجلس الإدارة لبرنامج الذكاء الاصطناعي','م. ثامر بن سعود الشرهان يزور متدربي برنامج الذكاء الاصطناعي لمتابعة تجربتهم التدريبية، تأكيدًا على اهتمام الأكاديمية بإعداد الكفاءات الوطنية.','2026-07-26','img/events/chairman-poster.webp','#chairman'],
+    ['زيارة علمية إلى كاوست','زيارة متدربي تخصص الذكاء الاصطناعي إلى جامعة الملك عبدالله للعلوم والتقنية للاطلاع على منظومات الابتكار وأحدث الأبحاث.','2026-07-18','img/events/kaust-1.webp','#events']
+  ];
+  $('#news-list').innerHTML = NEWS.map(([t,x,d,img,link]) => {
+    const ext = /^https?:/.test(link) ? ' target="_blank" rel="noopener"' : '';
+    return `<article class="ccard reveal"><a class="ccover" href="${link}"${ext}><img src="${img}" alt="${esc(t)}" loading="lazy"></a>
+      <div class="cbody"><h3><a href="${link}"${ext}>${esc(t)}</a>${EXT}</h3><p>${esc(x)}</p>
+      <div class="cfoot"><span class="cdate">${d ? `${CAL}${d}` : '<span style="font-family:var(--sans)">قريبًا</span>'}</span></div></div></article>`;
+  }).join('');
+  pager('#news-list', '#newsMore');
+})();
+
+/* show the first row, then "عرض المزيد" reveals the rest */
+function pager(listSel, btnSel, filterSel){
+  const list = $(listSel), btn = $(btnSel), FIRST = 3;
+  let open = false, f = 'all';
+  const apply = () => {
+    const cards = $$('.ccard', list), match = cards.filter(c => f === 'all' || c.dataset.type === f);
+    cards.forEach(c => c.classList.add('hide'));
+    match.forEach((c,i) => c.classList.toggle('hide', !open && i >= FIRST));
+    btn.hidden = match.length <= FIRST;
+    btn.setAttribute('aria-expanded', open);
+    btn.firstChild.textContent = open ? 'عرض أقل ' : 'عرض المزيد ';
+    match.forEach(c => c.classList.add('in'));
+  };
+  btn.onclick = () => { open = !open; apply(); };
+  if (filterSel) segment(filterSel, v => { f = v; open = false; apply(); });
+  apply();
+}
 
 /* ---------- tables stack on phones: label each cell with its column ---------- */
 $$('table.tbl').forEach(t => { const hs = $$('thead th', t).map(th => th.textContent.trim()); $$('tbody tr', t).forEach(tr => [...tr.children].forEach((td,i) => hs[i] && td.setAttribute('data-label', hs[i]))); });
