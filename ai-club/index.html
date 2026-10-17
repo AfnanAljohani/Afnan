@@ -1106,6 +1106,128 @@ footer.foot .wrap{display:block;border:0;padding-top:0}
 .ss.next{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
 .ss.next .sn{background:var(--gold-grad);color:#140f04;border-color:transparent}
 .chair:hover,.spk:hover,.evt:hover,.tbl-wrap:hover,.org2 .card:hover,.chart-card:hover{transform:none}
+
+/* =====================================================================
+   APP LAYER — 2026 product feel: bento hero, ⌘K palette, mobile dock
+   ===================================================================== */
+:root{--trace:rgba(217,183,108,.04)}
+:root[data-theme="light"]{--trace:rgba(125,95,28,.05)}
+.wrap{max-width:1240px}
+
+/* hero */
+.hero{min-height:0;display:block;padding:56px 0 88px}
+.hero-head{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero-head > *{min-width:0}
+.hero-copy .status{gap:8px}
+.hero-copy .status .sep2{color:var(--mute)}
+.hero h1{font-size:clamp(40px,6vw,76px);margin-top:22px;line-height:1.2}
+.hero .tagline{margin-top:6px}
+.hero .lede{max-width:600px}
+.hero .cta{margin-top:32px}
+.hero-art{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 30px;border-radius:28px;position:relative;
+  background:radial-gradient(420px 260px at 50% 40%,var(--gold-soft),transparent 70%)}
+.hero-art::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,var(--gold-line),transparent 45%,rgba(95,141,255,.25));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.hero-art .eyebrow{margin:0 0 22px;text-align:center;font-size:11px}
+.hero-art .circuit-title{max-width:560px}
+@media (max-width:980px){.hero-head{grid-template-columns:1fr;gap:36px}.hero-art{order:-1;padding:24px 18px}}
+
+kbd{font-family:var(--mono);font-size:11.5px;padding:2px 7px;border-radius:6px;border:1px solid var(--line-strong);background:color-mix(in srgb,var(--panel-solid) 70%,transparent);color:var(--ink2);line-height:1.4}
+.btn-kbd{gap:12px}
+@media (max-width:760px){.btn-kbd{display:none}}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(150px,auto);gap:18px;margin-top:56px}
+.bento > *{min-width:0}
+.tile{border-radius:24px;position:relative;overflow:hidden;border:1px solid transparent;
+  background:linear-gradient(var(--panel-solid),var(--panel-solid)) padding-box,linear-gradient(150deg,rgba(255,255,255,.10),rgba(255,255,255,.02) 40%,rgba(217,183,108,.22)) border-box;
+  box-shadow:0 30px 70px -40px rgba(0,0,0,.8);transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+:root[data-theme="light"] .tile{background:linear-gradient(var(--panel-solid),var(--panel-solid)) padding-box,linear-gradient(150deg,rgba(20,32,64,.14),rgba(20,32,64,.05) 40%,rgba(168,130,47,.32)) border-box;box-shadow:0 30px 60px -40px rgba(20,32,64,.3)}
+a.tile:hover{transform:translateY(-4px);box-shadow:0 40px 80px -40px rgba(0,0,0,.85),0 0 0 1px var(--gold-line)}
+.tile-k{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.t-code{grid-column:span 2;grid-row:span 2;border-radius:24px}
+.t-code pre.code{min-height:0}
+.t-pulse{grid-column:span 2;padding:22px 24px;max-width:none;margin:0;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.pulse-row{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap}
+.pulse-num b{font-size:64px}
+.t-next{padding:22px 24px;display:flex;flex-direction:column;gap:6px}
+.nx-days{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+.nx-days b{font-family:var(--display);font-size:58px;line-height:1;font-weight:700;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em}
+.nx-days small{color:var(--ink2);font-size:15px}
+.nx-title{font-weight:600;font-size:15.5px;line-height:1.55;color:var(--ink)}
+.nx-date{font-size:13px;color:var(--mute)}
+.t-chair{display:block;min-height:200px}
+.t-chair img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.t-chair:hover img{transform:scale(1.05)}
+.t-chair::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(3,6,14,.92),rgba(3,6,14,.15) 60%)}
+.t-chair .play{position:absolute;top:16px;left:16px;z-index:1;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--gold-grad);color:#140f04;box-shadow:0 0 0 8px rgba(217,183,108,.18)}
+.t-chair .play svg{width:18px;height:18px;margin-inline-start:3px}
+.tile-cap{position:absolute;inset-inline:18px;bottom:16px;z-index:1;color:#f4efe4}
+.tile-cap small{display:block;font-size:12px;color:#e2c27f}
+.tile-cap b{font-size:15px;line-height:1.5}
+@media (max-width:980px){.bento{grid-template-columns:repeat(2,1fr)}.t-code,.t-pulse{grid-column:span 2}.t-code{grid-row:auto}}
+@media (max-width:560px){.bento{grid-template-columns:1fr;gap:14px;margin-top:36px}.t-code,.t-pulse{grid-column:auto}.pulse-num b{font-size:52px}}
+
+/* section heads: eyebrow chip above the title */
+.sec-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:14px}
+.sec-head .num{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--gold);-webkit-text-stroke:0;line-height:1;
+  padding:7px 14px;border:1px solid var(--gold-line);border-radius:999px;background:var(--gold-soft)}
+.sec-head h2{font-size:clamp(30px,4.2vw,50px);line-height:1.25;white-space:normal}
+.sec-head .rule{display:none}
+.sec-sub{max-width:680px;color:var(--ink2)}
+section.block{position:relative}
+section.block + section.block::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(1240px,90%);height:1px;background:linear-gradient(90deg,transparent,var(--gold-line),transparent)}
+
+/* stat rows become one segmented panel */
+.grid:has(> .stat){gap:0;border-radius:24px;overflow:hidden;border:1px solid var(--line-strong);background:color-mix(in srgb,var(--panel-solid) 70%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.grid:has(> .stat) > .stat{background:none;border:0;border-radius:0;box-shadow:1px 0 0 var(--line),-1px 0 0 var(--line),0 1px 0 var(--line),0 -1px 0 var(--line);padding:34px 16px}
+.grid:has(> .stat) > .stat:hover{transform:none;box-shadow:1px 0 0 var(--line),-1px 0 0 var(--line),0 1px 0 var(--line),0 -1px 0 var(--line)}
+
+/* nav tweaks */
+.nav-search{width:auto;padding:0 12px;gap:8px;font-size:13px;display:flex;align-items:center}
+.nav-search svg{width:16px;height:16px}
+@media (max-width:1260px){.nav-search kbd{display:none}}
+
+/* ⌘K palette */
+.cmdk{position:fixed;inset:0;z-index:150;display:flex;justify-content:center;align-items:flex-start;padding:12vh 16px 16px;background:rgba(2,5,12,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:cmdkIn .2s var(--ease)}
+.cmdk[hidden]{display:none}
+@keyframes cmdkIn{from{opacity:0}to{opacity:1}}
+.cmdk-box{width:min(640px,100%);border-radius:22px;overflow:hidden;border:1px solid transparent;
+  background:linear-gradient(var(--panel-solid),var(--panel-solid)) padding-box,linear-gradient(150deg,var(--gold-line),rgba(255,255,255,.05) 50%,rgba(95,141,255,.3)) border-box;
+  box-shadow:0 50px 120px -30px rgba(0,0,0,.85);animation:cmdkBox .28s var(--ease)}
+@keyframes cmdkBox{from{opacity:0;transform:translateY(-10px) scale(.98)}to{opacity:1;transform:none}}
+.cmdk-in{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.cmdk-in svg{width:20px;height:20px;color:var(--gold);flex-shrink:0}
+.cmdk-in input{flex:1;background:none;border:0;outline:none;color:var(--ink);font:inherit;font-size:17px;min-width:0}
+.cmdk-list{list-style:none;margin:0;padding:8px;max-height:min(420px,55vh);overflow:auto}
+.cmdk-list .grp{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mute);padding:10px 12px 6px}
+.cmdk-list li[role="option"]{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;cursor:pointer;color:var(--ink2)}
+.cmdk-list li[role="option"] i{font-style:normal;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;background:var(--gold-soft);color:var(--gold);font-family:var(--mono);font-size:11px;font-weight:600;border:1px solid var(--gold-line)}
+.cmdk-list li[role="option"] b{color:var(--ink);font-weight:600;font-size:15px}
+.cmdk-list li[role="option"] small{margin-inline-start:auto;color:var(--mute);font-size:12.5px}
+.cmdk-list li[aria-selected="true"]{background:var(--gold-soft);box-shadow:inset 0 0 0 1px var(--gold-line)}
+.cmdk-list .empty{padding:24px;text-align:center;color:var(--mute)}
+.cmdk-foot{display:flex;gap:18px;align-items:center;padding:10px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mute)}
+.cmdk-foot span:last-child{margin-inline-start:auto;font-family:var(--mono)}
+.cmdk-foot kbd{margin-inline-end:4px}
+.o2-band,.o2 .o2-k,.o2-band b{letter-spacing:0}
+.cmdk-list .grp{font-family:var(--sans);letter-spacing:0;font-size:12px}
+@media (max-width:560px){.hero-copy .status .mono,.hero-copy .status .sep2{display:none}.hero-art .eyebrow{display:none}.hero{padding-top:28px}}
+.kicker,.eyebrow,.sub-title,.tile-k{word-spacing:.1em}
+
+/* mobile dock */
+.dock{display:none}
+@media (max-width:760px){
+  .dock{position:fixed;z-index:70;bottom:calc(12px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);display:flex;gap:2px;padding:6px;border-radius:22px;width:min(440px,calc(100% - 24px));justify-content:space-between;
+    background:color-mix(in srgb,var(--panel-solid) 82%,transparent);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border:1px solid var(--gold-line);box-shadow:0 20px 50px -14px rgba(0,0,0,.7)}
+  .dock a,.dock button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;border-radius:16px;font-size:11px;font-weight:500;color:var(--ink2);transition:background .2s,color .2s}
+  .dock svg{width:21px;height:21px}
+  .dock .on{color:#140f04;background:var(--gold-grad)}
+  :root[data-theme="light"] .dock .on{color:#fffaf0}
+  body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+  .to-top{display:none}
+  .cmdk{padding-top:8vh}
+}
 </style>
 </head>
 <body>
@@ -1125,15 +1247,13 @@ footer.foot .wrap{display:block;border:0;padding-top:0}
       <a href="#about"><span>01.</span>عن النادي</a>
       <a href="#heroes"><span>02.</span>الأبطال</a>
       <a href="#events"><span>03.</span>الفعاليات</a>
-      <a href="#camps"><span>✦</span>المعسكرات</a>
-      <a href="#news"><span>✦</span>الأخبار</a>
       <a href="#structure"><span>04.</span>الهيكل</a>
-      <a href="#ideas"><span>05.</span>المقترحات</a>
       <a href="#plan"><span>06.</span>الخطة</a>
       <a href="#survey"><span>07.</span>الاستبيان</a>
       <a href="#library"><span>08.</span>المكتبة</a>
     </nav>
     <div class="nav-tools">
+      <button class="icon-btn nav-search" type="button" data-cmdk aria-label="بحث سريع"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><kbd class="ltr">⌘K</kbd></button>
       <a class="btn btn-primary nav-cta" href="#join">انضم للنادي</a>
       <a class="icon-btn" href="#admin" id="adminLink" aria-label="لوحة الإدارة" title="لوحة الإدارة">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
@@ -1152,59 +1272,77 @@ footer.foot .wrap{display:block;border:0;padding-top:0}
 <div class="wrap"><div class="announce" id="announce" role="status" hidden></div></div>
 <!-- ================= HERO ================= -->
 <section class="hero" id="club">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="status reveal">
-        <span class="dot"></span><span class="mono ltr">registration_open</span>
-        <span>· <span id="nextEvent">الفعالية القادمة…</span></span>
+  <div class="wrap">
+    <div class="hero-head">
+      <div class="hero-copy">
+        <div class="status reveal">
+          <span class="dot"></span><span class="mono ltr">registration_open</span>
+          <span class="sep2">·</span><span id="nextEvent">الفعالية القادمة…</span>
+        </div>
+        <h1 class="reveal">نادي الذكاء الاصطناعي</h1>
+        <div class="tagline reveal">نتعلّم<span class="sep">/</span>نطبّق<span class="sep">/</span>نبتكر<span class="sep">/</span>نصنع الأثر</div>
+        <p class="lede reveal">مجتمع تطبيقي يقود التعلّم من القاعة إلى المشروع والأثر — نبني مواهب وحلول ذكاء اصطناعي ذات أثر في قطاعي <b>الطاقة والمياه</b>.</p>
+        <div class="cta reveal">
+          <a class="btn btn-primary" href="#join">انضم للنادي
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
+          <a class="btn btn-ghost" href="#plan">استكشف الخطة</a>
+          <button class="btn btn-ghost btn-kbd" type="button" data-cmdk>بحث سريع <kbd class="ltr">⌘K</kbd></button>
+        </div>
+        <div class="hero-meta reveal">
+          <span class="chip">إشراف: <b>د. أنمار الحجيلي</b></span>
+          <span class="chip">قيادة: <b>أفنان فهد الجهني</b></span>
+          <span class="chip">أكتوبر 2026 – مارس 2027</span>
+        </div>
       </div>
-      <div class="eyebrow reveal">// ENERGY &amp; WATER ACADEMY · AI CLUB</div>
-      <svg class="circuit-title reveal" id="ctitle" role="img" aria-label="EWA AI CLUB">
-        <defs>
-          <linearGradient id="tg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="700" y2="330">
-            <stop offset="0" style="stop-color:var(--gold2)"/><stop offset=".5" style="stop-color:var(--gold)"/><stop offset="1" style="stop-color:var(--accent)"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <h1 class="reveal">نادي الذكاء الاصطناعي</h1>
-      <div class="tagline reveal">نتعلّم<span class="sep">/</span>نطبّق<span class="sep">/</span>نبتكر<span class="sep">/</span>نصنع الأثر</div>
-      <p class="lede reveal">مجتمع تطبيقي يقود التعلّم من القاعة إلى المشروع والأثر — نبني مواهب وحلول ذكاء اصطناعي ذات أثر في قطاعي <b>الطاقة والمياه</b>.</p>
-      <div class="cta reveal">
-        <a class="btn btn-primary" href="#plan">استكشف الخطة
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
-        <a class="btn btn-ghost" href="#library">المكتبة الرقمية</a>
+      <div class="hero-art reveal">
+        <div class="eyebrow">// ENERGY &amp; WATER ACADEMY · AI CLUB</div>
+        <svg class="circuit-title" id="ctitle" role="img" aria-label="EWA AI CLUB">
+          <defs>
+            <linearGradient id="tg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="700" y2="330">
+              <stop offset="0" style="stop-color:var(--gold2)"/><stop offset=".5" style="stop-color:var(--gold)"/><stop offset="1" style="stop-color:var(--accent)"/>
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
-      <div class="hero-meta reveal">
-        <span class="chip">إشراف: <b>د. أنمار الحجيلي</b></span>
-        <span class="chip">قيادة: <b>أفنان فهد الجهني</b></span>
-        <span class="chip">أكتوبر 2026 – مارس 2027</span>
-      </div>
-      <div class="pulse reveal" id="pulse" aria-label="عدد ردود استبيان الانضمام: 71، بدأ بـ 20 ثم 36">
-        <div class="pulse-num"><b id="pulseCount" data-count="71">0</b><span>ردًّا على استبيان الانضمام<small>وما زال العدد يكبر</small></span></div>
-        <ol class="growth" id="growth">
-          <li style="--h:28%"><i></i><b>20</b><small>أول الردود</small></li>
-          <li style="--h:51%"><i></i><b>36</b><small>بعدها</small></li>
-          <li class="now" style="--h:100%"><i></i><b>71</b><small>الآن</small></li>
-        </ol>
-      </div>
-      <a class="spot reveal" href="#chairman" hidden>
-        <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
-        <span><small>زيارة رئيس مجلس الإدارة</small><b>م. ثامر بن سعود الشرهان مع متدربي برنامج الذكاء الاصطناعي</b></span>
-        <span class="go" aria-hidden="true">←</span>
-      </a>
     </div>
 
-    <div class="code-card reveal" id="codeCard">
-      <div class="code-head">
-        <span class="lights"><i></i><i></i><i></i></span>
-        <span>ai_club.py</span>
-        <span class="lang">Python 3</span>
+    <div class="bento">
+      <div class="code-card tile t-code reveal" id="codeCard">
+        <div class="code-head">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span>ai_club.py</span>
+          <span class="lang">Python 3</span>
+        </div>
+        <pre class="code" id="code"></pre>
+        <div class="code-foot"><span class="live">● status: building_the_future</span><span>UTF-8 · LF</span></div>
       </div>
-      <pre class="code" id="code"></pre>
-      <div class="code-foot"><span class="live">● status: building_the_future</span><span>UTF-8 · LF</span></div>
+
+      <div class="pulse tile t-pulse reveal" id="pulse" aria-label="عدد ردود استبيان الانضمام: 71، بدأ بـ 20 ثم 36">
+        <span class="tile-k">JOIN SURVEY</span>
+        <div class="pulse-row">
+          <div class="pulse-num"><b id="pulseCount" data-count="71">0</b><span>ردًّا على استبيان الانضمام<small>وما زال العدد يكبر</small></span></div>
+          <ol class="growth" id="growth">
+            <li style="--h:28%"><i></i><b>20</b><small>أول الردود</small></li>
+            <li style="--h:51%"><i></i><b>36</b><small>بعدها</small></li>
+            <li class="now" style="--h:100%"><i></i><b>71</b><small>الآن</small></li>
+          </ol>
+        </div>
+      </div>
+
+      <a class="tile t-next reveal" href="#plan">
+        <span class="tile-k">NEXT EVENT</span>
+        <span class="nx-days"><b id="nxDays">–</b><small id="nxUnit">يوم</small></span>
+        <span class="nx-title" id="nxTitle">…</span>
+        <span class="nx-date" id="nxDate"></span>
+      </a>
+
+      <a class="tile t-chair reveal" href="#chairman">
+        <img src="img/events/chairman-poster.webp" alt="" loading="lazy">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        <span class="tile-cap"><small>زيارة رئيس مجلس الإدارة</small><b>م. ثامر بن سعود الشرهان</b></span>
+      </a>
     </div>
   </div>
-  <a class="scroll-cue" href="#chairman" aria-label="انتقل للأسفل">SCROLL<i></i></a>
 </section>
 
 <!-- ================= MARQUEE ================= -->
@@ -1824,6 +1962,23 @@ footer.foot .wrap{display:block;border:0;padding-top:0}
   </div>
 </div>
 
+<div class="cmdk" id="cmdk" hidden role="dialog" aria-modal="true" aria-label="بحث سريع">
+  <div class="cmdk-box">
+    <label class="cmdk-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="cmdkInput" type="text" placeholder="ابحث عن قسم أو رابط…" autocomplete="off" aria-controls="cmdkList"><kbd class="ltr">esc</kbd></label>
+    <ul class="cmdk-list" id="cmdkList" role="listbox"></ul>
+    <div class="cmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd> للتنقل</span><span><kbd>↵</kbd> للفتح</span><span class="ltr">EWA AI Club</span></div>
+  </div>
+</div>
+
+<nav class="dock" aria-label="تنقل الجوال">
+  <a href="#top" data-dock="club"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>الرئيسية</span></a>
+  <a href="#events" data-dock="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg><span>الفعاليات</span></a>
+  <a href="#heroes" data-dock="heroes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span>الأبطال</span></a>
+  <a href="#plan" data-dock="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg><span>الخطة</span></a>
+  <button type="button" data-cmdk><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>بحث</span></button>
+</nav>
+
 <button class="icon-btn to-top" id="toTop" aria-label="العودة للأعلى"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
 <script>
@@ -2124,7 +2279,7 @@ if (curPhase < 0) curPhase = today < D(PHASES[0][3]) ? -1 : 5;
 /* next event countdown */
 (function countdown(){
   const el = $('#nextEvent');
-  if (nextIdx < 0){ el.textContent = 'اكتمل موسم 2026–2027'; return; }
+  if (nextIdx < 0){ el.textContent = 'اكتمل موسم 2026–2027'; if ($('#nxTitle')){ $('#nxDays').textContent = '✓'; $('#nxUnit').textContent = ''; $('#nxTitle').textContent = 'اكتمل موسم 2026–2027'; } return; }
   const e = EVENTS[nextIdx], d = D(e[1]);
   const title = e[3].split(/[:،]/)[0];
   const tick = () => {
@@ -2133,6 +2288,13 @@ if (curPhase < 0) curPhase = today < D(PHASES[0][3]) ? -1 : 5;
     const hrs = Math.floor(ms % 864e5 / 36e5);
     const when = days > 0 ? `${days} ${days === 1 ? 'يوم' : days === 2 ? 'يومين' : days <= 10 ? 'أيام' : 'يومًا'}` : `${hrs} ساعة`;
     el.innerHTML = ms <= 0 ? `اليوم: ${esc(title)}` : `القادم: <b>${esc(title)}</b> · بعد ${days === 2 ? when : when}`;
+    const nd = $('#nxDays');
+    if (nd){
+      nd.textContent = ms <= 0 ? 'اليوم' : days > 0 ? days : hrs;
+      $('#nxUnit').textContent = ms <= 0 ? '' : days > 0 ? (days === 1 ? 'يوم' : days === 2 ? 'يومان' : days <= 10 ? 'أيام' : 'يومًا') : 'ساعة';
+      $('#nxTitle').textContent = title;
+      $('#nxDate').textContent = e[2] + ' · ' + d.toLocaleDateString('ar-SA-u-ca-gregory-nu-latn', {day: 'numeric', month: 'long', year: 'numeric'});
+    }
   };
   tick(); setInterval(tick, 60000);
 })();
@@ -2144,8 +2306,8 @@ function stack(id, legId, data, total){
   $(id).innerHTML = data.map(([l,v,c]) => `<span class="seg2" style="background:${c}" data-w="${v/total*100}" data-tip="${l}: <b>${v}</b> (${Math.round(v/total*100)}%)">${v/total > .08 ? v : ''}</span>`).join('');
   $(legId).innerHTML = data.map(([l,v,c]) => `<span><i style="background:${c}"></i>${l} · <b class="mono">${v}</b></span>`).join('');
 }
-stack('#joinStack','#joinLegend',[['عضو مستفيد',20,'var(--accent)'],['الفريق التنفيذي',9,'var(--violet)'],['متطوع',1,'var(--accent2)']],30);
-stack('#hoursStack','#hoursLegend',[['ساعة – ساعتان',20,'var(--accent)'],['أقل من ساعة',6,'var(--accent2)'],['3–4 ساعات',3,'var(--violet)']],29);
+stack('#joinStack','#joinLegend',[['عضو مستفيد',20,'var(--gold3)'],['الفريق التنفيذي',9,'var(--accent)'],['متطوع',1,'var(--accent2)']],30);
+stack('#hoursStack','#hoursLegend',[['ساعة – ساعتان',20,'var(--gold3)'],['أقل من ساعة',6,'var(--accent)'],['3–4 ساعات',3,'var(--accent2)']],29);
 const tip = $('#tip');
 document.addEventListener('pointerover', e => { const t = e.target.closest && e.target.closest('[data-tip]'); if (t){ tip.innerHTML = t.dataset.tip; tip.style.opacity = 1; } });
 document.addEventListener('pointerout', e => { if (e.target.closest && e.target.closest('[data-tip]')) tip.style.opacity = 0; });
@@ -2656,6 +2818,80 @@ $$('.reveal').forEach(el => {
   const i = sibs.indexOf(el); if (i > 0 && !reduce) el.style.transitionDelay = Math.min(i, 8) * 60 + 'ms';
   io.observe(el);
 });
+})();
+</script>
+<script>
+/* ---------- ⌘K palette + mobile dock ---------- */
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const ITEMS = [
+  ['الأقسام', '01', 'عن النادي', 'الرؤية والأهداف والمسارات', '#about'],
+  ['الأقسام', '02', 'أبطال النادي', 'أبطال كل جولة ونجم النادي', '#heroes'],
+  ['الأقسام', '03', 'الفعاليات', 'التدشين، زيارة الرئيس، كاوست', '#events'],
+  ['الأقسام', '✦', 'المعسكرات والورش', 'ورش ومعسكرات ولقاءات خبراء', '#camps'],
+  ['الأقسام', '✦', 'أحدث الأخبار', 'إعلانات النادي', '#news'],
+  ['الأقسام', '04', 'الهيكل والأعضاء', 'القيادة والأقسام ومنهج الخطابة', '#structure'],
+  ['الأقسام', '05', 'المقترحات', 'مقترحات القائدة وأصوات الأعضاء', '#ideas'],
+  ['الأقسام', '06', 'الخطة التشغيلية', 'المراحل والجدول الأسبوعي والمؤشرات', '#plan'],
+  ['الأقسام', '07', 'نتائج الاستبيان', 'المهارات والالتزام والخبرة', '#survey'],
+  ['الأقسام', '08', 'المكتبة الرقمية', 'منصات التعلّم المعتمدة', '#library'],
+  ['الأقسام', '★', 'زيارة رئيس مجلس الإدارة', 'م. ثامر بن سعود الشرهان', '#chairman'],
+  ['روابط', '↗', 'سجّل في النادي', 'forms.gle', 'https://forms.gle/6Uf4i9uQXL6TXCPNA'],
+  ['روابط', '↗', 'مقرر النادي على منصة الأكاديمية', 'lms.ewa.edu.sa', 'https://lms.ewa.edu.sa/enrol/index.php?id=973'],
+  ['روابط', 'PDF', 'منهج AI Speakers Club', 'ملف PDF', 'files/ai-speakers-club-curriculum.pdf'],
+  ['إجراءات', '◐', 'تبديل الوضع الفاتح والداكن', '', 'theme'],
+  ['إجراءات', '↑', 'العودة للأعلى', '', '#top']
+];
+const box = $('#cmdk'), input = $('#cmdkInput'), list = $('#cmdkList');
+let shown = [], sel = 0, lastFocus = null;
+const norm = s => s.toLowerCase().replace(/[ًٌٍَُِّْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+function render(){
+  const q = norm(input.value.trim());
+  shown = ITEMS.filter(it => !q || norm(it[2] + ' ' + it[3]).includes(q));
+  if (!shown.length){ list.innerHTML = '<li class="empty">لا توجد نتائج</li>'; return; }
+  sel = Math.min(sel, shown.length - 1);
+  let g = '', html = '';
+  shown.forEach((it, i) => {
+    if (it[0] !== g){ g = it[0]; html += `<li class="grp" role="presentation">${g}</li>`; }
+    html += `<li role="option" id="ck${i}" data-i="${i}" aria-selected="${i === sel}"><i>${it[1]}</i><b>${it[2]}</b><small>${it[3]}</small></li>`;
+  });
+  list.innerHTML = html;
+  input.setAttribute('aria-activedescendant', 'ck' + sel);
+}
+function open(){ lastFocus = document.activeElement; box.hidden = false; input.value = ''; sel = 0; render(); input.focus(); document.documentElement.style.overflow = 'hidden'; }
+function close(){ box.hidden = true; document.documentElement.style.overflow = ''; lastFocus && lastFocus.focus && lastFocus.focus(); }
+function go(i){
+  const it = shown[i]; if (!it) return; close();
+  const t = it[4];
+  if (t === 'theme') $('#themeBtn').click();
+  else if (t.startsWith('#')) { const el = document.querySelector(t); el && el.scrollIntoView({behavior: 'smooth'}); history.replaceState(null, '', t); }
+  else window.open(t, '_blank', 'noopener');
+}
+$$('[data-cmdk]').forEach(b => b.addEventListener('click', open));
+input.addEventListener('input', () => { sel = 0; render(); });
+list.addEventListener('click', e => { const li = e.target.closest('[data-i]'); if (li) go(+li.dataset.i); });
+list.addEventListener('mousemove', e => { const li = e.target.closest('[data-i]'); if (li && +li.dataset.i !== sel){ sel = +li.dataset.i; $$('[data-i]', list).forEach(x => x.setAttribute('aria-selected', +x.dataset.i === sel)); } });
+box.addEventListener('click', e => { if (e.target === box) close(); });
+addEventListener('keydown', e => {
+  const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) && document.activeElement !== input;
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); box.hidden ? open() : close(); return; }
+  if (e.key === '/' && box.hidden && !typing){ e.preventDefault(); open(); return; }
+  if (box.hidden) return;
+  if (e.key === 'Escape'){ e.preventDefault(); close(); }
+  else if (e.key === 'ArrowDown'){ e.preventDefault(); sel = (sel + 1) % shown.length; render(); $('#ck' + sel)?.scrollIntoView({block: 'nearest'}); }
+  else if (e.key === 'ArrowUp'){ e.preventDefault(); sel = (sel - 1 + shown.length) % shown.length; render(); $('#ck' + sel)?.scrollIntoView({block: 'nearest'}); }
+  else if (e.key === 'Enter'){ e.preventDefault(); go(sel); }
+});
+if (!/Mac|iPhone|iPad/.test(navigator.platform)) $$('kbd').forEach(k => { if (k.textContent === '⌘K') k.textContent = 'Ctrl K'; });
+
+/* dock highlights the section in view */
+const dock = $$('.dock [data-dock]');
+const map = {club: 'club', chairman: 'club', about: 'club', events: 'events', camps: 'events', news: 'events', heroes: 'heroes', structure: 'heroes', ideas: 'heroes', plan: 'plan', survey: 'plan', library: 'plan'};
+const ob = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting){ const k = map[e.target.id]; dock.forEach(a => a.classList.toggle('on', a.dataset.dock === k)); }
+}), {rootMargin: '-45% 0px -50% 0px'});
+$$('main section[id]').forEach(s => ob.observe(s));
 })();
 </script>
 </body>
