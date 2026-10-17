@@ -20,6 +20,10 @@
 
 ## النشر على Vercel
 
+الموقع منشور على **https://ewa-ai-club.vercel.app** (مشروع `ewa-ai-club`). لتحديثه بعد أي تعديل: `cd ai-club && npx vercel deploy --prod`.
+
+لربط المستودع حتى يُنشر تلقائيًا مع كل تعديل:
+
 1. من [vercel.com/new](https://vercel.com/new) اختاري **Import** لمستودع `AfnanAljohani/Afnan`.
 2. في **Root Directory** اختاري `ai-club`، و**Framework Preset**: `Other` (بدون أمر بناء).
 3. اسم المشروع هو الرابط: مثلًا `ewa-ai-club` ← `https://ewa-ai-club.vercel.app`.
