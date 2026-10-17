@@ -629,7 +629,7 @@ body.admin-mode .nav-links{visibility:hidden}
 .adm-list small{color:var(--mute);font-size:12px}
 .adm-list button{flex-shrink:0;font-size:13px;color:#ef4444;border:1px solid color-mix(in srgb,#ef4444 45%,transparent);border-radius:8px;padding:4px 10px}
 .adm-list .empty{color:var(--mute);font-size:14px;justify-content:center;border-style:dashed}
-.adm-depts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.adm-depts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .adm-dept{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel);min-width:0}
 .adm-dept b{display:block;font-size:15px;margin-bottom:2px}
 .adm-links{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
@@ -638,6 +638,12 @@ body.admin-mode .nav-links{visibility:hidden}
 @media (max-width:980px){.adm-depts{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:760px){.adm-grid,.adm-depts{grid-template-columns:1fr}.admin{padding-top:24px}}
 
+
+.adm-gate{max-width:520px;margin:10px auto 0}
+.adm-gate h3{font-size:22px;margin-bottom:4px}
+.adm-who{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;color:var(--ink2);font-size:14.5px}
+#admin .fcard{background:var(--bg2)}
+#admin .members{margin-top:4px}
 /* announcement bar (display page) */
 .announce{display:flex;align-items:center;gap:12px;margin-top:18px;padding:10px 16px;border:1px solid color-mix(in srgb,var(--accent2) 45%,transparent);border-radius:12px;background:linear-gradient(to left,color-mix(in srgb,var(--accent2) 12%,transparent),var(--panel));font-size:15px}
 .announce[hidden]{display:none}
@@ -693,6 +699,41 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .reveal{opacity:1;transform:none}
   pre.code .ln{opacity:1;transform:none}
 }
+
+/* ---------- org chart v2 ---------- */
+.org2{display:flex;flex-direction:column;gap:18px}
+.o2-band{font-family:var(--mono);font-size:12.5px;color:var(--accent);display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+.o2-band b{font-family:inherit;color:var(--ink);font-size:15px}
+.o2-band span{font-family:var(--sans,inherit);color:var(--mute);font-size:13px}
+.o2-top{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:18px;align-items:stretch}
+.o2-mid{display:flex;justify-content:center}
+.o2-mid .o2{max-width:420px;width:100%}
+.o2{text-align:right;padding:20px 22px;position:relative}
+.o2 .o2-k{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--accent);margin-bottom:6px}
+.o2 h4{font-size:17px;margin:0 0 4px;line-height:1.5}
+.o2 .who{display:block;font-size:15px;color:var(--ink);margin-bottom:10px}
+.o2 .who.pend{color:var(--warn);font-size:14px}
+.o2 .assist{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line-strong)}
+.o2 .assist small{width:100%;color:var(--mute);font-size:12px}
+.o2 .assist span{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;border:1px solid var(--line-strong);border-radius:999px;padding:3px 10px 3px 4px;background:var(--panel)}
+.o2 .assist i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
+.o2 ul{margin:0;padding:0 18px 0 0;color:var(--ink2);font-size:13.5px;line-height:1.75}
+.o2 p{margin:4px 0 0;color:var(--ink2);font-size:13.5px;line-height:1.7}
+.o2.pres{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft),0 20px 50px -20px var(--glow);text-align:center}
+.o2.pres ul{text-align:right}
+.o2.pres .avatar{width:54px;height:54px;border-radius:50%;margin:4px auto 8px;display:grid;place-items:center;font-weight:700;font-size:20px;background:linear-gradient(135deg,var(--accent),var(--violet));color:#fff}
+.o2.adv{border-style:dashed}
+.o2.tbd{border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:linear-gradient(to bottom,color-mix(in srgb,var(--warn) 7%,transparent),var(--panel))}
+.o2-note{align-self:center;font-size:12.5px;color:var(--mute);border:1px solid var(--line-strong);border-radius:999px;padding:4px 14px}
+.o2-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.o2-pair > div{border-top:1px dashed var(--line-strong);padding-top:10px}
+.o2.rep.ewa .o2-k{color:var(--ok)} .o2.rep.inx .o2-k{color:var(--violet)}
+.o2-legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:12.5px;color:var(--mute);justify-content:center}
+.o2-legend span{display:inline-flex;align-items:center;gap:8px}
+.o2-legend i{display:inline-block;width:26px;height:0;border-top:2px solid var(--ink2)}
+.o2-legend .l-dash{border-top-style:dashed}
+.o2-legend .l-tbd{width:14px;height:14px;border:1px solid var(--warn);border-radius:4px;background:color-mix(in srgb,var(--warn) 12%,transparent)}
+@media (max-width:900px){.o2-top{grid-template-columns:1fr}.o2-top .pres{order:-1}.o2-pair{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -717,7 +758,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <a href="#survey"><span>07.</span>survey</a>
       <a href="#summary"><span>08.</span>summary</a>
       <a href="#library"><span>09.</span>library</a>
-      <a href="#files"><span>10.</span>files</a>
     </nav>
     <div class="nav-tools">
       <a class="icon-btn" href="#admin" id="adminLink" aria-label="لوحة الإدارة" title="لوحة الإدارة">
@@ -821,7 +861,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <div class="about-text reveal">
         <span class="kicker">WHO WE ARE //</span>
         <h3 class="about-h">نادٍ طلابي في أكاديمية الطاقة والمياه، ينقل الذكاء الاصطناعي من الشرائح إلى مشاريع تعمل.</h3>
-        <p>انطلق النادي في أكتوبر 2026 بثلاثين عضوًا من متدربي الأكاديمية، تحت إشراف د. أنمار الحجيلي وبقيادة أفنان فهد الجهني ونائبتها سارة الشمراني.</p>
+        <p>انطلق النادي في أكتوبر 2026 بثلاثين عضوًا من متدربي الأكاديمية، تحت إشراف د. أنمار الحجيلي وبقيادة أفنان فهد الجهني ومساعدتها الإدارية سارة الشمراني.</p>
         <p>نلتقي كل أربعاء في «أربعاء الذكاء»، ونبني كل أسبوعين نموذجًا أو أداة صغيرة في المختبر التطبيقي، ونخوض كل شهر تحديًا ببيانات حقيقية: التنبؤ باستهلاك الطاقة، وتصنيف الصور، وقراءة بيانات المياه.</p>
         <p>وكل أسبوعين نكرّم عشرة أبطال صنعوا الفرق، ونختم الموسم بمعرض EWA AI Showcase أمام إدارة الأكاديمية والشركاء.</p>
         <ul class="facts">
@@ -979,34 +1019,48 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   <div class="wrap">
     <div class="sec-head reveal"><span class="num">04.</span><h2>الهيكل والأعضاء</h2><span class="rule"></span></div>
     <div class="file-tag reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>1 · Members &amp; Structure.docx</div>
-    <p class="sec-sub reveal">كشف الأعضاء والهيكل التنظيمي للنادي — قيادة، وأربعة أقسام، وثلاثون عضوًا.</p>
+    <p class="sec-sub reveal">كشف الأعضاء والهيكل التنظيمي للنادي — قيادة، وثلاثة أقسام، وثلاثون عضوًا.</p>
 
     <div class="grid g4" style="margin-bottom:40px">
       <div class="card stat reveal"><div class="v" data-count="30">0</div><div class="l">عضوًا</div></div>
-      <div class="card stat reveal"><div class="v" data-count="4">0</div><div class="l">أقسام</div></div>
+      <div class="card stat reveal"><div class="v" data-count="3">0</div><div class="l">أقسام</div></div>
       <div class="card stat reveal"><div class="v" data-count="5">0</div><div class="l">أعضاء الإدارة</div></div>
       <div class="card stat reveal"><div class="v" data-count="22">0</div><div class="l">لديهم خبرة سابقة</div></div>
     </div>
 
-    <div class="org reveal">
-      <div class="org-row">
-        <div class="node lead"><div class="avatar">أ</div><div class="role">CLUB LEAD · قائدة النادي</div><div class="name">أفنان الجهني</div></div>
-        <div class="node lead"><div class="avatar">س</div><div class="role">VICE LEAD · نائبة القائدة</div><div class="name">سارة الشمراني</div></div>
+    <div class="org2 reveal">
+      <div class="o2-band">AI CLUB // <b>القيادة الطلابية</b><span>المركز التشغيلي · أنشطة يديرها متدربو الذكاء الاصطناعي وعلوم البيانات</span></div>
+      <div class="o2-top">
+        <div class="card o2 adv"><span class="o2-k">ADVISORY · استشاري</span><h4>مستشار الأعمال</h4><b class="who" data-pos="advisor">فهد اليامي</b>
+          <ul><li>المشورة في الأعمال والتخطيط الاستراتيجي.</li><li>دعم التطوير التنظيمي واقتراح تحسينات على طريقة العمل.</li><li>ربط المبادرات الطلابية بأهداف الأعمال والتخطيط طويل المدى.</li></ul></div>
+        <div class="card o2 pres"><span class="o2-k">AI CLUB PRESIDENT · رئيسة النادي</span><div class="avatar">أ</div><h4>أفنان الجهني</h4>
+          <ul><li>قيادة التوجّه العام للنادي وتطويره، وتمثيله وأعضائه.</li><li>تحديد الأولويات ودعم التخطيط للمبادرات الطلابية.</li><li>التنسيق مع ممثلي الأكاديمية وشركة Innovatix.</li></ul></div>
+        <div class="card o2 tbd"><span class="o2-k">STUDENT-FACING · التنسيق مع الطلاب</span><h4>منسّق العلاقات الطلابية والشكاوى</h4><b class="who pend" data-pos="grievance">لم يُحدَّد بعد</b>
+          <ul><li>استقبال شكاوى الطلاب وملاحظاتهم وفهمها وتوثيقها بمهنية.</li><li>إحالتها إلى المسؤول المناسب في الأكاديمية أو Innovatix ومتابعتها.</li><li>الحفاظ على السرية والتعامل المهني مع الموضوعات الحساسة.</li></ul></div>
       </div>
-      <div class="connector"></div>
-      <div class="bus"></div>
-      <div class="org-stems"><i></i><i></i><i></i><i></i></div>
-      <div class="grid g4" style="width:100%">
-        <div class="card dept" data-dept="1"><span class="dnum">DEPT_01 · القسم الأول</span><h3>التدريب والتطوير</h3><p>تقديم ورش العمل والمختبرات التطبيقية وجلسات AI Byte.</p>
-          <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept" data-dept="2"><span class="dnum">DEPT_02 · القسم الثاني</span><h3>العلاقات العامة</h3><p>الشراكات مع الكافيهات والأندية الأخرى والتواصل مع الخبراء.</p>
-          <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept" data-dept="3"><span class="dnum">DEPT_03 · القسم الثالث</span><h3>الفعاليات والتصميم</h3><p>تنظيم الفعاليات وتصميمها، والهوية والإعلانات والشهادات.</p>
-          <div class="leader"><span class="avatar">…</span><div><small>قائد القسم</small><b>جاري تحديد القائد</b></div></div></div>
-        <div class="card dept" data-dept="4"><span class="dnum">DEPT_04 · القسم الرابع</span><h3 class="ltr" style="text-align:right">AI Speaker Club</h3><p>الخطابة والإلقاء وعرض الأفكار. <a href="#speakers" style="color:var(--accent);white-space:nowrap">المنهج ←</a></p>
-          <div class="leader"><span class="avatar">م</span><div><small>قائد القسم</small><b>مروان الجهني</b></div></div>
-          <div class="assist"><small>المساعدون</small><span><i>ف</i>فهد اليامي</span><span><i>ع</i>عبدالرحمن قوتة</span></div></div>
+      <div class="o2-mid">
+        <div class="card o2"><span class="o2-k">OFFICE OF THE PRESIDENT · مكتب الرئيسة</span><h4>المساعدة الإدارية لرئيسة النادي</h4><b class="who">سارة الشمراني</b>
+          <ul><li>الدعم الإداري وتنسيق الاجتماعات والمواعيد.</li><li>تنظيم الوثائق وحفظ محاضر الاجتماعات.</li><li>متابعة المهام المكلّف بها الأعضاء ودعم التواصل الداخلي.</li></ul></div>
       </div>
+      <div class="o2-note">رؤساء الأقسام يرفعون تقاريرهم إلى رئيسة النادي</div>
+      <div class="grid g3 o2-depts">
+        <div class="card o2 tbd"><span class="o2-k">DEPT_01 · القسم الأول</span><h4>رئيس قسم العلاقات العامة</h4><b class="who pend" data-pos="pr">لم يُحدَّد بعد</b>
+          <ul><li>إدارة التواصل الداخلي والخارجي.</li><li>العلاقات مع أصحاب المصلحة والجهات المعنية.</li><li>تنسيق الإعلانات الرسمية ودعم صورة النادي.</li></ul></div>
+        <div class="card o2"><span class="o2-k">DEPT_02 · القسم الثاني</span><h4>رئيس قسم الخطابة والإلقاء</h4><b class="who" data-pos="speak">مروان الجهني</b>
+          <ul><li>تنظيم جلسات وورش الخطابة والإلقاء (AI Speaker Club).</li><li>تطوير مهارات تقديم العروض والتواصل.</li><li>تنسيق فرص التحدث أمام الجمهور. <a href="#speakers" style="color:var(--accent);white-space:nowrap">المنهج ←</a></li></ul>
+          <div class="assist"><small>المساعد</small><span><i>ع</i>عبدالرحمن قوتة</span></div></div>
+        <div class="card o2 tbd"><span class="o2-k">DEPT_03 · القسم الثالث</span><h4>رئيس قسم الفعاليات والتصوير</h4><b class="who pend" data-pos="events">لم يُحدَّد بعد</b>
+          <ul><li>التخطيط للفعاليات الطلابية وتنسيقها.</li><li>إدارة التجهيزات والمواعيد.</li><li>تنظيم التصوير والتوثيق المرئي لأنشطة النادي.</li></ul></div>
+      </div>
+      <div class="grid g2 o2-reps">
+        <div class="card o2 rep ewa"><span class="o2-k">EWA · ممثلو الأكاديمية</span>
+          <div class="o2-pair"><div><h4>ممثّل الأكاديمية لدى النادي</h4><b class="who">د. أنمار الحجيلي</b><p>حلقة الوصل بين قيادة النادي والأكاديمية لضمان توافق الأنشطة مع متطلباتها.</p></div>
+          <div><h4>ممثّل شؤون وملاحظات الطلاب</h4><b class="who pend" data-pos="studrep">لم يُحدَّد بعد</b><p>ينقل ملاحظات الطلاب ومخاوفهم إلى الجهات المختصة، ويرفعها إلى د. أنمار.</p></div></div></div>
+        <div class="card o2 rep inx"><span class="o2-k">INNOVATIX · ممثلو الشركة</span>
+          <div class="o2-pair"><div><h4>ممثّل Innovatix لدى النادي</h4><b class="who">د. مو مودواني</b><p>حلقة الوصل بين النادي والشركة لدعم التعاون والمبادرات التعليمية.</p></div>
+          <div><h4>المساعدة الإدارية</h4><b class="who">فتون</b><p>تنظيم الاجتماعات والمراسلات والمتابعات الإدارية من جهة الشركة.</p></div></div></div>
+      </div>
+      <div class="o2-legend"><span><i class="l-solid"></i>تبعية تشغيلية مباشرة</span><span><i class="l-dash"></i>علاقة استشارية أو تنسيق مؤسسي</span><span><i class="l-tbd"></i>منصب بانتظار التعيين</span></div>
     </div>
 
     <div class="sub-title reveal" id="speakers">SPEAKERS // <b>منهج AI Speakers Club</b></div>
@@ -1057,19 +1111,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       </ul>
     </div>
 
-    <div class="sub-title reveal">ROSTER // <b>قائمة الأعضاء</b></div>
-    <div class="toolbar reveal">
-      <div class="seg" role="group" aria-label="تصفية الأعضاء" id="memFilter">
-        <button aria-pressed="true" data-f="all">الكل <span class="mono" id="cAll"></span></button>
-        <button aria-pressed="false" data-f="lead">الإدارة والقادة</button>
-        <button aria-pressed="false" data-f="exec">الفريق التنفيذي</button>
-        <button aria-pressed="false" data-f="vol">متطوع</button>
-        <button aria-pressed="false" data-f="member">عضو مستفيد</button>
-      </div>
-      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="memSearch" type="search" placeholder="ابحث عن عضو…" aria-label="ابحث عن عضو"></label>
-    </div>
-    <div class="members" id="members"></div>
-    <p class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>حفاظًا على الخصوصية، لا تُعرض الأرقام الأكاديمية وأرقام التواصل في الموقع؛ تبقى في الملف الداخلي لدى إدارة النادي.</p>
+    
   </div>
 </section>
 
@@ -1131,11 +1173,13 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <table class="tbl">
         <thead><tr><th>القسم</th><th>القائد</th><th>المسؤوليات خلال الخطة</th></tr></thead>
         <tbody>
-          <tr><td><b>الإدارة</b></td><td>أفنان الجهني وسارة الشمراني</td><td>التنسيق مع د. أنمار والأكاديمية، واعتماد التقويم، ومتابعة الأقسام وفرق المشاريع، ولوحة الشرف، والتقرير الختامي.</td></tr>
-          <tr><td><b>التدريب والتطوير</b></td><td data-lead="1">جاري تحديد القائد</td><td>تقديم المختبرات التطبيقية وجلسات AI Byte، وإعداد التحديات، ومستودع الموارد وكتيّبات الأقسام ودليل الدورات، ومرافقة فرق المشاريع.</td></tr>
-          <tr><td><b>العلاقات العامة</b></td><td data-lead="2">جاري تحديد القائد</td><td>التواصل مع الخبراء والجهات المقترحة (سدايا، الأكاديمية السعودية الرقمية)، والشراكات مع الكافيهات والأندية، ودعوات المعرض، والنشر عن أنشطة النادي.</td></tr>
-          <tr><td><b>الفعاليات والتصميم</b></td><td data-lead="3">جاري تحديد القائد</td><td>تنظيم اللقاء التعريفي وأربعاء الذكاء والهاكاثون ويوم التأسيس والمعرض الختامي، وتصميم الهوية والإعلانات والشهادات.</td></tr>
-          <tr><td><b class="ltr">AI Speaker Club</b></td><td data-lead="4">مروان الجهني<small>المساعدون: فهد اليامي، عبدالرحمن قوتة</small></td><td>الخطابة والإلقاء وعرض الأفكار.</td></tr>
+          <tr><td><b>رئيسة النادي</b></td><td>أفنان الجهني</td><td>قيادة التوجّه العام، وتحديد الأولويات، ومتابعة رؤساء الأقسام، والتنسيق مع د. أنمار (الأكاديمية) ود. مو مودواني (Innovatix).</td></tr>
+          <tr><td><b>المساعدة الإدارية</b></td><td>سارة الشمراني</td><td>تنسيق الاجتماعات والمواعيد، وحفظ المحاضر والوثائق، ومتابعة تنفيذ المهام.</td></tr>
+          <tr><td><b>مستشار الأعمال</b></td><td data-lead="advisor">فهد اليامي</td><td>المشورة الاستراتيجية، والتطوير التنظيمي، وربط المبادرات بأهداف الأعمال.</td></tr>
+          <tr><td><b>العلاقات العامة</b></td><td data-lead="pr">لم يُحدَّد بعد</td><td>التواصل الداخلي والخارجي، والعلاقات مع الخبراء والجهات المقترحة، والإعلانات الرسمية، ودعوات المعرض.</td></tr>
+          <tr><td><b>الخطابة والإلقاء</b></td><td data-lead="speak">مروان الجهني<small>المساعد: عبدالرحمن قوتة</small></td><td>جلسات AI Speaker Club، وتدريب الأعضاء على عرض AI Byte والمشاريع في الهاكاثون والمعرض الختامي.</td></tr>
+          <tr><td><b>الفعاليات والتصوير</b></td><td data-lead="events">لم يُحدَّد بعد</td><td>تنظيم اللقاء التعريفي وأربعاء الذكاء والهاكاثون ويوم التأسيس والمعرض الختامي، والتصوير والتوثيق المرئي.</td></tr>
+          <tr><td><b>العلاقات الطلابية والشكاوى</b></td><td data-lead="grievance">لم يُحدَّد بعد</td><td>استقبال ملاحظات الطلاب وتوثيقها وإحالتها للجهة المختصة ومتابعتها.</td></tr>
         </tbody>
       </table>
     </div>
@@ -1249,20 +1293,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </section>
 
 <!-- ================= 08 FILES ================= -->
-<section class="block" id="files">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="num">10.</span><h2>ملفات النادي</h2><span class="rule"></span></div>
-    <p class="sec-sub reveal">الوثائق الرسمية للنادي، كل ملف في خانته.</p>
-    <div class="grid g2">
-      <div class="card fcard reveal"><span class="ext pdf">PDF</span><div class="info"><b>الملخص التنفيذي</b><small>EWA AI Club · 6 صفحات</small></div><a class="btn btn-ghost dl" href="files/ewa-ai-club-executive-summary.pdf" download>تحميل</a></div>
-      <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>الخطة التشغيلية 2026–2027</b><small>المراحل، والجدول الأسبوعي، والمسؤوليات، والمؤشرات</small></div><a class="btn btn-ghost dl" href="files/operational-plan-2026-2027.docx" download>تحميل</a></div>
-      <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>مقترحات الأعضاء ورغبتهم في الانضمام</b><small>مقترحات القائدة التسعة ومقترحات 30 عضوًا</small></div><a class="btn btn-ghost dl" href="files/members-suggestions.docx" download>تحميل</a></div>
-      <div class="card fcard reveal"><span class="ext pdf">PDF</span><div class="info"><b>منهج AI Speakers Club</b><small>12 جلسة · إعداد مروان الجهني</small></div><a class="btn btn-ghost dl" href="files/ai-speakers-club-curriculum.pdf" download>تحميل</a></div>
-      <div class="card fcard reveal"><span class="ext docx">DOCX</span><div class="info"><b>كشف الأعضاء والهيكل التنظيمي</b><small>معروض في القسم 04 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
-      <div class="card fcard reveal"><span class="ext xlsx">XLSX</span><div class="info"><b>استبيان الانضمام</b><small>معروض مجمّعًا في القسم 07 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
-    </div>
-  </div>
-</section>
+
 
 <section class="block" style="padding-top:20px">
   <div class="wrap">
@@ -1275,7 +1306,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
           <p>ورش، تحديات ومشاريع نبدع فيها سوا.<br>خلّ شغفك يصير إنجاز، وكن جزءًا من أول نادي ذكاء اصطناعي في EWA.</p>
           <div class="cta">
             <a class="btn btn-primary" href="https://forms.gle/6Uf4i9uQXL6TXCPNA" target="_blank" rel="noopener">🔗 سجّل الآن</a>
-            <a class="btn btn-ghost" href="https://lms.ewa.edu.sa/enrol/index.php?id=973" target="_blank" rel="noopener">التسجيل عبر منصة الأكاديمية</a>
             <a class="btn btn-ghost" href="#plan">الجدول الزمني</a>
           </div>
           <small class="join-url ltr">forms.gle/6Uf4i9uQXL6TXCPNA</small>
@@ -1301,6 +1331,19 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <a class="btn btn-ghost btn-sm" href="#top">صفحة العرض ←</a>
     </div>
 
+    <div class="card adm-gate" id="admGate">
+      <span class="kicker">SIGN IN //</span>
+      <h3>دخول المشرفين</h3>
+      <p>أدخلي البريد المعتمد لإدارة الموقع.</p>
+      <form id="admLogin" novalidate>
+        <label class="adm-f" for="admEmail">البريد الإلكتروني</label>
+        <input class="adm-in ltr" id="admEmail" type="email" autocomplete="email" inputmode="email" placeholder="name@ewa.edu.sa" required>
+        <div class="adm-actions"><button class="btn btn-primary btn-sm" type="submit">دخول</button><span class="adm-msg" id="admLoginMsg" role="status"></span></div>
+      </form>
+    </div>
+
+    <div id="admBody" hidden>
+    <div class="adm-who"><span id="admWho"></span><button class="btn btn-ghost btn-sm" id="admLogout" type="button">تسجيل الخروج</button></div>
     <div class="adm-grid">
       <div class="card adm-card">
         <span class="kicker">SURVEY //</span>
@@ -1327,8 +1370,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
       <div class="card adm-card adm-wide">
         <span class="kicker">DEPARTMENTS //</span>
-        <h3>قادة الأقسام</h3>
-        <p>اتركي خانة القائد فارغة ليظهر «جاري تحديد القائد». افصلي بين المساعدين بفاصلة.</p>
+        <h3>المناصب والقادة</h3>
+        <p>اتركي خانة الاسم فارغة ليظهر «لم يُحدَّد بعد». افصلي بين المساعدين بفاصلة.</p>
         <div class="adm-depts" id="admDepts"></div>
         <div class="adm-actions"><button class="btn btn-primary btn-sm" id="admSaveLeaders" type="button">حفظ القادة</button><span class="adm-msg" id="admMsgLeaders" role="status"></span></div>
       </div>
@@ -1338,6 +1381,36 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         <h3>أبطال النادي</h3>
         <p>إدخال الأبطال العشرة لكل جولة (كل أسبوعين).</p>
         <div class="adm-actions"><button class="btn btn-primary btn-sm" id="admHeroes" type="button">إدارة أبطال الجولة</button></div>
+      </div>
+
+      <div class="card adm-card adm-wide" id="files">
+        <span class="kicker">FILES //</span>
+        <h3>ملفات النادي</h3>
+        <p>الوثائق الرسمية للنادي، كل ملف في خانته.</p>
+        <div class="grid g2">
+      <div class="card fcard"><span class="ext pdf">PDF</span><div class="info"><b>الملخص التنفيذي</b><small>EWA AI Club · 6 صفحات</small></div><a class="btn btn-ghost dl" href="files/ewa-ai-club-executive-summary.pdf" download>تحميل</a></div>
+      <div class="card fcard"><span class="ext docx">DOCX</span><div class="info"><b>الخطة التشغيلية 2026–2027</b><small>المراحل، والجدول الأسبوعي، والمسؤوليات، والمؤشرات</small></div><a class="btn btn-ghost dl" href="files/operational-plan-2026-2027.docx" download>تحميل</a></div>
+      <div class="card fcard"><span class="ext docx">DOCX</span><div class="info"><b>مقترحات الأعضاء ورغبتهم في الانضمام</b><small>مقترحات القائدة التسعة ومقترحات 30 عضوًا</small></div><a class="btn btn-ghost dl" href="files/members-suggestions.docx" download>تحميل</a></div>
+      <div class="card fcard"><span class="ext pdf">PDF</span><div class="info"><b>منهج AI Speakers Club</b><small>12 جلسة · إعداد مروان الجهني</small></div><a class="btn btn-ghost dl" href="files/ai-speakers-club-curriculum.pdf" download>تحميل</a></div>
+      <div class="card fcard"><span class="ext docx">DOCX</span><div class="info"><b>كشف الأعضاء والهيكل التنظيمي</b><small>معروض في القسم 04 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
+      <div class="card fcard"><span class="ext xlsx">XLSX</span><div class="info"><b>استبيان الانضمام</b><small>معروض مجمّعًا في القسم 07 · الملف الكامل داخلي</small></div><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بيانات شخصية</span></div>
+      </div>
+
+      <div class="card adm-card adm-wide" id="roster">
+        <span class="kicker">ROSTER //</span>
+        <h3>قائمة الأعضاء</h3>
+        <div class="toolbar">
+      <div class="seg" role="group" aria-label="تصفية الأعضاء" id="memFilter">
+        <button aria-pressed="true" data-f="all">الكل <span class="mono" id="cAll"></span></button>
+        <button aria-pressed="false" data-f="lead">الإدارة والقادة</button>
+        <button aria-pressed="false" data-f="exec">الفريق التنفيذي</button>
+        <button aria-pressed="false" data-f="vol">متطوع</button>
+        <button aria-pressed="false" data-f="member">عضو مستفيد</button>
+      </div>
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="memSearch" type="search" placeholder="ابحث عن عضو…" aria-label="ابحث عن عضو"></label>
+    </div>
+    <div class="members" id="members"></div>
+    <p class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>حفاظًا على الخصوصية، لا تُعرض الأرقام الأكاديمية وأرقام التواصل في الموقع؛ تبقى في الملف الداخلي لدى إدارة النادي.</p>
       </div>
 
       <div class="card adm-card">
@@ -1350,6 +1423,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
           <li><a href="#heroes">أبطال النادي في صفحة العرض</a></li>
         </ul>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1564,8 +1638,8 @@ document.addEventListener('pointermove', e => {
 
 /* ---------- data ---------- */
 const MEMBERS = [
-  ['أفنان فهد الجهني','lead','قائدة النادي'],['سارة الشمراني','lead','نائبة القائدة'],
-  ['مروان الجهني','lead','قائد AI Speaker Club'],['فهد حمد اليامي','exec','مساعد قائد AI Speaker Club'],['عبدالرحمن قوتة','exec','مساعد قائد AI Speaker Club'],
+  ['أفنان فهد الجهني','lead','رئيسة النادي'],['سارة الشمراني','lead','المساعدة الإدارية لرئيسة النادي'],
+  ['مروان الجهني','lead','رئيس قسم الخطابة والإلقاء'],['فهد حمد اليامي','lead','مستشار الأعمال'],['عبدالرحمن قوتة','exec','مساعد رئيس قسم الخطابة والإلقاء'],
   ['أحمد محمود السيد','member'],['عبدالله خالد إبراهيم الغامدي','member'],
   ['رغد يوسف المرشدي','exec'],['سارة منصور الوذيناني','exec'],['ريما وصل الله العتيبي','exec'],['جوري ضيف الله الجعيد','exec'],['خالد إبراهيم الحربي','exec'],['شرق رجاالله السلمي','exec'],['لجين عبدالله السلمي','exec'],['سلطان حسين بالحارث','exec'],['شهد علي مروي','exec'],
   ['رائد عوض الله العزيري','vol'],
@@ -1967,16 +2041,17 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
 
 /* ---------- site config (admin page ↔ display page) ---------- */
 (function siteConfig(){
-  const DEPTS = ['التدريب والتطوير','العلاقات العامة','الفعاليات والتصميم','AI Speaker Club'];
+  const POS = [['advisor','مستشار الأعمال'],['pr','رئيس قسم العلاقات العامة'],['speak','رئيس قسم الخطابة والإلقاء'],['events','رئيس قسم الفعاليات والتصوير'],['grievance','منسّق العلاقات الطلابية والشكاوى'],['studrep','ممثّل شؤون وملاحظات الطلاب']];
+  const ADMINS = ['wp2630069@ewa.edu.sa','a.almass3dii@gmail.com'];
   const DEF = {
     survey: {count: 71, steps: [20, 36, 71]},
-    leaders: [{leader:'',assist:[]},{leader:'',assist:[]},{leader:'',assist:[]},{leader:'مروان الجهني',assist:['فهد اليامي','عبدالرحمن قوتة']}],
+    leaders: {advisor:{leader:'فهد اليامي',assist:[]}, pr:{leader:'',assist:[]}, speak:{leader:'مروان الجهني',assist:['عبدالرحمن قوتة']}, events:{leader:'',assist:[]}, grievance:{leader:'',assist:[]}, studrep:{leader:'',assist:[]}},
     announcements: []
   };
   let cfg = JSON.parse(JSON.stringify(DEF)), db = null, canEdit = false;
   const merge = d => ({
     survey: {count: Number.isFinite(+d?.survey?.count) ? +d.survey.count : DEF.survey.count, steps: Array.isArray(d?.survey?.steps) && d.survey.steps.length ? d.survey.steps.map(Number).filter(Number.isFinite) : DEF.survey.steps},
-    leaders: DEF.leaders.map((x,i) => { const l = d?.leaders?.[i]; return l ? {leader: String(l.leader || ''), assist: Array.isArray(l.assist) ? l.assist.map(String).filter(Boolean) : []} : x; }),
+    leaders: Object.fromEntries(POS.map(([k]) => { const l = d?.leaders && !Array.isArray(d.leaders) ? d.leaders[k] : null; return [k, l ? {leader: String(l.leader || ''), assist: Array.isArray(l.assist) ? l.assist.map(String).filter(Boolean) : []} : DEF.leaders[k]]; })),
     announcements: Array.isArray(d?.announcements) ? d.announcements.filter(a => a && a.text) : []
   });
   const initial = n => esc(String(n).trim()[0] || '…');
@@ -1990,13 +2065,17 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
     $('#pulse').setAttribute('aria-label', `عدد ردود استبيان الانضمام: ${count}، مراحل النمو: ${all.join(' ثم ')}`);
   }
   function applyLeaders(){
-    cfg.leaders.forEach((l,i) => {
-      const card = $(`.dept[data-dept="${i+1}"]`); if (!card) return;
-      $$('.leader,.assist', card).forEach(e => e.remove());
-      card.insertAdjacentHTML('beforeend', `<div class="leader"><span class="avatar">${l.leader ? initial(l.leader) : '…'}</span><div><small>قائد القسم</small><b>${l.leader ? esc(l.leader) : 'جاري تحديد القائد'}</b></div></div>` +
-        (l.assist.length ? `<div class="assist"><small>المساعدون</small>${l.assist.map(a => `<span><i>${initial(a)}</i>${esc(a)}</span>`).join('')}</div>` : ''));
-      const td = $(`td[data-lead="${i+1}"]`);
-      if (td) td.innerHTML = (l.leader ? esc(l.leader) : 'جاري تحديد القائد') + (l.assist.length ? `<small>المساعدون: ${l.assist.map(esc).join('، ')}</small>` : '');
+    POS.forEach(([k]) => {
+      const l = cfg.leaders[k], el = $(`[data-pos="${k}"]`);
+      if (el){
+        el.textContent = l.leader || 'لم يُحدَّد بعد'; el.classList.toggle('pend', !l.leader);
+        const card = el.closest('.card.o2'), box = el.closest('.o2-pair > div') || card;
+        if (card && !el.closest('.o2-pair')) card.classList.toggle('tbd', !l.leader);
+        $$(':scope > .assist', box).forEach(e => e.remove());
+        if (l.assist.length) box.insertAdjacentHTML('beforeend', `<div class="assist"><small>${l.assist.length > 1 ? 'المساعدون' : 'المساعد'}</small>${l.assist.map(a => `<span><i>${initial(a)}</i>${esc(a)}</span>`).join('')}</div>`);
+      }
+      const td = $(`td[data-lead="${k}"]`);
+      if (td) td.innerHTML = (l.leader ? esc(l.leader) : 'لم يُحدَّد بعد') + (l.assist.length ? `<small>${l.assist.length > 1 ? 'المساعدون' : 'المساعد'}: ${l.assist.map(esc).join('، ')}</small>` : '');
     });
   }
   let annTimer;
@@ -2012,16 +2091,16 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
   function applyAll(){ applySurvey(); applyLeaders(); applyAnnouncements(); fillAdmin(); }
 
   /* admin page */
-  const fields = () => $$('#admin .adm-in, #admin .adm-actions .btn, #admin .adm-list button');
+  const fields = () => $$('#admBody .adm-in, #admBody .adm-actions .btn, #admBody .adm-list button');
   function setEditable(on){ fields().forEach(e => e.disabled = !on); $('#admHeroes').disabled = !on; }
   function state(text, kind){ const e = $('#admState'); e.textContent = text; e.className = 'adm-state ' + (kind || ''); }
   function fillAdmin(){
     if (document.activeElement && document.activeElement.closest && document.activeElement.closest('#admin')) { renderAnnList(); return; }
     $('#admCount').value = cfg.survey.count;
     $('#admSteps').value = cfg.survey.steps.join(', ');
-    $('#admDepts').innerHTML = DEPTS.map((d,i) => `<div class="adm-dept"><b${i===3 ? ' class="ltr" style="text-align:right"' : ''}>${d}</b>
-      <label class="adm-f" for="admLead${i}">القائد</label><input class="adm-in" id="admLead${i}" value="${esc(cfg.leaders[i].leader)}" placeholder="جاري تحديد القائد" list="memberNames">
-      <label class="adm-f" for="admAss${i}">المساعدون</label><input class="adm-in" id="admAss${i}" value="${esc(cfg.leaders[i].assist.join('، '))}" placeholder="اسم، اسم"></div>`).join('');
+    $('#admDepts').innerHTML = POS.map(([k,label]) => `<div class="adm-dept"><b>${label}</b>
+      <label class="adm-f" for="admLead-${k}">الاسم</label><input class="adm-in" id="admLead-${k}" value="${esc(cfg.leaders[k].leader)}" placeholder="لم يُحدَّد بعد" list="memberNames">
+      <label class="adm-f" for="admAss-${k}">المساعدون</label><input class="adm-in" id="admAss-${k}" value="${esc(cfg.leaders[k].assist.join('، '))}" placeholder="اسم، اسم"></div>`).join('');
     renderAnnList(); setEditable(canEdit && !!db);
   }
   function renderAnnList(){
@@ -2044,7 +2123,7 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
     save({survey: {count, steps}}, '#admMsgSurvey', 'تم الحفظ، ويظهر الآن في صفحة العرض.');
   };
   $('#admSaveLeaders').onclick = () => {
-    const leaders = DEPTS.map((_,i) => ({leader: $('#admLead'+i).value.trim().slice(0,80), assist: $('#admAss'+i).value.split(/[,،]+/).map(x => x.trim()).filter(Boolean).slice(0,6).map(x => x.slice(0,80))}));
+    const leaders = Object.fromEntries(POS.map(([k]) => [k, {leader: $('#admLead-'+k).value.trim().slice(0,80), assist: $('#admAss-'+k).value.split(/[,،]+/).map(x => x.trim()).filter(Boolean).slice(0,6).map(x => x.slice(0,80))}]));
     save({leaders}, '#admMsgLeaders', 'تم حفظ القادة.');
   };
   $('#admAddAnn').onclick = () => {
@@ -2056,12 +2135,27 @@ segment('#libFilter', v => $$('#lib .res').forEach(r => r.classList.toggle('hide
   };
   $('#admHeroes').onclick = () => $('#editHeroes').click();
 
+  /* sign-in gate (approved e-mails only; a convenience lock, not server-side security) */
+  const KEY = 'aiclub-admin';
+  let signedIn = ''; try { signedIn = localStorage.getItem(KEY) || ''; } catch (e){}
+  if (!ADMINS.includes(signedIn)) signedIn = '';
+  function gate(){ $('#admGate').hidden = !!signedIn; $('#admBody').hidden = !signedIn; $('#admWho').textContent = signedIn ? 'مسجّلة الدخول: ' + signedIn : ''; }
+  $('#admLogin').addEventListener('submit', e => {
+    e.preventDefault();
+    const em = $('#admEmail').value.trim().toLowerCase(), m = $('#admLoginMsg');
+    if (!ADMINS.includes(em)){ m.textContent = 'هذا البريد غير مصرّح له بالدخول.'; m.className = 'adm-msg err'; return; }
+    signedIn = em; try { localStorage.setItem(KEY, em); } catch (e){}
+    m.textContent = ''; gate(); fillAdmin();
+  });
+  $('#admLogout').onclick = () => { signedIn = ''; try { localStorage.removeItem(KEY); } catch (e){} $('#admEmail').value = ''; gate(); };
+  gate();
+
   /* routing between display and admin */
   function route(){
-    const admin = location.hash === '#admin';
+    const admin = ['#admin','#files','#roster'].includes(location.hash);
     document.body.classList.toggle('admin-mode', admin);
     $('#admin').hidden = !admin;
-    if (admin){ scrollTo({top:0, behavior:'instant'}); fillAdmin(); }
+    if (admin){ scrollTo({top:0, behavior:'instant'}); gate(); fillAdmin(); }
   }
   addEventListener('hashchange', route);
 
