@@ -11,3 +11,19 @@
 مع مهمات يومية من 13 أكتوبر 2026 حتى 13 يناير 2027، وقاموس مصطلحات الذكاء الاصطناعي لقسم أفنان.
 
 افتح `english/index.html` في المتصفح.
+
+---
+
+# EWA AI Club · نادي الذكاء الاصطناعي
+
+موقع النادي في مجلد [`ai-club/`](ai-club/index.html) بتصميم فاخر (كحلي وذهبي): الهيكل والأعضاء، الفعاليات، الخطة التشغيلية 2026–2027، نتائج الاستبيان، والمكتبة الرقمية. النسخة الأولى محفوظة في `ai-club/v1/`.
+
+## النشر على Vercel
+
+1. من [vercel.com/new](https://vercel.com/new) اختاري **Import** لمستودع `AfnanAljohani/Afnan`.
+2. في **Root Directory** اختاري `ai-club`، و**Framework Preset**: `Other` (بدون أمر بناء).
+3. اسم المشروع هو الرابط: مثلًا `ewa-ai-club` ← `https://ewa-ai-club.vercel.app`.
+4. من **Settings → Git → Production Branch** اختاري الفرع الذي فيه التصميم الجديد.
+5. لاسم خاص (دومين): **Settings → Domains**.
+
+إعدادات الكاش والأمان في `ai-club/vercel.json`.
