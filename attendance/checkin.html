@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css?v=10">
-<script src="i18n.js?v=10"></script>
+<link rel="stylesheet" href="style.css?v=11">
+<script src="i18n.js?v=11"></script>
 <style>
 main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
 .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
@@ -44,31 +44,6 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
 .done .big { font-size: 52px; line-height: 1; margin-bottom: 8px; }
 .done h3 { font-size: 22px; margin-bottom: 4px; }
 .done .time { font: 600 38px var(--mono); color: var(--y); margin: 12px 0 6px; }
-.live-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.live { display: inline-flex; align-items: center; gap: 8px; font: 600 14px var(--mono); color: var(--y); }
-.live i { width: 12px; height: 12px; border-radius: 50%; background: var(--y); box-shadow: 0 0 0 4px var(--y-soft); animation: pulse 1.4s infinite; }
-.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.list li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--ink); }
-.list li.new { animation: arrive .9s ease-out; border-color: var(--y); }
-@keyframes arrive { from { transform: translateY(10px); opacity: 0; } }
-.av { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--ink3); color: var(--y); font-weight: 700; }
-.list li { flex-wrap: wrap; }
-.list .nm { flex: 1 1 150px; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
-.list .t { font: 600 15px var(--mono); }
-.empty { text-align: center; padding: 48px 12px; border: 1px dashed var(--line); border-radius: 18px; color: var(--mute); }
-.empty b { display: block; color: var(--on); font-size: 18px; margin-bottom: 4px; }
-.combo { position: relative; }
-.combo input { margin-bottom: 0; }
-.sug { position: absolute; z-index: 20; inset-inline: 0; top: calc(100% + 6px); list-style: none; margin: 0; padding: 6px;
-  background: var(--ink2); border: 1px solid var(--line); border-radius: 14px; max-height: 300px; overflow-y: auto; box-shadow: var(--shadow); }
-.sug li { padding: 10px 12px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; gap: 10px; align-items: center; }
-.sug li small { color: var(--mute); font: 500 12px var(--mono); white-space: nowrap; }
-.sug li[aria-selected="true"], .sug li:hover { background: var(--ink3); }
-.sug .none { color: var(--mute); cursor: default; }
-.sug .none:hover { background: none; }
-.who { margin: 10px 0 20px; font-size: 14px; color: var(--y); display: flex; align-items: center; gap: 8px; }
-.who::before { content: "✓"; font-weight: 700; }
-.gap { height: 20px; }
 .aid-wrap { display: flex; align-items: stretch; margin-bottom: 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--ink); overflow: hidden; }
 .aid-wrap:focus-within { outline: 2px solid var(--y); outline-offset: 1px; border-color: transparent; }
 .aid-wrap .wp { display: grid; place-items: center; padding: 0 16px; font: 600 18px var(--mono); color: var(--y); background: var(--ink3); border-inline-end: 1px solid var(--line); }
@@ -98,6 +73,36 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
 .lec .cnt { font: 600 13px var(--mono); color: var(--mute); }
 .lec .pill { font-size: 12px; padding: 3px 9px; }
 [hidden] { display: none !important; }
+.who { margin: -10px 0 20px; font-size: 14px; color: var(--y); min-height: 1.6em; }
+.who.bad { color: var(--bad); }
+.loc { border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; margin-bottom: 18px; }
+.loc .row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.loc b { font-size: 15px; }
+.loc button { border: 1px solid var(--y); background: var(--y-soft); color: var(--y); border-radius: 12px; padding: 9px 16px; font: 700 15px var(--body); cursor: pointer; }
+.loc button:disabled { opacity: .5; cursor: wait; }
+.loc p { margin: 0; color: var(--mute); font-size: 14px; }
+.loc.in { border-color: var(--good); background: var(--good-soft); } .loc.in p { color: var(--good); font-weight: 600; }
+.loc.out { border-color: var(--bad-line); background: var(--bad-soft); } .loc.out p { color: var(--bad); font-weight: 700; font-size: 15px; }
+.me-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.me-name { font: 700 18px var(--display); color: var(--y); margin: -10px 0 16px; overflow-wrap: anywhere; }
+.me-name button { border: 0; background: none; color: var(--mute); font: 500 13px var(--body); text-decoration: underline; cursor: pointer; margin-inline-start: 8px; }
+.mine { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 8px; }
+.mine li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--ink); }
+.mine .nm { flex: 1 1 140px; font-weight: 600; }
+.mine .nm small { display: block; color: var(--mute); font: 500 12px var(--mono); }
+.mine .t { font: 600 15px var(--mono); }
+.pill.abs { background: var(--bad-soft); color: var(--bad); }
+.empty { text-align: center; padding: 28px 12px; border: 1px dashed var(--line); border-radius: 18px; color: var(--mute); margin-bottom: 24px; }
+.sum h3 { font-size: 18px; margin: 0; }
+.sum .sub { margin: 2px 0 14px; }
+.nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 480px) { .nums { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.num { border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; background: var(--ink); }
+.num b { display: block; font: 800 28px var(--mono); }
+.num span { color: var(--mute); font-size: 13px; }
+.num.g b { color: var(--good); } .num.o b { color: var(--orange); } .num.r b { color: var(--bad); }
+.sum .note { color: var(--mute); font-size: 13px; margin-top: 10px; }
+[hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -105,7 +110,7 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
   <a class="brand" href="./"><img src="ewa-logo.png" alt="EWA" width="34" height="34"><span>AI Trainees</span></a>
   <div class="links">
     <a href="./" data-i18n="nav.home">الرئيسية</a>
-    <a href="wall.html" data-i18n="nav.lectures">المحاضرات</a>
+    <a href="admin.html" data-i18n="nav.admin">الأدمن</a>
     <a class="go on" aria-current="page" href="checkin.html" data-i18n="nav.checkin">سجّل حضورك</a>
     <button class="ic" id="langBtn" type="button">EN</button>
     <button class="ic" id="themeBtn" type="button" aria-label="تبديل الوضع الليلي والفاتح"><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
@@ -116,7 +121,7 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
     <div>
       <span id="state" class="pill"><span class="dot"></span><span data-i18n="loading">جاري التحميل…</span></span>
       <h1 data-i18n="ci.h1">سجّل حضورك الآن</h1>
-      <div class="muted" data-i18n="ci.lead">اكتب اسمك ورقمك الأكاديمي بس. لازم تكون داخل أكاديمية الطاقة والمياه.</div>
+      <div class="muted" data-i18n="ci.lead">اكتب اسمك ورقمك الأكاديمي وحدد موقعك. التحضير بس من داخل مقر الحرم الأكاديمي.</div>
     </div>
     <div class="clock"><small>RIYADH LIVE TIME</small><b id="clock">--:--:--</b></div>
   </div>
@@ -135,21 +140,19 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
     <section class="card">
       <form id="form">
         <h2 data-i18n="ci.form">بيانات الحضور</h2>
-        <div class="sub" id="aidHint" data-i18n="ci.hint">اختر اسمك من القائمة واكتب أرقام رقمك الأكاديمي بعد WP. الرقم ما يطلع في لوحة الحضور.</div>
+        <div class="sub" id="aidHint" data-i18n="ci.hint">اكتب اسمك مثل ما هو في كشف الدبلوم، وأرقام رقمك الأكاديمي بعد WP.</div>
         <label for="name" data-i18n="ci.name">الاسم</label>
-        <div class="combo">
-          <input id="name" autocomplete="off" spellcheck="false" required maxlength="80" placeholder="ابحث عن اسمك واختره من القائمة" data-i18n-ph="ci.namePh"
-            role="combobox" aria-expanded="false" aria-controls="sug" aria-autocomplete="list">
-          <ul id="sug" class="sug" role="listbox" hidden></ul>
-        </div>
-        <div id="who" class="who" hidden></div>
-        <div id="whoGap" class="gap"></div>
+        <input id="name" autocomplete="off" spellcheck="false" required maxlength="80" placeholder="مثال: أفنان فهد الجهني" data-i18n-ph="ci.namePh">
+        <div id="who" class="who" aria-live="polite"></div>
         <label for="aid" data-i18n="ci.aid">الرقم الأكاديمي</label>
         <div class="aid-wrap" dir="ltr">
           <span class="wp">WP</span>
           <input id="aid" inputmode="numeric" autocomplete="off" spellcheck="false" required maxlength="12" placeholder="2630069" aria-describedby="aidHint">
         </div>
-        <div class="info" data-i18n="ci.info">📍 بنطلب موقعك مرة وحدة عشان نتأكد إنك داخل الأكاديمية. ما نحفظ موقعك، بس المسافة. ووقت الحضور ينحسب بتوقيت الرياض.</div>
+        <div class="loc" id="loc" aria-live="polite">
+          <div class="row"><b data-i18n="loc.t">موقعك</b><button type="button" id="locBtn" data-i18n="loc.btn">📍 حدد موقعي</button></div>
+          <p id="locMsg" data-i18n="loc.idle">لازم تحدد موقعك عشان نتأكد إنك داخل الحرم الأكاديمي.</p>
+        </div>
         <button id="submit" class="go" type="submit" data-i18n="ci.submit">تسجيل الحضور</button>
         <div id="error" class="error" hidden></div>
       </form>
@@ -163,31 +166,42 @@ button.go:disabled { opacity: .45; cursor: not-allowed; }
     </section>
 
     <section class="card">
-      <div class="live-head">
-        <div>
-          <h2 id="listTitle">حضور اليوم</h2>
-          <div class="sub" data-i18n="ci.listSub">الأسماء ووقت التسجيل · التحديث المباشر في صفحة المحاضرات</div>
+      <h2 data-i18n="me.t">حضوري اليوم</h2>
+      <div class="sub" data-i18n="me.sub">حالتك في كل محاضرة · اسمك بس يطلع لك</div>
+      <div class="me-name" id="meName" hidden></div>
+      <ul class="mine" id="mine" hidden></ul>
+      <div class="empty" id="anon" data-i18n="me.anon">سجّل حضورك أول مرة من هالجوال وبيطلع لك سجلك هنا.</div>
+
+      <div class="sum">
+        <h3 id="sumTitle"></h3>
+        <div class="sub" data-i18n="sum.sub">أعداد بس، بدون أسماء لحفظ الخصوصية</div>
+        <div class="nums">
+          <div class="num g"><b id="nPresent">0</b><span data-i18n="sum.present">حاضرين</span></div>
+          <div class="num"><b id="nOnTime">0</b><span data-i18n="sum.onTime">في الوقت</span></div>
+          <div class="num o"><b id="nLate">0</b><span data-i18n="sum.late">متأخرين</span></div>
+          <div class="num r"><b id="nAbsent">0</b><span data-i18n="sum.absent">غائبين</span></div>
         </div>
-        <span class="live"><i></i>LIVE</span>
+        <div class="note" id="sumNote" hidden data-i18n="sum.notOpen">التحضير ما فتح للحين</div>
       </div>
-      <ul class="list" id="list"></ul>
-      <div class="empty" id="empty"><b data-i18n="ci.emptyT">ما أحد سجّل حضوره للحين</b><span data-i18n="ci.emptyD">أول اسم بيطلع هنا مباشرة بعد التسجيل.</span></div>
     </section>
   </div>
 </main>
 <footer class="credit">Made with <b>Love</b> by AFNAN aljohani</footer>
 
-<script src="config.js?v=10"></script>
-<script src="roster.js?v=10"></script>
-<script src="api.js?v=10"></script>
+<script src="config.js?v=11"></script>
+<script src="roster.js?v=11"></script>
+<script src="api.js?v=11"></script>
 <script>
+// صفحة المتدرب: يشوف اسمه وحالته بس، وأعداد الحاضرين والغائبين بدون أسماء.
+// الأسماء كاملة في لوحة الأدمن (admin.html)
 const $ = (id) => document.getElementById(id);
-let schedule = null, current = null, seen = null, picked = null, pinnedLec = null;
+const cfg = window.ATTENDANCE_CONFIG;
+let schedule = null, current = null, pinnedLec = null, rows = [], me = null, lastDone = null, place = null;
 const esc = (s) => { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; };
 const T = (k, v) => I18N.t(k, v);
 const dur = (m) => (m >= 60 ? T("dur.hm", { h: Math.floor(m / 60), m: m % 60 }) : T("dur.m", { m }));
 const statusText = (r) => r.minutes_from_start === 0 ? T("st.ontime") : T(r.status === "late" ? "st.late" : "st.after", { m: r.minutes_from_start });
-let lastDone = null;
+const LOC_FRESH_MS = 2 * 60 * 1000; // الموقع يعتبر قديم بعد دقيقتين ونطلبه من جديد
 
 // معرّف ثابت للجهاز عشان الجوال الواحد ما يحضّر لأكثر من شخص
 function deviceId() {
@@ -201,7 +215,7 @@ function deviceId() {
 function tick() {
   $("clock").textContent = new Date().toLocaleString("en-GB", { timeZone: "Asia/Riyadh", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" });
   if (!schedule) return;
-  const st = Att.lectureState(schedule.lectures, schedule.settings);
+  const st = Att.lectureState();
   current = st.kind === "done" ? null : st.lecture;
   $("state").className = "pill " + (st.kind === "open" ? "open" : st.kind === "wait" ? "wait" : "");
   $("state").lastElementChild.textContent =
@@ -209,24 +223,35 @@ function tick() {
     st.kind === "open" ? T("state.openFor", { title: Att.lecTitle(st.lecture), m: st.closesIn }) :
     st.kind === "wait" ? T("state.wait", { title: Att.lecTitle(st.lecture), t: dur(st.opensIn) }) :
     T("state.done");
-  renderLecs();
+  render();
 }
 
-// جدول محاضرات اليوم: الوقت، نافذة التحضير، الحالة، وعدد الحاضرين
+// ───── الوقت ونافذة كل محاضرة ─────
 const hhmm = (m) => String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(Math.round(m % 60)).padStart(2, "0");
 function nowMin() {
   const p = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Riyadh", hour12: false, hour: "2-digit", minute: "2-digit" }).formatToParts(new Date());
   const g = (t) => +p.find((x) => x.type === t).value;
   return (g("hour") % 24) * 60 + g("minute");
 }
+// "soon" ما فتح، "open" مفتوح، "closed" انتهى
+function phase(l) {
+  if (Att.testing()) return "open";
+  const s = Att.toMin(l.starts_at), n = nowMin();
+  return n < s - cfg.OPEN_BEFORE_MIN ? "soon" : n <= s + cfg.CLOSE_AFTER_MIN ? "open" : "closed";
+}
+function shownLecture() {
+  if (pinnedLec) return pinnedLec;
+  if (current) return current.num;
+  return schedule.lectures[schedule.lectures.length - 1].num;
+}
+
 let lecsHtml = "";
 function renderLecs() {
-  if (!schedule) return;
-  const cfg = window.ATTENDANCE_CONFIG, n = nowMin(), shown = shownLecture();
   $("schedSub").textContent = T("ci.schedSub", { o: cfg.OPEN_BEFORE_MIN, c: cfg.CLOSE_AFTER_MIN });
+  const shown = shownLecture();
   const html = schedule.lectures.map((l) => {
-    const s = Att.toMin(l.starts_at), o = s - cfg.OPEN_BEFORE_MIN, c = s + cfg.CLOSE_AFTER_MIN;
-    const st = Att.testing() ? ["open", T("lec.test")] : n < o ? ["wait", T("lec.opensAt", { t: hhmm(o) })] : n <= c ? ["open", T("lec.open")] : ["", T("lec.closed")];
+    const s = Att.toMin(l.starts_at), o = s - cfg.OPEN_BEFORE_MIN, c = s + cfg.CLOSE_AFTER_MIN, ph = phase(l);
+    const st = Att.testing() ? ["open", T("lec.test")] : ph === "soon" ? ["wait", T("lec.opensAt", { t: hhmm(o) })] : ph === "open" ? ["open", T("lec.open")] : ["", T("lec.closed")];
     const cnt = rows.filter((r) => r.lecture === l.num).length;
     return `<button type="button" class="lec ${l.num === shown ? "sel" : ""}" data-n="${l.num}">
       <b>${esc(Att.lecTitle(l))}</b><span class="tm"><span dir="ltr">${l.starts_at} – ${l.ends_at}</span></span>
@@ -235,40 +260,57 @@ function renderLecs() {
   }).join("");
   if (html !== lecsHtml) { $("lecs").innerHTML = html; lecsHtml = html; }
 }
-function shownLecture() {
-  if (pinnedLec) return pinnedLec;
-  if (current) return current.num;
-  return Math.max(0, ...rows.map((r) => r.lecture)) || (schedule && schedule.lectures[0].num);
+
+// ───── حضوري: سجل المتدرب نفسه بس ─────
+function myRecord(num) {
+  if (!me) return null;
+  return rows.find((r) => r.lecture === num &&
+    (r.academic_id ? r.academic_id === "WP" + me.aid : Att.norm(r.full_name) === Att.norm(me.name))) || null;
+}
+let mineHtml = "";
+function renderMine() {
+  const st = me && Att.findStudent(me.name);
+  $("anon").hidden = Boolean(st); $("mine").hidden = $("meName").hidden = !st;
+  if (!st) return;
+  const head = `${esc(Att.studentName(st))}<button type="button" id="notMe">${esc(T("me.change"))}</button>`;
+  const html = head + schedule.lectures.map((l) => {
+    const r = myRecord(l.num), ph = phase(l);
+    const pill = r ? `<span class="pill ${r.status === "late" ? "late" : "open"}">${r.status === "late" ? statusText(r) : T("me.present")}</span><span class="t">${Att.fmtTime(r.checked_in_at)}</span>`
+      : ph === "closed" ? `<span class="pill abs">${T("me.absent")}</span>`
+      : ph === "open" ? `<span class="pill wait">${T("me.notYet")}</span>`
+      : `<span class="pill">${T("me.soon")}</span>`;
+    return `<li><span class="nm">${esc(Att.lecTitle(l))}<small dir="ltr">${l.starts_at} – ${l.ends_at}</small></span>${pill}</li>`;
+  }).join("");
+  if (html !== mineHtml) { $("meName").innerHTML = head; $("mine").innerHTML = html.slice(head.length); mineHtml = html; }
 }
 
-// القائمة تنحمّل مرة وحدة بس عشان ما نضغط على الخدمة، والتحديث المباشر على شاشة العرض
-let rows = [];
+// ───── الأعداد بدون أسماء ─────
+function renderSum() {
+  const num = shownLecture(), l = schedule.lectures.find((x) => x.num === num);
+  $("sumTitle").textContent = T("sum.t", { title: Att.lecTitle(l) });
+  const list = rows.filter((r) => r.lecture === num);
+  const present = new Set(list.map((r) => Att.norm(r.full_name)));
+  const inRoster = Att.roster.filter((s) => present.has(Att.norm(s.ar))).length;
+  const started = phase(l) !== "soon" || list.length > 0;
+  $("nPresent").textContent = list.length;
+  $("nOnTime").textContent = list.filter((r) => r.status !== "late").length;
+  $("nLate").textContent = list.filter((r) => r.status === "late").length;
+  $("nAbsent").textContent = started && Att.roster.length ? Att.roster.length - inRoster : "—";
+  $("sumNote").hidden = started;
+}
+
+function render() {
+  if (!schedule) return;
+  renderLecs(); renderMine(); renderSum();
+}
+
+// نحدّث الأعداد كل دقيقة (مو أكثر عشان ما نضغط على ntfy)
 async function load() {
   try { rows = await Att.today(); } catch {}
   render();
 }
 
-function render() {
-  {
-    const all = rows.slice().reverse();
-    const lec = shownLecture();
-    const list = all.filter((r) => r.lecture === lec);
-    const title = schedule.lectures.find((l) => l.num === lec);
-    $("listTitle").textContent = title ? T("ci.listOf", { title: Att.lecTitle(title) }) : T("ci.listToday");
-    const key = (r) => r.full_name + r.checked_in_at;
-    $("empty").hidden = list.length > 0;
-    $("list").innerHTML = list.map((r) => `
-      <li class="${seen && !seen.has(key(r)) ? "new" : ""}">
-        <span class="av">${esc(Att.displayName(r.full_name).trim().charAt(0))}</span>
-        <span class="nm">${esc(Att.displayName(r.full_name))}</span>
-        <span class="pill ${r.status === "late" ? "late" : "open"}">${statusText(r)}</span>
-        <span class="t">${Att.fmtTime(r.checked_in_at)}</span>
-      </li>`).join("");
-    seen = new Set(rows.map(key));
-  }
-  renderLecs();
-}
-
+// ───── الموقع ─────
 function getPosition() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) return reject(new Error(T("err.noGeo")));
@@ -277,34 +319,89 @@ function getPosition() {
   });
 }
 
+// يطلب الموقع ويحدد: داخل الحرم الأكاديمي ولا خارجه
+async function locate() {
+  $("locBtn").disabled = true;
+  $("loc").className = "loc"; $("locMsg").textContent = T("loc.busy");
+  try {
+    const pos = await getPosition();
+    const c = pos.coords, dist = Math.round(Att.distanceM(c.latitude, c.longitude));
+    const weak = !(c.accuracy <= cfg.MAX_ACCURACY_M);
+    place = { lat: c.latitude, lng: c.longitude, accuracy: c.accuracy, dist, at: Date.now(),
+      ok: Att.testing() || (!weak && dist <= cfg.RADIUS_M), weak: !Att.testing() && weak && dist <= cfg.RADIUS_M };
+  } catch (err) {
+    place = null;
+    $("loc").className = "loc out"; $("locMsg").textContent = err.message;
+    return null;
+  } finally {
+    $("locBtn").disabled = false;
+  }
+  renderPlace();
+  return place;
+}
+function renderPlace() {
+  $("locBtn").textContent = T(place ? "loc.again" : "loc.btn");
+  if (!place) { if (!$("loc").classList.contains("out")) $("locMsg").textContent = T("loc.idle"); return; }
+  const m = place.dist;
+  $("loc").className = "loc " + (place.ok ? "in" : "out");
+  $("locMsg").textContent = Att.testing() ? T("loc.test", { m }) :
+    place.weak ? T("err.accuracy", { m: Math.round(place.accuracy) }) : T(place.ok ? "loc.in" : "loc.out", { m });
+}
+$("locBtn").addEventListener("click", locate);
+
+// ───── الاسم: مطابقة بدون عرض قائمة الأسماء ─────
+function nameState() {
+  const v = $("name").value.trim();
+  const m = Att.matchName(v);
+  $("who").className = "who";
+  if (m.kind === "one") {
+    $("who").textContent = "✓ " + Att.studentName(m.student) + " · " + T("group", { g: m.student.grp });
+  } else if (m.kind === "short") {
+    $("who").textContent = "";
+  } else {
+    $("who").className = "who bad"; $("who").textContent = T(m.kind === "many" ? "err.nameMany" : "err.nameNone");
+  }
+  return m;
+}
+$("name").addEventListener("input", nameState);
+
+// الرقم الأكاديمي: WP ثابتة، والمتدرب يكتب الأرقام بس (ولو لصق الرقم كامل نشيل WP)
+$("aid").addEventListener("input", () => { const v = $("aid").value.replace(/^\s*wp/i, "").replace(/\D/g, "").slice(0, 8); if (v !== $("aid").value) $("aid").value = v; });
+
+const showError = (msg, focus) => { $("error").textContent = msg; $("error").hidden = false; if (focus) focus.focus(); };
+
 $("form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const btn = $("submit");
   $("error").hidden = true;
+  const m = nameState();
+  if (m.kind !== "one") return showError(T(m.kind === "short" ? "err.nameShort" : m.kind === "many" ? "err.nameMany" : "err.nameNone"), $("name"));
   const digits = $("aid").value.replace(/\D/g, "");
-  const student = Att.findStudent($("name").value);
-  if (!student) { $("error").textContent = T("err.pickName"); $("error").hidden = false; $("name").focus(); return; }
-  if (!/^\d{6,8}$/.test(digits)) { $("error").textContent = T("err.aidDigits"); $("error").hidden = false; $("aid").focus(); return; }
+  if (!/^\d{6,8}$/.test(digits)) return showError(T("err.aidDigits"), $("aid"));
   btn.disabled = true;
   try {
-    btn.textContent = T("ci.locating");
-    const pos = await getPosition();
+    // إذا ما حدد موقعه أو موقعه قديم، نطلبه الحين
+    if (!place || Date.now() - place.at > LOC_FRESH_MS) {
+      btn.textContent = T("ci.locating");
+      if (!(await locate())) return;
+    }
+    if (!place.ok) return renderPlace(); // مربع الموقع يعرض السبب (خارج الحرم أو دقة ضعيفة)
     btn.textContent = T("ci.sending");
     const r = await Att.checkIn({
-      name: student.ar, academic_id: "WP" + digits,
-      lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy,
+      name: m.student.ar, academic_id: "WP" + digits,
+      lat: place.lat, lng: place.lng, accuracy: place.accuracy,
       device: deviceId(),
     });
-    try { localStorage.setItem("att-me", JSON.stringify({ name: student.ar, aid: digits })); } catch {}
+    me = { name: m.student.ar, aid: digits };
+    try { localStorage.setItem("att-me", JSON.stringify(me)); } catch {}
     $("form").hidden = true;
     $("done").hidden = false;
     lastDone = r;
     renderDone();
-    if (!r.already) rows.push(r);
-    render();
+    if (!r.already && !rows.some((x) => x.lecture === r.lecture && x.full_name === r.full_name)) rows.push(r);
+    mineHtml = ""; render();
   } catch (err) {
-    $("error").textContent = err.message;
-    $("error").hidden = false;
+    showError(err.message);
   } finally {
     btn.disabled = !Att.ready;
     btn.textContent = T("ci.submit");
@@ -323,42 +420,14 @@ function renderDone() {
     T(r.status === "late" ? "st.late" : "st.afterLong", { m: r.minutes_from_start });
 }
 
-// ───── اختيار الاسم من السجل ─────
-const groupLabel = (g) => T("group", { g }) + (Att.groups[g] ? ` · ${Att.groups[g]}` : "");
-let sugItems = [], sugIdx = -1;
-function pick(st) {
-  picked = st; $("name").value = Att.studentName(st);
-  $("who").textContent = groupLabel(st.grp); $("who").hidden = false; $("whoGap").hidden = true;
-  closeSug();
-}
-function closeSug() { $("sug").hidden = true; $("name").setAttribute("aria-expanded", "false"); sugIdx = -1; }
-function showSug() {
-  const words = Att.norm($("name").value).split(" ").filter(Boolean);
-  sugItems = Att.searchRoster($("name").value).slice(0, 8);
-  $("sug").innerHTML = sugItems.length
-    ? sugItems.map((r, i) => `<li role="option" id="opt${i}" data-i="${i}" aria-selected="${i === sugIdx}">${esc(Att.studentName(r))}<small>${T("group.short", { g: r.grp })}</small></li>`).join("")
-    : (words.length ? `<li class="none">${T("ci.noMatch")}</li>` : "");
-  const open = Boolean($("sug").innerHTML);
-  $("sug").hidden = !open; $("name").setAttribute("aria-expanded", String(open));
-}
-$("name").addEventListener("input", () => {
-  if (picked && Att.findStudent($("name").value) !== picked) { picked = null; $("who").hidden = true; $("whoGap").hidden = false; }
-  sugIdx = -1; showSug();
+// "مو أنت؟": نمسح الاسم المحفوظ على هالجوال
+document.addEventListener("click", (e) => {
+  if (e.target.id !== "notMe") return;
+  me = null;
+  try { localStorage.removeItem("att-me"); } catch {}
+  $("name").value = ""; $("aid").value = ""; nameState();
+  $("done").hidden = true; $("form").hidden = false; mineHtml = ""; render(); $("name").focus();
 });
-$("name").addEventListener("focus", () => { if (!picked) showSug(); });
-$("name").addEventListener("keydown", (e) => {
-  if ($("sug").hidden || !sugItems.length) return;
-  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-    e.preventDefault(); sugIdx = (sugIdx + (e.key === "ArrowDown" ? 1 : -1) + sugItems.length) % sugItems.length; showSug();
-    $("name").setAttribute("aria-activedescendant", "opt" + sugIdx);
-  } else if (e.key === "Enter" && sugIdx >= 0) { e.preventDefault(); pick(sugItems[sugIdx]); $("aid").focus(); }
-  else if (e.key === "Escape") closeSug();
-});
-$("sug").addEventListener("mousedown", (e) => { const li = e.target.closest("li[data-i]"); if (!li) return; e.preventDefault(); pick(sugItems[+li.dataset.i]); $("aid").focus(); });
-document.addEventListener("click", (e) => { if (!e.target.closest(".combo")) closeSug(); });
-
-// الرقم الأكاديمي: WP ثابتة، والمتدرب يكتب الأرقام بس (ولو لصق الرقم كامل نشيل WP)
-$("aid").addEventListener("input", () => { const v = $("aid").value.replace(/^\s*wp/i, "").replace(/\D/g, "").slice(0, 8); if (v !== $("aid").value) $("aid").value = v; });
 
 $("lecs").addEventListener("click", (e) => {
   const b = e.target.closest(".lec"); if (!b) return;
@@ -367,10 +436,12 @@ $("lecs").addEventListener("click", (e) => {
 
 // تغيير اللغة: نعيد رسم كل شي فيه نصوص
 document.addEventListener("langchange", () => {
-  lecsHtml = "";
-  if (picked) { $("name").value = Att.studentName(picked); $("who").textContent = groupLabel(picked.grp); }
+  lecsHtml = mineHtml = "";
+  const st = me && Att.findStudent(me.name);
+  if (st && Att.findStudent($("name").value) === st) $("name").value = Att.studentName(st);
+  nameState(); renderPlace();
   if (!$("submit").disabled) $("submit").textContent = T("ci.submit");
-  tick(); if (schedule) render(); renderDone();
+  tick(); renderDone();
 });
 
 (async () => {
@@ -381,16 +452,17 @@ document.addEventListener("langchange", () => {
     return;
   }
   try {
-    const me = JSON.parse(localStorage.getItem("att-me") || "null");
-    if (me) { const st = Att.findStudent(me.name); if (st) pick(st); $("aid").value = String(me.aid || "").replace(/^WP/i, "").replace(/\D/g, ""); }
+    const saved = JSON.parse(localStorage.getItem("att-me") || "null");
+    const st = saved && Att.findStudent(saved.name);
+    if (st) {
+      me = { name: st.ar, aid: String(saved.aid || "").replace(/^WP/i, "").replace(/\D/g, "") };
+      $("name").value = Att.studentName(st); $("aid").value = me.aid; nameState();
+    }
   } catch {}
-  try {
-    schedule = { lectures: Att.lectures };
-    tick();
-    await load();
-  } catch (err) {
-    $("state").lastElementChild.textContent = err.message;
-  }
+  schedule = { lectures: Att.lectures };
+  tick();
+  await load();
+  setInterval(() => { if (!document.hidden) load(); }, 60000);
 })();
 </script>
 </body>

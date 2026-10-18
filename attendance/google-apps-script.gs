@@ -48,14 +48,14 @@ function doPost(e) {
 
     if (name.length < 2 || name.length > 80) return fail_('اكتب اسمك الكامل');
     if (!/^WP\d{6,8}$/.test(aid)) return fail_('الرقم الأكاديمي لازم يبدأ بـ WP وبعده أرقام، مثل WP2630069');
-    if (typeof b.lat !== 'number' || typeof b.lng !== 'number') return fail_('لازم تسمح للموقع يوصل لمكانك');
+    if (typeof b.lat !== 'number' || typeof b.lng !== 'number') return fail_('لازم تحدد موقعك قبل التحضير');
     if (!isTesting_(new Date()) && !(b.accuracy <= CONFIG.MAX_ACCURACY_M)) {
       return fail_('دقة الموقع ضعيفة (' + Math.round(b.accuracy || 9999) + ' م). شغّل GPS وحاول مرة ثانية');
     }
     const now = new Date();
     const testing = isTesting_(now);
     const dist = distanceM_(b.lat, b.lng, CONFIG.ACADEMY.lat, CONFIG.ACADEMY.lng);
-    if (!testing && dist > CONFIG.RADIUS_M) return fail_('أنت خارج موقع الأكاديمية (تبعد ' + Math.round(dist) + ' م)');
+    if (!testing && dist > CONFIG.RADIUS_M) return fail_('لا يمكنك التحضير لأنك خارج مقر الحرم الأكاديمي (تبعد ' + Math.round(dist) + ' م)');
 
     const today = Utilities.formatDate(now, TZ, 'yyyy-MM-dd');
     const nowMin = toMin_(Utilities.formatDate(now, TZ, 'HH:mm')) + now.getSeconds() / 60;

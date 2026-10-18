@@ -29,6 +29,20 @@
     return roster.filter((r) => { const n = norm(r.ar) + " " + norm(r.en); return words.every((w) => n.includes(w)); });
   }
 
+  // صفحة المتدرب ما تعرض قائمة أسماء: يكتب اسمه (الأول + اسم ثاني على الأقل) ونطابقه بكلمات كاملة،
+  // فما يقدر أحد يدوّر بحرفين ويشوف أسماء غيره
+  function matchName(q) {
+    const words = norm(q).split(" ").filter(Boolean);
+    if (words.length < 2) return { kind: "short" };
+    const exact = findStudent(q);
+    if (exact) return { kind: "one", student: exact };
+    const hits = roster.filter((r) => {
+      const ws = new Set((norm(r.ar) + " " + norm(r.en)).split(" "));
+      return words.every((w) => ws.has(w));
+    });
+    return hits.length === 1 ? { kind: "one", student: hits[0] } : { kind: hits.length ? "many" : "none" };
+  }
+
   // ───────── الوقت ─────────
 
   // تاريخ ودقائق الرياض لأي لحظة (افتراضيًا الحين)
@@ -169,7 +183,7 @@
 
   window.Att = {
     ready, fmtTime, testing, lectures, lectureState, roster, groups, norm, findStudent, AID_RE, toMin,
-    displayName, studentName, lecTitle, searchRoster, locale,
+    displayName, studentName, lecTitle, searchRoster, locale, distanceM, matchName,
     today: async () => {
       lastRows = useScript ? (await script()).rows : await ntfyToday();
       return lastRows;
