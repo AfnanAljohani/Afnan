@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>شاشة نادي الذكاء الاصطناعي</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="شاشة عرض حيّة لنادي الذكاء الاصطناعي EWA: المحاضرة الحالية والبريكات، تنبيه لا تنسى أغراضك، بونس الأسبوع، وأبطال النادي.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one 16:9 signage screen — fixed header (logo · date · clock), a stage of rotating slides, a footer of slide tabs and controls.
+   Single dark look taken from the EWA AI Club identity: navy board, teal + orange circuit nodes, gold numerals. */
+:root{
+  color-scheme: dark;
+  --bg:#07101D; --bg2:#0A1628; --panel:#0E1B31; --panel-hi:#132541; --edge:rgba(126,170,214,.16); --edge-hi:rgba(38,184,176,.5);
+  --teal:#26B8B0; --teal-hi:#5FE0D6; --teal-soft:rgba(38,184,176,.13);
+  --orange:#F2703D; --orange-soft:rgba(242,112,61,.15);
+  --gold:#EDBB5C; --gold-soft:rgba(237,187,92,.14);
+  --ink:#EAF1F8; --mute:#93A4BC; --dim:#5D6E88; --node:#E9EEF4; --ok:#3DD68C;
+  --display:"Alexandria","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --body:"IBM Plex Sans Arabic","Alexandria",system-ui,sans-serif;
+  --r:20px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;overflow:hidden;-webkit-font-smoothing:antialiased;font-variant-ligatures:no-common-ligatures}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--teal-hi);outline-offset:2px}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.en{font-family:var(--display);letter-spacing:.32em;text-transform:uppercase;font-size:.72rem;font-weight:600;direction:ltr;unicode-bidi:isolate}
+
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.topline{position:fixed;inset:0 0 auto;height:4px;z-index:5;background:linear-gradient(90deg,var(--orange),var(--gold),var(--teal))}
+
+.app{position:relative;z-index:1;height:100%;display:grid;grid-template-rows:auto 1fr auto;gap:clamp(10px,1.4vh,18px);
+  padding-block:clamp(14px,2.2vh,28px) clamp(10px,1.6vh,20px);
+  padding-left:max(clamp(16px,2.4vw,44px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,2.4vw,44px),env(safe-area-inset-right,0px))}
+
+/* header */
+.hdr{display:flex;align-items:center;gap:clamp(12px,2vw,32px)}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.brand svg{height:clamp(34px,5vh,58px);width:auto;flex:none}
+.brand-txt{display:flex;flex-direction:column;gap:6px;line-height:1.3}
+.brand-txt b{font-family:var(--display);font-weight:700;font-size:clamp(14px,1.25vw,22px)}
+.brand-txt .en{display:block;color:var(--teal);font-size:clamp(9px,.62vw,12px);line-height:1;text-align:right}
+.hdr-mid{margin-inline-start:auto;text-align:end;line-height:1.35}
+.hdr-mid .d1{font-family:var(--display);font-weight:600;font-size:clamp(13px,1.05vw,19px)}
+.hdr-mid .d2{color:var(--mute);font-size:clamp(11px,.8vw,15px)}
+.clock{direction:ltr;font-family:var(--display);font-weight:800;font-size:clamp(30px,3.6vw,66px);line-height:1;letter-spacing:.02em;color:var(--ink);display:flex;align-items:baseline;gap:.25em}
+.clock small{font-size:.38em;color:var(--gold);font-weight:700}
+.clock .sec{font-size:.42em;color:var(--teal);font-weight:600;min-width:1.4em}
+.sim-tag{display:none;font-size:11px;background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange);border-radius:99px;padding:2px 10px;margin-top:4px}
+.sim-on .sim-tag{display:inline-block}
+
+/* stage */
+.stage{position:relative;min-height:0;touch-action:pan-y}
+.slide{position:absolute;inset:0;display:none;min-height:0}
+.slide.on{display:block;animation:slideIn .7s cubic-bezier(.2,.8,.2,1)}
+.slide.on.back{animation-name:slideInBack}
+@keyframes slideIn{from{opacity:0;transform:translateX(-60px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes slideInBack{from{opacity:0;transform:translateX(60px) scale(.985)}to{opacity:1;transform:none}}
+.slide.dragging{transition:none;animation:none}
+.panel{background:linear-gradient(160deg,rgba(19,37,65,.92),rgba(12,24,44,.92));border:1px solid var(--edge);border-radius:var(--r);position:relative;min-width:0}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--mute);font-size:clamp(12px,.9vw,16px);font-weight:600}
+.eyebrow i{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-soft)}
+.s-title{font-family:var(--display);font-weight:800;font-size:clamp(24px,2.5vw,46px);line-height:1.2;margin:0;text-wrap:balance}
+.s-title em{font-style:normal;color:var(--teal)}
+.s-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:clamp(10px,1.6vh,20px)}
+
+/* ---------- slide: live ---------- */
+.live{height:100%;display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:1fr auto;gap:clamp(12px,1.4vw,22px)}
+.now{padding:clamp(18px,2.4vw,40px);display:grid;grid-template-columns:1fr auto;align-items:center;gap:clamp(16px,2vw,36px);overflow:hidden}
+.now::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(ellipse 60% 70% at 15% 50%,var(--accent-soft,var(--teal-soft)),transparent 70%)}
+.now{--accent:var(--teal);--accent-soft:var(--teal-soft)}
+.now.k-brk{--accent:var(--gold);--accent-soft:var(--gold-soft)}
+.now.k-lunch,.now.urgent{--accent:var(--orange);--accent-soft:var(--orange-soft)}
+.now.urgent{border-color:var(--orange);animation:urgent 1.6s ease-in-out infinite}
+@keyframes urgent{50%{box-shadow:0 0 0 6px var(--orange-soft),0 0 60px rgba(242,112,61,.25)}}
+.now-txt{position:relative;min-width:0;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,16px)}
+.chip{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border-radius:99px;padding:5px 14px;font-weight:700;font-size:clamp(12px,.95vw,17px);background:var(--accent-soft,var(--teal-soft));color:var(--accent,var(--teal));border:1px solid currentColor}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.now-name{font-family:var(--display);font-weight:900;font-size:clamp(34px,4.6vw,90px);line-height:1.08;margin:0;text-wrap:balance}
+.now-range{font-family:var(--display);font-size:clamp(16px,1.5vw,28px);color:var(--mute);font-weight:500}
+.now-msg{font-size:clamp(15px,1.3vw,24px);font-weight:600;color:var(--ink);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.now-msg b{color:var(--accent)}
+.bar{height:10px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:4px}
+.bar>i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(270deg,var(--accent),color-mix(in srgb,var(--accent) 50%,#fff));transition:width .9s linear;margin-inline-start:0}
+.ring{position:relative;width:clamp(150px,17vw,330px);aspect-ratio:1;max-width:100%}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg) scaleY(-1)}
+.ring .track{fill:none;stroke:rgba(255,255,255,.07)}
+.ring .prog{fill:none;stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .9s linear;filter:drop-shadow(0 0 10px var(--accent))}
+.ring .tick{fill:none;stroke:var(--edge);stroke-dasharray:1 7.5}
+.ring-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ring-in .num{font-weight:800;font-size:clamp(34px,4vw,76px);line-height:1}
+.ring-in span{color:var(--mute);font-size:clamp(11px,.9vw,16px);margin-top:6px}
+
+.side{display:grid;grid-template-rows:auto 1fr;gap:clamp(12px,1.4vw,22px);min-height:0}
+.card{padding:clamp(14px,1.5vw,26px)}
+.card h3{margin:0 0 8px;font-size:clamp(12px,.9vw,16px);color:var(--mute);font-weight:600;display:flex;align-items:center;gap:8px}
+.next-name{font-family:var(--display);font-weight:800;font-size:clamp(20px,2vw,38px);line-height:1.2}
+.next-meta{color:var(--mute);font-size:clamp(13px,1vw,18px);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.next-meta .num{color:var(--gold);font-weight:700}
+.today{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.today .topic{font-family:var(--display);font-weight:700;font-size:clamp(18px,1.75vw,34px);line-height:1.25;direction:ltr;text-align:right;unicode-bidi:plaintext}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.up{margin-top:auto;display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--edge);padding-top:12px}
+.up h4{margin:0;font-size:clamp(11px,.8vw,14px);color:var(--dim);font-weight:600}
+.up-r{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline}
+.up-r b{font-family:var(--display);font-size:clamp(12px,.9vw,16px);color:var(--teal);white-space:nowrap}
+.up-r span{font-size:clamp(13px,1vw,18px);direction:ltr;text-align:right;unicode-bidi:plaintext;min-width:0}
+.tag{font-size:clamp(11px,.85vw,15px);border:1px solid var(--edge);border-radius:10px;padding:3px 10px;color:var(--mute);background:rgba(255,255,255,.03)}
+.tag.t{color:var(--teal);border-color:rgba(38,184,176,.4)}
+.tag.o{color:var(--orange);border-color:rgba(242,112,61,.45)}
+.tag.g{color:var(--gold);border-color:rgba(237,187,92,.4)}
+
+.tl{grid-column:1/-1;padding:clamp(12px,1.3vw,20px) clamp(14px,1.6vw,26px)}
+.tl-row{position:relative;display:flex;gap:4px;height:clamp(38px,5vh,58px);margin-top:8px}
+.tl-b{position:relative;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:clamp(10px,.8vw,14px);font-weight:700;overflow:hidden;white-space:nowrap;border:1px solid transparent;transition:opacity .4s}
+.tl-b.lec{background:rgba(38,184,176,.18);color:var(--teal-hi);border-color:rgba(38,184,176,.35)}
+.tl-b.brk{background:var(--gold-soft);color:var(--gold);border-color:rgba(237,187,92,.3)}
+.tl-b.lunch{background:var(--orange-soft);color:var(--orange);border-color:rgba(242,112,61,.35)}
+.tl-b.past{opacity:.32}
+.tl-b.cur{box-shadow:0 0 0 2px currentColor,0 0 24px -4px currentColor}
+.tl-b .fill{position:absolute;inset-block:0;inset-inline-start:0;background:currentColor;opacity:.16}
+.tl-now{position:absolute;top:-8px;bottom:-8px;width:3px;background:var(--ink);border-radius:2px;box-shadow:0 0 12px var(--ink);transform:translateX(50%);transition:right .9s linear}
+.tl-now::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--ink)}
+.tl-scale{position:relative;height:1.6em;color:var(--dim);font-size:clamp(10px,.75vw,13px);margin-top:6px;font-variant-numeric:tabular-nums}
+.tl-scale span{position:absolute;top:0;transform:translateX(50%);white-space:nowrap}
+.tl-scale span:first-child{transform:none}.tl-scale span:last-child{transform:translateX(100%)}
+.tl-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.legend{display:flex;gap:16px;color:var(--mute);font-size:clamp(11px,.8vw,14px)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:4px}
+
+/* ---------- slide: schedule ---------- */
+.sched{height:100%;display:flex;flex-direction:column}
+.sch-grid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:clamp(8px,1vw,16px)}
+.grp{display:grid;grid-template-columns:clamp(44px,4vw,70px) 1fr auto;align-items:stretch;overflow:hidden}
+.grp-n{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:clamp(18px,1.7vw,32px);color:var(--teal);border-inline-end:1px solid var(--edge);background:rgba(38,184,176,.06)}
+.grp-rows{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.row{display:flex;align-items:center;gap:12px;padding:clamp(5px,.8vh,12px) clamp(10px,1vw,18px);flex:1;min-width:0}
+.row+.row{border-top:1px dashed var(--edge)}
+.row .ic{width:clamp(20px,1.6vw,30px);height:clamp(20px,1.6vw,30px);flex:none;color:var(--teal)}
+.row.brk .ic,.row.brk .rn small{color:var(--gold)}
+.row.lunch .ic{color:var(--orange)}
+.rn{font-family:var(--display);font-weight:600;font-size:clamp(14px,1.15vw,22px);flex:1;min-width:0}
+.rn small{font-weight:500;color:var(--mute);font-size:.75em;margin-inline-start:6px}
+.rt{font-family:var(--display);font-weight:600;color:var(--mute);font-size:clamp(13px,1.05vw,20px);font-variant-numeric:tabular-nums;direction:ltr;white-space:nowrap}
+.row.done{opacity:.38}
+.row.cur{background:linear-gradient(90deg,transparent,var(--teal-soft))}
+.row.cur .rn::after{content:"الآن";font-size:.62em;margin-inline-start:10px;padding:2px 9px;border-radius:99px;background:var(--teal);color:var(--bg);vertical-align:middle}
+.row.brk.cur{background:linear-gradient(90deg,transparent,var(--gold-soft))}
+.row.brk.cur .rn::after,.row.lunch.cur .rn::after{background:var(--gold)}
+.ret{display:flex;align-items:center;gap:8px;padding:0 clamp(10px,1.1vw,20px);border-inline-start:1px solid var(--edge);background:rgba(255,255,255,.02);min-width:clamp(120px,10vw,190px)}
+.ret svg{width:22px;height:22px;color:var(--teal);flex:none}
+.ret div{line-height:1.3;font-size:clamp(11px,.85vw,15px);color:var(--mute)}
+.ret b{display:block;color:var(--ink);font-family:var(--display);font-size:clamp(14px,1.15vw,21px);font-variant-numeric:tabular-nums}
+.note{margin-top:clamp(8px,1.2vh,16px);display:flex;align-items:center;gap:14px;padding:clamp(10px,1.2vw,18px) clamp(14px,1.5vw,24px);border-color:rgba(242,112,61,.45);background:linear-gradient(90deg,rgba(242,112,61,.12),rgba(14,27,49,.9))}
+.note svg{width:clamp(26px,2.2vw,40px);height:auto;color:var(--orange);flex:none}
+.note p{margin:0;font-size:clamp(13px,1.1vw,20px)}
+.note b{color:var(--orange)}
+
+/* ---------- slide: don't forget ---------- */
+.forget{height:100%;display:grid;grid-template-columns:1fr minmax(0,.62fr);gap:clamp(14px,2vw,40px);align-items:center}
+.fg-main{display:flex;flex-direction:column;gap:clamp(12px,2vh,26px);min-width:0}
+.tape{align-self:flex-start;font-family:var(--display);font-weight:900;font-size:clamp(44px,6.4vw,124px);line-height:1;color:var(--bg);background:var(--teal-hi);padding:.08em .35em .16em;transform:rotate(-2deg);box-shadow:0 0 50px rgba(95,224,214,.35);clip-path:polygon(1% 4%,99% 0,100% 92%,0 100%)}
+.fg-sub{display:flex;align-items:center;gap:.4em;font-family:var(--display);font-weight:800;font-size:clamp(28px,3.4vw,64px);margin:0}
+.eyes{display:inline-flex;gap:.12em}
+.eye{width:.62em;height:.78em;background:#fff;border-radius:50%;position:relative;overflow:hidden;animation:eblink 5s infinite}
+.eye i{position:absolute;width:.32em;height:.36em;border-radius:50%;background:#1A1206;left:.15em;top:.22em;transition:transform .5s}
+@keyframes eblink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+.items{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.2vw,22px)}
+.item{padding:clamp(12px,1.4vw,24px) 10px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;border-color:rgba(38,184,176,.35);transition:transform .4s,border-color .4s}
+.item svg.ico{width:clamp(56px,6vw,118px);height:auto}
+.item b{font-size:clamp(14px,1.2vw,23px)}
+.item .ck{width:clamp(28px,2.4vw,44px);height:clamp(28px,2.4vw,44px);border-radius:50%;border:2px solid var(--teal);display:grid;place-items:center;color:var(--bg);transition:background .35s}
+.item .ck svg{width:60%;stroke-dasharray:30;stroke-dashoffset:30;transition:stroke-dashoffset .5s .1s}
+.item.ok{transform:translateY(-6px);border-color:var(--teal-hi);box-shadow:0 14px 40px -18px var(--teal)}
+.item.ok .ck{background:var(--teal-hi)}
+.item.ok .ck svg{stroke-dashoffset:0}
+.bubble{position:relative;align-self:center;display:flex;align-items:center;gap:14px;padding:clamp(12px,1.3vw,22px) clamp(16px,1.8vw,30px);border:1.5px solid var(--teal);border-radius:24px;background:rgba(14,27,49,.85);font-family:var(--display);font-weight:700;font-size:clamp(16px,1.5vw,28px);box-shadow:0 0 30px -10px var(--teal)}
+.bubble svg{width:clamp(26px,2vw,38px);color:var(--gold);flex:none}
+.bubble::after{content:"";position:absolute;bottom:-12px;left:22%;width:22px;height:22px;background:inherit;border-right:1.5px solid var(--teal);border-bottom:1.5px solid var(--teal);transform:rotate(45deg)}
+.mascot{display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2vh,26px);min-width:0}
+.mascot svg.bot{width:min(100%,clamp(170px,22vw,420px));height:auto;animation:bob 3.4s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(38,184,176,.25))}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.bot .arm{transform-origin:150px 150px;animation:wave 2.2s ease-in-out infinite}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-14deg)}85%{transform:rotate(8deg)}}
+.bot .lids{transform-origin:100px 76px;animation:eblink 4.4s infinite}
+
+/* ---------- slide: bonus ---------- */
+.bonus{height:100%;display:grid;grid-template-columns:1.05fr 1fr;grid-template-rows:auto 1fr;gap:clamp(12px,1.4vw,22px)}
+.bonus .s-head{grid-column:1/-1;margin:0}
+.podium{padding:clamp(14px,1.6vw,28px);display:flex;flex-direction:column;gap:14px;min-height:0}
+.pod{flex:1;display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:clamp(8px,1vw,18px);min-height:0}
+.pl{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;min-width:0}
+.pl .av{width:clamp(54px,5.4vw,104px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;border:2px solid var(--c);background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);box-shadow:0 0 30px -8px var(--c)}
+.pl .av svg{width:66%}
+.pl b{font-family:var(--display);font-weight:700;font-size:clamp(14px,1.2vw,22px);line-height:1.25}
+.pl small{color:var(--mute);font-size:clamp(11px,.8vw,14px)}
+.pl .blk{width:100%;border-radius:14px 14px 6px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 30%,transparent),transparent);border:1px solid color-mix(in srgb,var(--c) 55%,transparent);border-bottom:none}
+.pl .blk .num{font-weight:900;font-size:clamp(22px,2.2vw,42px);color:var(--c)}
+.pl .blk span{font-size:clamp(10px,.75vw,13px);color:var(--mute)}
+.pl.p1{--c:var(--gold)} .pl.p2{--c:var(--teal)} .pl.p3{--c:var(--orange)}
+.pl.p1 .blk{height:clamp(120px,22vh,250px)} .pl.p2 .blk{height:clamp(90px,16vh,190px)} .pl.p3 .blk{height:clamp(70px,12vh,150px)}
+.pl .crown{width:clamp(26px,2.4vw,44px);color:var(--gold)}
+.pl.empty{opacity:.45}
+.rules{display:flex;flex-wrap:wrap;gap:8px}
+.rank{padding:clamp(12px,1.3vw,22px);display:flex;flex-direction:column;min-height:0}
+.rank-list{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(9,auto);align-content:start;gap:6px 10px;padding-inline-end:4px;scrollbar-width:thin}
+.rk{display:grid;grid-template-columns:1.6em 1fr auto;align-items:center;gap:8px;padding:5px 10px;border-radius:12px;background:rgba(255,255,255,.025)}
+.rk .pos{font-family:var(--display);font-weight:700;color:var(--dim);text-align:center}
+.rk .who{min-width:0}
+.rk .who b{font-family:var(--display);font-weight:600;font-size:clamp(13px,.95vw,17px);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk .who small{color:var(--dim);font-size:clamp(10px,.72vw,13px);display:block;line-height:1.3}
+.rk .pts{font-family:var(--display);font-weight:800;font-size:clamp(15px,1.15vw,22px);color:var(--gold);font-variant-numeric:tabular-nums;min-width:2.2em;text-align:center}
+.rk .ed{display:none;gap:4px}
+.edit .rk .ed{display:flex}
+.ed button{border:1px solid var(--edge);background:var(--panel-hi);border-radius:8px;padding:2px 8px;font-size:13px;font-weight:700}
+.ed button.plus{color:var(--ok)} .ed button.minus{color:var(--orange)}
+.depts{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.dp{display:grid;grid-template-columns:minmax(0,13em) 1fr 2.6em;gap:10px;align-items:center;font-size:clamp(11px,.85vw,15px);color:var(--mute)}
+.dp .tr{height:9px;border-radius:9px;background:rgba(255,255,255,.06);overflow:hidden}
+.dp .tr i{display:block;height:100%;border-radius:inherit;transition:width .6s}
+.dp .num{color:var(--ink);font-weight:700;text-align:start}
+.btn{border:1px solid var(--edge);background:var(--panel-hi);border-radius:12px;padding:7px 14px;font-weight:600;font-size:clamp(12px,.85vw,15px);display:inline-flex;align-items:center;gap:8px}
+.btn:hover{border-color:var(--edge-hi)}
+.btn.on{background:var(--teal);color:var(--bg);border-color:var(--teal)}
+.btn.warn{color:var(--orange)}
+.empty-note{color:var(--mute);font-size:clamp(12px,.9vw,16px);text-align:center;margin:0}
+
+/* ---------- slide: heroes ---------- */
+.heroes{height:100%;display:flex;flex-direction:column}
+.h-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:1fr 1fr;gap:clamp(10px,1.2vw,20px)}
+.dept{grid-column:span 2;padding:clamp(12px,1.3vw,22px);display:flex;flex-direction:column;gap:10px;overflow:hidden;--c:var(--teal)}
+.dept.o{--c:var(--orange)}
+.dept:nth-child(4){grid-column:2/span 2}
+.dept-h{display:flex;align-items:center;gap:12px}
+.dept-ic{width:clamp(44px,3.8vw,70px);aspect-ratio:1;border-radius:50%;border:2px solid var(--c);display:grid;place-items:center;flex:none;box-shadow:0 0 0 6px color-mix(in srgb,var(--c) 12%,transparent),0 0 30px -6px var(--c);background:radial-gradient(circle,#15305a,#0B1830)}
+.dept-ic svg{width:60%}
+.dept-h b{font-family:var(--display);font-weight:800;font-size:clamp(15px,1.3vw,25px);display:block;line-height:1.25}
+.dept-h .en{color:var(--c);font-size:clamp(8px,.55vw,11px);letter-spacing:.25em}
+.dept-h .cnt{margin-inline-start:auto;font-family:var(--display);font-weight:700;background:var(--c);color:var(--bg);border-radius:99px;min-width:1.9em;text-align:center;padding:1px 8px;font-size:clamp(12px,.9vw,16px)}
+.mem{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start}
+.m{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--edge);background:rgba(255,255,255,.035);border-radius:14px;padding:6px 14px 6px 8px;font-family:var(--display);font-weight:500;font-size:clamp(13px,1.2vw,23px);animation:pop .5s backwards}
+.m svg{width:clamp(20px,1.7vw,32px);flex:none}
+.m em{font-style:normal;font-size:.72em;color:var(--c);font-weight:700}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+.motto{margin-top:clamp(8px,1.4vh,16px);text-align:center;font-family:var(--display);font-weight:700;font-size:clamp(15px,1.3vw,24px)}
+.motto .en{display:block;color:var(--dim);font-size:clamp(8px,.6vw,11px);margin-top:4px}
+
+/* ---------- slide: week ---------- */
+.week{height:100%;display:flex;flex-direction:column}
+.w-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1vw,18px)}
+.wd{padding:clamp(12px,1.2vw,22px);display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.wd.today{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal),0 18px 50px -24px var(--teal)}
+.wd.past{opacity:.45}
+.wd-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--edge);padding-bottom:8px}
+.wd-h b{font-family:var(--display);font-weight:800;font-size:clamp(15px,1.3vw,24px)}
+.wd-h .num{color:var(--mute);font-size:clamp(12px,.9vw,16px)}
+.wd .code{font-family:var(--display);color:var(--teal);font-weight:700;font-size:clamp(11px,.85vw,15px);direction:ltr;text-align:right}
+.wd .tp{font-family:var(--display);font-weight:700;font-size:clamp(14px,1.2vw,22px);line-height:1.3;direction:ltr;text-align:right;unicode-bidi:plaintext;flex:1}
+.wd .who{color:var(--mute);font-size:clamp(11px,.85vw,15px);direction:ltr;text-align:right}
+.wd .badge-today{align-self:flex-start;background:var(--teal);color:var(--bg);border-radius:99px;padding:1px 10px;font-size:12px;font-weight:700}
+.w-foot{margin-top:clamp(8px,1.2vh,16px);display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--mute);font-size:clamp(12px,.9vw,16px)}
+
+/* footer */
+.ftr{display:flex;align-items:center;gap:clamp(8px,1vw,16px);flex-wrap:wrap}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
+.tab{position:relative;border:1px solid var(--edge);background:rgba(14,27,49,.8);border-radius:12px;padding:7px clamp(10px,1vw,18px);font-weight:600;font-size:clamp(12px,.85vw,15px);color:var(--mute);overflow:hidden}
+.tab.on{color:var(--ink);border-color:var(--edge-hi)}
+.tab .pg{position:absolute;inset-block-end:0;inset-inline-start:0;height:3px;width:0;background:var(--teal)}
+.tab.on .pg{width:var(--p,0%)}
+.ctrl{margin-inline-start:auto;display:flex;gap:6px}
+.ib{width:38px;height:38px;border-radius:12px;border:1px solid var(--edge);background:rgba(14,27,49,.8);display:grid;place-items:center;color:var(--mute)}
+.ib:hover{color:var(--ink);border-color:var(--edge-hi)}
+.ib svg{width:18px;height:18px}
+.motto-mini{color:var(--dim);font-size:13px;font-family:var(--display)}
+
+/* return alert banner */
+.alert{position:fixed;z-index:20;left:16px;right:16px;margin-inline:auto;width:fit-content;top:calc(env(safe-area-inset-top,0px) + 14px);transform:translateY(-160%);transition:transform .6s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;gap:14px;background:var(--orange);color:#1B0C04;border-radius:18px;padding:12px 24px;font-family:var(--display);font-weight:800;font-size:clamp(15px,1.5vw,28px);box-shadow:0 20px 60px -10px rgba(242,112,61,.6);max-width:calc(100% - 32px)}
+.alert.show{transform:none}
+.alert svg{width:1.4em;flex:none}
+.alert .num{background:rgba(0,0,0,.18);border-radius:10px;padding:0 10px}
+
+/* settings */
+.sheet{position:fixed;z-index:30;bottom:calc(env(safe-area-inset-bottom,0px) + 70px);left:max(16px,env(safe-area-inset-left,0px));width:min(340px,calc(100% - 32px));padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 30px 80px -20px #000}
+.sheet h4{margin:0;font-family:var(--display);font-size:16px}
+.sheet label{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;color:var(--mute)}
+.sheet input,.sheet select{background:var(--bg2);border:1px solid var(--edge);color:var(--ink);border-radius:10px;padding:6px 10px;font:inherit}
+.sheet p{margin:0;font-size:12px;color:var(--dim);line-height:1.6}
+.kbd{font-family:var(--display);font-size:11px;border:1px solid var(--edge);border-radius:6px;padding:0 6px;color:var(--mute)}
+
+/* narrow screens: let it scroll and stack */
+@media (max-width:900px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100%}
+  .slide{position:relative;inset:auto}
+  .live,.bonus,.forget{grid-template-columns:1fr;grid-template-rows:none}
+  .now{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .now-txt{align-items:center}
+  .chip{align-self:center}
+  .sch-grid{grid-template-columns:1fr}
+  .grp{grid-template-columns:44px 1fr}
+  .ret{grid-column:1/-1;border-inline-start:none;border-top:1px solid var(--edge);padding:8px 12px}
+  .items{grid-template-columns:repeat(2,1fr)}
+  .h-grid{grid-template-columns:1fr;grid-template-rows:none}
+  .dept,.dept:nth-child(4){grid-column:auto}
+  .w-grid{grid-template-columns:1fr}
+  .rank-list{grid-template-columns:1fr;grid-auto-flow:row;grid-template-rows:none}
+  .hdr{flex-wrap:wrap}
+  .tl-b span{display:none}
+  .tl-scale span:nth-last-child(2){display:none}
+  .pod{min-height:300px}
+  .mascot{order:-1}
+  .tape{align-self:center}
+  .fg-main{align-items:center;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="topline"></div>
+
+<div class="alert" id="alert" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>
+  <span id="alertTxt">التحضير للعودة — توجّهوا للقاعات</span>
+  <span class="num" id="alertNum">05:00</span>
+</div>
+
+<div class="app" id="app">
+  <header class="hdr">
+    <div class="brand">
+      <svg id="logo" viewBox="0 0 1060 340" role="img" aria-label="EWA"></svg>
+      <div class="brand-txt"><b>نادي الذكاء الاصطناعي</b><span class="en">EWA AI CLUB · 2026–27</span></div>
+    </div>
+    <div class="hdr-mid">
+      <div class="d1" id="dDay">—</div>
+      <div class="d2" id="dHijri">—</div>
+      <div class="sim-tag">وقت تجريبي</div>
+    </div>
+    <div class="clock" aria-label="الساعة"><span class="num" id="clk">--:--</span><span class="sec num" id="clkS">00</span><small id="clkAP">ص</small></div>
+  </header>
+
+  <main class="stage" id="stage">
+
+    <!-- 1 · live -->
+    <section class="slide" data-name="الآن" id="s-live">
+      <div class="live">
+        <div class="panel now" id="now">
+          <div class="now-txt">
+            <span class="chip" id="nowChip"><span class="dot"></span><span id="nowKind">—</span></span>
+            <h1 class="now-name" id="nowName">—</h1>
+            <div class="now-range" id="nowRange"></div>
+            <div class="now-msg" id="nowMsg"></div>
+            <div class="bar"><i id="nowBar"></i></div>
+          </div>
+          <div class="ring">
+            <svg viewBox="0 0 120 120"><circle class="tick" cx="60" cy="60" r="56" stroke-width="3"/><circle class="track" cx="60" cy="60" r="48" stroke-width="9"/><circle class="prog" id="ringP" cx="60" cy="60" r="48" stroke-width="9" stroke-dasharray="301.6" stroke-dashoffset="301.6"/></svg>
+            <div class="ring-in"><b class="num" id="ringNum">--:--</b><span id="ringLbl">متبقي</span></div>
+          </div>
+        </div>
+        <div class="side">
+          <div class="panel card">
+            <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>التالي</h3>
+            <div class="next-name" id="nextName">—</div>
+            <div class="next-meta" id="nextMeta"></div>
+          </div>
+          <div class="panel card today">
+            <h3>جلسة البرنامج اليوم</h3>
+            <div class="topic" id="tdTopic">—</div>
+            <div class="tags" id="tdTags"></div>
+            <div class="up" id="tdUp"></div>
+          </div>
+        </div>
+        <div class="panel tl">
+          <div class="tl-head">
+            <div class="eyebrow"><i></i>مسار اليوم التدريبي</div>
+            <div class="legend"><span><i style="background:var(--teal)"></i>محاضرة</span><span><i style="background:var(--gold)"></i>بريك</span><span><i style="background:var(--orange)"></i>غداء</span></div>
+          </div>
+          <div class="tl-row" id="tl"></div>
+          <div class="tl-scale" id="tlScale"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · schedule -->
+    <section class="slide" data-name="البريكات" id="s-sched">
+      <div class="sched">
+        <div class="s-head">
+          <div><div class="eyebrow"><i></i>خلال اليوم التدريبي</div><h2 class="s-title">جدول المحاضرات <em>والبريكات</em></h2></div>
+          <span class="tag g">التحضير للعودة قبل نهاية كل بريك بخمس دقائق</span>
+        </div>
+        <div class="sch-grid" id="schGrid"></div>
+        <div class="panel note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01" stroke-linecap="round"/></svg>
+          <p>يبدأ التحضير للعودة إلى القاعات التدريبية <b>قبل انتهاء كل بريك بخمس دقائق</b>، نأمل من الجميع الاستعداد لبدء المحاضرة في موعدها وعدم التأخر.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · don't forget -->
+    <section class="slide" data-name="لا تنسى" id="s-forget">
+      <div class="forget">
+        <div class="fg-main">
+          <div class="tape">لحظة...</div>
+          <p class="fg-sub">تأكد ما نسيت شي!
+            <span class="eyes" aria-hidden="true"><span class="eye"><i></i></span><span class="eye"><i></i></span></span>
+          </p>
+          <div class="items" id="items"></div>
+        </div>
+        <div class="mascot">
+          <div class="bubble"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.9V16h5v-.2c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3z"/><path d="M12 0v1M3.5 3.5l.8.8M20.5 3.5l-.8.8M1 11h1M22 11h1"/></svg>خذ نظرة على مكانك قبل تطلع</div>
+          <svg class="bot" id="bot" viewBox="0 0 200 250" role="img" aria-label="روبوت النادي"></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · bonus -->
+    <section class="slide" data-name="بونس الأسبوع" id="s-bonus">
+      <div class="bonus" id="bonus">
+        <div class="s-head">
+          <div><div class="eyebrow"><i></i><span id="bWeek">الأسبوع</span></div><h2 class="s-title">بونس <em>الأسبوع</em></h2></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn" id="bEdit" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>تسجيل النقاط</button>
+            <button class="btn warn" id="bReset" type="button" hidden>تصفير الأسبوع</button>
+            <button class="btn warn" id="bResetOk" type="button" hidden>متأكد؟ اضغط للتصفير</button>
+          </div>
+        </div>
+        <div class="panel podium">
+          <div class="pod" id="pod"></div>
+          <div class="rules" id="rules"></div>
+        </div>
+        <div class="panel rank">
+          <div class="eyebrow" style="margin-bottom:8px"><i></i>الترتيب العام</div>
+          <div class="rank-list" id="rankList"></div>
+          <div class="eyebrow" style="margin:12px 0 4px"><i style="background:var(--orange);box-shadow:0 0 0 4px var(--orange-soft)"></i>نقاط الأقسام</div>
+          <div class="depts" id="deptBars"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · heroes -->
+    <section class="slide" data-name="أبطال النادي" id="s-heroes">
+      <div class="heroes">
+        <div class="s-head">
+          <div><div class="eyebrow"><i></i>فرق الأقسام · 2026–27</div><h2 class="s-title">أبطال <em>نادي الذكاء الاصطناعي</em></h2></div>
+          <span class="tag t" id="hCount"></span>
+        </div>
+        <div class="h-grid" id="hGrid"></div>
+        <div class="motto">لا نتعلم الذكاء الاصطناعي، نصنع أثره<span class="en">EWA AI CLUB · ENERGY &amp; WATER ACADEMY</span></div>
+      </div>
+    </section>
+
+    <!-- 6 · week -->
+    <section class="slide" data-name="جلسات الأسبوع" id="s-week">
+      <div class="week">
+        <div class="s-head">
+          <div><div class="eyebrow"><i></i><span id="wkMod">Association Degree · AI</span></div><h2 class="s-title">جلسات <em id="wkTitle">الأسبوع</em></h2></div>
+          <span class="tag" id="wkRange"></span>
+        </div>
+        <div class="w-grid" id="wGrid"></div>
+        <div class="w-foot" id="wFoot"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ftr">
+    <nav class="tabs" id="tabs" aria-label="الشرائح"></nav>
+    <span class="motto-mini" id="hint">اسحب الشاشة يمين ويسار للتنقل</span>
+    <div class="ctrl">
+      <button class="ib" id="bPrev" type="button" aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="ib" id="bPlay" type="button" aria-label="إيقاف التنقل التلقائي"><svg viewBox="0 0 24 24" fill="currentColor" id="playIc"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+      <button class="ib" id="bNext" type="button" aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button class="ib" id="bFull" type="button" aria-label="ملء الشاشة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="ib" id="bSet" type="button" aria-label="الإعدادات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 7 19.4a1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 1.2 14H1a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 2.6 7a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 7 2.6 1.7 1.7 0 0 0 8 1.1V1a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 19.4 7c.3.6.9 1 1.6 1h.1a2 2 0 1 1 0 4H21a1.7 1.7 0 0 0-1.6 1z"/></svg></button>
+    </div>
+  </footer>
+</div>
+
+<div class="panel sheet" id="sheet" hidden>
+  <h4>إعدادات الشاشة</h4>
+  <label for="optDur">مدة كل شريحة
+    <select id="optDur"><option value="10">10 ثوانٍ</option><option value="15" selected>15 ثانية</option><option value="25">25 ثانية</option><option value="40">40 ثانية</option></select>
+  </label>
+  <label for="optSim">تجربة وقت آخر
+    <input type="checkbox" id="optSim">
+  </label>
+  <label for="optTime">الوقت التجريبي
+    <input type="time" id="optTime" value="09:56">
+  </label>
+  <p>التنبيهات تشتغل تلقائيًا: شريط «ارجعوا للقاعات» في آخر 5 دقائق من كل بريك، وشريحة «لا تنسى أغراضك» قبل الغداء ونهاية اليوم.</p>
+  <p>التنقل: <span class="kbd">←</span> <span class="kbd">→</span> · إيقاف <span class="kbd">مسافة</span> · ملء الشاشة <span class="kbd">F</span></p>
+</div>
+
+<script>
+// Program plan from the Association Degree sheet: [date, week, session, unit, topic, instructor, delivery]
+const SESSIONS=[["2026-04-26",1,"1.1","AIT-101","Program Orientation | Why should you become a Data Scientist","Dr. Mo Medwani","In Person"],["2026-04-27",1,"2.1","AIT-101","Introduction to CRISP-DM","Dr. Mo Medwani","In Person"],["2026-04-28",1,"3.1","TCC-101","Decisions Management & Problem Framing","Dr. Mo Medwani","In Person"],["2026-04-29",1,"4.1","AIT-101","Projects, Teams & Team Leads/ Program Tools & Installation","Dr. Mo Medwani","In Person"],["2026-04-30",1,"5.1","AIT-101","Soft Skills","EWA","In Person"],["2026-05-03",2,"1.2","AIT-101","Basic Python Programming","Prof. Talha Saleem","In Person"],["2026-05-04",2,"2.2","AIT-101","Python: NumPy Library","Prof. Talha Saleem","In Person"],["2026-05-05",2,"3.2","AIT-101","Python: Pandas Library","Prof. Talha Saleem","In Person"],["2026-05-06",2,"4.2","AIT-101","Python: Matplotlib & Seabron","Prof. Talha Saleem","In Person"],["2026-05-07",2,"5.2","AIT-101","Python: Regex","Prof. Talha Saleem","In Person"],["2026-05-10",3,"1.4","AIT-101","Getting Started with SQL for Data Analysis","Prof. Sakina Naqvi","In Person"],["2026-05-11",3,"2.4","AIT-101","Aggregating Data with SQL","Prof. Sakina Naqvi","In Person"],["2026-05-12",3,"3.4","AIT-101","Mastering SQL Joins and Relationships","Prof. Sakina Naqvi","In Person"],["2026-05-13",3,"4.4","AIT-101","Advanced Querying Techniques","Prof. Sakina Naqvi","In Person"],["2026-05-14",3,"5.4","AIT-101","Data Cleaning and Transformation in SQL | SQL for Dashboards and Data Exploration","Prof. Sakina Naqvi","In Person"],["2026-05-17",4,"1.3","AIT-101","Descriptive Statistics & Probability","Dr. Enes Ozel","In Person"],["2026-05-18",4,"2.3","AIT-101","Distributions, Correlation & Inferential Statistics","Dr. Enes Ozel","In Person"],["2026-05-19",4,"3.3","AIT-101","Resampling & Nonparametric Methods","Dr. Enes Ozel","In Person"],["2026-05-20",4,"4.3","AIT-101","Bayesian Statistics & Multivariate Analysis","Dr. Enes Ozel","In Person"],["2026-05-21",4,"5.3","AIT-101","Generalized Linear Models (GLMs) | Experimental Design & Statistical Modeling","Dr. Enes Ozel","In Person"],["2026-06-07",5,"1.5","AIT-104","Introduction to Data Literacy and Biases","Dr. Mo Medwani","Virtual - EWA"],["2026-06-08",5,"2.5","AIT-104","Data Loading & Manipulation","Dr. Mo Medwani","Virtual - EWA"],["2026-06-09",5,"3.5","AIT-104","Exploratory Data Analysis | Data Types- Measure of Shape - Position - Dispersion","Prof. Ihsan Hawke","Virtual - EWA"],["2026-06-10",5,"4.5","TCC-101","Health and Safety- 1","EWA","In Person"],["2026-06-11",5,"5.5","SFT-101","Team Projects 1st Presentation (Framing Business Problem)","Dr. Mo Medwani","In Person"],["2026-06-14",6,"1.6","AIT-104","Building a framework for Visual Data Sensemaking","Dr. Nisrin Orabi","In Person"],["2026-06-15",6,"2.6","AIT-104","Variation and Relationships (Categorical Variables)","Dr. Nisrin Orabi","In Person"],["2026-06-16",6,"3.6","AIT-104","Variation and Relationships (Quantitative Variables)","Dr. Nisrin Orabi","In Person"],["2026-06-17",6,"4.6","AIT-101","Multivariate Analysis & Advanced Visualization Techniques","Dr. Nisrin Orabi","In Person"],["2026-06-18",6,"5.6","AIT-101","Storytelling, Dashboard Architecture & Decision Intelligence","Dr. Nisrin Orabi","In Person"],["2026-06-21",7,"1.7","AIT-104","Data Preparation & Processing (Numeric Attributes & Transformation)","Dr. Mo Medwani","In Person"],["2026-06-22",7,"2.7","AIT-104","Data Preparation & Processing (Missing Values)","Dr. Mo Medwani","In Person"],["2026-06-23",7,"3.7","AIT-104","Data Preparation & Processing (Outliers | Duplicates)","Prof. Ihsan Hawke","Virtual - Fetoun Srajeddine"],["2026-06-24",7,"4.7","AIT-101","Data Preparation & Processing (Categorical Encoding & Feature Engineering)","Dr. Mo Medwani","Virtual - Fetoun Srajeddine"],["2026-06-25",7,"5.7","AIT-101","Data Preparation & Processing (Data Splitting, Scaling & Pipeline Integration)","Dr. Mo Medwani","Virtual - Fetoun Srajeddine"],["2026-06-28",8,"1.8","AIT-104","Principal Component Analysis","Dr. Faly Mbengue","Virtual - EWA"],["2026-06-29",8,"2.8","AIT-104","Linear Discriminant Analysis","Dr. Faly Mbengue","Virtual - EWA"],["2026-06-30",8,"3.8","AIT-104","Singular Value Decomposition","Dr. Faly Mbengue","Virtual - EWA"],["2026-07-01",8,"4.8","AIT-104","ISOMAP | Locally Linear |","Dr. Faly Mbengue","Virtual - EWA"],["2026-07-02",8,"5.8","AIT-104","Modified Locally Linear Embedding","Dr. Faly Mbengue","Virtual - EWA"],["2026-07-05",9,"1.9","AIT-105","Introduction to Machine Learning","Dr. Mo Medwani","In Person"],["2026-07-06",9,"2.9","AIT-105","Decision Tree","Dr. Mo Medwani","In Person"],["2026-07-07",9,"3.9","AIT-105","Logistic Regression | Naïve Bayes","Dr. Mo Medwani","In Person"],["2026-07-08",9,"4.9","AIT-104","Support Vector Machine SVM & KSVM |","Dr. Mo Medwani","In Person"],["2026-07-09",9,"5.9","AIT-104","Neighbor Classifiers (KNN)","Dr. Mo Medwani","In Person"],["2026-07-12",10,"1.10","AIT-105","Simple Linear Regression & Polynomial Regression","Dr. Faly Mbengue","In Person"],["2026-07-13",10,"2.10","AIT-105","Multiple Linear Regression","Dr. Faly Mbengue","In Person"],["2026-07-14",10,"3.10","AIT-105","Least Square/Lasso/Ridge/Elastic Net Regression","Dr. Faly Mbengue","In Person"],["2026-07-15",10,"4.10","AIT-104","Decision Tree Regression | Support Vector Machine SVR","Dr. Faly Mbengue","In Person"],["2026-07-16",10,"5.10","SFT-101","Capstone Projects 2nd Presentation (Data Understanding & Data Viz)","Dr. Faly Mbengue","In Person"],["2026-07-19",11,"Exam 1","","Program Recap","","Virtual - Nidal S. Azzam"],["2026-07-20",11,"Exam 1","","Book Summary","","Virtual - Nidal S. Azzam"],["2026-07-21",11,"Exam 1","","Terminology Exam","","Virtual - Nidal S. Azzam"],["2026-07-22",11,"Exam 1","","Concepts Exam","","Virtual - Nidal S. Azzam"],["2026-07-23",11,"Exam 1","","Hands-on Exam","","Virtual - Nidal S. Azzam"],["2026-08-23",12,"1.12","AIT-105","Random Forest Voting & Averaging","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-08-24",12,"2.12","AIT-105","Bagging and Boosting Models","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-08-25",12,"3.12","AIT-105","Gradient Boosting","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-08-26",12,"4.12","AIT-104","Ada-Boost and Stacking","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-08-27",12,"5.12","AIT-104","Class Imbalanced Problem","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-08-30",13,"1.13","AIT-105","Model generalization: Assessing Predictive Accuracy for New Data","Dr. Mo Medwani","In Person"],["2026-08-31",13,"2.13","AIT-105","Evaluation of Classification & Regression Models","Dr. Mo Medwani","In Person"],["2026-09-01",13,"3.13","AIT-105","Model Explainability and Interpretability","Dr. Mo Medwani","In Person"],["2026-09-02",13,"4.13","AIT-105","Model Optimization through Parameter Tuning","Dr. Mo Medwani","In Person"],["2026-09-03",13,"5.13","AIT-105","XGBoost","Dr. Mo Medwani","In Person"],["2026-09-06",14,"1.14","AIT-106","K-Mean Clustering","Dr. Mo Medwani","In Person"],["2026-09-07",14,"2.14","AIT-106","Agglomerative Hierarchical Clustering","Dr. Mo Medwani","In Person"],["2026-09-08",14,"3.14","AIT-106","DBSCAN and Mean Shift","Dr. Mo Medwani","In Person"],["2026-09-09",14,"4.14","AIT-106","Gaussian Mixed Models and Fuzzy C Means","Dr. Mo Medwani","In Person"],["2026-09-10",14,"5.14","AIT-106","Clustering Models Evaluation","Dr. Mo Medwani","In Person"],["2026-09-13",15,"1.15","AIT-106","Anomalies Detections","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-09-14",15,"2.15","AIT-106","A/B Testing","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-09-15",15,"3.15","AIT-106","Association Rules - Apriori & Eclat","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-09-16",15,"4.15","AIT-106","Recommender Systems: 1st -2nd Generation","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-09-17",15,"5.15","AIT-105","Recommender Systems: 3rd Generation","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-09-20",16,"1.16","AIT-106","Time Series Processing & Assumptions","Dr. Salochina Oad","Virtual - EWA Rep"],["2026-09-21",16,"2.16","AIT-106","AR - MA & EST Models","Dr. Salochina Oad","Virtual - EWA Rep"],["2026-09-22",16,"3.16","AIT-106","ARMA Models","Dr. Salochina Oad","Virtual - EWA Rep"],["2026-09-27",17,"1.17","AIT-106","Python: BeautifulSoup","Prof. Talha Saleem","In Person"],["2026-09-28",17,"2.17","AIT-106","Python: SciPy","Prof. Talha Saleem","In Person"],["2026-09-29",17,"3.17","AIT-106","Python: TensorFlow & Keras","Prof. Talha Saleem","In Person"],["2026-09-30",17,"4.17","AIT-106","Python: PyTorch","Prof. Talha Saleem","In Person"],["2026-10-01",17,"5.17","AIT-106","Python: LangChain","Prof. Talha Saleem","In Person"],["2026-10-04",18,"1.18","AIT-107","Introduction to Deep Learning & Neural Networks","Dr. Mo Medwani","In Person"],["2026-10-05",18,"2.18","AIT-107","Neural Network Architecture & Training Mechanics","Dr. Mo Medwani","In Person"],["2026-10-06",18,"3.18","AIT-107","Overfitting, Regularization & Model Optimization","Dr. Mo Medwani","In Person"],["2026-10-07",18,"4.18","AIT-106","Convolutional Principles & Feature Learning","Dr. Mo Medwani","In Person"],["2026-10-08",18,"5.18","AIT-106","Deep Learning in Practice","Dr. Mo Medwani","In Person"],["2026-10-11",19,"1.19","AIT-107","Generative Adversarial Networks (GANs)","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-10-12",19,"2.19","AIT-107","Self-Organizing Maps","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-10-13",19,"3.19","AIT-107","Boltzmann Machines","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-10-14",19,"4.19","AIT-106","Autoencoders (AE)","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-10-15",19,"5.19","AIT-106","Variational Autoencoders (VAE)","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-10-18",20,"1.20","AIT-107","Recurrent Neural Networks (RNN)","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-10-19",20,"2.20","AIT-107","Long Short-Term Memory (LSTM)","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-10-20",20,"3.20","AIT-107","Gated Recurrent Unit (GRU)","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-10-21",20,"4.20","AIT-106","RNN vs LSTM with Google Stock Price","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-10-22",20,"5.20","AIT-106","RNN vs LSTM with Sentiment Analysis","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-10-25",21,"1.21","AIT-107","Image Classification","Prof. Imran Javed","In Person"],["2026-10-26",21,"2.21","AIT-107","Object Detection","Prof. Imran Javed","In Person"],["2026-10-27",21,"3.21","AIT-107","Image Segmentation","Prof. Imran Javed","In Person"],["2026-10-28",21,"4.21","AIT-106","Feature Extraction & Representation Learning","Prof. Imran Javed","In Person"],["2026-10-29",21,"5.21","AIT-106","Image Generation & Enhancement","Prof. Imran Javed","In Person"],["2026-11-01",22,"1.22","AIT-108","Introduction to Natural Language Processing | Feature Extractions","Dr. Mo Medwani","In Person"],["2026-11-02",22,"2.22","AIT-108","Text Classification | Text Summarization","Dr. Mo Medwani","In Person"],["2026-11-03",22,"3.22","AIT-108","Topic Modeling","Dr. Mo Medwani","In Person"],["2026-11-04",22,"4.22","AIT-107","Sentiment Analysis","Dr. Mo Medwani","In Person"],["2026-11-05",22,"5.22","SFT-101","Team Projects 4th Presentation (AI Solution - Machine Learning)","Dr. Mo Medwani","In Person"],["2026-11-08",23,"Exam 2","","Program Recap","","In Person"],["2026-11-09",23,"Exam 2","","Book Summary","","In Person"],["2026-11-10",23,"Exam 2","","Terminology Exam","","In Person"],["2026-11-11",23,"Exam 2","","Concepts Exam","","In Person"],["2026-11-12",23,"Exam 2","","Hands-on Exam","","In Person"],["2026-11-15",24,"1.24","AIT-108","Introduction to Hugging Face Transformers","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-11-16",24,"2.24","AIT-108","Text Classification | Text Summarization with Hugging Face","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-11-17",24,"3.24","AIT-108","Evaluating Transformer Models with Hugging Face","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-11-18",24,"4.24","OJT-208","On Job Training","EWA","Virtual - EWA Rep"],["2026-11-19",24,"5.24","TCC-201","Healthy and Safety-2","EWA","Virtual - EWA Rep"],["2026-11-29",25,"1.25","AIT-109","GenAI Foundations - NLP & Deep Learning","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-11-30",25,"2.25","AIT-109","Introduction To GenAI","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-12-01",25,"3.25","AIT-109","Introduction to LLMs","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-12-02",25,"4.25","AIT-109","Introduction to Transformers","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-12-03",25,"5.25","AIT-109","Introduction to Attention Mechanism","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2026-12-06",26,"1.26","AIT-109","Introduction ChatGPT - BERT - BARD","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-12-07",26,"2.26","AIT-109","Introduction to Prompt Engineering","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-12-08",26,"3.26","AIT-109","Open Source LLMs and Model Variants","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-12-09",26,"4.26","AIT-107","LLMs for Search, Prediction, and Generation","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-12-10",26,"5.26","AIT-107","Benchmark & Evaluation of LLM Capabilities","Dr. Mo Medwani","Virtual - EWA Rep"],["2026-12-13",27,"1.27","AIT-109","Introduction to Retrieval-Augmented Generation (RAG)","Dr. Mo Medwani","In Person"],["2026-12-14",27,"2.27","AIT-109","Retrieval Augmented Generation (RAG) Techniques","Dr. Mo Medwani","In Person"],["2026-12-15",27,"3.27","AIT-109","Vector Databases","Dr. Mo Medwani","In Person"],["2026-12-16",27,"4.27","AIT-109","LangChain & Workflow Design","Dr. Mo Medwani","In Person"],["2026-12-17",27,"5.27","AIT-109","Working with LangChain and LCEL","Dr. Mo Medwani","In Person"],["2026-12-20",28,"1.28","AIT-109","Data Engineering for GenAI","Dr. Mo Medwani","In Person"],["2026-12-21",28,"2.28","AIT-109","LLM Fine Tuning and Customization | RLHR","Dr. Mo Medwani","In Person"],["2026-12-22",28,"3.28","AIT-109","Stable Diffusion Ing Denoising and Autoencoder","Dr. Mo Medwani","In Person"],["2026-12-23",28,"4.28","AIT-109","Security and Ethical Considerations","Dr. Mo Medwani","In Person"],["2026-12-24",28,"5.28","SFT-101","Team Projects 5th Presentation (AI Solution - Deep Learning)","Dr. Mo Medwani","In Person"],["2026-12-27",29,"1.29","AIT-109","Introduction to Agentic Frameworks","Prof. Imran Javed","Virtual - Nidal S. Azzam"],["2026-12-28",29,"2.29","AIT-109","Implementing Agentic RAG","Prof. Imran Javed","Virtual - Nidal S. Azzam"],["2026-12-29",29,"3.29","AIT-109","Developing Al Agents with LangGraph","Prof. Imran Javed","Virtual - Nidal S. Azzam"],["2026-12-30",29,"4.29","AIT-109","Developing Al Agents with Phidata","Prof. Imran Javed","Virtual - Nidal S. Azzam"],["2026-12-31",29,"5.29","AIT-109","Advanced Agent Development with Autogen","Prof. Imran Javed","Virtual - Nidal S. Azzam"],["2027-01-03",30,"1.30","AIT-109","AI Agent Architecture & Deployment Foundations","Prof. Imran Javed","Virtual - EWA Rep"],["2027-01-04",30,"2.30","AIT-109","Al Driven Programming for Developers","Prof. Imran Javed","Virtual - EWA Rep"],["2027-01-05",30,"3.30","AIT-109","Building Al Agents with No Low Code Tools","Prof. Imran Javed","Virtual - EWA Rep"],["2027-01-06",30,"4.30","AIT-109","Multi Agent Systems with LangGraph and CrewAl","Prof. Imran Javed","Virtual - EWA Rep"],["2027-01-07",30,"5.30","AIT-109","Al Agent Observability and AgentOPs","Prof. Imran Javed","Virtual - EWA Rep"],["2027-01-17",31,"1.31","AIT-109","Generative AI in Sales & Marketing","Prof. Imran Javed","In Person"],["2027-01-18",31,"2.31","AIT-109","Generative AI in Software Engineering","Prof. Imran Javed","In Person"],["2027-01-19",31,"3.31","AIT-109","Generative AI in Customer Service","Prof. Imran Javed","In Person"],["2027-01-20",31,"4.31","AIT-109","Generative AI in Data Analytics | Product R&D","Prof. Imran Javed","In Person"],["2027-01-21",31,"5.31","AIT-109","Generative AI Governance | Ethics | Safety | Responsibility","Prof. Imran Javed","In Person"],["2027-01-24",32,"1.32","AIT-102","Introduction to Cybersecurity for AI and Data Systems","Dr. Ahmed El Ouadghiri","In Person"],["2027-01-25",32,"2.32","AIT-102","AI-Specific Threats: Adversarial Attacks & Model Theft","Dr. Ahmed El Ouadghiri","In Person"],["2027-01-26",32,"3.32","AIT-102","Securing Data Pipelines & ML Workflows (Data to Model)","Dr. Ahmed El Ouadghiri","In Person"],["2027-01-27",32,"4.32","AIT-102","Data Governance in AI: Policies, Access, Lineage","Dr. Ahmed El Ouadghiri","In Person"],["2027-01-28",32,"5.32","AIT-102","Privacy-by-Design for AI Systems (GDPR, HIPAA, etc.)","Dr. Ahmed El Ouadghiri","In Person"],["2027-01-31",33,"1.33","AIT-102","Certification Awareness: IAPP CIPT and Real-world Compliance Cases","Dr. Ahmed El Ouadghiri","Virtual - Nidal S. Azzam"],["2027-02-01",33,"2.33","AIT-102","Tools: DPIA, PIA, Model Cards, AI System Logs","Dr. Ahmed El Ouadghiri","Virtual - Nidal S. Azzam"],["2027-02-02",33,"3.33","AIT-102","Designing Secure AI Infrastructure (MLOps & DevSecOps)","Dr. Ahmed El Ouadghiri","Virtual - Nidal S. Azzam"],["2027-02-03",33,"4.33","AIT-102","Monitoring, Logging, and AI Incident Response Planning","Dr. Ahmed El Ouadghiri","Virtual - Nidal S. Azzam"],["2027-02-04",33,"5.33","SFT-101","Team Projects 6th Presentation (AI Solution - GenAI)","Dr. Mo Medwani","Virtual - Nidal S. Azzam"],["2027-02-07",34,"1.34","AIT-102","Algorithmic Bias, Discrimination & Social Implications","Dr. Ahmed El Ouadghiri","Virtual - EWA Rep"],["2027-02-08",34,"2.34","AIT-102","Fairness, Explainability, and Transparency in AI","Dr. Ahmed El Ouadghiri","Virtual - EWA Rep"],["2027-02-09",34,"3.34","AIT-102","AI Governance Frameworks: NIST RMF, ISO","Dr. Ahmed El Ouadghiri","Virtual - EWA Rep"],["2027-02-10",34,"4.34","AIT-109","AI Governance Frameworks: IEC 42001","Dr. Ahmed El Ouadghiri","Virtual - EWA Rep"],["2027-02-11",34,"5.34","AIT-109","Group Project: Build a Secure, Governed AI System (Team Work)","Dr. Ahmed El Ouadghiri","Virtual - EWA Rep"],["2027-02-14",35,"1.35","AIT-103","Introduction to Cloud Computing","Dr. Azhar Ushmani","Virtual"],["2027-02-15",35,"2.35","AIT-103","Cloud Providers Overview","Dr. Azhar Ushmani","Virtual"],["2027-02-16",35,"3.35","AIT-103","Setting Up AI Infrastructure on the Cloud","Dr. Azhar Ushmani","In Person"],["2027-02-17",35,"4.35","AIT-103","Cloud Storage & Data Management for AI","Dr. Azhar Ushmani","In Person"],["2027-02-18",35,"5.35","POP-308","Emergency Power System","EWA","In Person"],["2027-02-23",36,"3.36","AIT-103","Data Pipelines and ETL Processes on Cloud","Dr. Azhar Ushmani","In Person"],["2027-02-24",36,"4.36","AIT-103","Serverless Computing for AI","Dr. Azhar Ushmani","In Person"],["2027-02-25",36,"5.36","AIT-103","Securing Cloud-Based AI Systems","Dr. Azhar Ushmani","In Person"],["2027-02-28",37,"1.37","AIT-103","Cloud Resource Optimization & Cost Management","Dr. Azhar Ushmani","Virtual - Nidal S. Azzam"],["2027-03-01",37,"2.37","AIT-103","Monitoring and Managing Cloud AI Deployments","Dr. Azhar Ushmani","Virtual - Nidal S. Azzam"],["2027-03-02",37,"3.37","AIT-103","CI/CD for AI Models on the Cloud","Dr. Azhar Ushmani","Virtual - Nidal S. Azzam"],["2027-03-03",37,"4.37","AIT-103","Cloud-Based AI for Big Data & Real-Time Applications","Dr. Azhar Ushmani","Virtual - Nidal S. Azzam"],["2027-03-04",37,"5.37","AIT-103","Hybrid & Multi-Cloud Strategies for AI","Dr. Azhar Ushmani","Virtual - Nidal S. Azzam"],["2027-03-14",38,"1.38","AIT-110","Avoiding False Discoveries | Introduction to MLOps & Model Deployment","Dr. Mo Medwani","In Person"],["2027-03-15",38,"2.38","AIT-110","Model Deployment and Serving | CI/CD Pipelines for ML Projects","Daniel Islam","In Person"],["2027-03-16",38,"3.38","AIT-110","Model Monitoring and Drift Detection | Data and Model Versioning","Daniel Islam","In Person"],["2027-03-17",38,"4.38","AIT-110","Automation with Docker and Kubernetes","Daniel Islam","In Person"],["2027-03-18",38,"5.38","SFT-101","Team Projects 7th Presentation (Final Presentation & Action Plan)","Dr. Mo Medwani","In Person"],["2027-03-21",39,"1.39","AIT-111","Capstone Project","Support Team","In Person"],["2027-03-22",39,"2.39","AIT-111","","Support Team","In Person"],["2027-03-23",39,"3.39","AIT-111","","Support Team","In Person"],["2027-03-24",39,"4.39","AIT-111","","Support Team","In Person"],["2027-03-25",39,"5.39","AIT-111","","Support Team","In Person"],["2027-03-28",40,"Exam 3","","Program Recap","","In Person"],["2027-03-29",40,"Exam 3","","Book Summary","","In Person"],["2027-03-30",40,"Exam 3","","Terminology Exam","","In Person"],["2027-03-31",40,"Exam 3","","Concepts Exam","","In Person"],["2027-04-01",40,"Exam 3","","Hands-on Exam","","In Person"]];
+
+/* ---------- data ---------- */
+const DAY=[
+  {type:'lec',  name:'المحاضرة الأولى',  s:'08:00',e:'08:50',g:1},
+  {type:'brk',  name:'البريك الأول',     s:'08:50',e:'09:00',g:1},
+  {type:'lec',  name:'المحاضرة الثانية', s:'09:00',e:'09:50',g:2},
+  {type:'brk',  name:'البريك الثاني',    s:'09:50',e:'10:10',g:2},
+  {type:'lec',  name:'المحاضرة الثالثة', s:'10:10',e:'11:00',g:3},
+  {type:'brk',  name:'البريك الثالث',    s:'11:00',e:'11:10',g:3},
+  {type:'lec',  name:'المحاضرة الرابعة', s:'11:10',e:'12:00',g:4},
+  {type:'lunch',name:'بريك الغداء',      s:'12:00',e:'13:00',g:4},
+  {type:'lec',  name:'المحاضرة الخامسة', s:'13:00',e:'13:50',g:5},
+  {type:'brk',  name:'البريك الخامس',    s:'13:50',e:'14:00',g:5},
+  {type:'lec',  name:'المحاضرة السادسة', s:'14:00',e:'14:50',g:6},
+];
+const KIND={lec:'محاضرة',brk:'بريك',lunch:'استراحة الغداء'};
+const RETURN_LEAD=5; // minutes before a break ends
+
+const DEPTS=[
+  {name:'التدريب والتطوير',en:'Training & Development',tone:'o',icon:'cap',
+   members:['لجين السلمي','شرق السلمي','جوري الجعيد','عهد الفارسي','دعاء برناوي','الجوهرة الحربي']},
+  {name:'العلاقات العامة',en:'Public Relations',tone:'t',icon:'cube',
+   members:['أثير الخضير','ريما العتيبي','عبير العكوز']},
+  {name:'الفعاليات والتصميم',en:'Events & Design',tone:'t',icon:'pen',
+   members:['رغد المرشدي','سارة الوذيناني','شهد مروي','نجلاء قاري','محمد المطيري','سارة السليم']},
+  {name:'الخطابة والإلقاء',en:'AI Speaker',tone:'o',icon:'mic',
+   members:[['مروان الجهني','قائد القسم'],['عبدالرحمن قوتة','المساعد']]},
+  {name:'العلاقات الطلابية والشكاوى',en:'Student Relations',tone:'t',icon:'chat',
+   members:['عبدالرحمن الثقفي']},
+];
+// Weekly bonus: what earns points. Edit freely.
+const BONUS_RULES=[
+  {pts:5, label:'حضور قبل الوقت'},
+  {pts:5, label:'رجوع من البريك بالوقت'},
+  {pts:10,label:'مشاركة في المحاضرة'},
+  {pts:10,label:'مساعدة زميل'},
+  {pts:20,label:'مهمة للنادي'},
+];
+const ITEMS=[
+  {name:'بطاقتك الأكاديمية',icon:'card'},
+  {name:'الشاحن',icon:'plug'},
+  {name:'سماعات البلوتوث',icon:'buds'},
+  {name:'سلك الشحن',icon:'cable'},
+];
+
+/* ---------- helpers ---------- */
+const $=id=>document.getElementById(id);
+const T=s=>{const[h,m]=s.split(':').map(Number);return h*60+m};
+const pad=n=>String(n).padStart(2,'0');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function hm(min){let h=Math.floor(min/60),m=Math.round(min%60);if(m===60){h++;m=0}const ap=h<12?'ص':'م';let hh=h%12||12;return `${pad(hh)}:${pad(m)} ${ap}`}
+function hmB(min){const[t,ap]=hm(min).split(' ');return `<bdi class="num">${t}</bdi> ${ap}`}
+function hmPlain(min){let h=Math.floor(min/60)%12||12;return `${pad(h)}:${pad(min%60)}`}
+function mmss(min){const t=Math.max(0,Math.ceil(min*60));const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return h?`${h}:${pad(m)}:${pad(s)}`:`${pad(m)}:${pad(s)}`}
+function dur(min){min=Math.round(min);if(min<60)return `${min} دقيقة`;const h=Math.floor(min/60),m=min%60;return (h===1?'ساعة':h===2?'ساعتين':h+' ساعات')+(m?` و${m} دقيقة`:'')}
+const iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const store={get(k,f){try{const v=localStorage.getItem(k);return v==null?f:JSON.parse(v)}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const SESS={};SESSIONS.forEach(r=>SESS[r[0]]=r);
+const DOW=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const MON=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const delivery=d=>/in person/i.test(d)?['حضوري','t']:/virtual/i.test(d)?['عن بُعد','o']:[d||'—',''];
+
+/* ---------- time (real or simulated) ---------- */
+let sim=store.get('ewa-sim',{on:false,time:'09:56'});
+let simBase=Date.now();
+function now(){
+  const d=new Date();
+  if(!sim.on)return d;
+  const[h,m]=sim.time.split(':').map(Number);
+  const s=new Date(d);s.setHours(h,m,0,0);
+  return new Date(s.getTime()+(Date.now()-simBase));
+}
+
+/* ---------- SVG art ---------- */
+const NODE='#E9EEF4',TEAL='#26B8B0',ORNG='#F2703D';
+function line(pts,w=11){return `<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#DCE3EA" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`}
+function dot(x,y,r,c=NODE){return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}"/>`}
+function beacon(x,y,r,c){return `<circle cx="${x}" cy="${y}" r="${r*2.1}" fill="none" stroke="${c}" stroke-opacity=".35" stroke-width="3"/><circle cx="${x}" cy="${y}" r="${r*1.55}" fill="none" stroke="${c}" stroke-width="4"/>${dot(x,y,r,c)}`}
+function robotHead(ox=0,oy=0,s=1,ant=TEAL){
+  const P=p=>[ox+p[0]*s,oy+p[1]*s];
+  const oct=[[85,120],[270,120],[296,157],[296,262],[258,302],[96,302],[58,262],[58,157],[85,120]].map(P);
+  const face=[[177,157],[221,192],[214,247],[177,262],[140,247],[132,192],[177,157]].map(P);
+  let g=line([P([177,58]),P([177,120])],11*s)+line(oct,11*s)+line([P([58,210]),P([18,210])],11*s)+line(face,7*s);
+  g+=beacon(...P([177,44]),13*s,ant)+dot(...P([18,210]),16*s,TEAL);
+  oct.slice(0,8).forEach(p=>g+=dot(p[0],p[1],11*s));
+  face.slice(0,6).forEach((p,i)=>{if(i!==1&&i!==5)g+=dot(p[0],p[1],7*s)});
+  [[132,192],[221,192]].map(P).forEach(p=>g+=`<circle cx="${p[0]}" cy="${p[1]}" r="${24*s}" fill="none" stroke="${TEAL}" stroke-width="${5*s}"/>`+dot(p[0],p[1],14*s));
+  return g;
+}
+function logoSVG(){
+  let g=robotHead(0,0,1);
+  g+=line([[296,210],[408,210]])+dot(352,210,9,ORNG);
+  g+=line([[520,120],[437,120],[408,152],[408,270],[437,302],[520,302]])+line([[408,210],[488,210]]);
+  g+=dot(437,120,12)+dot(408,152,12)+dot(408,270,12)+dot(437,302,12)+dot(408,210,16)+dot(488,210,13)+dot(520,120,18,TEAL)+dot(520,302,18,TEAL);
+  g+=line([[575,120],[626,302],[691,228],[757,302],[808,120]])+dot(626,302,13)+dot(691,228,13)+dot(757,302,13)+dot(575,120,18,TEAL)+dot(808,120,18,TEAL);
+  g+=line([[862,302],[898,224],[946,120],[994,224],[1030,302]])+line([[898,224],[994,224]])+dot(898,224,13)+dot(994,224,13)+dot(862,302,18,TEAL)+dot(1030,302,18,TEAL)+beacon(946,120,16,ORNG);
+  return g;
+}
+const AV=c=>`<svg viewBox="0 0 320 320" aria-hidden="true">${robotHead(-17,-15,1.05,c||ORNG)}</svg>`;
+const ICON={
+  cap:`<svg viewBox="0 0 64 64" fill="none" stroke="#E9EEF4" stroke-width="3" stroke-linejoin="round"><path d="M6 24l26-12 26 12-26 12z"/><path d="M17 30v13l15 7 15-7V30"/><path d="M58 24v15"/><circle cx="58" cy="41" r="3.5" fill="${TEAL}" stroke="none"/><circle cx="32" cy="12" r="3.5" fill="${ORNG}" stroke="none"/><circle cx="32" cy="50" r="3.5" fill="${TEAL}" stroke="none"/></svg>`,
+  cube:`<svg viewBox="0 0 64 64" fill="none" stroke="#E9EEF4" stroke-width="3" stroke-linejoin="round"><path d="M32 6l22 13v26L32 58 10 45V19z"/><path d="M32 32V6M32 32l22-13M32 32L10 19M32 32v26M32 32l22 13M32 32L10 45" stroke-opacity=".7"/><circle cx="32" cy="32" r="5" fill="${ORNG}" stroke="none"/><circle cx="10" cy="45" r="3.5" fill="${TEAL}" stroke="none"/><circle cx="54" cy="45" r="3.5" fill="${TEAL}" stroke="none"/></svg>`,
+  pen:`<svg viewBox="0 0 64 64" fill="none" stroke="#E9EEF4" stroke-width="3" stroke-linejoin="round"><path d="M18 10h28"/><path d="M22 10L14 30l18 22 18-22-8-20"/><path d="M32 52V34"/><circle cx="32" cy="30" r="4"/><circle cx="18" cy="10" r="4" fill="${TEAL}" stroke="none"/><circle cx="46" cy="10" r="4" fill="${TEAL}" stroke="none"/><circle cx="32" cy="54" r="4" fill="${ORNG}" stroke="none"/></svg>`,
+  mic:`<svg viewBox="0 0 64 64" fill="none" stroke="#E9EEF4" stroke-width="3" stroke-linecap="round"><rect x="23" y="6" width="18" height="32" rx="9"/><path d="M14 30a18 18 0 0 0 36 0M32 48v8M22 57h20"/><circle cx="32" cy="7" r="4" fill="${ORNG}" stroke="none"/><circle cx="14" cy="30" r="3.5" fill="${TEAL}" stroke="none"/><circle cx="50" cy="30" r="3.5" fill="${TEAL}" stroke="none"/></svg>`,
+  chat:`<svg viewBox="0 0 64 64" fill="none" stroke="#E9EEF4" stroke-width="3" stroke-linejoin="round"><path d="M10 14h44v30H26l-10 9v-9h-6z"/><circle cx="22" cy="29" r="3.5" fill="${TEAL}" stroke="none"/><circle cx="32" cy="29" r="3.5" fill="#E9EEF4" stroke="none"/><circle cx="42" cy="29" r="3.5" fill="${TEAL}" stroke="none"/><circle cx="52" cy="14" r="4" fill="${ORNG}" stroke="none"/></svg>`,
+  card:`<svg class="ico" viewBox="0 0 100 100" fill="none" stroke-linejoin="round"><rect x="40" y="6" width="20" height="16" rx="4" fill="#C9D3DE"/><rect x="18" y="16" width="64" height="78" rx="9" fill="#F3F6FA"/><rect x="18" y="16" width="64" height="24" rx="9" fill="#5AA9E6"/><rect x="18" y="30" width="64" height="10" fill="#5AA9E6"/><text x="50" y="33" text-anchor="middle" font-family="Alexandria,sans-serif" font-size="11" font-weight="700" fill="#fff">EWA</text><circle cx="50" cy="56" r="10" fill="#1E2C44"/><path d="M36 76h28M40 84h20" stroke="#B5C1CF" stroke-width="4" stroke-linecap="round"/></svg>`,
+  plug:`<svg class="ico" viewBox="0 0 100 100"><rect x="35" y="8" width="7" height="22" rx="3" fill="#B8C3CF"/><rect x="58" y="8" width="7" height="22" rx="3" fill="#B8C3CF"/><rect x="22" y="26" width="56" height="62" rx="12" fill="#F3F6FA"/><path d="M53 42l-10 15h9l-5 14 12-18h-9z" fill="#C9D3DE"/><rect x="40" y="80" width="20" height="5" rx="2" fill="#B8C3CF"/></svg>`,
+  buds:`<svg class="ico" viewBox="0 0 100 100"><rect x="14" y="44" width="72" height="48" rx="20" fill="#F3F6FA"/><path d="M14 58h72" stroke="#C9D3DE" stroke-width="2"/><circle cx="50" cy="74" r="2.5" fill="#3DD68C"/><ellipse cx="34" cy="34" rx="11" ry="13" fill="#F3F6FA"/><rect x="31" y="34" width="7" height="22" rx="3.5" fill="#E2E8EF"/><ellipse cx="66" cy="34" rx="11" ry="13" fill="#F3F6FA"/><rect x="62" y="34" width="7" height="22" rx="3.5" fill="#E2E8EF"/><circle cx="37" cy="32" r="4" fill="#1E2C44"/><circle cx="63" cy="32" r="4" fill="#1E2C44"/></svg>`,
+  cable:`<svg class="ico" viewBox="0 0 100 100" fill="none"><ellipse cx="52" cy="46" rx="30" ry="24" stroke="#F3F6FA" stroke-width="5"/><ellipse cx="52" cy="46" rx="22" ry="17" stroke="#DCE3EA" stroke-width="5"/><ellipse cx="52" cy="46" rx="14" ry="10" stroke="#F3F6FA" stroke-width="5"/><path d="M24 58c-6 10-8 18-6 26M80 56c6 10 6 20 2 28" stroke="#F3F6FA" stroke-width="5" stroke-linecap="round"/><rect x="12" y="80" width="13" height="16" rx="3" fill="#F3F6FA"/><rect x="76" y="80" width="13" height="16" rx="3" fill="#F3F6FA"/></svg>`,
+};
+function botSVG(){
+  return `<defs><linearGradient id="shell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C9D4E0"/></linearGradient></defs>
+  <ellipse cx="100" cy="240" rx="54" ry="7" fill="#26B8B0" opacity=".25"/>
+  <g class="arm"><rect x="146" y="112" width="20" height="44" rx="10" fill="url(#shell)" transform="rotate(-24 156 150)"/><circle cx="168" cy="106" r="13" fill="url(#shell)"/><rect x="164" y="80" width="8" height="22" rx="4" fill="url(#shell)"/></g>
+  <rect x="34" y="150" width="20" height="46" rx="10" fill="url(#shell)" transform="rotate(16 44 150)"/>
+  <rect x="58" y="136" width="84" height="78" rx="28" fill="url(#shell)"/>
+  <text x="100" y="172" text-anchor="middle" font-family="Alexandria,sans-serif" font-size="15" font-weight="700" fill="#5D6E88">EWA</text>
+  <text x="100" y="190" text-anchor="middle" font-family="Alexandria,sans-serif" font-size="11" font-weight="800" fill="#26B8B0">AI CLUB</text>
+  <rect x="70" y="210" width="22" height="24" rx="9" fill="url(#shell)"/><rect x="108" y="210" width="22" height="24" rx="9" fill="url(#shell)"/>
+  <circle cx="30" cy="76" r="15" fill="#13243F" stroke="#26B8B0" stroke-width="4"/><circle cx="170" cy="76" r="15" fill="#13243F" stroke="#26B8B0" stroke-width="4"/>
+  <rect x="30" y="18" width="140" height="116" rx="50" fill="url(#shell)"/>
+  <rect x="44" y="34" width="112" height="84" rx="36" fill="#0B1526"/>
+  <g class="lids" stroke="#5FE0D6" stroke-width="7" stroke-linecap="round" fill="none" style="filter:drop-shadow(0 0 6px #26B8B0)">
+    <path d="M66 78q11-15 22 0"/><path d="M112 78q11-15 22 0"/><path d="M90 96q10 8 20 0"/>
+  </g>`;
+}
+
+/* ---------- static renders ---------- */
+$('logo').innerHTML=logoSVG();
+$('bot').innerHTML=botSVG();
+
+const CLK=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`;
+const IC_BOOK=`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M2 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H2zM22 5h-7a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h8z"/></svg>`;
+const IC_CUP=`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6zM17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 2c0 2 2 2 2 4M12 2c0 2 2 2 2 4"/></svg>`;
+const IC_FORK=`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v8a2 2 0 0 0 4 0V2M9 12v10M17 2c-2 1.5-3 4-3 7v4h3v9"/></svg>`;
+
+function renderSchedule(){
+  const groups={};DAY.forEach((p,i)=>(groups[p.g]=groups[p.g]||[]).push(i));
+  $('schGrid').innerHTML=Object.keys(groups).map(g=>{
+    const rows=groups[g].map(i=>{const p=DAY[i];const len=T(p.e)-T(p.s);
+      return `<div class="row ${p.type}" data-i="${i}">${p.type==='lec'?IC_BOOK:p.type==='lunch'?IC_FORK:IC_CUP}<div class="rn">${p.name} ${p.type!=='lec'?`<small>(${len} دقيقة)</small>`:''}</div><div class="rt">${hmPlain(T(p.s))} – ${hm(T(p.e))}</div></div>`}).join('');
+    const brk=groups[g].map(i=>DAY[i]).find(p=>p.type!=='lec');
+    const ret=brk?`<div class="ret">${CLK}<div>التحضير للعودة<b>${hm(T(brk.e)-RETURN_LEAD)}</b></div></div>`:`<div class="ret"><div>نهاية اليوم<b>${hm(T(DAY[DAY.length-1].e))}</b></div></div>`;
+    return `<div class="panel grp"><div class="grp-n">${pad(g)}</div><div class="grp-rows">${rows}</div>${ret}</div>`}).join('');
+}
+function renderTimeline(){
+  const a=T(DAY[0].s),b=T(DAY[DAY.length-1].e);
+  $('tl').innerHTML=DAY.map((p,i)=>`<div class="tl-b ${p.type}" data-i="${i}" style="flex:${T(p.e)-T(p.s)}"><i class="fill"></i><span>${p.type==='lec'?'محاضرة '+(DAY.slice(0,i+1).filter(x=>x.type==='lec').length):p.type==='lunch'?'غداء':''}</span></div>`).join('')+'<div class="tl-now" id="tlNow"></div>';
+  const marks=[];for(let m=a;m<b-20;m+=60)marks.push(`<span style="right:${(m-a)/(b-a)*100}%">${hmPlain(m)}</span>`);marks.push(`<span style="right:100%">${hmPlain(b)}</span>`);
+  $('tlScale').innerHTML=marks.join('');
+}
+function renderItems(){
+  $('items').innerHTML=ITEMS.map(it=>`<div class="panel item">${ICON[it.icon]}<b>${it.name}</b><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>`).join('');
+}
+function renderHeroes(){
+  let n=0;
+  $('hGrid').innerHTML=DEPTS.map(d=>{
+    const ms=d.members.map((m,k)=>{n++;const[nm,role]=Array.isArray(m)?m:[m,''];return `<span class="m" style="animation-delay:${k*70}ms">${AV(d.tone==='o'?ORNG:TEAL)}${esc(nm)}${role?`<em>${role}</em>`:''}</span>`}).join('');
+    return `<div class="panel dept ${d.tone}"><div class="dept-h"><span class="dept-ic">${ICON[d.icon]}</span><div><b>${d.name}</b><span class="en">${d.en}</span></div><span class="cnt">${d.members.length}</span></div><div class="mem">${ms}</div></div>`}).join('');
+  $('hCount').textContent=`${n} بطل وبطلة · ${DEPTS.length} أقسام`;
+}
+
+/* ---------- bonus ---------- */
+const PEOPLE=[];DEPTS.forEach((d,di)=>d.members.forEach(m=>PEOPLE.push({name:Array.isArray(m)?m[0]:m,dept:di})));
+function weekStart(d){const s=new Date(d);s.setHours(0,0,0,0);s.setDate(s.getDate()-s.getDay());return s}
+let bonusKey='',bonus={},editing=false;
+function loadBonus(d){const k='ewa-bonus-'+iso(weekStart(d));if(k!==bonusKey){bonusKey=k;bonus=store.get(k,{});renderBonus(d)}}
+function renderBonus(d){
+  const ws=weekStart(d),we=new Date(ws);we.setDate(we.getDate()+4);
+  const wk=SESS[iso(d)]?.[1]??SESS[iso(ws)]?.[1];
+  $('bWeek').textContent=(wk?`الأسبوع ${wk} من البرنامج · `:'')+`${ws.getDate()} – ${we.getDate()} ${MON[we.getMonth()]}`;
+  const list=PEOPLE.map(p=>({...p,pts:bonus[p.name]||0})).sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name,'ar'));
+  const top=list.filter(p=>p.pts>0).slice(0,3);
+  const slot=(p,c,lbl)=>p?`<div class="pl ${c}">${c==='p1'?`<svg class="crown" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg>`:''}<span class="av">${AV(DEPTS[p.dept].tone==='o'?ORNG:TEAL)}</span><b>${esc(p.name)}</b><small>${DEPTS[p.dept].name}</small><div class="blk"><span class="num">${p.pts}</span><span>${lbl}</span></div></div>`
+    :`<div class="pl ${c} empty"><span class="av"></span><b>—</b><small>بانتظار البطل</small><div class="blk"><span class="num">0</span><span>${lbl}</span></div></div>`;
+  $('pod').innerHTML=slot(top[1],'p2','المركز الثاني')+slot(top[0],'p1','بطل الأسبوع')+slot(top[2],'p3','المركز الثالث');
+  $('rules').innerHTML=BONUS_RULES.map(r=>`<span class="tag g">+${r.pts} ${r.label}</span>`).join('')+(top.length?'':`<p class="empty-note" style="width:100%">ما فيه نقاط مسجّلة هذا الأسبوع للحين. اضغط «تسجيل النقاط» وأضف أول بونس.</p>`);
+  $('rankList').innerHTML=list.map((p,i)=>`<div class="rk"><span class="pos">${i+1}</span><div class="who"><b>${esc(p.name)}</b><small>${DEPTS[p.dept].name}</small></div><div style="display:flex;align-items:center;gap:6px"><span class="ed"><button class="minus" type="button" data-n="${esc(p.name)}" data-d="-5" aria-label="خصم 5 من ${esc(p.name)}">−5</button><button class="plus" type="button" data-n="${esc(p.name)}" data-d="5">+5</button><button class="plus" type="button" data-n="${esc(p.name)}" data-d="10">+10</button></span><span class="pts">${p.pts}</span></div></div>`).join('');
+  const dt=DEPTS.map((dp,i)=>({n:dp.name,t:dp.tone,s:PEOPLE.filter(p=>p.dept===i).reduce((a,p)=>a+(bonus[p.name]||0),0)}));
+  const dmax=Math.max(1,...dt.map(x=>x.s));
+  $('deptBars').innerHTML=dt.map(x=>`<div class="dp"><span>${x.n}</span><span class="tr"><i style="width:${x.s/dmax*100}%;background:${x.t==='o'?'var(--orange)':'var(--teal)'}"></i></span><span class="num">${x.s}</span></div>`).join('');
+}
+$('rankList').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-n]');if(!b)return;
+  bonus[b.dataset.n]=Math.max(0,(bonus[b.dataset.n]||0)+Number(b.dataset.d));
+  store.set(bonusKey,bonus);renderBonus(now());
+});
+$('bEdit').addEventListener('click',()=>{editing=!editing;$('bonus').classList.toggle('edit',editing);$('bEdit').classList.toggle('on',editing);$('bReset').hidden=!editing;$('bResetOk').hidden=true;holdManual(editing?1e9:30000)});
+$('bReset').addEventListener('click',()=>{$('bReset').hidden=true;$('bResetOk').hidden=false});
+$('bResetOk').addEventListener('click',()=>{bonus={};store.set(bonusKey,bonus);$('bResetOk').hidden=true;$('bReset').hidden=false;renderBonus(now())});
+
+/* ---------- week ---------- */
+let weekKey='';
+function renderWeek(d){
+  const k=iso(d);if(k===weekKey)return;weekKey=k;
+  const ws=weekStart(d);let days=[];
+  for(let i=0;i<5;i++){const x=new Date(ws);x.setDate(ws.getDate()+i);days.push(x)}
+  let rows=days.map(x=>SESS[iso(x)]);
+  let label='هذا الأسبوع';
+  if(!rows.some(Boolean)||d.getDay()>4){ // weekend or holiday week → show next scheduled week
+    const nxt=SESSIONS.find(r=>r[0]>k);
+    if(nxt){const nd=new Date(nxt[0]+'T00:00');const s2=weekStart(nd);days=[];for(let i=0;i<5;i++){const x=new Date(s2);x.setDate(s2.getDate()+i);days.push(x)}rows=days.map(x=>SESS[iso(x)]);label='الأسبوع الجاي'}
+  }
+  const wk=rows.find(Boolean)?.[1];
+  $('wkTitle').textContent=label+(wk?` · ${wk}`:'');
+  $('wkRange').textContent=`${days[0].getDate()} ${MON[days[0].getMonth()]} – ${days[4].getDate()} ${MON[days[4].getMonth()]} ${days[4].getFullYear()}`;
+  $('wGrid').innerHTML=days.map((x,i)=>{const r=rows[i];const di=iso(x);const cls=di===k?'today':di<k?'past':'';
+    if(!r)return `<div class="panel wd ${cls}"><div class="wd-h"><b>${DOW[x.getDay()]}</b><span class="num">${x.getDate()}/${x.getMonth()+1}</span></div><div class="tp" style="color:var(--dim);direction:rtl">لا توجد جلسة</div></div>`;
+    const[dl,dc]=delivery(r[6]);
+    return `<div class="panel wd ${cls}"><div class="wd-h"><b>${DOW[x.getDay()]}</b><span class="num">${x.getDate()}/${x.getMonth()+1}</span></div>${cls==='today'?'<span class="badge-today">اليوم</span>':''}<div class="code">${esc(r[3]?r[3]+' · ':'')}${esc(r[2])}</div><div class="tp">${esc(r[4]||r[2])}</div><div class="who">${esc(r[5])}</div><div class="tags"><span class="tag ${dc}">${dl}</span></div></div>`}).join('');
+  const modes=rows.filter(Boolean).map(r=>delivery(r[6])[0]);
+  $('wFoot').innerHTML=`<span class="tag t">${rows.filter(Boolean).length} جلسات</span>`+(modes.length?`<span>طريقة الحضور: ${[...new Set(modes)].join(' و')}</span>`:'')+`<span style="margin-inline-start:auto">المصدر: خطة دبلوم الذكاء الاصطناعي (Association Degree)</span>`;
+}
+
+/* ---------- live status ---------- */
+function status(d){
+  const wd=d.getDay(),m=d.getHours()*60+d.getMinutes()+d.getSeconds()/60;
+  const a=T(DAY[0].s),b=T(DAY[DAY.length-1].e);
+  if(wd>4)return{mode:'off',m};
+  if(m<a)return{mode:'before',m,left:a-m,next:DAY[0]};
+  if(m>=b)return{mode:'after',m};
+  const i=DAY.findIndex(p=>m>=T(p.s)&&m<T(p.e)),p=DAY[i];
+  const total=T(p.e)-T(p.s),left=T(p.e)-m;
+  return{mode:'live',m,i,p,left,total,frac:1-left/total,next:DAY[i+1],returnSoon:p.type!=='lec'&&left<=RETURN_LEAD};
+}
+function forgetTime(st){
+  if(st.mode==='off')return false;
+  const m=st.m;return (m>=T('11:55')&&m<T('12:05'))||(m>=T('14:42')&&m<T('15:10'));
+}
+function nextWorkSession(d){const k=iso(d);return SESSIONS.find(r=>r[0]>k)}
+
+function updateLive(d,st){
+  const now=$('now');now.className='panel now';
+  let kind='',name='',range='',msg='',ringNum='--:--',ringLbl='',frac=0;
+  if(st.mode==='live'){
+    const p=st.p;now.classList.add('k-'+p.type);if(st.returnSoon)now.classList.add('urgent');
+    kind=KIND[p.type]+(p.type==='lec'?' جارية الآن':' الآن');name=p.name;
+    range=`${hmB(T(p.s))} – ${hmB(T(p.e))}`;
+    ringNum=mmss(st.left);ringLbl='متبقي';frac=st.frac;
+    if(p.type==='lec')msg=st.next?`بعدها: <b>${st.next.name}</b> الساعة ${hm(T(st.next.s))}`:`آخر محاضرة لليوم، ينتهي اليوم <b>${hm(T(p.e))}</b>`;
+    else if(st.returnSoon)msg=`<b>حان وقت التحضير للعودة</b> توجّهوا للقاعات الآن`;
+    else msg=`التحضير للعودة الساعة <b>${hm(T(p.e)-RETURN_LEAD)}</b> · استمتعوا بالاستراحة`;
+  }else if(st.mode==='before'){
+    kind='قبل بداية اليوم';name='صباح الخير!';range=`المحاضرة الأولى ${hmB(T(DAY[0].s))}`;
+    ringNum=mmss(st.left);ringLbl='على البداية';frac=0;msg=`جهّز أغراضك، اليوم يبدأ بعد <b>${dur(st.left)}</b>`;
+  }else if(st.mode==='after'){
+    kind='انتهى اليوم التدريبي';name='يعطيكم العافية';range=`انتهت المحاضرة السادسة ${hmB(T(DAY[DAY.length-1].e))}`;
+    ringNum='✓';ringLbl='تم بنجاح';frac=1;msg='قبل تطلع: <b>بطاقتك، الشاحن، السماعات، والسلك</b>';
+  }else{
+    const n=nextWorkSession(d);kind='إجازة نهاية الأسبوع';name='استمتعوا بالإجازة';
+    range=n?`نرجع ${DOW[new Date(n[0]+'T00:00').getDay()]} ${Number(n[0].slice(8))} ${MON[Number(n[0].slice(5,7))-1]}`:'';
+    ringNum='☾';ringLbl='إجازة';frac=0;msg='';
+  }
+  $('nowKind').textContent=kind;$('nowName').textContent=name;$('nowRange').innerHTML=range;$('nowMsg').innerHTML=msg;
+  $('ringNum').textContent=ringNum;$('ringLbl').textContent=ringLbl;
+  $('ringP').style.strokeDashoffset=(301.6*(1-frac)).toFixed(1);
+  $('nowBar').style.width=(frac*100).toFixed(2)+'%';
+
+  // next
+  let nx=null;if(st.mode==='live')nx=st.next;else if(st.mode==='before')nx=DAY[0];
+  if(nx){$('nextName').textContent=nx.name;$('nextMeta').innerHTML=`<span class="num">${hm(T(nx.s))}</span><span>بعد ${dur(T(nx.s)-st.m)}</span>${nx.type!=='lec'?`<span class="tag g">${T(nx.e)-T(nx.s)} دقيقة</span>`:''}`}
+  else{const n=nextWorkSession(d);$('nextName').textContent=n?`${DOW[new Date(n[0]+'T00:00').getDay()]} ${Number(n[0].slice(8))} ${MON[Number(n[0].slice(5,7))-1]}`:'—';$('nextMeta').innerHTML=n?`<span>المحاضرة الأولى</span><span class="num">${hm(T(DAY[0].s))}</span>`:''}
+
+  // today's program session
+  const r=SESS[iso(d)];
+  if(r){const[dl,dc]=delivery(r[6]);$('tdTopic').textContent=r[4]||r[2];$('tdTags').innerHTML=`${r[3]?`<span class="tag t">${esc(r[3])}</span>`:''}<span class="tag">${/^\d/.test(r[2])?'Session '+esc(r[2]):esc(r[2])}</span>${r[5]?`<span class="tag">${esc(r[5])}</span>`:''}<span class="tag ${dc}">${dl}</span>${r[1]?`<span class="tag g">الأسبوع ${r[1]}</span>`:''}`}
+  else{const n=nextWorkSession(d);$('tdTopic').textContent=n?(n[4]||n[2]):'—';$('tdTags').innerHTML=`<span class="tag o">لا توجد جلسة اليوم</span>${n?`<span class="tag">القادمة: ${Number(n[0].slice(8))} ${MON[Number(n[0].slice(5,7))-1]}</span>`:''}`}
+
+  const ups=SESSIONS.filter(x=>x[0]>iso(d)).slice(0,3);
+  $('tdUp').innerHTML=ups.length?'<h4>الجلسات القادمة</h4>'+ups.map(x=>{const dd=new Date(x[0]+'T00:00');return `<div class="up-r"><b>${DOW[dd.getDay()]} ${dd.getDate()}/${dd.getMonth()+1}</b><span>${esc(x[4]||x[2])}</span></div>`}).join(''):'';
+
+  // timeline
+  const a=T(DAY[0].s),b=T(DAY[DAY.length-1].e);
+  document.querySelectorAll('.tl-b').forEach((el,i)=>{const p=DAY[i];const s=T(p.s),e=T(p.e);
+    el.classList.toggle('past',st.mode==='after'||(st.mode==='live'&&st.m>=e));
+    el.classList.toggle('cur',st.mode==='live'&&st.i===i);
+    el.querySelector('.fill').style.width=(st.mode==='live'&&st.i===i?st.frac*100:0)+'%'});
+  const pos=Math.min(1,Math.max(0,(st.m-a)/(b-a)));
+  const tn=$('tlNow');tn.hidden=st.mode!=='live';tn.style.right=(pos*100)+'%';
+
+  // schedule rows
+  document.querySelectorAll('#schGrid .row').forEach(el=>{const i=+el.dataset.i,e=T(DAY[i].e);
+    el.classList.toggle('done',st.mode==='after'||(st.mode==='live'&&st.m>=e));el.classList.toggle('cur',st.mode==='live'&&st.i===i)});
+
+  // alert banner
+  const al=$('alert');
+  if(st.mode==='live'&&st.returnSoon){al.classList.add('show');$('alertTxt').textContent=`التحضير للعودة · ${st.p.name} ينتهي ${hm(T(st.p.e))}`;$('alertNum').textContent=mmss(st.left)}
+  else al.classList.remove('show');
+}
+
+/* ---------- header clock ---------- */
+const hijri=(()=>{try{return new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'long',year:'numeric'})}catch(e){return null}})();
+function updateClock(d){
+  const h=d.getHours();$('clk').textContent=`${pad(h%12||12)}:${pad(d.getMinutes())}`;$('clkS').textContent=pad(d.getSeconds());$('clkAP').textContent=h<12?'ص':'م';
+  $('dDay').textContent=`${DOW[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}`;
+  $('dHijri').textContent=hijri?hijri.format(d):'';
+  document.body.classList.toggle('sim-on',!!sim.on);
+}
+
+/* ---------- slides ---------- */
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0,playing=store.get('ewa-play',true),dwell=store.get('ewa-dur',15)*1000,shownAt=Date.now(),manualUntil=0,lastForget=false;
+$('tabs').innerHTML=slides.map((s,i)=>`<button class="tab" type="button" data-i="${i}">${s.dataset.name}<i class="pg"></i></button>`).join('');
+const tabs=[...document.querySelectorAll('.tab')];
+function go(i,back){
+  i=(i+slides.length)%slides.length;
+  slides[cur].classList.remove('on','back');
+  cur=i;const s=slides[cur];s.style.transform='';s.classList.toggle('back',!!back);
+  void s.offsetWidth;s.classList.add('on');
+  tabs.forEach((t,k)=>t.classList.toggle('on',k===cur));
+  shownAt=Date.now();
+  if(s.id==='s-forget')animateChecks();
+  if(s.id==='s-heroes')renderHeroes();
+}
+function holdManual(ms){manualUntil=Date.now()+ms}
+let checkTimers=[];
+function animateChecks(){
+  checkTimers.forEach(clearTimeout);checkTimers=[];
+  const its=[...document.querySelectorAll('.item')];its.forEach(x=>x.classList.remove('ok'));
+  its.forEach((x,k)=>checkTimers.push(setTimeout(()=>x.classList.add('ok'),700+k*650)));
+}
+$('tabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t){go(+t.dataset.i,+t.dataset.i<cur);holdManual(45000)}});
+$('bNext').addEventListener('click',()=>{go(cur+1);holdManual(45000)});
+$('bPrev').addEventListener('click',()=>{go(cur-1,true);holdManual(45000)});
+function setPlay(v){playing=v;store.set('ewa-play',v);$('playIc').innerHTML=v?'<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>':'<path d="M17 5v14L6 12z"/>';$('bPlay').setAttribute('aria-label',v?'إيقاف التنقل التلقائي':'تشغيل التنقل التلقائي');shownAt=Date.now()}
+$('bPlay').addEventListener('click',()=>setPlay(!playing));
+$('bFull').addEventListener('click',()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}catch(e){}});
+$('bSet').addEventListener('click',()=>{$('sheet').hidden=!$('sheet').hidden});
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,select'))return;
+  if(e.key==='ArrowLeft'){go(cur+1);holdManual(45000)}
+  else if(e.key==='ArrowRight'){go(cur-1,true);holdManual(45000)}
+  else if(e.key===' '){e.preventDefault();setPlay(!playing)}
+  else if(e.key==='f'||e.key==='F')$('bFull').click();
+  else if(e.key==='Escape')$('sheet').hidden=true;
+});
+
+// drag / swipe the stage to move between slides
+(()=>{const st=$('stage');let x0=null,y0=0,dx=0,id=null;
+  st.addEventListener('pointerdown',e=>{if(e.target.closest('button,input,select,.rank-list'))return;x0=e.clientX;y0=e.clientY;dx=0;id=e.pointerId});
+  st.addEventListener('pointermove',e=>{if(x0==null||e.pointerId!==id)return;dx=e.clientX-x0;
+    if(Math.abs(dx)>8&&Math.abs(dx)>Math.abs(e.clientY-y0)){try{st.setPointerCapture(id)}catch(_){}const s=slides[cur];s.classList.add('dragging');s.style.transform=`translateX(${dx}px) rotate(${dx/90}deg)`;s.style.opacity=String(1-Math.min(.6,Math.abs(dx)/900))}});
+  const end=()=>{if(x0==null)return;const s=slides[cur];s.classList.remove('dragging');s.style.opacity='';
+    if(Math.abs(dx)>90){holdManual(45000);dx<0?go(cur+1):go(cur-1,true)}else{s.style.transition='transform .35s';s.style.transform='';setTimeout(()=>s.style.transition='',360)}
+    x0=null;dx=0};
+  st.addEventListener('pointerup',end);st.addEventListener('pointercancel',end);
+})();
+
+// settings
+$('optDur').value=String(dwell/1000);
+$('optDur').addEventListener('change',e=>{dwell=+e.target.value*1000;store.set('ewa-dur',+e.target.value)});
+$('optSim').checked=!!sim.on;$('optTime').value=sim.time;
+function applySim(){sim={on:$('optSim').checked,time:$('optTime').value||'09:56'};simBase=Date.now();store.set('ewa-sim',sim);weekKey='';bonusKey='';tick()}
+$('optSim').addEventListener('change',applySim);$('optTime').addEventListener('change',applySim);
+
+// eyes look around
+(()=>{const pupils=document.querySelectorAll('.eye i');let t=0;setInterval(()=>{t++;const a=[[0,0],[.12,0],[-.12,0],[0,-.08],[.1,.06]][t%5];pupils.forEach(p=>p.style.transform=`translate(${a[0]}em,${a[1]}em)`)},1600)})();
+
+// keep the screen awake while shown
+let wake=null;async function keepAwake(){try{if('wakeLock' in navigator&&!wake){wake=await navigator.wakeLock.request('screen');wake.addEventListener('release',()=>wake=null)}}catch(e){}}
+document.addEventListener('click',keepAwake);document.addEventListener('visibilitychange',()=>{if(!document.hidden)keepAwake()});
+
+/* ---------- main loop ---------- */
+function tick(){
+  const d=now(),st=status(d);
+  updateClock(d);updateLive(d,st);loadBonus(d);renderWeek(d);
+  const fg=forgetTime(st);
+  if(fg&&!lastForget&&Date.now()>manualUntil){go(2)}
+  lastForget=fg;
+  const elapsed=Date.now()-shownAt;
+  const pinned=fg&&slides[cur].id==='s-forget';
+  if(playing&&!pinned&&Date.now()>manualUntil&&!editing&&elapsed>=dwell)go(cur+1);
+  if(slides[cur].id==='s-forget'&&pinned&&elapsed>=dwell){shownAt=Date.now();animateChecks()}
+  tabs[cur].style.setProperty('--p',(playing&&!pinned?Math.min(100,elapsed/dwell*100):100)+'%');
+}
+renderSchedule();renderTimeline();renderItems();renderHeroes();setPlay(playing);
+go(0);tick();setInterval(tick,1000);
+
+/* ---------- background: circuit traces + drifting nodes ---------- */
+(()=>{const c=$('bg'),x=c.getContext('2d');let W,H,traces=[],dots=[],dpr=Math.min(2,window.devicePixelRatio||1);
+  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function build(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr;traces=[];dots=[];
+    const n=Math.round((innerWidth*innerHeight)/90000)+8;
+    for(let i=0;i<n;i++){let px=Math.random()*W,py=Math.random()*H;const pts=[[px,py]];const segs=2+Math.floor(Math.random()*3);
+      for(let s=0;s<segs;s++){const dir=Math.floor(Math.random()*4),len=(40+Math.random()*140)*dpr;
+        if(dir===0)px+=len;else if(dir===1)py+=len;else{px+=len*.7*(dir===2?1:-1);py+=len*.7}pts.push([px,py])}
+      traces.push({pts,col:Math.random()<.28?'242,112,61':'38,184,176',a:.12+Math.random()*.16,t:Math.random()})}
+    for(let i=0;i<70;i++)dots.push({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.4+.4)*dpr,v:(Math.random()*.15+.03)*dpr,a:Math.random()*.5+.15})}
+  function len(p){let L=0;for(let i=1;i<p.length;i++)L+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);return L}
+  function at(p,f){let L=len(p)*f;for(let i=1;i<p.length;i++){const s=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);if(L<=s){const k=s?L/s:0;return[p[i-1][0]+(p[i][0]-p[i-1][0])*k,p[i-1][1]+(p[i][1]-p[i-1][1])*k]}L-=s}return p[p.length-1]}
+  function draw(){
+    x.clearRect(0,0,W,H);
+    const g=x.createRadialGradient(W*.3,H*.35,0,W*.3,H*.35,Math.max(W,H)*.7);g.addColorStop(0,'rgba(20,52,84,.55)');g.addColorStop(1,'rgba(7,16,29,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.strokeStyle='rgba(126,170,214,.035)';x.lineWidth=1;const step=64*dpr;
+    for(let gx=0;gx<W;gx+=step){x.beginPath();x.moveTo(gx,0);x.lineTo(gx,H);x.stroke()}
+    for(let gy=0;gy<H;gy+=step){x.beginPath();x.moveTo(0,gy);x.lineTo(W,gy);x.stroke()}
+    traces.forEach(t=>{x.strokeStyle=`rgba(${t.col},${t.a})`;x.lineWidth=1.2*dpr;x.beginPath();t.pts.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke();
+      const e=t.pts[t.pts.length-1];x.fillStyle=`rgba(${t.col},${t.a*2})`;x.beginPath();x.arc(e[0],e[1],3*dpr,0,7);x.fill();
+      x.strokeStyle=`rgba(${t.col},${t.a*1.6})`;x.beginPath();x.arc(t.pts[0][0],t.pts[0][1],3*dpr,0,7);x.stroke();
+      if(!still){t.t=(t.t+.0025)%1;const q=at(t.pts,t.t);x.fillStyle=`rgba(${t.col},.75)`;x.shadowColor=`rgb(${t.col})`;x.shadowBlur=10*dpr;x.beginPath();x.arc(q[0],q[1],2*dpr,0,7);x.fill();x.shadowBlur=0}});
+    dots.forEach(d=>{if(!still){d.y-=d.v;if(d.y<0){d.y=H;d.x=Math.random()*W}}x.fillStyle=`rgba(200,220,240,${d.a})`;x.beginPath();x.arc(d.x,d.y,d.r,0,7);x.fill()});
+    if(!still)requestAnimationFrame(draw)}
+  build();draw();addEventListener('resize',()=>{build();if(still)draw()});
+})();
+</script>
+</body>
+</html>
