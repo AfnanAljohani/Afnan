@@ -398,6 +398,8 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 /* return alert banner */
 .alert{position:fixed;z-index:20;left:16px;right:16px;margin-inline:auto;width:fit-content;top:calc(env(safe-area-inset-top,0px) + 14px);transform:translateY(-160%);transition:transform .6s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;gap:14px;background:var(--orange);color:#1B0C04;border-radius:18px;padding:12px 24px;font-family:var(--display);font-weight:800;font-size:clamp(15px,1.5vw,28px);box-shadow:0 20px 60px -10px rgba(242,112,61,.6);max-width:calc(100% - 32px)}
 .alert.show{transform:none}
+.alert.fg-alert{background:var(--teal-hi);color:#062027;box-shadow:0 20px 60px -10px rgba(95,224,214,.6);animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{0%,80%,100%{rotate:0deg}85%{rotate:-1.5deg}90%{rotate:1.5deg}95%{rotate:-1deg}}
 .alert svg{width:1.4em;flex:none}
 .alert .num{background:rgba(0,0,0,.18);border-radius:10px;padding:0 10px}
 
@@ -757,6 +759,8 @@ const DAY=[
   {type:'lec',  name:['المحاضرة السادسة','Lecture 6'], s:'14:00',e:'14:50',g:6},
 ];
 const RETURN_LEAD=5; // minutes before a break ends
+// "Don't forget" reminder: pops up at these times and stays for FORGET_MIN minutes
+const FORGET_AT=['12:00','14:45'],FORGET_MIN=10;
 
 // Club leadership
 const LEADS=[
@@ -843,8 +847,8 @@ const I18N={
   optDur:['مدة كل شريحة','Time per slide'],
   optSim:['تجربة وقت آخر','Preview another time'],
   optTime:['الوقت التجريبي','Preview time'],
-  setNote:['التنبيهات تشتغل تلقائيًا: شريط «ارجعوا للقاعات» في آخر 5 دقائق من كل بريك، وشريحة «لا تنسى أغراضك» قبل الغداء ونهاية اليوم.',
-           'Alerts run on their own: a “head back” banner in the last 5 minutes of each break, and the “don’t forget” slide before lunch and at the end of the day.'],
+  setNote:['التنبيهات تشتغل تلقائيًا: شريط «ارجعوا للقاعات» في آخر 5 دقائق من كل بريك، وتنبيه «لا تنسى أغراضك» الساعة 12:00 ظهرًا و2:45 العصر.',
+           'Alerts run on their own: a “head back” banner in the last 5 minutes of each break, and the “don’t forget” reminder at 12:00 PM and 2:45 PM.'],
   setKeys:['<span class="kbd">← →</span> أو <span class="kbd">PgUp PgDn</span> للتنقل · <span class="kbd">1</span>–<span class="kbd">6</span> لشريحة معيّنة · <span class="kbd">مسافة</span> إيقاف · <span class="kbd">F</span> ملء الشاشة · <span class="kbd">L</span> اللغة',
            '<span class="kbd">← →</span> or <span class="kbd">PgUp PgDn</span> to move · <span class="kbd">1</span>–<span class="kbd">6</span> jump to a slide · <span class="kbd">Space</span> pause · <span class="kbd">F</span> full screen · <span class="kbd">L</span> language'],
 };
@@ -1108,7 +1112,7 @@ function status(d){
 }
 function forgetTime(st){
   if(st.mode==='off')return false;
-  const m=st.m;return (m>=T('11:55')&&m<T('12:05'))||(m>=T('14:42')&&m<T('15:10'));
+  return FORGET_AT.some(t=>st.m>=T(t)&&st.m<T(t)+FORGET_MIN);
 }
 function nextWorkSession(d){const k=iso(d);return SESSIONS.find(r=>r[0]>k)}
 
@@ -1171,7 +1175,9 @@ function updateLive(d,st){
 
   // alert banner
   const al=$('alert');
-  if(st.mode==='live'&&st.returnSoon){al.classList.add('show');$('alertTxt').textContent=L(`التحضير للعودة · ${tx(st.p.name)} ينتهي ${hm(T(st.p.e))}`,`Head back · ${tx(st.p.name)} ends at ${hm(T(st.p.e))}`);$('alertNum').textContent=mmss(st.left)}
+  al.classList.remove('fg-alert');$('alertNum').hidden=false;
+  if(forgetTime(st)){al.classList.add('show','fg-alert');$('alertNum').hidden=true;$('alertTxt').textContent=L('لحظة… تأكد ما نسيت شي! بطاقتك، الشاحن، السماعات، والسلك','Wait… did you forget anything? ID card, charger, earbuds and cable')}
+  else if(st.mode==='live'&&st.returnSoon){al.classList.add('show');$('alertTxt').textContent=L(`التحضير للعودة · ${tx(st.p.name)} ينتهي ${hm(T(st.p.e))}`,`Head back · ${tx(st.p.name)} ends at ${hm(T(st.p.e))}`);$('alertNum').textContent=mmss(st.left)}
   else al.classList.remove('show');
 }
 
