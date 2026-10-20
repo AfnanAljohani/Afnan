@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مسار الإنجليزية · English Path</title>
+<meta name="description" content="منصة عائلية لتعلم اللغة الإنجليزية بالمهارات الأربع من الصفر حتى الاحتراف، مع خطة يومية لمدة 3 أشهر (13 أكتوبر – 13 يناير).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky formal masthead + tab nav; one centred column of views (home, levels, skills, apps, learners, AI terms) switched by #hash. */
+:root{
+  --bg:#F4F5F1; --surface:#FFFFFF; --surface-2:#EEF1EC; --ink:#17241F; --muted:#5A6862; --line:#D9DFD9;
+  --accent:#1D5642; --accent-ink:#FFFFFF; --accent-soft:#E2EDE7; --brass:#9C7426; --brass-soft:#F3EBDA;
+  --read:#2C5E8C; --listen:#2A7B78; --speak:#B0612A; --write:#9A3F5C; --other:#5F6B3A;
+  --done:#2F7D4F; --shadow:0 1px 2px rgba(23,36,31,.06),0 6px 20px rgba(23,36,31,.05);
+  --f-display:"Noto Kufi Arabic","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101714; --surface:#17211D; --surface-2:#1D2924; --ink:#E7ECE8; --muted:#9AA8A1; --line:#2B3833;
+  --accent:#6FC3A0; --accent-ink:#0D1512; --accent-soft:#1F3A30; --brass:#D9B26A; --brass-soft:#3A311F;
+  --read:#7FB0E0; --listen:#6CC9C3; --speak:#E9A06A; --write:#E58FAD; --other:#B9C67E;
+  --done:#6FC88F; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#101714; --surface:#17211D; --surface-2:#1D2924; --ink:#E7ECE8; --muted:#9AA8A1; --line:#2B3833;
+  --accent:#6FC3A0; --accent-ink:#0D1512; --accent-soft:#1F3A30; --brass:#D9B26A; --brass-soft:#3A311F;
+  --read:#7FB0E0; --listen:#6CC9C3; --speak:#E9A06A; --write:#E58FAD; --other:#B9C67E;
+  --done:#6FC88F; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark;}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.75 var(--f-body)}
+a{color:var(--accent)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.35;text-wrap:balance;margin:0}
+.en{direction:ltr;unicode-bidi:isolate;font-family:var(--f-body)}
+.muted{color:var(--muted)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:6px}
+
+/* masthead */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top-in{max-width:1120px;margin:0 auto;padding-inline:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.seal{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:700 15px/1 var(--f-mono);letter-spacing:.02em;flex:none}
+.brand b{font-family:var(--f-display);font-size:18px;display:block;line-height:1.2}
+.brand small{font-size:12px;color:var(--muted);letter-spacing:.06em;display:block}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;margin-inline-start:auto;scrollbar-width:none;max-width:100%}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs a{white-space:nowrap;text-decoration:none;color:var(--muted);padding:7px 12px;border-radius:8px;font-weight:500;font-size:15px}
+nav.tabs a:hover{background:var(--surface-2);color:var(--ink)}
+nav.tabs a[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+
+main{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
+.view{display:grid;gap:28px}
+.eyebrow{font-size:12px;letter-spacing:.12em;color:var(--brass);font-weight:600;text-transform:uppercase}
+.sec-head{display:grid;gap:6px;max-width:70ch}
+.sec-head h2{font-size:clamp(22px,3.2vw,30px)}
+.sec-head p{margin:0;color:var(--muted)}
+.bi{display:grid;gap:2px}
+.bi .en{color:var(--muted);font-size:.9em}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:stretch}
+.hero-copy{display:grid;gap:14px;align-content:center}
+.hero h1{font-size:clamp(28px,4.6vw,46px);font-weight:800}
+.hero h1 .en{display:block;font-size:.5em;color:var(--brass);font-family:var(--f-display);font-weight:700;margin-top:4px}
+.hero p{margin:0;max-width:60ch;color:var(--muted)}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:600;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:hover{filter:brightness(1.05)}
+.ledger{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:14px;box-shadow:var(--shadow)}
+.ledger .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.ledger .row:last-child{border-bottom:0;padding-bottom:0}
+.ledger .num{font:500 22px/1 var(--f-mono);color:var(--accent);font-variant-numeric:tabular-nums}
+.meter{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--brass);border-radius:99px}
+
+/* generic grids & cards */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:10px;align-content:start;min-width:0}
+.card h3{font-size:18px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+
+/* skill colours */
+.k-read{--k:var(--read)} .k-listen{--k:var(--listen)} .k-speak{--k:var(--speak)} .k-write{--k:var(--write)}
+.k-vocab,.k-app,.k-test,.k-ai,.k-review{--k:var(--other)}
+.k-ai{--k:var(--brass)}
+.chip-k{color:var(--k);background:color-mix(in srgb,var(--k) 12%,transparent);font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;white-space:nowrap}
+
+/* four skills strip */
+.skills4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.skill-tile{border-top:3px solid var(--k);background:var(--surface);border-radius:10px;padding:16px;display:grid;gap:4px;text-decoration:none;color:var(--ink);border-inline:1px solid var(--line);border-bottom:1px solid var(--line)}
+.skill-tile b{font-family:var(--f-display);font-size:18px}
+.skill-tile span{font-size:14px;color:var(--muted)}
+
+/* member cards */
+.members{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.mcard{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;transition:border-color .15s}
+.mcard:hover{border-color:var(--accent)}
+.avatar{grid-row:span 2;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:800 22px/1 var(--f-display);position:relative}
+.avatar sub{position:absolute;bottom:-4px;inset-inline-start:-4px;background:var(--brass);color:var(--surface);font:500 11px/1 var(--f-mono);padding:3px 5px;border-radius:6px}
+.mcard b{font-family:var(--f-display);font-size:19px}
+.mcard .meta{font-size:13px;color:var(--muted)}
+.mcard .meter{grid-column:1/-1;margin-top:8px}
+.mcard .today{grid-column:1/-1;font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
+
+/* levels ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:grid;grid-template-columns:84px 1fr auto;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.rung .code{font:500 26px/1 var(--f-mono);color:var(--accent);text-align:center}
+.rung .code small{display:block;font:600 11px/1.4 var(--f-body);color:var(--muted);margin-top:4px}
+.rung h3{font-size:17px}
+.rung p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.rung .when{font-size:12px;font-weight:600;color:var(--brass);background:var(--brass-soft);padding:4px 10px;border-radius:99px;white-space:nowrap}
+.phase-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px}
+.phase .dates{font:500 13px/1 var(--f-mono);color:var(--brass)}
+
+/* segmented control */
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--surface);padding:7px 14px;border-radius:99px;cursor:pointer;font-weight:500;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* skill detail */
+.stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stage h4{font-size:15px;display:flex;justify-content:space-between;gap:8px}
+.stage ol{margin:0;padding-inline-start:20px;display:grid;gap:6px;font-size:15px}
+.stage li .en{display:block;font-size:13px;color:var(--muted)}
+ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ul.clean li{display:grid;gap:0;padding-inline-start:14px;border-inline-start:2px solid var(--line)}
+ul.clean li .en{font-size:13px;color:var(--muted)}
+
+/* apps */
+.app{grid-template-rows:auto auto 1fr auto}
+.app-top{display:flex;justify-content:space-between;align-items:start;gap:10px}
+.app h3 .en{display:block;font-size:13px;color:var(--muted);font-family:var(--f-body);font-weight:500}
+.price{font-size:12px;font-weight:600;color:var(--brass);background:var(--brass-soft);padding:2px 9px;border-radius:99px;white-space:nowrap}
+.app p{margin:0;font-size:14.5px}
+.app a.go{font-weight:600;font-size:14px;text-decoration:none}
+
+/* plan */
+.profile{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.profile .avatar{width:64px;height:64px;font-size:28px;grid-row:auto}
+.profile h2{font-size:26px}
+.profile .facts{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--muted);margin-top:4px}
+.ring{width:96px;height:96px;position:relative;display:grid;place-items:center}
+.ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring b{font:500 20px/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.ring small{display:block;font-size:11px;color:var(--muted);text-align:center;margin-top:2px}
+.weeks{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.weeks button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px;cursor:pointer;text-align:center;line-height:1.3}
+.weeks button b{display:block;font-size:14px}
+.weeks button small{font:500 11px/1 var(--f-mono);color:var(--muted)}
+.weeks button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.weeks button[aria-pressed="true"] small{color:inherit;opacity:.85}
+.weeks button.has-today:not([aria-pressed="true"]){border-color:var(--brass)}
+.week-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.week-info .card{gap:4px}
+.days{display:grid;gap:14px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.day.is-today{border-color:var(--brass);box-shadow:0 0 0 1px var(--brass)}
+.day.is-past .day-head{opacity:.92}
+.day-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.day-head .d{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.day-head b{font-family:var(--f-display);font-size:16px}
+.day-head .num{font:500 13px/1 var(--f-mono);color:var(--muted)}
+.day-head .badge{font-size:12px;font-weight:700;background:var(--brass);color:var(--surface);padding:2px 10px;border-radius:99px}
+.day-head .count{font:500 13px/1 var(--f-mono);color:var(--muted)}
+.day-head .count.full{color:var(--done)}
+.words{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px 0}
+.word{font-size:13px;border:1px solid var(--line);border-radius:8px;padding:3px 9px;display:inline-flex;gap:6px}
+.word .en{font-weight:600}
+.tasks{list-style:none;margin:0;padding:8px 8px 12px;display:grid;gap:2px}
+.task label{display:grid;grid-template-columns:auto auto 1fr;gap:10px;align-items:start;padding:8px;border-radius:8px;cursor:pointer}
+.task label:hover{background:var(--surface-2)}
+.task input{width:18px;height:18px;margin:4px 0 0;accent-color:var(--done);cursor:pointer}
+.task .chip-k{margin-top:2px}
+.task .txt{display:grid;min-width:0}
+.task .txt .en{font-size:13.5px;color:var(--muted)}
+.task input:checked ~ .txt{text-decoration:line-through;text-decoration-color:var(--muted);opacity:.7}
+.term-inline{display:inline-block;margin-top:4px;font-size:13px;background:var(--brass-soft);color:var(--ink);padding:2px 8px;border-radius:6px}
+
+/* AI glossary */
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.search{flex:1 1 240px;max-width:360px;padding:9px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+.terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;min-width:0}
+.term-top{display:flex;justify-content:space-between;align-items:start;gap:10px}
+.term h3{font-size:17px;direction:ltr;text-align:left;font-family:var(--f-body);font-weight:700}
+.term .ar{font-family:var(--f-display);font-weight:700;color:var(--accent)}
+.term p{margin:0;font-size:14.5px}
+.term .ex{font-size:13.5px;color:var(--muted);font-style:italic;border-inline-start:2px solid var(--brass);padding-inline-start:10px}
+.lvl-1{--k:var(--listen)} .lvl-2{--k:var(--read)} .lvl-3{--k:var(--speak)} .lvl-4{--k:var(--write)}
+.note{background:var(--brass-soft);border-radius:12px;padding:14px 18px;font-size:14.5px}
+footer{border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:13px;padding-block:20px;padding-inline:16px}
+
+@media (max-width:900px){
+  .hero,.g3,.members,.stages,.week-info,.phase-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero{grid-template-columns:1fr}
+  .skills4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px){
+  .g2,.g3,.members,.stages,.week-info,.phase-strip,.terms{grid-template-columns:1fr}
+  .profile{grid-template-columns:auto 1fr}
+  .profile .ring{grid-column:1/-1;justify-self:start}
+  .rung{grid-template-columns:60px 1fr}
+  .rung .when{grid-column:2;justify-self:start}
+  nav.tabs{margin-inline-start:0;width:100%}
+  .task label{grid-template-columns:auto 1fr}
+  .task .chip-k{justify-self:start}
+  .task .txt{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#home"><span class="seal">EN</span><span><b>مسار الإنجليزية</b><small class="en">ENGLISH PATH · A1 → C2</small></span></a>
+    <nav class="tabs" id="tabs" aria-label="الأقسام الرئيسية">
+      <a href="#home">الرئيسية</a>
+      <a href="#levels">المستويات</a>
+      <a href="#skills">المهارات الأربع</a>
+      <a href="#apps">أفضل التطبيقات</a>
+      <a href="#family">الأقسام والمهمات</a>
+      <a href="#ai">مصطلحات الذكاء الاصطناعي</a>
+    </nav>
+  </div>
+</header>
+<main id="view" class="view" aria-live="polite"></main>
+<footer>مسار الإنجليزية · English Path — خطة 13 أكتوبر 2026 حتى 13 يناير 2027 · يُحفظ تقدّمك في هذا المتصفح فقط</footer>
+
+<script>
+/* ===================== DATA ===================== */
+const START = new Date(2026, 9, 13);   // 13 Oct 2026
+const TOTAL = 93;                       // through 13 Jan 2027 inclusive
+
+const MEMBERS = [
+  {id:"fahd",     ar:"فهد",   en:"Fahd",     age:52, group:"adult", focus:"إنجليزية العمل والسفر والاجتماعات", focusEn:"Work, travel & meetings English"},
+  {id:"mashael",  ar:"مشاعل", en:"Mashael",  age:48, group:"adult", focus:"التواصل اليومي والسفر والحياة الاجتماعية", focusEn:"Everyday communication, travel & social life"},
+  {id:"afnan",    ar:"أفنان", en:"Afnan",    age:25, group:"young", focus:"الإنجليزية الأكاديمية والتقنية + مصطلحات الذكاء الاصطناعي", focusEn:"Academic & tech English + AI terminology", ai:true},
+  {id:"khaled",   ar:"خالد",  en:"Khaled",   age:24, group:"young", focus:"الإنجليزية المهنية والمقابلات الوظيفية", focusEn:"Professional English & job interviews"},
+  {id:"maysa",    ar:"ميساء", en:"Maysa",    age:15, group:"teen",  focus:"المدرسة والاختبارات والهوايات", focusEn:"School, exams & hobbies"},
+  {id:"mohammed", ar:"محمد",  en:"Mohammed", age:11, group:"kid",   focus:"التعلّم باللعب والقصص والكرتون", focusEn:"Learning through games, stories & cartoons"}
+];
+
+const GROUPS = {
+  kid:   {m:10, cam:"Cambly Kids", minutes:"40–50", label:"مسار الأطفال",
+          rr:["LearnEnglish Kids (British Council)","Oxford Owl (قصص مجانية)","Britannica Kids / DOGOnews"],
+          rl:["Peppa Pig / Bluey","Super Simple Songs & Storybooks","أفلام Disney بترجمة إنجليزية"]},
+  teen:  {m:15, cam:"Cambly", minutes:"60", label:"مسار اليافعين",
+          rr:["LearnEnglish Teens","Graded Readers (Oxford Bookworms)","BBC Newsround / Newsela"],
+          rl:["LearnEnglish Teens videos","TED-Ed","TED Talks"]},
+  young: {m:20, cam:"Cambly", minutes:"75–90", label:"مسار الشباب",
+          rr:["VOA Learning English","BBC Learning English","BBC News / The Guardian"],
+          rl:["BBC 6 Minute English","All Ears English Podcast","TED Talks / BBC Global News"]},
+  adult: {m:20, cam:"Cambly", minutes:"60–75", label:"مسار الكبار",
+          rr:["VOA Learning English","BBC Learning English","BBC News / Reuters"],
+          rl:["VOA Learning English (بطيء)","BBC 6 Minute English","BBC Global News Podcast"]}
+};
+
+const WEEKS = [
+  {ar:"التحية والتعارف", en:"Greetings & Introductions", g:"فعل الكينونة (am/is/are) والضمائر", gEn:"the verb to be & pronouns",
+   w:[["name","اسم"],["meet","يقابل / يتعرّف"],["introduce","يُعرّف بـ"],["nice","لطيف"],["friend","صديق"],["from","من (بلد)"],["welcome","أهلًا وسهلًا"]]},
+  {ar:"العائلة والمنزل", en:"Family & Home", g:"المضارع البسيط وصفات الملكية (my/your/his)", gEn:"present simple & possessive adjectives",
+   w:[["parents","الوالدان"],["brother","أخ"],["sister","أخت"],["kitchen","مطبخ"],["neighbour","جار"],["live","يسكن"],["together","معًا"]]},
+  {ar:"الروتين اليومي", en:"Daily Routine", g:"ظروف التكرار (always/usually/never)", gEn:"adverbs of frequency",
+   w:[["wake up","يستيقظ"],["usually","عادةً"],["always","دائمًا"],["breakfast","فطور"],["early","مبكرًا"],["schedule","جدول"],["habit","عادة"]]},
+  {ar:"الطعام والتسوّق", en:"Food & Shopping", g:"المعدود وغير المعدود (some/any/much/many)", gEn:"countable & uncountable nouns",
+   w:[["price","سعر"],["cheap","رخيص"],["expensive","غالٍ"],["receipt","إيصال"],["delicious","لذيذ"],["order","يطلب"],["discount","خصم"]]},
+  {ar:"السفر والاتجاهات", en:"Travel & Directions", g:"الماضي البسيط (المنتظم والشاذ)", gEn:"past simple (regular & irregular)",
+   w:[["ticket","تذكرة"],["passport","جواز سفر"],["luggage","أمتعة"],["departure","مغادرة"],["turn left","انعطف يسارًا"],["straight ahead","إلى الأمام مباشرة"],["reservation","حجز"]]},
+  {ar:"الصحة والجسم", en:"Health & the Body", g:"أفعال النصيحة والإلزام (should/must/have to)", gEn:"modals: should / must / have to",
+   w:[["headache","صداع"],["appointment","موعد"],["medicine","دواء"],["healthy","صحي"],["exercise","تمرين"],["symptoms","أعراض"],["recover","يتعافى"]]},
+  {ar:"العمل والدراسة", en:"Work & Study", g:"المضارع المستمر والمستقبل (going to / will)", gEn:"present continuous & future forms",
+   w:[["deadline","موعد نهائي"],["colleague","زميل"],["assignment","مهمة / واجب"],["improve","يحسّن"],["skill","مهارة"],["achieve","يحقق"],["responsible","مسؤول"]]},
+  {ar:"التقنية والإنترنت", en:"Technology & the Internet", g:"المضارع التام (have/has + V3)", gEn:"present perfect",
+   w:[["device","جهاز"],["download","يحمّل"],["update","تحديث"],["password","كلمة المرور"],["reliable","موثوق"],["data","بيانات"],["artificial intelligence","الذكاء الاصطناعي"]]},
+  {ar:"المشاعر والآراء", en:"Feelings & Opinions", g:"المقارنة والتفضيل + التعبير عن الرأي", gEn:"comparatives, superlatives & giving opinions",
+   w:[["grateful","ممتن"],["anxious","قلق"],["disappointed","محبَط"],["in my opinion","في رأيي"],["agree","يوافق"],["however","ومع ذلك"],["convince","يُقنع"]]},
+  {ar:"الأخبار والمجتمع", en:"News & Society", g:"المبني للمجهول (Passive Voice)", gEn:"the passive voice",
+   w:[["issue","قضية"],["impact","تأثير"],["community","مجتمع"],["according to","وفقًا لـ"],["increase","زيادة"],["government","حكومة"],["environment","البيئة"]]},
+  {ar:"الأعمال والاجتماعات", en:"Business & Meetings", g:"الجمل الشرطية (Conditionals 0–3)", gEn:"conditionals 0–3",
+   w:[["agenda","جدول أعمال"],["negotiate","يتفاوض"],["proposal","مقترح"],["budget","ميزانية"],["stakeholder","صاحب مصلحة"],["follow up","يتابع"],["efficient","فعّال"]]},
+  {ar:"الثقافة والإعلام", en:"Culture & Media", g:"الكلام المنقول وجمل الصلة (who/which/that)", gEn:"reported speech & relative clauses",
+   w:[["heritage","تراث"],["audience","جمهور"],["perspective","منظور"],["influence","يؤثر"],["tradition","تقليد"],["diverse","متنوع"],["controversial","مثير للجدل"]]},
+  {ar:"العروض والنقاش", en:"Presentations & Debate", g:"أدوات الربط والتراكيب المتقدمة", gEn:"linking words & advanced structures",
+   w:[["furthermore","علاوة على ذلك"],["consequently","نتيجةً لذلك"],["evidence","دليل"],["emphasize","يؤكّد"],["nevertheless","ومع ذلك"],["conclude","يختتم"],["persuasive","مقنع"]]},
+  {ar:"المراجعة النهائية", en:"Final Review", g:"مراجعة شاملة لكل القواعد", gEn:"full grammar review",
+   w:[["fluent","طليق"],["confident","واثق"],["articulate","فصيح"],["nuance","فارق دقيق"],["proficiency","إتقان"],["milestone","محطة إنجاز"],["accomplish","يُنجز"]]}
+];
+
+/* task templates: [ar, en, arKid?, enKid?] by skill → phase (0,1,2) */
+const T = {
+  read:[
+    [["اقرأ نصًا قصيرًا سهلًا عن «{theme}» من {rr} لمدة {m} دقائق، وظلّل كل كلمة جديدة.","Read a short, easy text about “{themeEn}” on {rr} for {m} minutes and highlight every new word."],
+     ["اقرأ كلمات اليوم بصوت عالٍ ثلاث مرات، ثم اقرأ جملة مثال لكل كلمة.","Read today's words aloud three times, then read an example sentence for each."],
+     ["اقرأ حوارًا قصيرًا عن «{theme}» وأجب عن 3 أسئلة: من؟ ماذا؟ أين؟","Read a short dialogue about “{themeEn}” and answer: Who? What? Where?"],
+     ["اقرأ قصة قصيرة مصوّرة واكتب لها عنوانًا جديدًا بالإنجليزية.","Read a short picture story and give it a new English title."]],
+    [["اقرأ مقالًا قصيرًا من {rr} عن «{theme}» واكتب الفكرة الرئيسية في جملة واحدة.","Read a short article on {rr} about “{themeEn}” and write the main idea in one sentence."],
+     ["اقرأ نصًا واستخرج منه 5 أمثلة على قاعدة الأسبوع: {g}.","Read a text and find 5 examples of this week's grammar: {gEn}."],
+     ["اقرأ {m} دقيقة من كتاب مبسّط (Graded Reader) ولخّص ما قرأته في 3 جمل.","Read a graded reader for {m} minutes and summarise it in 3 sentences."],
+     ["تمرين Skim & Scan: تصفّح مقالًا في دقيقة لمعرفة موضوعه، ثم ابحث فيه عن 3 معلومات محددة.","Skim & Scan: skim an article in one minute for its topic, then scan it for 3 specific facts."]],
+    [["اقرأ خبرًا كاملًا من {rr} ولخّصه في 3 نقاط بأسلوبك.","Read a full news story on {rr} and summarise it in 3 bullet points in your own words."],
+     ["اقرأ مقال رأي وحدّد: رأي الكاتب، وحجّتين يستخدمهما، ونقطة تخالفه فيها.","Read an opinion piece: find the writer's view, two of their arguments, and one point you disagree with."],
+     ["اقرأ {m} دقيقة من كتاب أصلي غير مبسّط ودوّن 5 تعابير جديدة.","Read an authentic (unsimplified) book for {m} minutes and note 5 new expressions.","اقرأ {m} دقائق من كتاب Diary of a Wimpy Kid أو Magic Tree House ودوّن 5 كلمات جديدة.","Read Diary of a Wimpy Kid or Magic Tree House for {m} minutes and note 5 new words."],
+     ["اقرأ نصًا متخصصًا في مجالك واستخرج 8 مصطلحات مع معانيها.","Read a text from your own field and extract 8 terms with their meanings.","اقرأ صفحة من Britannica Kids عن حيوان تحبه ودوّن 5 معلومات.","Read a Britannica Kids page about an animal you like and note 5 facts."]]
+  ],
+  listen:[
+    [["استمع إلى {rl} لمدة {m} دقائق، ثم أعد الاستماع مع ترجمة إنجليزية (لا عربية).","Listen to {rl} for {m} minutes, then again with English (not Arabic) subtitles."],
+     ["استمع لنطق كلمات اليوم في قاموس Oxford أو YouGlish وكرّر كل كلمة 5 مرات.","Hear today's words on Oxford Learner's Dictionary or YouGlish and repeat each 5 times."],
+     ["استمع إلى حوار قصير عن «{theme}» واكتب 5 كلمات سمعتها.","Listen to a short dialogue about “{themeEn}” and write down 5 words you heard."],
+     ["استمع إلى أغنية إنجليزية بسيطة مع قراءة كلماتها، ثم ردّد المقطع الأول.","Listen to a simple English song while reading the lyrics, then sing the first verse."]],
+    [["استمع إلى حلقة من {rl} وأجب: ما الموضوع؟ وما أهم 3 معلومات؟","Listen to an episode of {rl}: what is the topic and what are the 3 key points?"],
+     ["إملاء (Dictation): استمع لمقطع 30 ثانية واكتبه كاملًا، ثم صحّحه من النص.","Dictation: write down a 30-second clip word for word, then check it against the transcript."],
+     ["شاهد {m} دقيقة من مسلسل أو فيلم بترجمة إنجليزية ودوّن 3 عبارات يومية.","Watch {m} minutes of a series or film with English subtitles and note 3 everyday phrases."],
+     ["استمع مرتين لمقطع عن «{theme}»: الأولى للفكرة العامة، والثانية للتفاصيل.","Listen twice to a clip about “{themeEn}”: first for the gist, then for the details."]],
+    [["استمع إلى {rl} بلا ترجمة، ثم لخّص ما سمعته بصوتك في دقيقة.","Listen to {rl} with no subtitles, then summarise it aloud in one minute."],
+     ["استمع لمتحدث بريطاني وآخر أمريكي عن نفس الموضوع ولاحظ فروق النطق.","Listen to a British and an American speaker on the same topic and note the pronunciation differences."],
+     ["شاهد محاضرة TED كاملة بلا ترجمة ودوّن ملاحظاتك بطريقة Cornell.","Watch a full TED talk without subtitles and take Cornell-style notes.","شاهد فيديو TED-Ed قصيرًا ودوّن 3 معلومات جديدة.","Watch a short TED-Ed video and note 3 new facts."],
+     ["استمع لبودكاست أو نشرة أخبار بسرعة 1x ثم أعده بسرعة 1.25x.","Listen to a podcast or news bulletin at 1x, then again at 1.25x."]]
+  ],
+  speak:[
+    [["عرّف بنفسك في 5 جمل وسجّل صوتك، ثم استمع وصحّح أخطاءك.","Introduce yourself in 5 sentences, record it, then listen back and correct yourself."],
+     ["تقنية Shadowing: ردّد خلف المتحدث في مقطع قصير لمدة {m} دقائق.","Shadowing: repeat right after a speaker in a short clip for {m} minutes."],
+     ["قل جملة بصوت عالٍ لكل كلمة من كلمات اليوم.","Say one sentence aloud with each of today's words."],
+     ["صِف صورة أو غرفتك بالإنجليزية لمدة دقيقة كاملة.","Describe a picture or your room in English for one full minute."]],
+    [["تحدّث دقيقتين عن «{theme}» دون توقف وسجّل نفسك.","Speak for two minutes about “{themeEn}” without stopping and record yourself."],
+     ["تدرّب على النطق في تطبيق ELSA Speak لمدة {m} دقائق.","Practise pronunciation on ELSA Speak for {m} minutes."],
+     ["مثّل حوارًا مع أحد أفراد العائلة عن «{theme}» بالإنجليزية فقط.","Role-play a conversation about “{themeEn}” with a family member — English only."],
+     ["أجب بصوت عالٍ عن 3 أسئلة تبدأ بـ Why و How مستخدمًا {g}.","Answer 3 Why/How questions aloud using {gEn}."]],
+    [["قدّم عرضًا قصيرًا (3 دقائق) عن «{theme}» وسجّله بالفيديو.","Give a 3-minute presentation about “{themeEn}” and record it on video."],
+     ["مناظرة: دافع لمدة دقيقتين عن الرأي المعاكس لرأيك في «{theme}».","Debate: argue the opposite of your own view on “{themeEn}” for two minutes."],
+     ["محادثة {m} دقيقة على {cam} أو HelloTalk مع متحدث أصلي.","A {m}-minute conversation on {cam} or HelloTalk with a native speaker."],
+     ["أعد سرد مقطع الاستماع بكلماتك مستخدمًا أدوات الربط (however, therefore…).","Retell today's listening in your own words using linking words (however, therefore…)."]]
+  ],
+  write:[
+    [["اكتب كلمات اليوم 3 مرات مع معانيها، وجملة لكل كلمة.","Write today's words 3 times with their meanings, plus one sentence for each."],
+     ["اكتب 5 جمل عن نفسك أو يومك مستخدمًا {g}.","Write 5 sentences about yourself or your day using {gEn}."],
+     ["املأ نموذجًا بسيطًا بالإنجليزية: الاسم، العمر، الهوايات، المدينة.","Fill in a simple English form: name, age, hobbies, city."],
+     ["اكتب رسالة قصيرة (3–4 جمل) لصديق عن «{theme}».","Write a short 3–4 sentence message to a friend about “{themeEn}”."]],
+    [["اكتب فقرة (80 كلمة) عن «{theme}» وصحّحها في Grammarly.","Write an 80-word paragraph about “{themeEn}” and check it with Grammarly."],
+     ["اكتب يومياتك بالإنجليزية: ماذا فعلت اليوم وماذا تعلّمت؟","Write a journal entry: what did you do today and what did you learn?"],
+     ["اكتب بريدًا إلكترونيًا رسميًا قصيرًا (طلب أو استفسار).","Write a short formal email (a request or an enquiry).","اكتب بطاقة دعوة لحفلة عيد ميلاد بالإنجليزية.","Write a birthday-party invitation card in English."],
+     ["حوّل 5 جمل بسيطة إلى جمل مركّبة باستخدام because / although / which.","Turn 5 simple sentences into complex ones with because / although / which."]],
+    [["اكتب مقال رأي (200 كلمة): مقدمة وفقرتان وخاتمة عن «{theme}»، وصحّحه في Write & Improve.","Write a 200-word opinion essay on “{themeEn}” (intro, two body paragraphs, conclusion) and check it on Write & Improve.","اكتب فقرة (100 كلمة) برأيك عن «{theme}» وراجعها مع أحد الكبار.","Write a 100-word paragraph with your opinion on “{themeEn}” and review it with an adult."],
+     ["لخّص ما قرأته اليوم في 100 كلمة بأسلوب أكاديمي.","Summarise today's reading in 100 words in an academic style."],
+     ["اكتب بريدًا مهنيًا متكاملًا أو تقريرًا قصيرًا.","Write a complete professional email or a short report.","اكتب قصة قصيرة (8 جمل) من خيالك.","Write an 8-sentence story from your imagination."],
+     ["أعد كتابة نفس الفكرة بأسلوب رسمي (Formal) ثم بأسلوب ودّي (Informal).","Write the same idea in a formal register, then in an informal one."]]
+  ]
+};
+
+const SKILL_LABEL = {read:"قراءة · Reading", listen:"استماع · Listening", speak:"تحدّث · Speaking", write:"كتابة · Writing",
+  vocab:"مفردات · Vocab", app:"تطبيق · App", test:"اختبار · Test", review:"مراجعة · Review", ai:"AI"};
+
+/* AI glossary — level 1 beginner … 4 deep */
+const AI_LEVELS = [
+  {n:1, ar:"مبتدئ", en:"Beginner"},
+  {n:2, ar:"متوسط", en:"Intermediate"},
+  {n:3, ar:"متقدّم", en:"Advanced"},
+  {n:4, ar:"عميق وصعب", en:"Deep / Expert"}
+];
+const AI_TERMS = [
+  [1,"Artificial Intelligence (AI)","الذكاء الاصطناعي","أنظمة حاسوبية تؤدي مهام تحتاج عادةً إلى ذكاء بشري كالفهم والتعلّم واتخاذ القرار.","AI is changing how hospitals diagnose diseases."],
+  [1,"Algorithm","خوارزمية","مجموعة خطوات محددة ومرتبة لحل مشكلة أو إنجاز مهمة.","The algorithm sorts the photos by date."],
+  [1,"Data","بيانات","المعلومات الخام (أرقام، نصوص، صور) التي يتعلّم منها النظام.","Good data is more important than a big model."],
+  [1,"Dataset","مجموعة بيانات","مجموعة منظّمة من الأمثلة تُستخدم لتدريب النموذج أو اختباره.","We collected a dataset of 10,000 Arabic tweets."],
+  [1,"Machine Learning (ML)","تعلّم الآلة","فرع من الذكاء الاصطناعي تتعلّم فيه الأنظمة الأنماط من البيانات بدل برمجتها يدويًا.","Spam filters use machine learning."],
+  [1,"Model","نموذج","الناتج الرياضي للتدريب، يستقبل مدخلات ويعطي توقعات أو إجابات.","The model predicts tomorrow's sales."],
+  [1,"Training","التدريب","عملية تعليم النموذج عبر عرض أمثلة كثيرة عليه وتعديل قيمه الداخلية.","Training the model took three days."],
+  [1,"Prediction","تنبؤ / توقّع","الإجابة التي يقدّمها النموذج لمدخل جديد لم يره من قبل.","The prediction was correct 9 times out of 10."],
+  [1,"Chatbot","روبوت محادثة","برنامج يحاور المستخدم بلغة طبيعية نصًا أو صوتًا.","The bank's chatbot answers questions 24/7."],
+  [1,"Prompt","الموجِّه / الأمر","النص أو التعليمات التي تكتبها للنموذج اللغوي ليؤدي مهمة.","Write a clear prompt to get a better answer."],
+  [1,"Automation","الأتمتة","جعل المهام المتكررة تُنجَز تلقائيًا دون تدخل بشري.","Automation saved the team ten hours a week."],
+  [1,"Input / Output","المُدخلات / المُخرجات","ما يُعطى للنظام، وما ينتجه النظام بعد المعالجة.","The input is an image; the output is a label."],
+  [1,"Label","وسم / تصنيف","الإجابة الصحيحة المرفقة بكل مثال في بيانات التدريب.","Each photo has a label: cat or dog."],
+  [1,"Accuracy","الدقّة الإجمالية","نسبة التوقعات الصحيحة من مجموع التوقعات.","The model reached 95% accuracy."],
+  [1,"Bias","التحيّز","ميل النموذج لنتائج غير عادلة بسبب بيانات غير متوازنة أو تصميم معيب.","We must reduce bias in hiring algorithms."],
+  [1,"Generative AI","الذكاء الاصطناعي التوليدي","نماذج تُنشئ محتوى جديدًا: نصوصًا أو صورًا أو أصواتًا أو أكوادًا.","Generative AI can draft an email in seconds."],
+
+  [2,"Neural Network","شبكة عصبية","نموذج مكوّن من طبقات من «الخلايا» الرياضية المترابطة، مستوحى من الدماغ.","A neural network learns to recognise faces."],
+  [2,"Deep Learning","التعلّم العميق","تعلّم آلة يستخدم شبكات عصبية بطبقات كثيرة لتعلّم تمثيلات معقّدة.","Deep learning powers speech recognition."],
+  [2,"Supervised Learning","التعلّم الموجَّه (بإشراف)","التعلّم من أمثلة لها إجابات صحيحة معروفة (Labels).","Email spam detection is supervised learning."],
+  [2,"Unsupervised Learning","التعلّم غير الموجَّه","اكتشاف الأنماط في بيانات بلا إجابات معروفة.","Unsupervised learning grouped customers by behaviour."],
+  [2,"Reinforcement Learning","التعلّم المعزّز","تعلّم الوكيل عبر التجربة والخطأ ونيل المكافآت أو العقوبات.","AlphaGo was trained with reinforcement learning."],
+  [2,"Feature","سِمة / خاصية","متغيّر قابل للقياس يستخدمه النموذج كمدخل، مثل العمر أو السعر.","House size is an important feature for price."],
+  [2,"Overfitting","فرط التخصيص","حفظ النموذج لبيانات التدريب بتفاصيلها فيفشل مع بيانات جديدة.","The model is overfitting: 99% on training, 60% on test."],
+  [2,"Underfitting","نقص التوافق","نموذج بسيط جدًا لا يلتقط الأنماط حتى في بيانات التدريب.","A straight line underfits this curved data."],
+  [2,"Classification","التصنيف","توقّع فئة من فئات محدّدة (مثل: سليم / مريض).","Sentiment analysis is a classification task."],
+  [2,"Regression","الانحدار","توقّع قيمة رقمية متصلة (مثل السعر أو الحرارة).","We used regression to estimate house prices."],
+  [2,"Clustering","التجميع العنقودي","تقسيم البيانات إلى مجموعات متشابهة دون تصنيفات مسبقة.","Clustering revealed three types of users."],
+  [2,"Natural Language Processing (NLP)","معالجة اللغة الطبيعية","تمكين الحاسوب من فهم اللغة البشرية وتوليدها.","NLP helps translate Arabic to English."],
+  [2,"Computer Vision","الرؤية الحاسوبية","تمكين الحاسوب من فهم الصور والفيديو.","Computer vision detects cars in traffic cameras."],
+  [2,"Large Language Model (LLM)","نموذج لغوي كبير","نموذج ضخم مُدرَّب على كمّ هائل من النصوص لفهم اللغة وتوليدها.","Claude and GPT are large language models."],
+  [2,"Token","وحدة نصية (توكن)","أصغر جزء من النص يعالجه النموذج: كلمة أو جزء من كلمة.","This sentence has about twelve tokens."],
+  [2,"Hallucination","الهلوسة","إنتاج النموذج لمعلومة خاطئة بثقة كأنها حقيقة.","Always verify facts; models can hallucinate."],
+
+  [3,"Transformer","المحوِّل (Transformer)","معمارية شبكات عصبية تعتمد على الانتباه، وهي أساس النماذج اللغوية الحديثة.","The Transformer was introduced in 2017."],
+  [3,"Attention Mechanism","آلية الانتباه","طريقة تجعل النموذج يركّز على الأجزاء الأهم من المدخلات عند كل خطوة.","Attention lets the model link “it” to the right noun."],
+  [3,"Embedding","التضمين (تمثيل متجهي)","تحويل الكلمات أو العناصر إلى متجهات رقمية تقترب فيها المعاني المتشابهة.","“King” and “queen” have close embeddings."],
+  [3,"Fine-tuning","الضبط الدقيق","تدريب إضافي لنموذج جاهز على بيانات متخصصة ليتقن مهمة معيّنة.","We fine-tuned the model on legal documents."],
+  [3,"Transfer Learning","نقل التعلّم","الاستفادة من معرفة نموذج مُدرَّب في مهمة جديدة مشابهة.","Transfer learning needs far less data."],
+  [3,"Gradient Descent","الانحدار التدرّجي","خوارزمية تحسين تعدّل الأوزان خطوة بخطوة لتقليل الخطأ.","Gradient descent slowly finds the lowest loss."],
+  [3,"Backpropagation","الانتشار العكسي","حساب مساهمة كل وزن في الخطأ ونشرها من المخرجات إلى الطبقات الأولى.","Backpropagation computes the gradients."],
+  [3,"Loss Function","دالة الخسارة","معادلة تقيس مدى بُعد توقّع النموذج عن الإجابة الصحيحة.","Cross-entropy is a common loss function."],
+  [3,"Hyperparameter","مُعامِل فائق","إعداد يُحدَّد قبل التدريب، مثل معدّل التعلّم وحجم الدفعة.","Learning rate is the most sensitive hyperparameter."],
+  [3,"Epoch","حِقبة تدريب","مرور كامل واحد على جميع بيانات التدريب.","We trained for 20 epochs."],
+  [3,"Context Window","نافذة السياق","الحد الأقصى من التوكنات التي يستطيع النموذج قراءتها مرة واحدة.","A larger context window fits a whole book."],
+  [3,"Retrieval-Augmented Generation (RAG)","التوليد المعزّز بالاسترجاع","جلب مستندات ذات صلة من قاعدة معرفة وإعطاؤها للنموذج قبل أن يجيب.","RAG reduces hallucinations by citing sources."],
+  [3,"Vector Database","قاعدة بيانات متجهية","قاعدة بيانات تخزّن التضمينات وتبحث بالتشابه في المعنى.","We stored the embeddings in a vector database."],
+  [3,"Precision & Recall","الدقّة النوعية والاستدعاء","الدقة: كم من التوقعات الإيجابية صحيحة؟ الاستدعاء: كم من الحالات الإيجابية اكتُشفت؟","For cancer screening, recall matters most."],
+  [3,"Inference","الاستدلال (التشغيل)","استخدام النموذج المدرَّب لإنتاج مخرجات جديدة بعد انتهاء التدريب.","Inference costs grow with every user."],
+  [3,"Prompt Engineering","هندسة الأوامر","تصميم التعليمات والأمثلة بعناية للحصول على أفضل مخرجات من النموذج.","Prompt engineering improved answers by 30%."],
+
+  [4,"Multi-Head Self-Attention","الانتباه الذاتي متعدد الرؤوس","تشغيل عدة آليات انتباه بالتوازي ليلتقط كل «رأس» نوعًا مختلفًا من العلاقات بين التوكنات.","Each attention head learns a different pattern."],
+  [4,"RLHF (Reinforcement Learning from Human Feedback)","التعلّم المعزّز من ملاحظات البشر","تحسين النموذج باستخدام تقييمات بشرية لتفضيل الإجابات الأفضل والأكثر أمانًا.","RLHF made chat models more helpful."],
+  [4,"Vanishing Gradient","تلاشي التدرّج","تصغُّر التدرّجات حتى تقارب الصفر في الشبكات العميقة فتتوقف الطبقات الأولى عن التعلّم.","Residual connections fix vanishing gradients."],
+  [4,"Regularization","التنظيم (Regularization)","تقنيات تقيّد النموذج لتقليل فرط التخصيص، مثل L1 وL2.","L2 regularization penalises large weights."],
+  [4,"Dropout","الإسقاط العشوائي","تعطيل نسبة عشوائية من الخلايا أثناء التدريب لمنع الاعتماد الزائد عليها.","We set dropout to 0.1."],
+  [4,"Latent Space","الفضاء الكامن","فضاء رياضي مضغوط يمثّل فيه النموذج الخصائص الخفية للبيانات.","Similar faces sit close together in latent space."],
+  [4,"Diffusion Model","نموذج الانتشار","نموذج توليدي يتعلّم إزالة الضوضاء تدريجيًا لتكوين صورة من العدم.","Image generators use diffusion models."],
+  [4,"Generative Adversarial Network (GAN)","شبكة توليدية تنافسية","شبكتان تتنافسان: مولِّد يصنع بيانات ومميِّز يكشف المزيّف منها.","GANs can create realistic fake faces."],
+  [4,"Quantization","التكميم","تقليل دقة الأرقام في أوزان النموذج (مثل 16bit إلى 4bit) لتسريعه وتصغيره.","Quantization lets the model run on a phone."],
+  [4,"Knowledge Distillation","تقطير المعرفة","تدريب نموذج صغير (الطالب) على محاكاة نموذج كبير (المعلّم).","Distillation produced a model 10x smaller."],
+  [4,"Mixture of Experts (MoE)","خليط الخبراء","معمارية تفعّل جزءًا فقط من «الخبراء» لكل مدخل لزيادة الحجم دون زيادة التكلفة.","An MoE model routes each token to two experts."],
+  [4,"Scaling Laws","قوانين التوسّع","علاقات تجريبية تتنبأ بتحسّن الأداء مع زيادة البيانات والحوسبة وحجم النموذج.","Scaling laws guided the training budget."],
+  [4,"Emergent Abilities","القدرات الناشئة","قدرات تظهر فجأة في النماذج الكبيرة ولم تكن واضحة في الأصغر.","Multi-step reasoning looked like an emergent ability."],
+  [4,"Alignment","المواءمة","جعل سلوك الذكاء الاصطناعي متوافقًا مع القيم والنوايا البشرية.","Alignment research aims for safe and honest AI."],
+  [4,"Interpretability","قابلية التفسير","فهم ما يحدث داخل النموذج ولماذا اتخذ قرارًا معيّنًا.","Interpretability tools reveal which features fired."],
+  [4,"AI Agent","وكيل ذكاء اصطناعي","نظام يخطّط وينفّذ خطوات متعددة ويستخدم أدوات لتحقيق هدف.","The AI agent booked the meeting by itself."],
+  [4,"Chain-of-Thought (CoT)","سلسلة التفكير","جعل النموذج يكتب خطوات استدلاله قبل الإجابة النهائية لتحسين الدقة.","Chain-of-thought prompting improved maths scores."],
+  [4,"Catastrophic Forgetting","النسيان الكارثي","فقدان النموذج لمهارات قديمة عند تدريبه على مهمة جديدة.","Fine-tuning caused catastrophic forgetting of French."]
+];
+
+const LEVELS = [
+  ["A1","مبتدئ","Beginner","يفهم عبارات يومية بسيطة، ويعرّف بنفسه، ويسأل ويجيب عن معلومات شخصية.","Understands everyday expressions and can introduce themselves.","الشهر 1 · الأسبوع 1–2"],
+  ["A2","أساسي","Elementary","يتواصل في مواقف روتينية: التسوّق، العمل، الاتجاهات، ويصف محيطه.","Communicates in routine tasks: shopping, directions, simple work talk.","الشهر 1 · الأسبوع 3–4"],
+  ["B1","متوسط","Intermediate","يتعامل مع أغلب مواقف السفر، ويحكي تجارب، ويعبّر عن رأيه بإيجاز.","Handles travel situations, describes experiences and gives brief opinions.","الشهر 2"],
+  ["B2","فوق المتوسط","Upper-Intermediate","يتحدث بطلاقة وعفوية مع المتحدثين الأصليين، ويفهم النقاشات التقنية في مجاله.","Interacts fluently with native speakers and follows technical discussion.","الشهر 3"],
+  ["C1","متقدّم","Advanced","يستخدم اللغة بمرونة في العمل والدراسة، ويكتب نصوصًا واضحة ومنظّمة ومعقّدة.","Uses language flexibly for work and study; writes clear, complex texts.","بعد الخطة · 3–6 أشهر"],
+  ["C2","احترافي","Proficient","يفهم كل ما يسمعه أو يقرؤه تقريبًا، ويعبّر بدقة عن الفروق الدقيقة في المعنى.","Understands virtually everything and expresses fine shades of meaning.","استمرارية · ممارسة دائمة"]
+];
+
+const SKILLS = {
+  read:{ar:"القراءة",en:"Reading",
+    intro:"القراءة أسرع طريق لبناء المفردات وفهم تركيب الجمل. ابدأ بنصوص أسهل قليلًا من مستواك، ثم ارفع الصعوبة تدريجيًا.",
+    introEn:"Reading is the fastest way to build vocabulary and absorb sentence structure.",
+    stages:[
+      ["مبتدئ · A1–A2",[["الحروف والأصوات (Phonics) وقراءة الكلمات الشائعة","Phonics & sight words"],["جمل وحوارات قصيرة مع صور","Short sentences & dialogues with pictures"],["القصص المبسّطة (Graded Readers – Level 1-2)","Graded readers, levels 1–2"]]],
+      ["متوسط · B1–B2",[["مقالات قصيرة من VOA و BBC Learning English","Short articles from VOA & BBC Learning English"],["مهارات Skimming و Scanning","Skimming & scanning"],["تدوين الكلمات الجديدة في Anki","Logging new words in Anki"]]],
+      ["احترافي · C1–C2",[["الأخبار والصحف الأصلية (BBC, The Economist)","Authentic news (BBC, The Economist)"],["الروايات والكتب المتخصصة في مجالك","Novels & books in your field"],["تحليل حجج الكاتب وأسلوبه","Analysing arguments & style"]]]],
+    tips:[["لا تترجم كل كلمة؛ خمّن المعنى من السياق أولًا.","Guess meaning from context before translating."],["اقرأ بصوت عالٍ 5 دقائق يوميًا لتحسين النطق أيضًا.","Read aloud 5 minutes a day to improve pronunciation too."],["قاعدة 95%: اختر نصًا تفهم 95% من كلماته.","The 95% rule: choose texts where you know 95% of the words."]]},
+  listen:{ar:"الاستماع",en:"Listening",
+    intro:"الأذن تتعوّد بالتكرار. استمع يوميًا لمحتوى تحبه، وانتقل من الترجمة الإنجليزية إلى عدم وجود ترجمة.",
+    introEn:"Your ear adapts through repetition: listen daily, and move from English subtitles to none.",
+    stages:[
+      ["مبتدئ · A1–A2",[["أغانٍ وكرتون وحوارات بطيئة","Songs, cartoons & slow dialogues"],["الاستماع مع النص المكتوب","Listening with a transcript"],["تكرار المقطع القصير عدة مرات","Replaying short clips several times"]]],
+      ["متوسط · B1–B2",[["بودكاست BBC 6 Minute English","BBC 6 Minute English podcast"],["المسلسلات بترجمة إنجليزية","Series with English subtitles"],["تمارين الإملاء (Dictation)","Dictation exercises"]]],
+      ["احترافي · C1–C2",[["محاضرات TED والبودكاست الطويل بلا ترجمة","TED talks & long podcasts, no subtitles"],["لهجات مختلفة: بريطانية، أمريكية، أسترالية","Different accents: UK, US, Australian"],["الأخبار بسرعة طبيعية وأعلى","News at natural speed and faster"]]]],
+    tips:[["استمع مرتين: الأولى للفكرة العامة والثانية للتفاصيل.","Listen twice: once for gist, once for detail."],["حوّل وقت السيارة والمشي إلى وقت استماع.","Turn driving and walking time into listening time."],["لا تستخدم الترجمة العربية؛ استخدم الإنجليزية.","Use English subtitles, never Arabic."]]},
+  speak:{ar:"التحدّث",en:"Speaking",
+    intro:"التحدث مهارة عضلية: تحتاج ممارسة يومية بصوت عالٍ، حتى لو كنت وحدك. الخطأ جزء من التعلّم.",
+    introEn:"Speaking is a physical skill: practise aloud daily, even alone. Mistakes are part of learning.",
+    stages:[
+      ["مبتدئ · A1–A2",[["نطق الأصوات الصعبة (th, v, p)","Tricky sounds (th, v, p)"],["التعريف بالنفس والعبارات اليومية","Self-introduction & daily phrases"],["تقنية Shadowing مع مقاطع قصيرة","Shadowing short clips"]]],
+      ["متوسط · B1–B2",[["حصص محادثة أسبوعية على Cambly","Weekly conversation lessons on Cambly"],["تمثيل المواقف (مطعم، مطار، مقابلة)","Role-plays: restaurant, airport, interview"],["تسجيل صوتك ومقارنته بالأصل","Recording yourself and comparing"]]],
+      ["احترافي · C1–C2",[["العروض التقديمية والمناظرات","Presentations & debates"],["التنغيم والتشديد (Intonation & Stress)","Intonation & stress"],["التحدث في مواضيع مجرّدة ومهنية","Abstract & professional topics"]]]],
+    tips:[["فكّر بالإنجليزية: صِف ما تفعله في عقلك أثناء يومك.","Think in English: narrate your day in your head."],["سجّل صوتك أسبوعيًا لترى تطوّرك.","Record yourself weekly to hear your progress."],["الطلاقة أولًا ثم الدقة.","Fluency first, accuracy second."]]},
+  write:{ar:"الكتابة",en:"Writing",
+    intro:"الكتابة تثبّت القواعد والمفردات. اكتب قليلًا كل يوم، وصحّح بالأدوات، ثم أعد الكتابة.",
+    introEn:"Writing locks in grammar and vocabulary. Write a little every day, correct it, rewrite it.",
+    stages:[
+      ["مبتدئ · A1–A2",[["كتابة الكلمات والجمل البسيطة","Words and simple sentences"],["ملء النماذج والرسائل القصيرة","Forms and short messages"],["القواعد الأساسية وعلامات الترقيم","Basic grammar & punctuation"]]],
+      ["متوسط · B1–B2",[["الفقرة: جملة رئيسية + تفاصيل + خاتمة","Paragraphs: topic sentence, support, conclusion"],["اليوميات والبريد الإلكتروني الرسمي","Journals & formal emails"],["أدوات الربط (however, although)","Linking words (however, although)"]]],
+      ["احترافي · C1–C2",[["مقالات الرأي والتقارير","Opinion essays & reports"],["الكتابة الأكاديمية والمهنية","Academic & professional writing"],["الأسلوب الرسمي مقابل غير الرسمي","Formal vs informal register"]]]],
+    tips:[["اكتب أولًا ثم صحّح؛ لا تتوقف عند كل خطأ.","Draft first, then edit."],["احتفظ بدفتر أخطاء شائعة وراجعه أسبوعيًا.","Keep a log of your common mistakes."],["استخدم Grammarly و Write & Improve للتصحيح.","Use Grammarly and Write & Improve for feedback."]]}
+};
+
+const APPS = [
+  ["Duolingo","دولينقو","مجاني + اشتراك","دروس قصيرة يومية بأسلوب الألعاب، ممتاز لبناء عادة يومية والمفردات الأساسية.",["vocab","read","listen"],"https://www.duolingo.com"],
+  ["Cambly","كامبلي","مدفوع","محادثات مباشرة بالفيديو مع معلمين متحدثين أصليين في أي وقت، وفيه Cambly Kids للأطفال.",["speak","listen"],"https://www.cambly.com"],
+  ["ELSA Speak","إلسا","مجاني + اشتراك","يصحّح نطقك بالذكاء الاصطناعي صوتًا بصوت، الأفضل لتحسين اللكنة.",["speak"],"https://elsaspeak.com"],
+  ["BBC Learning English","بي بي سي لتعلّم الإنجليزية","مجاني","دروس وبودكاست 6 Minute English وأخبار مبسّطة لكل المستويات.",["listen","read"],"https://www.bbc.co.uk/learningenglish"],
+  ["British Council LearnEnglish","المجلس الثقافي البريطاني","مجاني","تمارين قواعد ومهارات منظّمة حسب المستوى، وأقسام للأطفال واليافعين.",["read","write","listen"],"https://learnenglish.britishcouncil.org"],
+  ["Anki","أنكي","مجاني (أندرويد وويب)","بطاقات مراجعة ذكية بالتكرار المتباعد؛ أقوى أداة لحفظ المفردات للأبد.",["vocab"],"https://apps.ankiweb.net"],
+  ["Busuu","بوسو","مجاني + اشتراك","دروس منظّمة حسب CEFR مع تصحيح كتاباتك من متحدثين أصليين.",["write","speak"],"https://www.busuu.com"],
+  ["HelloTalk","هلو توك","مجاني","تبادل لغوي مع متحدثين أصليين عبر الدردشة والرسائل الصوتية.",["speak","write"],"https://www.hellotalk.com"],
+  ["italki","آي توكي","مدفوع","حجز معلم خاص لدروس منظّمة: محادثة، أعمال، تحضير IELTS.",["speak","listen"],"https://www.italki.com"],
+  ["Grammarly","قرامرلي","مجاني + اشتراك","يصحّح القواعد والأسلوب أثناء الكتابة في كل مكان.",["write"],"https://www.grammarly.com"],
+  ["Write & Improve (Cambridge)","كامبريدج للكتابة","مجاني","اكتب مقالًا واحصل على تقييم فوري لمستواك حسب CEFR.",["write"],"https://writeandimprove.com"],
+  ["YouGlish","يو قليش","مجاني","اسمع أي كلمة منطوقة في آلاف مقاطع يوتيوب الحقيقية.",["listen","speak"],"https://youglish.com"],
+  ["TED / TED-Ed","تيد","مجاني","محاضرات ملهمة مع نصوص وترجمات؛ ممتازة للاستماع المتقدم.",["listen"],"https://www.ted.com"],
+  ["Oxford Learner's Dictionaries","قاموس أكسفورد","مجاني","تعريفات بالإنجليزية البسيطة مع النطق البريطاني والأمريكي.",["vocab","read"],"https://www.oxfordlearnersdictionaries.com"],
+  ["EF SET","اختبار EF","مجاني","اختبار تحديد مستوى معتمد على CEFR في 50 دقيقة؛ استخدمه في البداية والنهاية.",["test"],"https://www.efset.org"]
+];
+
+/* ===================== HELPERS ===================== */
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2,"0");
+function dayDate(i){ const d = new Date(START); d.setDate(d.getDate()+i); return d; }
+function todayIndex(){ const t = new Date(); t.setHours(0,0,0,0); return Math.round((t - START)/86400000); }
+const fmtAr = (d,o) => d.toLocaleDateString("ar-SA-u-ca-gregory-nu-latn", o);
+const fmtEn = (d,o) => d.toLocaleDateString("en-GB", o);
+function fill(s, c){ return s.replace(/\{(\w+)\}/g, (_,k) => c[k] ?? ""); }
+const store = {
+  get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+let DONE = store.get("ep-done") || {};
+const viewState = store.get("ep-view") || {};
+
+/* ===================== PLAN GENERATOR ===================== */
+function buildDay(member, d){
+  const g = GROUPS[member.group];
+  const date = dayDate(d);
+  const dow = date.getDay();                 // 5 = Friday, 6 = Saturday
+  const week = Math.min(Math.floor(d/7), WEEKS.length-1);
+  const W = WEEKS[week];
+  const phase = d < 31 ? 0 : d < 61 ? 1 : 2;  // month 1, 2, 3
+  const kid = member.group === "kid";
+  const words = Array.from({length: phase === 0 ? 2 : 3}, (_, j) => W.w[(d + j) % 7]);
+  const ctx = {theme:W.ar, themeEn:W.en, g:W.g, gEn:W.gEn, m:g.m, rr:g.rr[phase], rl:g.rl[phase], cam:g.cam,
+               words:words.map(w=>w[0]).join("، "), wordsEn:words.map(w=>w[0]).join(", ")};
+  const pick = (skill, off) => {
+    const t = T[skill][phase][(d + off) % 4];
+    const useKid = kid && t[2];
+    return {k:skill, ar:fill(useKid ? t[2] : t[0], ctx), en:fill(useKid ? t[3] : t[1], ctx)};
+  };
+  const tasks = [];
+
+  if (d === 0) tasks.push({k:"test", ar:"اختبار تحديد المستوى على EF SET (أو اختبار British Council) وسجّل نتيجتك.", en:"Take the EF SET (or British Council) placement test and write down your score."});
+  if (d === 31 || d === 61) tasks.push({k:"test", ar:`نقطة تقييم الشهر ${d===31?"الأول":"الثاني"}: أعد الاختبار القصير وقارن نتيجتك بالبداية.`, en:`Month ${d===31?"1":"2"} checkpoint: retake a short level test and compare with your first score.`});
+  if (d === TOTAL-1) tasks.push({k:"test", ar:"الاختبار النهائي على EF SET 🎓 قارن نتيجتك باليوم الأول واحتفل بإنجازك!", en:"Final EF SET test 🎓 compare with day one and celebrate!"});
+
+  if (dow === 5) {                // Friday — light review
+    tasks.push({k:"review", ar:`راجع كل كلمات أسبوع «${W.ar}» في Anki أو Quizlet.`, en:`Review all the “${W.en}” words in Anki or Quizlet.`});
+    tasks.push({k:"listen", ar: kid ? "شاهد حلقة كرتون كاملة بالإنجليزية للمتعة." : "شاهد حلقة أو فيلمًا بالإنجليزية للمتعة مع ترجمة إنجليزية.", en: kid ? "Watch a full cartoon episode in English, just for fun." : "Watch an episode or film in English for fun, with English subtitles."});
+    tasks.push({k:"write", ar:"اكتب ملخّص الأسبوع: 5 أشياء تعلّمتها هذا الأسبوع.", en:"Write a weekly recap: 5 things you learned this week."});
+  } else if (dow === 6) {         // Saturday — conversation + quiz
+    tasks.push({k:"speak", ar:`حصة محادثة على ${g.cam} (${kid?15:25} دقيقة) عن موضوع الأسبوع «${W.ar}».`, en:`Conversation lesson on ${g.cam} (${kid?15:25} min) about this week's topic, “${W.en}”.`});
+    tasks.push({k:"test", ar:`اختبار ذاتي أسبوعي: كلمات الأسبوع + قاعدة ${W.g}.`, en:`Weekly self-quiz: this week's words + ${W.gEn}.`});
+    tasks.push({k:"listen", ar:"Shadowing لمقطع تحبه لمدة 10 دقائق.", en:"Shadow a clip you like for 10 minutes."});
+    tasks.push({k:"read", ar:`اقرأ عن موضوع الأسبوع القادم: «${WEEKS[Math.min(week+1,WEEKS.length-1)].ar}».`, en:`Preview next week's topic: “${WEEKS[Math.min(week+1,WEEKS.length-1)].en}”.`});
+  } else {
+    tasks.push({k:"vocab", ar:"احفظ كلمات اليوم (المكتوبة أعلاه) وأضفها إلى تطبيق Anki مع معانيها.", en:`Learn today's words and add them to Anki: ${ctx.wordsEn}.`});
+    tasks.push(pick("read",0), pick("listen",1), pick("speak",2), pick("write",3));
+  }
+  tasks.push(kid
+    ? {k:"app", ar:"Duolingo (أو Duolingo ABC): درس إلى درسين وحافظ على السلسلة 🔥", en:"Duolingo (or Duolingo ABC): 1–2 lessons, keep your streak 🔥"}
+    : {k:"app", ar:"Duolingo: أكمل 2–3 دروس وحافظ على السلسلة 🔥", en:"Duolingo: finish 2–3 lessons and keep your streak 🔥"});
+
+  if (member.ai) {
+    const term = AI_TERMS[d % AI_TERMS.length];
+    const rev = d >= AI_TERMS.length;
+    tasks.push({k:"ai", ar:`${rev?"مراجعة":"مصطلح اليوم"} في الذكاء الاصطناعي: احفظه واكتب به جملة بالإنجليزية.`, en:`${rev?"Review":"AI term of the day"}: learn it and use it in an English sentence.`, term});
+  }
+  return {d, date, dow, week, W, phase, words, tasks};
+}
+
+function memberStats(m){
+  let total = 0, done = 0;
+  for (let d=0; d<TOTAL; d++){
+    const n = buildDay(m,d).tasks.length; total += n;
+    for (let i=0;i<n;i++) if (DONE[`${m.id}|${d}|${i}`]) done++;
+  }
+  return {total, done, pct: total ? Math.round(done/total*100) : 0};
+}
+
+/* ===================== VIEWS ===================== */
+const bi = (ar,en,tag="div") => `<${tag} class="bi"><span>${ar}</span><span class="en">${en}</span></${tag}>`;
+const head = (eb,ar,en,p) => `<header class="sec-head"><span class="eyebrow">${eb}</span><h2>${ar}</h2><span class="en muted">${en}</span>${p?`<p>${p}</p>`:""}</header>`;
+const chip = k => `<span class="chip-k k-${k}">${SKILL_LABEL[k]}</span>`;
+
+function dayStatus(){
+  const t = todayIndex();
+  if (t < 0) return {ar:`تبدأ الخطة بعد ${-t} يوم`, en:`Starts in ${-t} days`, idx:0, pct:0};
+  if (t >= TOTAL) return {ar:"اكتملت الخطة 🎓", en:"Plan complete", idx:TOTAL-1, pct:100};
+  return {ar:`اليوم ${t+1} من ${TOTAL}`, en:`Day ${t+1} of ${TOTAL}`, idx:t, pct:Math.round((t+1)/TOTAL*100)};
+}
+
+function memberCards(){
+  const st = dayStatus();
+  return `<div class="members">${MEMBERS.map(m=>{
+    const s = memberStats(m), day = buildDay(m, st.idx);
+    const td = day.tasks.filter((_,i)=>DONE[`${m.id}|${st.idx}|${i}`]).length;
+    return `<a class="mcard" href="#${m.id}">
+      <span class="avatar">${m.ar[0]}<sub>${m.age}</sub></span>
+      <b>${m.ar} <span class="en muted" style="font-size:14px;font-weight:500">${m.en}</span></b>
+      <span class="meta">${GROUPS[m.group].label} · ${m.focus}</span>
+      <span class="meter" aria-label="التقدم ${s.pct}%"><i style="width:${s.pct}%"></i></span>
+      <span class="today"><span>مهمات اليوم: <b class="en">${td}/${day.tasks.length}</b></span><span class="en">${s.pct}% overall</span></span>
+    </a>`;}).join("")}</div>`;
+}
+
+function viewHome(){
+  const st = dayStatus(), now = dayDate(st.idx);
+  return `
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">من الصفر حتى الاحتراف · From zero to proficient</span>
+      <h1>تعلّم الإنجليزية بالمهارات الأربع<span class="en">Learn English through the four skills</span></h1>
+      <p>منصة عائلية بسيطة ومنظّمة: مستويات واضحة من A1 إلى C2، ودليل لكل مهارة، وأفضل التطبيقات، وخطة مهمات يومية لكل فرد لمدة ثلاثة أشهر.</p>
+      <p class="en">A simple family platform: clear CEFR levels, a guide for every skill, the best apps, and a 3-month daily task plan for each learner.</p>
+      <div class="cta"><a class="btn primary" href="#family">ابدأ مهمات اليوم</a><a class="btn" href="#levels">اعرف المستويات</a></div>
+    </div>
+    <aside class="ledger" aria-label="ملخص الخطة">
+      <div class="row"><span>${bi("اليوم","Today")}</span><span class="num">${fmtEn(new Date(),{day:"2-digit",month:"short"})}</span></div>
+      <div class="row"><span>${bi(st.ar, st.en)}</span><span class="num">${st.pct}%</span></div>
+      <div class="meter"><i style="width:${st.pct}%"></i></div>
+      <div class="row"><span>${bi("مدة الخطة","Plan window")}</span><span class="num en" style="font-size:15px">13 Oct → 13 Jan</span></div>
+      <div class="row"><span>${bi("موضوع الأسبوع","This week")}</span><span style="text-align:left">${bi(WEEKS[Math.min(Math.floor(st.idx/7),WEEKS.length-1)].ar, WEEKS[Math.min(Math.floor(st.idx/7),WEEKS.length-1)].en)}</span></div>
+      <div class="row"><span>${bi("المتعلّمون","Learners")}</span><span class="num">6</span></div>
+    </aside>
+  </section>
+  <section class="grid">
+    ${head("The four skills","المهارات الأربع","Reading · Listening · Speaking · Writing")}
+    <div class="skills4">${Object.entries(SKILLS).map(([k,s])=>`<a class="skill-tile k-${k}" href="#skills" data-skill="${k}"><b>${s.ar}</b><span class="en">${s.en}</span><span>${s.introEn}</span></a>`).join("")}</div>
+  </section>
+  <section class="grid">
+    ${head("Learners","الأقسام","Family sections & daily progress","اختر اسمك لتفتح خطتك اليومية. كل علامة ✓ تُحفظ في هذا الجهاز.")}
+    ${memberCards()}
+  </section>`;
+}
+
+function viewLevels(){
+  return `
+  ${head("CEFR","المستويات من الصفر إلى الاحتراف","From A1 to C2 — the Common European Framework","الإطار الأوروبي المرجعي (CEFR) هو المقياس العالمي لمستوى اللغة، وتعتمد عليه اختبارات IELTS و TOEFL و Cambridge.")}
+  <div class="ladder">${LEVELS.map(l=>`
+    <div class="rung"><div class="code">${l[0]}<small>${l[1]}</small></div>
+      <div><h3>${l[1]} <span class="en muted" style="font-size:14px;font-weight:500">· ${l[2]}</span></h3><p>${l[3]}</p><p class="en">${l[4]}</p></div>
+      <span class="when">${l[5]}</span></div>`).join("")}</div>
+  ${head("3-month plan","مراحل الخطة الثلاث","Three phases, one month each")}
+  <div class="phase-strip">
+    <div class="phase"><span class="dates">13 Oct → 12 Nov</span><h3>الأساس · Foundation</h3><p class="muted" style="margin:0">A1 → A2: النطق، المفردات الأساسية، الجمل البسيطة، عادة يومية ثابتة.</p></div>
+    <div class="phase"><span class="dates">13 Nov → 12 Dec</span><h3>البناء · Building</h3><p class="muted" style="margin:0">B1: فقرات، بودكاست، محادثات أسبوعية، قواعد الأزمنة والشرط.</p></div>
+    <div class="phase"><span class="dates">13 Dec → 13 Jan</span><h3>الاحتراف · Mastery</h3><p class="muted" style="margin:0">B2+: أخبار أصلية، عروض ومناظرات، مقالات رأي، كتابة مهنية.</p></div>
+  </div>
+  <p class="note">خطة 3 أشهر مكثفة تنقل المبتدئ الملتزم إلى مستوى B1–B2 بثقة، وهو مستوى التواصل المهني. الاستمرار بنفس العادة بعدها يوصلك إلى C1–C2. <span class="en">Three focused months take a committed beginner to a confident B1–B2; keep the habit to reach C1–C2.</span></p>`;
+}
+
+function viewSkills(){
+  const k = viewState.skill || "read", s = SKILLS[k];
+  return `
+  ${head("The four skills","المهارات الأربع","A roadmap for each skill, from zero to proficient")}
+  <div class="seg" role="group" aria-label="اختر المهارة">${Object.entries(SKILLS).map(([key,v])=>`<button data-skill="${key}" aria-pressed="${key===k}">${v.ar} · <span class="en">${v.en}</span></button>`).join("")}</div>
+  <section class="card k-${k}" style="border-top:3px solid var(--k)">
+    <h3>${s.ar} <span class="en muted">· ${s.en}</span></h3>
+    <p style="margin:0">${s.intro}</p><p class="en muted" style="margin:0">${s.introEn}</p>
+  </section>
+  <div class="stages">${s.stages.map(st=>`<div class="card stage"><h4><span>${st[0]}</span></h4><ol>${st[1].map(i=>`<li>${i[0]}<span class="en">${i[1]}</span></li>`).join("")}</ol></div>`).join("")}</div>
+  <div class="grid g2">
+    <div class="card"><h3>نصائح ذهبية · Tips</h3><ul class="clean">${s.tips.map(t=>`<li><span>${t[0]}</span><span class="en">${t[1]}</span></li>`).join("")}</ul></div>
+    <div class="card"><h3>تطبيقات لهذه المهارة · Apps</h3><ul class="clean">${APPS.filter(a=>a[4].includes(k)).map(a=>`<li><a href="${a[5]}" target="_blank" rel="noopener"><span class="en">${a[0]}</span></a><span>${a[3]}</span></li>`).join("")}</ul></div>
+  </div>`;
+}
+
+function viewApps(){
+  return `
+  ${head("Best apps","أفضل التطبيقات لتعلّم الإنجليزية","The best apps and sites for learning English","استخدم Duolingo يوميًا للعادة، و Cambly أسبوعيًا للمحادثة، و Anki للمفردات، و Grammarly للكتابة.")}
+  <div class="grid g3">${APPS.map(a=>`
+    <article class="card app">
+      <div class="app-top"><h3><span class="en">${a[0]}</span><span class="en">${a[1]}</span></h3><span class="price">${a[2]}</span></div>
+      <div class="tags">${a[4].map(chip).join("")}</div>
+      <p>${a[3]}</p>
+      <a class="go" href="${a[5]}" target="_blank" rel="noopener">زيارة الموقع ←</a>
+    </article>`).join("")}</div>`;
+}
+
+function viewFamily(){
+  return `${head("Learners","الأقسام والمهمات اليومية","Daily tasks · 13 October → 13 January","لكل فرد خطة يومية مناسبة لعمره: كلمات اليوم، ومهمة لكل مهارة، وتطبيق. الجمعة للمراجعة الخفيفة، والسبت للمحادثة والاختبار الأسبوعي.")}
+  ${memberCards()}`;
+}
+
+function ring(p){
+  const r=42, c=2*Math.PI*r;
+  return `<svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="${r}" fill="none" stroke="var(--surface-2)" stroke-width="8"/><circle cx="48" cy="48" r="${r}" fill="none" stroke="var(--brass)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c*p/100} ${c}"/></svg>`;
+}
+
+function viewMember(m){
+  const st = dayStatus(), s = memberStats(m), g = GROUPS[m.group];
+  const nWeeks = Math.ceil(TOTAL/7);
+  const todayWeek = Math.floor(st.idx/7);
+  const key = "w-"+m.id;
+  const wk = viewState[key] ?? todayWeek;
+  const from = wk*7, to = Math.min(TOTAL, from+7);
+  const W = WEEKS[Math.min(wk, WEEKS.length-1)];
+  const t = todayIndex();
+  let days = "";
+  for (let d=from; d<to; d++){
+    const day = buildDay(m,d);
+    const doneN = day.tasks.filter((_,i)=>DONE[`${m.id}|${d}|${i}`]).length;
+    const kind = day.dow===5 ? "مراجعة · Review" : day.dow===6 ? "محادثة واختبار · Talk & quiz" : "";
+    days += `<article class="day ${d===t?"is-today":""} ${d<t?"is-past":""}" id="day-${d}">
+      <div class="day-head">
+        <div class="d"><b>${fmtAr(day.date,{weekday:"long",day:"numeric",month:"long"})}</b><span class="num">${fmtEn(day.date,{weekday:"short",day:"2-digit",month:"short",year:"numeric"})} · Day ${d+1}</span>${d===t?`<span class="badge">اليوم</span>`:""}${kind?`<span class="tag">${kind}</span>`:""}</div>
+        <span class="count ${doneN===day.tasks.length?"full":""}">${doneN}/${day.tasks.length} ✓</span>
+      </div>
+      ${day.dow<5 ? `<div class="words">${day.words.map(w=>`<span class="word"><span class="en">${w[0]}</span><span class="muted">${w[1]}</span></span>`).join("")}</div>` : ""}
+      <ul class="tasks">${day.tasks.map((tk,i)=>{
+        const id=`${m.id}|${d}|${i}`;
+        return `<li class="task"><label><input type="checkbox" id="cb-${m.id}-${d}-${i}" data-key="${id}" ${DONE[id]?"checked":""}>${chip(tk.k)}<span class="txt"><span>${tk.ar}</span><span class="en">${tk.en}</span>${tk.term?`<span class="term-inline"><b class="en">${tk.term[1]}</b> — ${tk.term[2]}: ${tk.term[3]}</span>`:""}</span></label></li>`;}).join("")}</ul>
+    </article>`;
+  }
+  return `
+  <a href="#family" class="muted" style="text-decoration:none;font-size:14px">→ كل الأقسام</a>
+  <section class="profile">
+    <span class="avatar">${m.ar[0]}</span>
+    <div><h2>قسم ${m.ar} <span class="en muted" style="font-size:16px;font-weight:500">· ${m.en}'s plan</span></h2>
+      <div class="facts"><span>العمر: <b class="en">${m.age}</b></span><span>${g.label}</span><span>الوقت اليومي: <b class="en">${g.minutes}</b> دقيقة</span></div>
+      <div class="facts"><span>التركيز: ${m.focus}</span><span class="en">${m.focusEn}</span></div>
+      ${m.ai?`<div class="facts"><a href="#ai">افتحي قاموس مصطلحات الذكاء الاصطناعي ←</a></div>`:""}
+    </div>
+    <div class="ring">${ring(s.pct)}<div><b>${s.pct}%</b><small class="en">${s.done}/${s.total}</small></div></div>
+  </section>
+  <div class="weeks" role="group" aria-label="الأسابيع">${Array.from({length:nWeeks},(_,i)=>{
+      const a=dayDate(i*7), b=dayDate(Math.min(TOTAL-1,i*7+6));
+      return `<button data-week="${i}" data-member="${m.id}" aria-pressed="${i===wk}" class="${i===todayWeek&&t>=0&&t<TOTAL?"has-today":""}"><b>الأسبوع ${i+1}</b><small>${pad(a.getDate())}/${pad(a.getMonth()+1)}–${pad(b.getDate())}/${pad(b.getMonth()+1)}</small></button>`;}).join("")}</div>
+  <div class="week-info">
+    <div class="card">${bi("موضوع الأسبوع","Theme")}<b>${W.ar}</b><span class="en muted">${W.en}</span></div>
+    <div class="card">${bi("قاعدة الأسبوع","Grammar focus")}<b>${W.g}</b><span class="en muted">${W.gEn}</span></div>
+    <div class="card">${bi("المرحلة","Phase")}<b>${["الأساس · A1–A2","البناء · B1","الاحتراف · B2+"][Math.min(2,Math.floor(from/30.5))]}</b><span class="en muted">Month ${Math.min(3,Math.floor(from/30.5)+1)} of 3</span></div>
+  </div>
+  <div class="days">${days}</div>`;
+}
+
+function viewAI(){
+  const lv = viewState.ai || 0, q = (viewState.aiq || "").trim().toLowerCase();
+  const list = AI_TERMS.filter(t => (!lv || t[0]===lv) && (!q || (t[1]+t[2]+t[3]).toLowerCase().includes(q)));
+  return `
+  ${head("Afnan · AI vocabulary","مصطلحات الذكاء الاصطناعي — قسم أفنان","AI terminology: beginner → intermediate → advanced → deep",`${AI_TERMS.length} مصطلحًا مرتبة من الأسهل إلى الأعمق. يظهر مصطلح جديد يوميًا في خطة أفنان.`)}
+  <div class="tools">
+    <div class="seg" role="group" aria-label="المستوى">
+      <button data-ai="0" aria-pressed="${!lv}">الكل · All</button>
+      ${AI_LEVELS.map(l=>`<button data-ai="${l.n}" aria-pressed="${lv===l.n}">${l.ar} · <span class="en">${l.en}</span></button>`).join("")}
+    </div>
+    <input class="search" id="ai-search" type="search" placeholder="ابحث عن مصطلح… Search" value="${(viewState.aiq||"").replace(/"/g,"&quot;")}">
+  </div>
+  <div class="terms" id="terms">${list.map(t=>{const L=AI_LEVELS[t[0]-1];return `
+    <article class="term">
+      <div class="term-top"><h3>${t[1]}</h3><span class="chip-k lvl-${t[0]}">${L.ar} · ${L.en}</span></div>
+      <span class="ar">${t[2]}</span>
+      <p>${t[3]}</p>
+      <span class="ex en">${t[4]}</span>
+    </article>`;}).join("") || `<p class="muted">لا توجد نتائج. جرّب كلمة أخرى.</p>`}</div>`;
+}
+
+/* ===================== ROUTER ===================== */
+function render(){
+  const h = (location.hash || "#home").slice(1);
+  const m = MEMBERS.find(x=>x.id===h);
+  const tab = m ? "family" : (["home","levels","skills","apps","family","ai"].includes(h) ? h : "home");
+  document.querySelectorAll("#tabs a").forEach(a=>a.setAttribute("aria-current", a.getAttribute("href")==="#"+tab ? "page" : "false"));
+  const V = $("#view");
+  V.innerHTML = m ? viewMember(m) : {home:viewHome, levels:viewLevels, skills:viewSkills, apps:viewApps, family:viewFamily, ai:viewAI}[tab]();
+  return m;
+}
+function go(){
+  const m = render();
+  if (m){
+    const t = todayIndex(), el = document.getElementById("day-"+t);
+    if (el) setTimeout(()=>el.scrollIntoView({block:"start"}), 0); else window.scrollTo(0,0);
+  } else window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", go);
+
+document.addEventListener("click", e=>{
+  const b = e.target.closest("button,[data-skill]");
+  if (!b) return;
+  if (b.dataset.week){ viewState["w-"+b.dataset.member] = +b.dataset.week; store.set("ep-view",viewState); render(); }
+  else if (b.dataset.skill){ viewState.skill = b.dataset.skill; store.set("ep-view",viewState); if (b.tagName==="BUTTON") render(); }
+  else if (b.dataset.ai !== undefined){ viewState.ai = +b.dataset.ai; store.set("ep-view",viewState); render(); }
+});
+document.addEventListener("change", e=>{
+  const cb = e.target;
+  if (cb.matches('input[type="checkbox"][data-key]')){
+    if (cb.checked) DONE[cb.dataset.key] = 1; else delete DONE[cb.dataset.key];
+    store.set("ep-done", DONE);
+    const y = window.scrollY; render(); window.scrollTo(0,y);
+  }
+});
+document.addEventListener("input", e=>{
+  if (e.target.id === "ai-search"){
+    viewState.aiq = e.target.value;
+    const pos = e.target.selectionStart; render();
+    const s = $("#ai-search"); s.focus(); s.setSelectionRange(pos,pos);
+  }
+});
+go();
+</script>
+</body>
+</html>
