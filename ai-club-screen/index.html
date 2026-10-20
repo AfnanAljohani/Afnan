@@ -849,8 +849,8 @@ const I18N={
   optTime:['الوقت التجريبي','Preview time'],
   setNote:['التنبيهات تشتغل تلقائيًا: شريط «ارجعوا للقاعات» في آخر 5 دقائق من كل بريك، وتنبيه «لا تنسى أغراضك» الساعة 12:00 ظهرًا و2:45 العصر.',
            'Alerts run on their own: a “head back” banner in the last 5 minutes of each break, and the “don’t forget” reminder at 12:00 PM and 2:45 PM.'],
-  setKeys:['<span class="kbd">← →</span> أو <span class="kbd">PgUp PgDn</span> للتنقل · <span class="kbd">1</span>–<span class="kbd">6</span> لشريحة معيّنة · <span class="kbd">مسافة</span> إيقاف · <span class="kbd">F</span> ملء الشاشة · <span class="kbd">L</span> اللغة',
-           '<span class="kbd">← →</span> or <span class="kbd">PgUp PgDn</span> to move · <span class="kbd">1</span>–<span class="kbd">6</span> jump to a slide · <span class="kbd">Space</span> pause · <span class="kbd">F</span> full screen · <span class="kbd">L</span> language'],
+  setKeys:['<span class="kbd">← →</span> أو <span class="kbd">PgUp PgDn</span> للتنقل · <span class="kbd">1 2 3…</span> لشريحة معيّنة · <span class="kbd">مسافة</span> إيقاف · <span class="kbd">F</span> ملء الشاشة · <span class="kbd">L</span> اللغة',
+           '<span class="kbd">← →</span> or <span class="kbd">PgUp PgDn</span> to move · <span class="kbd">1 2 3…</span> jump to a slide · <span class="kbd">Space</span> pause · <span class="kbd">F</span> full screen · <span class="kbd">L</span> language'],
 };
 
 /* ---------- helpers ---------- */
@@ -1192,7 +1192,12 @@ function updateClock(d){
 }
 
 /* ---------- slides ---------- */
-const slides=[...document.querySelectorAll('.slide')];
+// Slides switched off for now: put an id back to show that slide again
+const HIDDEN_SLIDES=['s-heroes'];
+const allSlides=[...document.querySelectorAll('.slide')];
+const SLIDE_TABS=allSlides.map((s,i)=>TABS[i]).filter((t,i)=>!HIDDEN_SLIDES.includes(allSlides[i].id));
+allSlides.forEach(s=>{if(HIDDEN_SLIDES.includes(s.id))s.hidden=true});
+const slides=allSlides.filter(s=>!HIDDEN_SLIDES.includes(s.id));
 let cur=0,playing=store.get('ewa-play',true),dwell=store.get('ewa-dur',15)*1000,autoLang=store.get('ewa-autolang',false),shownAt=Date.now(),manualUntil=0,lastForget=false;
 $('tabs').innerHTML=slides.map((s,i)=>`<button class="tab" type="button" data-i="${i}"><span></span><i class="pg"></i></button>`).join('');
 const tabs=[...document.querySelectorAll('.tab')];
@@ -1209,7 +1214,7 @@ function go(i,back){
 }
 function holdManual(ms){manualUntil=Date.now()+ms}
 function step(dir){go(cur+dir,dir<0);holdManual(45000);osd()}
-let osdT=0;function osd(){const o=$('osd');o.textContent=`${cur+1} / ${slides.length} · ${tx(TABS[cur])}`;o.classList.add('show');clearTimeout(osdT);osdT=setTimeout(()=>o.classList.remove('show'),1400)}
+let osdT=0;function osd(){const o=$('osd');o.textContent=`${cur+1} / ${slides.length} · ${tx(SLIDE_TABS[cur])}`;o.classList.add('show');clearTimeout(osdT);osdT=setTimeout(()=>o.classList.remove('show'),1400)}
 let checkTimers=[];
 function animateChecks(){
   checkTimers.forEach(clearTimeout);checkTimers=[];
@@ -1278,7 +1283,7 @@ function applyLang(){
   document.querySelectorAll('[data-ta]').forEach(el=>el.setAttribute('aria-label',tx(I18N[el.dataset.ta])));
   $('bLang').textContent=L('EN','ع');$('optLang').value=LANG;
   [...$('optDur').options].forEach(o=>o.textContent=L(`${o.value} ثانية`,`${o.value} seconds`));
-  tabs.forEach((t,i)=>t.firstChild.textContent=tx(TABS[i]));
+  tabs.forEach((t,i)=>t.firstChild.textContent=tx(SLIDE_TABS[i]));
   makeHijri();renderSchedule();renderTimeline();renderItems();renderHeroes();
   weekKey='';bwKey='';setPlay(playing);tick();
   if(slides[cur].id==='s-forget')animateChecks();
