@@ -416,6 +416,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 :root[lang=en]{--now-lbl:"NOW"}
 [lang=en] .dept-h .en{display:none}
 .lead.teal .lead-av .crown{color:var(--teal-hi);filter:drop-shadow(0 0 6px var(--teal))}
+.lead.orange .lead-av .crown{color:var(--orange);filter:drop-shadow(0 0 6px var(--orange))}
 /* English switches the page to LTR; these mirror the few details that are drawn for RTL. */
 [dir=ltr] .slide.on{animation-name:slideInBack}
 [dir=ltr] .slide.on.back{animation-name:slideIn}
@@ -871,7 +872,7 @@ function renderItems(){
 }
 function renderHeroes(){
   let n=0;
-  $('leads').innerHTML=LEADS.map((l,i)=>`<div class="panel lead ${l.tone}" style="animation-delay:${i*90}ms"><span class="lead-av">${i<2?'<svg class="crown" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg>':''}${AV(l.tone==='orange'?ORNG:TEAL)}</span><div><span class="lead-role">${tx(l.role)}</span><b>${esc(tx(l.name))}</b></div></div>`).join('');
+  $('leads').innerHTML=LEADS.map((l,i)=>`<div class="panel lead ${l.tone}" style="animation-delay:${i*90}ms"><span class="lead-av">${i<3?'<svg class="crown" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg>':''}${AV(l.tone==='orange'?ORNG:TEAL)}</span><div><span class="lead-role">${tx(l.role)}</span><b>${esc(tx(l.name))}</b></div></div>`).join('');
   const ST={approved:['ok',IC_CHECK+L('معتمد','Approved')],
             pending:['wait',`<b>${L('؟','?')}</b>`+L('مرشحون · من سيكون رئيس القسم؟','Candidates · who will lead?')],
             candidate:['cand',L('مرشح القسم','Candidate')]};
