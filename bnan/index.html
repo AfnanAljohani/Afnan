@@ -93,18 +93,10 @@ p{margin:0}
 .stat span{color:var(--mute);font-size:15px}
 @media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}.hero{padding-top:44px}}
 
-/* ASK */
-.ask{max-width:760px;margin:30px auto 0;background:rgba(13,30,51,.75);border:1px solid var(--line);border-radius:20px;padding:14px;backdrop-filter:blur(8px)}
-.ask-head{display:flex;align-items:center;gap:12px;padding:4px 6px}
-.ask-ico{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--teal),#1a7f9c);display:grid;place-items:center;flex-shrink:0;box-shadow:var(--glow)}
-.ask-ico svg{width:24px;height:24px}
-.ask-head b{display:block;font-size:17px}
-.ask-head small{color:var(--mute);font-size:14px}
+/* CHIPS */
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .chip{border:1px solid var(--line);background:rgba(255,255,255,.03);padding:7px 14px;border-radius:999px;font-size:14px;color:var(--mute);transition:.2s}
 .chip:hover,.chip.on{border-color:var(--teal);color:var(--ink);background:rgba(34,176,173,.1)}
-.ask-ans{margin-top:12px;padding:14px 16px;border-radius:14px;background:rgba(34,176,173,.07);border:1px solid rgba(34,176,173,.2);font-size:16px;display:none}
-.ask-ans.show{display:block;animation:fade .35s ease}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* SECTIONS */
@@ -334,6 +326,122 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
 .made b{color:var(--ink)}
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
 
+
+/* NAV v2 */
+.nav-links .more{position:relative}
+.nav-links .more>button{padding:8px 12px;border-radius:10px;font-size:15px;font-weight:500;color:var(--mute);display:inline-flex;gap:6px;align-items:center}
+.nav-links .more>button:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+.nav-links .more>button svg{width:12px;height:12px;transition:transform .2s}
+.more-menu{position:absolute;top:calc(100% + 8px);inset-inline-start:0;min-width:200px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px;display:none;flex-direction:column;box-shadow:0 24px 50px rgba(0,0,0,.5)}
+.more:hover .more-menu,.more:focus-within .more-menu,.more.open .more-menu{display:flex}
+.more:hover>button svg,.more.open>button svg{transform:rotate(180deg)}
+.nav-links a.active{color:var(--ink);box-shadow:inset 0 -2px 0 var(--teal)}
+.btn-sm{height:40px;padding-inline:16px;font-size:14.5px;border-radius:12px}
+@media (max-width:1060px){
+  .more>button{display:none!important}
+  .more-menu{position:static;display:flex;box-shadow:none;border:0;background:none;padding:0;min-width:0}
+  .nav-tools .btn-sm{display:none}
+}
+
+/* HERO v2 */
+.hero{padding:56px 0 30px}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;min-height:calc(100vh - 230px)}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr;min-height:0}}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:999px;border:1px solid rgba(34,176,173,.4);background:rgba(34,176,173,.08);font-size:14px;color:var(--teal-2);font-weight:500}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(34,176,173,.2);animation:pulse 1.8s infinite}
+.hero .hero-copy h1{text-align:start;margin-top:22px;font-size:clamp(38px,5.6vw,72px)}
+.hero .hero-copy .lead{text-align:start;margin:22px 0 0;max-width:620px}
+.hero .hero-copy .hero-cta{justify-content:flex-start}
+.hero-copy .hero-cta .btn{padding-inline:20px}
+.tri{background:linear-gradient(90deg,var(--orange),var(--gold) 35%,var(--teal) 70%,var(--teal-2));-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;padding:.12em .04em 0}
+[dir=rtl] .tri{background:linear-gradient(-90deg,var(--orange),var(--gold) 35%,var(--teal) 70%,var(--teal-2));-webkit-background-clip:text;background-clip:text}
+.btn-wa{border:1px solid rgba(37,211,102,.45);background:rgba(37,211,102,.08);color:#5BE38F}
+.btn-wa:hover{border-color:#25D366}
+.askbar{margin-top:26px;width:100%;max-width:620px;display:flex;align-items:center;gap:14px;text-align:start;padding:14px;border-radius:20px;border:1px solid var(--line);background:rgba(13,30,51,.7);backdrop-filter:blur(10px);transition:.25s}
+.askbar:hover{border-color:var(--line2);transform:translateY(-2px)}
+.askbar .ask-ico{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--teal),#1a7f9c);display:grid;place-items:center;flex-shrink:0;box-shadow:var(--glow)}
+.askbar .ask-ico svg{width:26px;height:26px}
+.askbar b{display:block;font-size:18px}
+.askbar small{color:var(--mute);font-size:14px}
+.askbar .go{margin-inline-start:auto;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.06);display:grid;place-items:center;flex-shrink:0}
+[dir=ltr] .askbar .go svg{transform:scaleX(-1)}
+.hero-visual{position:relative;min-height:480px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ksa{position:absolute;left:50%;top:68%;transform:translate(-50%,-50%);width:118%;max-width:640px;height:auto;opacity:.5;z-index:0;-webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 78%);mask-image:radial-gradient(ellipse at center,#000 45%,transparent 78%)}
+.ksa .land{fill:rgba(34,90,140,.22);stroke:rgba(95,214,210,.45);stroke-width:1.4;filter:drop-shadow(0 0 18px rgba(34,176,173,.35))}
+.ksa .link{stroke:rgba(95,214,210,.55);stroke-width:1;stroke-dasharray:3 5;animation:flow 2.4s linear infinite}
+.ksa .city{fill:#5FD6D2}
+.ksa .hub{fill:var(--orange)}
+.ksa .halo{fill:none;stroke:var(--orange);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:ping 2.6s ease-out infinite}
+.ksa text{font-family:var(--mono);font-size:9px;fill:rgba(159,176,194,.8);letter-spacing:.08em}
+@keyframes flow{to{stroke-dashoffset:-16}}
+.hv-top{position:relative;z-index:1;width:100%;max-width:520px;text-align:center}
+.hv-top .hero-logo{max-width:100%}
+.hv-top .ar-name{display:block;margin-top:4px;font-size:22px;font-weight:800;color:#DCE6EE}
+.pillars{position:relative;z-index:1;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:26px}
+.pillars>span{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(10,23,41,.75);font-weight:700;font-size:15px;backdrop-filter:blur(6px)}
+.pillars i{width:7px;height:7px;border-radius:50%}
+.cycle{position:relative;z-index:1;width:100%;max-width:440px;margin-top:30px}
+.cycle .hd{display:flex;justify-content:space-between;font-size:13.5px;color:var(--mute);font-weight:500}
+[lang=en] .cycle .hd{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em}
+.cycle .rail{display:flex;gap:3px;height:4px;margin:12px 0 10px}
+.cycle .rail span{flex:1;border-radius:3px;opacity:.35;transition:opacity .4s,box-shadow .4s}
+.cycle .rail span.on{opacity:1;box-shadow:0 0 10px currentColor}
+.cycle .lb{display:flex;justify-content:space-between;font-size:13px;color:var(--mute)}
+.cycle .now{margin-top:10px;text-align:center;font-size:14px;color:var(--teal-2);min-height:22px}
+.aurora{position:absolute;inset:auto 0 0 0;height:340px;width:100%;z-index:-1;pointer-events:none;opacity:.7}
+.aurora path{fill:none;stroke-width:2;filter:url(#soft)}
+.aurora .w1{animation:drift 14s ease-in-out infinite alternate}
+.aurora .w2{animation:drift 18s ease-in-out infinite alternate-reverse}
+.aurora .w3{animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translateX(-4%)}to{transform:translateX(4%)}}
+.hero .stats{margin-top:34px}
+@media (max-width:980px){.hero-visual{min-height:420px;margin-top:10px}}
+
+/* WORKS CARDS v2 */
+.idea .type{font-size:12.5px;font-weight:700;color:#8FA8FF;background:rgba(110,140,255,.12);padding:4px 10px;border-radius:999px}
+.idea .by{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;font-size:14px}
+.idea .tags{margin:14px 0 16px}
+.idea .by .av{width:30px;height:30px;border-radius:50%;font-size:13px}
+.idea .by em{margin-inline-start:auto;font-style:normal;color:var(--mute2);font-family:var(--mono);font-size:12.5px}
+.like{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--mute);padding:4px 10px;border-radius:999px;border:1px solid var(--line);transition:.2s}
+.like:hover{border-color:var(--orange)}
+.like.on{color:var(--orange);border-color:rgba(242,107,58,.5);background:rgba(242,107,58,.08)}
+
+/* CHAT */
+.fab{position:fixed;bottom:22px;right:22px;z-index:80;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#2fd0cc,#127a86);display:grid;place-items:center;box-shadow:0 12px 30px rgba(34,176,173,.45),0 0 0 6px rgba(34,176,173,.12);transition:transform .2s}
+.fab:hover{transform:scale(1.06)}
+.fab svg{width:32px;height:32px}
+.fab .dot{position:absolute;top:4px;right:4px;width:14px;height:14px;border-radius:50%;background:var(--orange);border:2px solid var(--bg)}
+.chat{position:fixed;bottom:96px;right:22px;z-index:81;width:min(390px,calc(100vw - 24px));height:min(560px,calc(100vh - 130px));display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:#0B1626;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6);transform:translateY(16px) scale(.98);opacity:0;pointer-events:none;transition:.25s}
+.chat.open{transform:none;opacity:1;pointer-events:auto}
+@media (max-width:520px){.chat{right:12px;bottom:88px}.fab{right:14px;bottom:14px}}
+.chat-h{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#0E1C2F}
+.chat-h .ava{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#2fd0cc,#127a86);display:grid;place-items:center;box-shadow:var(--glow)}
+.chat-h .ava svg{width:24px;height:24px}
+.chat-h b{display:block;font-size:16px}
+.chat-h small{color:#5BE38F;font-size:12.5px;display:flex;align-items:center;gap:6px}
+.chat-h small::before{content:"";width:7px;height:7px;border-radius:50%;background:#2ECC71}
+.chat-h .x{margin-inline-start:auto;width:36px;height:36px;border-radius:10px;color:var(--mute);font-size:22px;line-height:1}
+.chat-h .x:hover{background:rgba(255,255,255,.06);color:var(--ink)}
+.chat-b{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.msg{max-width:85%;padding:11px 14px;border-radius:16px;font-size:15px;line-height:1.75;white-space:pre-line;animation:fade .3s ease}
+.msg.bot{align-self:flex-start;background:#15243A;border:1px solid var(--line);border-start-start-radius:6px}
+.msg.me{align-self:flex-end;background:rgba(34,176,173,.18);border:1px solid rgba(34,176,173,.35);color:#DDF6F5;border-start-end-radius:6px}
+.msg a{color:var(--teal-2);text-decoration:underline}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:14px;border-radius:16px;background:#15243A}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:bob 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bob{50%{transform:translateY(-5px);opacity:.5}}
+.chat-q{display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px;border-top:1px solid var(--line)}
+.chat-q .chip{font-size:13px;padding:6px 12px}
+.chat-q .chip.wa{border-color:rgba(37,211,102,.45);color:#5BE38F}
+.chat-f{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.chat-f input{flex:1;background:rgba(5,14,27,.8);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:inherit;font-size:15px;padding:10px 14px}
+.chat-f input:focus{outline:0;border-color:var(--teal)}
+.chat-f button{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:var(--teal);display:grid;place-items:center}
+.chat-f button svg{width:20px;height:20px}
+[dir=rtl] .chat-f button svg{transform:scaleX(-1)}
+
 /* LOGO SVG */
 .lg-stroke{stroke:#E9EFF4;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;fill:none}
 .ping{transform-box:fill-box;transform-origin:center;animation:ping 2.6s ease-out infinite}
@@ -356,6 +464,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
       <feGaussianBlur stdDeviation="5" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+    <filter id="soft" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
     <symbol id="bnan" viewBox="0 0 900 250">
       <g filter="url(#glow)">
         <!-- robot = community -->
@@ -416,17 +525,26 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
   <div class="wrap">
     <a href="#top" class="brand" aria-label="Bnan"><svg viewBox="0 0 900 250"><use href="#bnan"/></svg></a>
     <div class="nav-links" id="navLinks">
-      <a href="#about" data-en="About">عن بنان</a>
-      <a href="#story" data-en="Story">القصة</a>
-      <a href="#services" data-en="Services">الخدمات</a>
+      <a href="#top" class="active" data-en="Home">الرئيسية</a>
+      <a href="#about" data-en="About">عن المجتمع</a>
+      <a href="#services" data-en="Challenges Center">مركز التحديات</a>
+      <a href="#ideas" data-en="Works Gallery">معرض الأعمال</a>
       <a href="#departments" data-en="Departments">الأقسام</a>
-      <a href="#ideas" data-en="Open Ideas">الأفكار المفتوحة</a>
-      <a href="#model" data-en="How we run">كيف ندير بنان</a>
-      <a href="#team" data-en="Team">الفريق</a>
-      <a href="#contact" data-en="Contact">تواصل</a>
+      <a href="#ecosystem" data-en="Knowledge Center">مركز المعرفة</a>
+      <div class="more" id="more">
+        <button type="button" aria-haspopup="true"><span data-en="More">المزيد</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 4l4 4 4-4"/></svg></button>
+        <div class="more-menu">
+          <a href="#story" data-en="Our story">قصتنا</a>
+          <a href="#achievements" data-en="Achievements">الإنجازات</a>
+          <a href="#model" data-en="How we run Bnan">كيف ندير بنان</a>
+          <a href="#founder" data-en="Founder">المؤسِّسة</a>
+          <a href="#contact" data-en="Contact">تواصل</a>
+        </div>
+      </div>
     </div>
     <div class="nav-tools">
-      <button class="icon-btn" id="langBtn" aria-label="Switch language">EN</button>
+      <button class="icon-btn" id="langBtn" aria-label="Switch language">ENGLISH 🌐</button>
+      <a class="btn btn-primary btn-sm" href="#contact" data-type="join" data-en="Join the community">انضم إلى المجتمع</a>
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -436,35 +554,55 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
 
 <header class="hero" id="top">
   <canvas id="net" aria-hidden="true"></canvas>
+  <svg class="aurora" viewBox="0 0 1440 340" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="au1" x1="0" x2="1"><stop offset="0" stop-color="#22B0AD" stop-opacity="0"/><stop offset=".3" stop-color="#22B0AD"/><stop offset=".7" stop-color="#5FD6D2"/><stop offset="1" stop-color="#22B0AD" stop-opacity="0"/></linearGradient>
+      <linearGradient id="au2" x1="0" x2="1"><stop offset="0" stop-color="#F26B3A" stop-opacity="0"/><stop offset=".45" stop-color="#E7B85C"/><stop offset="1" stop-color="#F26B3A" stop-opacity="0"/></linearGradient>
+    </defs>
+    <path class="w1" stroke="url(#au1)" d="M-100 250C200 170 400 320 720 230S1200 140 1540 230"/>
+    <path class="w2" stroke="url(#au2)" stroke-opacity=".7" d="M-100 280C260 210 480 330 760 260S1180 190 1540 270"/>
+    <path class="w3" stroke="url(#au1)" stroke-opacity=".5" d="M-100 300C300 250 520 340 820 290S1240 230 1540 300"/>
+    <path class="w1" stroke="url(#au1)" stroke-opacity=".25" stroke-width="18" d="M-100 260C200 180 400 330 720 240S1200 150 1540 240"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="badge"><i></i><span data-en="Founding season 2026–27 · Registration open">الموسم التأسيسي 2026–27 · التسجيل مفتوح</span></span>
+      <h1 data-en="We don't just learn AI, <span class='tri'>we make it matter.</span>">لا نتعلّم الذكاء الاصطناعي، <span class="tri">نصنع أثره.</span></h1>
+      <p class="lead" data-en="Bnan is an AI community and a personal initiative that offers AI services, programs and open projects. It started as an idea for an AI club and became the spark of a community that builds knowledge with its own hands.">بنان مجتمع ومشروع يقدّم خدمات وبرامج ومشاريع مفتوحة في الذكاء الاصطناعي. بدأ اجتهادًا شخصيًا وفكرةَ نادٍ للذكاء الاصطناعي، ثم صار شرارةً لمجتمع يبني المعرفة بأيديه.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact" data-type="join" data-en="Join the community">انضم إلى المجتمع</a>
+        <a class="btn btn-light" href="#contact" data-type="service" data-en="Submit a challenge">ارفع تحدّيًا</a>
+        <a class="btn btn-ghost" href="#contact" data-type="idea" data-en="Share your work">شارك عملك</a>
+        <a class="btn btn-wa" href="https://wa.me/966545379819?text=%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A3%D9%86%D8%B6%D9%85%20%D9%84%D9%85%D8%AC%D8%AA%D9%85%D8%B9%20%D8%A8%D9%86%D8%A7%D9%86" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.3-4.4A9 9 0 1 1 21 12z"/></svg><span data-en="WhatsApp">واتساب</span></a>
+      </div>
+      <button class="askbar" id="openChat" type="button">
+        <span class="ask-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.3" fill="#fff"/><circle cx="15" cy="13" r="1.3" fill="#fff"/><path d="M2 12v3M22 12v3"/></svg></span>
+        <span><b data-en="Ask me">اسألني</b><small data-en="About joining, submitting a challenge, sharing ideas, or support…">عن الانضمام، رفع تحدٍّ، مشاركة الأفكار، أو الدعم…</small></span>
+        <span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+      </button>
+    </div>
+    <div class="hero-visual">
+      <svg class="ksa" viewBox="-10 -10 420 320" aria-hidden="true"><path class="land" d="M18 56L54 18L94 6L144 25L193 59L225 61L241 72L259 81L281 101L290 113L298 128L302 140L317 149L389 176L382 225L324 243L270 252L229 274L180 272L167 270L158 290L155 281L140 262L118 230L94 198L80 172L72 151L56 128L45 113L31 92L11 79Z"/><line class="link" x1="229" y1="140" x2="94" y2="198"/><line class="link" x1="229" y1="140" x2="106" y2="206"/><line class="link" x1="229" y1="140" x2="101" y2="144"/><line class="link" x1="229" y1="140" x2="290" y2="113"/><line class="link" x1="229" y1="140" x2="153" y2="257"/><line class="link" x1="229" y1="140" x2="47" y2="74"/><line class="link" x1="229" y1="140" x2="22" y2="81"/><line class="link" x1="229" y1="140" x2="139" y2="90"/><line class="link" x1="229" y1="140" x2="179" y2="112"/><line class="link" x1="229" y1="140" x2="70" y2="106"/><line class="link" x1="229" y1="140" x2="182" y2="268"/><line class="link" x1="229" y1="140" x2="95" y2="40"/><line class="link" x1="94" y1="198" x2="101" y2="144"/><line class="link" x1="101" y1="144" x2="47" y2="74"/><line class="link" x1="153" y1="257" x2="94" y2="198"/><line class="link" x1="139" y1="90" x2="179" y2="112"/><circle class="halo" cx="229" cy="140" r="9"/><circle class="hub" cx="229" cy="140" r="5.5"/><circle class="city" cx="94" cy="198" r="3"/><circle class="city" cx="106" cy="206" r="3"/><circle class="city" cx="101" cy="144" r="3"/><circle class="city" cx="290" cy="113" r="3"/><circle class="city" cx="153" cy="257" r="3"/><circle class="city" cx="47" cy="74" r="3"/><circle class="city" cx="22" cy="81" r="3"/><circle class="city" cx="139" cy="90" r="3"/><circle class="city" cx="179" cy="112" r="3"/><circle class="city" cx="70" cy="106" r="3"/><circle class="city" cx="182" cy="268" r="3"/><circle class="city" cx="95" cy="40" r="3"/></svg>
+      <div class="hv-top">
+        <svg class="hero-logo" viewBox="0 0 900 250" role="img" aria-label="BNAN"><use href="#bnan"/></svg>
+        <div class="hero-sub"><span class="k">AI COMMUNITY</span></div>
+        <span class="ar-name">مجتمع بنان للذكاء الاصطناعي</span>
+      </div>
+      <div class="pillars">
+        <span><i style="background:var(--teal)"></i><span data-en="Learn">تعلّم</span></span>
+        <span><i style="background:#5FD6D2"></i><span data-en="Build">ابنِ</span></span>
+        <span><i style="background:var(--gold)"></i><span data-en="Share">شارك</span></span>
+        <span><i style="background:var(--orange)"></i><span data-en="Make impact">اصنع الأثر</span></span>
+      </div>
+      <div class="cycle" id="cycle">
+        <div class="hd"><span data-en="IDEA LIFECYCLE">دورة حياة الفكرة</span><span data-en="6 STAGES">6 مراحل</span></div>
+        <div class="rail"><span style="background:#22B0AD;color:#22B0AD"></span><span style="background:#3FC3BF;color:#3FC3BF"></span><span style="background:#8FC3A0;color:#8FC3A0"></span><span style="background:#E7B85C;color:#E7B85C"></span><span style="background:#EC9249;color:#EC9249"></span><span style="background:#F26B3A;color:#F26B3A"></span></div>
+        <div class="lb"><span data-en="Idea">الفكرة</span><span data-en="Prototype">النموذج</span><span data-en="Impact">الأثر</span></div>
+        <div class="now" id="cycleNow"></div>
+      </div>
+    </div>
+  </div>
   <div class="wrap">
-    <svg class="hero-logo" viewBox="0 0 900 250" role="img" aria-label="BNAN"><use href="#bnan"/></svg>
-    <div class="hero-sub"><span class="k">AI COMMUNITY</span><span class="l">LEARN <i>·</i> BUILD <i>·</i> IMPACT</span></div>
-
-    <h1 data-en="We don't just learn AI,<br><span class='grad'>we make it matter.</span>">لا نتعلّم الذكاء الاصطناعي،<br><span class="grad">نصنع أثره.</span></h1>
-    <p class="lead" data-en="Bnan is an AI community and a personal initiative that offers AI services, programs and open projects. It started as an idea for an AI club and became the spark of a community that builds knowledge with its own hands.">بنان مجتمع ومشروع يقدّم خدمات وبرامج ومشاريع مفتوحة في الذكاء الاصطناعي. بدأ اجتهادًا شخصيًا وفكرةَ نادٍ للذكاء الاصطناعي، ثم صار شرارةً لمجتمع يبني المعرفة بأيديه.</p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="#contact" data-type="join" data-en="Join the community">انضم إلى المجتمع</a>
-      <a class="btn btn-light" href="#contact" data-type="service" data-en="Request a service">اطلب خدمة</a>
-      <a class="btn btn-ghost" href="#contact" data-type="idea" data-en="Share an idea">شارك فكرة</a>
-      <a class="btn btn-ghost" href="#contact" data-type="partner" data-en="Partner / Support">شراكة ودعم</a>
-    </div>
-
-    <div class="ask" id="ask">
-      <div class="ask-head">
-        <div class="ask-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.3" fill="#fff"/><circle cx="15" cy="13" r="1.3" fill="#fff"/><path d="M2 12v3M22 12v3"/></svg></div>
-        <div><b data-en="Ask Bnan">اسأل بنان</b><small data-en="About joining, services, sharing ideas, or support…">عن الانضمام، الخدمات، مشاركة الأفكار، أو الدعم…</small></div>
-      </div>
-      <div class="chips" id="chips">
-        <button class="chip" data-q="what" data-en="What is Bnan?">وش هو بنان؟</button>
-        <button class="chip" data-q="join" data-en="How do I join?">كيف أنضم؟</button>
-        <button class="chip" data-q="service" data-en="What services do you offer?">وش الخدمات؟</button>
-        <button class="chip" data-q="ideas" data-en="Will my idea be stolen?">هل تُسرق فكرتي؟</button>
-        <button class="chip" data-q="support" data-en="Where does support go?">وين يروح الدعم؟</button>
-        <button class="chip" data-q="cost" data-en="Is it free?">هل هو مجاني؟</button>
-      </div>
-      <div class="ask-ans" id="askAns" aria-live="polite"></div>
-    </div>
-
     <div class="stats">
       <div class="stat"><b class="teal" data-count="74">0</b><span data-en="Registered members">متدرّب ومهتم سجّلوا معنا</span></div>
       <div class="stat"><b class="orange">4</b><span data-en="Departments, one team">أقسام، فريق واحد</span></div>
@@ -551,7 +689,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
   <div class="wrap">
     <div class="sec-head row rv">
       <div>
-        <div class="eyebrow">03 · Services</div>
+        <div class="eyebrow">03 · Challenges Center</div>
         <h2 class="sec-title" data-en="Got a challenge? <span class='teal'>Bnan has your back</span>">عندك تحدٍّ؟ <span class="teal">بنان معك</span></h2>
         <p class="sec-lead" data-en="Got a challenge in your project? We can help. Here's the journey we take with you.">عندك تحدٍّ في مشروعك؟ نقدر نساعدك، وهذي رحلتنا معك.</p>
       </div>
@@ -670,7 +808,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
   <div class="wrap">
     <div class="sec-head row rv">
       <div>
-        <div class="eyebrow">05 · Open Ideas Lab</div>
+        <div class="eyebrow">05 · Works Gallery</div>
         <h2 class="sec-title" data-en="We share ideas openly, <span class='gold'>and credit their owners</span>">ننشر الأفكار بفتح، <span class="gold">ونحفظ حق أصحابها</span></h2>
         <p class="sec-lead" data-en="An idea shared publicly with a name and a date is protected by its history. Copying an idea is easy; executing it like its owners is not.">الفكرة المنشورة باسم صاحبها وتاريخها محميّة بسجلّها. نسخ الفكرة سهل، لكن تنفيذها مثل أصحابها صعب.</p>
       </div>
@@ -689,12 +827,12 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
       <button class="chip" data-f="proto" data-en="Prototype">نموذج أولي</button>
     </div>
     <div class="grid g3" id="ideaGrid">
-      <div class="card idea rv" data-s="open"><div class="top"><span class="id mono">IDEA-001</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic lecture summarizer">ملخّص المحاضرات العربي</h3><p data-en="An assistant that turns Arabic lecture recordings into notes, key terms and quiz questions.">مساعد يحوّل تسجيلات المحاضرات العربية إلى ملخّص ومصطلحات وأسئلة مراجعة.</p><div class="meta"><span>NLP · Speech</span><span>Bnan</span></div></div>
-      <div class="card idea rv" data-s="build"><div class="top"><span class="id mono">IDEA-002</span><span class="status s-build" data-en="In progress">قيد البناء</span></div><h3 data-en="AI Speaker coach">مدرّب الإلقاء الذكي</h3><p data-en="Analyzes a recorded presentation: pace, filler words, eye contact, and gives tips.">يحلّل عرضك المسجّل: سرعة الكلام، الكلمات الحشو، التواصل البصري، ويعطيك نصائح.</p><div class="meta"><span>CV · Audio</span><span>AI Speaker</span></div></div>
-      <div class="card idea rv" data-s="open"><div class="top"><span class="id mono">IDEA-003</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic misinformation detector">كاشف الأخبار المضلّلة</h3><p data-en="A model that flags misleading Arabic posts and shows the reliable source.">نموذج ينبّه على المنشورات العربية المضلّلة ويعرض المصدر الموثوق.</p><div class="meta"><span>NLP</span><span>Bnan</span></div></div>
-      <div class="card idea rv" data-s="proto"><div class="top"><span class="id mono">IDEA-004</span><span class="status s-proto" data-en="Prototype">نموذج أولي</span></div><h3 data-en="Medical image classifier">مصنّف الصور الطبية</h3><p data-en="A deep learning pipeline on 24,000+ medical images comparing EfficientNet, DenseNet and ViT.">مسار تعلّم عميق على أكثر من 24,000 صورة طبية، يقارن EfficientNet وDenseNet وViT.</p><div class="meta"><span>CV · ViT</span><span data-en="Afnan Aljohani">أفنان الجهني</span></div></div>
-      <div class="card idea rv" data-s="open"><div class="top"><span class="id mono">IDEA-005</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Community pulse dashboard">لوحة نبض المجتمع</h3><p data-en="A live dashboard of attendance, participation and points that feeds the Wall of Fame.">لوحة حيّة للحضور والمشاركة والنقاط، تغذّي لوحة الشرف تلقائيًا.</p><div class="meta"><span>Data · BI</span><span>Bnan</span></div></div>
-      <div class="card idea rv" data-s="build"><div class="top"><span class="id mono">IDEA-006</span><span class="status s-build" data-en="In progress">قيد البناء</span></div><h3 data-en="Ask Bnan assistant">مساعد «اسأل بنان»</h3><p data-en="An assistant that answers new members' questions about programs, departments and events.">مساعد يجاوب أسئلة الأعضاء الجدد عن البرامج والأقسام والفعاليات.</p><div class="meta"><span>LLM · RAG</span><span>Bnan</span></div></div>
+      <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-001</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic lecture summarizer">ملخّص المحاضرات العربي</h3><p data-en="An assistant that turns Arabic lecture recordings into notes, key terms and quiz questions.">مساعد يحوّل تسجيلات المحاضرات العربية إلى ملخّص ومصطلحات وأسئلة مراجعة.</p><div class="tags"><span class="tag">NLP</span><span class="tag">Speech</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
+      <div class="card idea rv" data-s="build"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-002</span><span class="status s-build" data-en="In progress">قيد البناء</span></div><h3 data-en="AI Speaker coach">مدرّب الإلقاء الذكي</h3><p data-en="Analyzes a recorded presentation: pace, filler words, eye contact, and gives tips.">يحلّل عرضك المسجّل: سرعة الكلام، الكلمات الحشو، التواصل البصري، ويعطيك نصائح.</p><div class="tags"><span class="tag">CV</span><span class="tag">Audio</span></div><div class="by"><span class="av">ب</span><b data-en="AI Speaker Dept.">قسم AI Speaker</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
+      <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-003</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic misinformation detector">كاشف الأخبار المضلّلة</h3><p data-en="A model that flags misleading Arabic posts and shows the reliable source.">نموذج ينبّه على المنشورات العربية المضلّلة ويعرض المصدر الموثوق.</p><div class="tags"><span class="tag">NLP</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
+      <div class="card idea rv" data-s="proto"><div class="top"><span class="type" data-en="Solution">حل</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-004</span><span class="status s-proto" data-en="Prototype">نموذج أولي</span></div><h3 data-en="Medical image classifier">مصنّف الصور الطبية</h3><p data-en="A deep learning pipeline on 24,000+ medical images comparing EfficientNet, DenseNet and ViT.">مسار تعلّم عميق على أكثر من 24,000 صورة طبية، يقارن EfficientNet وDenseNet وViT.</p><div class="tags"><span class="tag">CV</span><span class="tag">ViT</span></div><div class="by"><span class="av g">أ</span><b data-en="Afnan Aljohani">أفنان الجهني</b><em data-en="2025">2025</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
+      <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-005</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Community pulse dashboard">لوحة نبض المجتمع</h3><p data-en="A live dashboard of attendance, participation and points that feeds the Wall of Fame.">لوحة حيّة للحضور والمشاركة والنقاط، تغذّي لوحة الشرف تلقائيًا.</p><div class="tags"><span class="tag">Data</span><span class="tag">BI</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
+      <div class="card idea rv" data-s="build"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-006</span><span class="status s-build" data-en="In progress">قيد البناء</span></div><h3 data-en="Ask Bnan assistant">مساعد «اسأل بنان»</h3><p data-en="An assistant that answers new members' questions about programs, departments and events.">مساعد يجاوب أسئلة الأعضاء الجدد عن البرامج والأقسام والفعاليات.</p><div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
     </div>
   </div>
 </section>
@@ -814,8 +952,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
 <section id="ecosystem">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="eyebrow">10 · Ecosystem</div>
-      <h2 class="sec-title" data-en="Communities and resources <span class='teal'>we learn from</span>">مجتمعات ومصادر <span class="teal">نتعلّم منها</span></h2>
+      <div class="eyebrow">10 · Knowledge Center</div>
+      <h2 class="sec-title" data-en="Knowledge Center: <span class='teal'>where to start</span>">مركز المعرفة: <span class="teal">من وين تبدأ؟</span></h2>
       <p class="sec-lead" data-en="Bnan is part of a growing Saudi AI ecosystem. These are resources we recommend to our members.">بنان جزء من منظومة سعودية متنامية في الذكاء الاصطناعي، وهذي مصادر ننصح فيها أعضاءنا.</p>
     </div>
     <div class="grid g3">
@@ -870,6 +1008,30 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
   </div>
 </footer>
 
+
+<button class="fab" id="fab" aria-label="Ask Bnan" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.3" fill="#fff"/><circle cx="15" cy="13" r="1.3" fill="#fff"/><path d="M2 12v3M22 12v3"/></svg><span class="dot"></span></button>
+<div class="chat" id="chat" role="dialog" aria-label="Ask Bnan">
+  <div class="chat-h">
+    <span class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.3" fill="#fff"/><circle cx="15" cy="13" r="1.3" fill="#fff"/><path d="M2 12v3M22 12v3"/></svg></span>
+    <div><b data-en="Ask Bnan">اسأل بنان</b><small data-en="Online now">متصل الآن</small></div>
+    <button class="x" id="chatX" aria-label="Close">×</button>
+  </div>
+  <div class="chat-b" id="chatB" aria-live="polite"></div>
+  <div class="chat-q" id="chatQ">
+    <button class="chip" data-q="what" data-en="What is Bnan?">وش هو بنان؟</button>
+    <button class="chip" data-q="join" data-en="How do I join?">كيف أنضم؟</button>
+    <button class="chip" data-q="service" data-en="Services?">وش تقدّمون؟</button>
+    <button class="chip" data-q="events" data-en="Events?">فعالياتكم؟</button>
+    <button class="chip" data-q="ideas" data-en="Will my idea be stolen?">هل تُسرق فكرتي؟</button>
+    <button class="chip" data-q="learn" data-en="Where do I start?">من وين أبدأ؟</button>
+    <button class="chip wa" data-q="wa" data-en="💚 WhatsApp">💚 واتساب</button>
+  </div>
+  <form class="chat-f" id="chatF" autocomplete="off">
+    <input id="chatI" data-ph-ar="اكتب سؤالك…" data-ph-en="Type your question…" placeholder="اكتب سؤالك…" aria-label="Message">
+    <button type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="#041018" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+  </form>
+</div>
+
 <script>
 (function(){
   var root = document.documentElement;
@@ -880,45 +1042,119 @@ footer{border-top:1px solid var(--line);padding:40px 0 34px;margin-top:40px}
     en:["We listen to your challenge and gather members and specialists who understand the problem before proposing a solution.","We propose solutions we've tested in previous projects and challenges, and pick what fits your data.","We turn the idea into a prototype you can try in your project within weeks.","We measure impact with clear indicators: less time, higher accuracy, faster decisions."]
   };
   var answers = {
-    what:{ar:"بنان مجتمع ومشروع شخصي للذكاء الاصطناعي، بدأ بفكرة نادٍ وصار مجتمعًا يقدّم خدمات وورشًا ومشاريع مفتوحة. شعارنا: نتعلّم، نبني، نصنع الأثر.",en:"Bnan is an AI community and personal initiative. It started as a club idea and became a community offering services, workshops and open projects. Learn · Build · Impact."},
-    join:{ar:"اختر «انضمام» في نموذج التواصل أسفل الصفحة أو راسلنا على واتساب، وبنضيفك لمجتمع بنان وتختار القسم اللي يناسبك (وعادي أكثر من قسم).",en:"Pick “Join” in the contact form below or message us on WhatsApp. We'll add you to the Bnan community and you can choose your department (more than one is fine)."},
-    service:{ar:"استشارات وحلول ذكاء اصطناعي، تحليل بيانات ولوحات مؤشرات، نماذج أولية ورؤية حاسوبية، ورش تدريبية، تجهيز للهاكاثونات، وتدريب على العرض والإلقاء.",en:"AI consulting and solutions, data analysis and dashboards, prototypes and computer vision, workshops, hackathon preparation, and presentation coaching."},
-    ideas:{ar:"كل فكرة تُنشر باسم صاحبها وتاريخها، والمشاريع برخصة تشترط ذكر المصدر. وإذا فكرتك مشروع تجاري، ننشر المفهوم فقط ونحفظ التفاصيل.",en:"Every idea is published with its author's name and date, and projects carry a license that requires attribution. If your idea is a startup, we publish only the concept and keep the details private."},
-    support:{ar:"أي دعم أو جائزة أو رعاية تجي عن طريق بنان ترجع للمجتمع: ورش، مشاريع الأعضاء، فعاليات، وأدوات، مع تقرير سنوي معلن.",en:"Any support, prize or sponsorship that comes through Bnan goes back to the community: workshops, members' projects, events and tools, with a public annual report."},
-    cost:{ar:"العضوية والجلسات الأسبوعية مجانية. بعض الخدمات للجهات والمشاريع تكون بمقابل، ودخلها يرجع لدعم المجتمع.",en:"Membership and weekly sessions are free. Some services for organizations and projects are paid, and that income goes back to supporting the community."}
+    what:{ar:"بنان مجتمع ومشروع شخصي للذكاء الاصطناعي 🤖\nبدأ بفكرة نادٍ وصار مجتمعًا يقدّم خدمات وورشًا ومشاريع مفتوحة.\nشعارنا: تعلّم · ابنِ · اصنع الأثر.",en:"Bnan is an AI community and personal initiative 🤖\nIt started as a club idea and became a community offering services, workshops and open projects.\nLearn · Build · Impact."},
+    join:{ar:"الانضمام سهل 🙌\n1) اختر «انضمام» في نموذج التواصل أسفل الصفحة\n2) أو راسلنا على واتساب\nوبعدها تختار القسم اللي يناسبك، وعادي أكثر من قسم 😉",en:"Joining is easy 🙌\n1) Pick “Join” in the contact form below\n2) Or message us on WhatsApp\nThen choose your department (more than one is fine 😉)."},
+    service:{ar:"نقدّم 🛠️\n• استشارات وحلول ذكاء اصطناعي\n• تحليل بيانات ولوحات Power BI/Tableau\n• نماذج أولية ورؤية حاسوبية\n• ورش ومسارات تدريبية\n• تجهيز للهاكاثونات\n• تدريب على العرض والإلقاء (AI Speaker)",en:"We offer 🛠️\n• AI consulting & solutions\n• Data analysis & Power BI/Tableau dashboards\n• Prototypes & computer vision\n• Workshops & learning paths\n• Hackathon preparation\n• Presentation coaching (AI Speaker)"},
+    events:{ar:"فعالياتنا 🔥\n🗓️ تقنية الأسبوع، كل أسبوع\n🧪 مختبر تطبيقي كل أسبوعين\n🏁 تحدّي بنان كل شهر مع لقاء خبير\n🏆 هاكاثون بنان ومعرض المشاريع كل موسم\nوأغلبها مجانية 🎁",en:"Our events 🔥\n🗓️ Tech of the Week, weekly\n🧪 Applied Lab, bi-weekly\n🏁 Monthly Bnan Challenge with an expert\n🏆 Bnan Hackathon & Showcase each season\nMost are free 🎁"},
+    ideas:{ar:"فكرتك محفوظة 🔒\nكل فكرة تُنشر باسم صاحبها وتاريخها، والمشاريع برخصة تشترط ذكر المصدر.\nوإذا فكرتك مشروع تجاري، ننشر المفهوم فقط ونحفظ التفاصيل.",en:"Your idea is protected 🔒\nEvery idea is published with its author's name and date, and projects carry a license that requires attribution.\nIf it's a startup idea, we publish only the concept."},
+    support:{ar:"أي دعم أو جائزة أو رعاية تجي عن طريق بنان ترجع للمجتمع 💙\nورش، مشاريع الأعضاء، فعاليات، وأدوات، مع تقرير سنوي معلن.",en:"Any support, prize or sponsorship through Bnan goes back to the community 💙\nWorkshops, members' projects, events and tools, with a public annual report."},
+    cost:{ar:"العضوية والجلسات الأسبوعية مجانية 🎁\nبعض الخدمات للجهات تكون بمقابل، ودخلها يرجع لدعم المجتمع.",en:"Membership and weekly sessions are free 🎁\nSome services for organizations are paid, and that income supports the community."},
+    depts:{ar:"عندنا 4 أقسام، فريق واحد:\n🎓 التدريب والتطوير\n🔷 العلاقات العامة\n✒️ الفعاليات والتصميم\n🎙️ AI Speaker: الخطابة والإلقاء",en:"4 departments, one team:\n🎓 Training & Development\n🔷 Public Relations\n✒️ Events & Design\n🎙️ AI Speaker: Speaking & Delivery"},
+    founder:{ar:"مؤسِّسة ورئيسة بنان: أفنان الجهني 👩‍💻\nمهندسة ذكاء اصطناعي وعلم بيانات، خرّيجة علوم الحاسب من جامعة جدة بمرتبة الشرف.",en:"Bnan's founder & president: Afnan Aljohani 👩‍💻\nAI & Data Science Engineer, Computer Science honors graduate from the University of Jeddah."},
+    learn:{ar:"ابدأ من هنا 📚\n• دورة «الذكاء الاصطناعي لخدمة المجتمع» من وزارة الاتصالات على FutureX\n• جمعية الذكاء الاصطناعي (AIA)\n• أكاديمية سدايا\nكلها في قسم «مركز المعرفة» 👇",en:"Start here 📚\n• “AI for Community Service” course by MCIT on FutureX\n• Artificial Intelligence Association (AIA)\n• SDAIA Academy\nAll in the Knowledge Center section 👇"},
+    contact:{ar:"تواصل معنا 📬\nالبريد: a.almass3dii@gmail.com\nواتساب: ‎+966 54 537 9819",en:"Contact us 📬\nEmail: a.almass3dii@gmail.com\nWhatsApp: +966 54 537 9819"},
+    wa:{ar:"حيّاك 💚 بفتح لك واتساب الحين…",en:"Welcome 💚 Opening WhatsApp now…"},
+    hi:{ar:"هلا والله 👋 أنا مساعد بنان. اسألني عن الانضمام، الخدمات، الفعاليات، أو كيف ترفع تحدّيك.",en:"Hi there 👋 I'm Bnan's assistant. Ask me about joining, services, events, or submitting a challenge."},
+    none:{ar:"ما فهمت عليك تمامًا 🤖 جرّب تسأل عن: الانضمام، الخدمات، الفعاليات، الأقسام، أو الدعم.\nأو راسل أفنان مباشرة على واتساب 💚",en:"I didn't quite get that 🤖 Try asking about joining, services, events, departments or support.\nOr message Afnan directly on WhatsApp 💚"}
   };
+  var keys = [
+    ['wa',/واتس|whats|قروب|group/i],['join',/انضم|أنضم|تسجيل|سجل|اشترك|عضوي|join|register|sign/i],
+    ['ideas',/سرق|تنسرق|حقوق|فكرت|steal|stol|idea|copy/i],['service',/خدم|تقدم|تقدّم|استشار|حل|service|offer|consult/i],
+    ['events',/فعالي|ورش|ورشة|هاكاثون|لقاء|event|workshop|hackathon/i],['depts',/قسم|أقسام|اقسام|department/i],
+    ['support',/دعم|رعاي|جائز|support|sponsor|prize/i],['cost',/مجان|سعر|تكلف|بكم|free|cost|price/i],
+    ['founder',/مؤسس|رئيس|أفنان|افنان|مين|founder|president|who/i],['learn',/أبدأ|ابدأ|دورة|كورس|أتعلم|اتعلم|مصادر|start|course|learn/i],
+    ['contact',/تواصل|رقم|ايميل|إيميل|بريد|contact|email|phone/i],['hi',/هلا|السلام|مرحب|hello|hi\b|hey/i],['what',/بنان|وش هو|ما هو|what|bnan/i]
+  ];
   var els = [].slice.call(document.querySelectorAll('[data-en]'));
   els.forEach(function(el){ el.dataset.ar = el.innerHTML; });
   var lang = 'ar';
   try{ lang = localStorage.getItem('bnan-lang') || 'ar'; }catch(e){}
-  var stepIdx = 0, lastQ = null;
+  var stepIdx = 0, cycIdx = 0;
+  var cycle = {ar:['① الفكرة: نستقبل التحدي','② التحليل: خبراء يفهمون المشكلة','③ الحل: نقترح حلولًا مجرّبة','④ النموذج: نبني نموذجًا أوليًا','⑤ التجربة: نختبره في الواقع','⑥ الأثر: نقيس النتيجة وننشرها'],en:['① Idea: we receive the challenge','② Analysis: experts understand the problem','③ Solution: we propose proven options','④ Prototype: we build a first version','⑤ Pilot: we test it in the real world','⑥ Impact: we measure and publish']};
+  function showCycle(i){ cycIdx = i; document.querySelectorAll('#cycle .rail span').forEach(function(r,j){ r.classList.toggle('on', j <= i); }); document.getElementById('cycleNow').textContent = cycle[lang][i]; }
 
   function setLang(l){
     lang = l;
     root.lang = l; root.dir = l === 'ar' ? 'rtl' : 'ltr';
     els.forEach(function(el){ el.innerHTML = l === 'ar' ? el.dataset.ar : el.dataset.en; });
-    document.getElementById('langBtn').textContent = l === 'ar' ? 'EN' : 'ع';
+    document.getElementById('langBtn').textContent = l === 'ar' ? 'ENGLISH 🌐' : 'العربية 🌐';
     document.getElementById('stepText').textContent = steps[l][stepIdx];
-    if(lastQ) document.getElementById('askAns').textContent = answers[lastQ][l];
+    var ci = document.getElementById('chatI'); ci.placeholder = ci.dataset['ph' + (l === 'ar' ? 'Ar' : 'En')];
+    showCycle(cycIdx);
     try{ localStorage.setItem('bnan-lang', l); }catch(e){}
   }
   document.getElementById('langBtn').addEventListener('click', function(){ setLang(lang === 'ar' ? 'en' : 'ar'); });
+  showCycle(0);
   if(lang === 'en') setLang('en');
+  setInterval(function(){ showCycle((cycIdx + 1) % 6); }, 2200);
 
   // ---------- menu ----------
   var links = document.getElementById('navLinks'), mb = document.getElementById('menuBtn');
   mb.addEventListener('click', function(){ var o = links.classList.toggle('open'); mb.setAttribute('aria-expanded', o); });
   links.addEventListener('click', function(e){ if(e.target.tagName === 'A'){ links.classList.remove('open'); mb.setAttribute('aria-expanded', false); } });
 
-  // ---------- ask ----------
-  document.getElementById('chips').addEventListener('click', function(e){
+  // ---------- more menu (touch) ----------
+  var more = document.getElementById('more');
+  more.querySelector('button').addEventListener('click', function(){ more.classList.toggle('open'); });
+  document.addEventListener('click', function(e){ if(!more.contains(e.target)) more.classList.remove('open'); });
+
+  // ---------- chat ----------
+  var chat = document.getElementById('chat'), fab = document.getElementById('fab'), body = document.getElementById('chatB');
+  var greeted = false;
+  function say(text, who){
+    var m = document.createElement('div'); m.className = 'msg ' + who; m.textContent = text;
+    body.appendChild(m); body.scrollTop = body.scrollHeight;
+  }
+  function reply(key){
+    var t = document.createElement('div'); t.className = 'typing'; t.innerHTML = '<i></i><i></i><i></i>';
+    body.appendChild(t); body.scrollTop = body.scrollHeight;
+    setTimeout(function(){
+      t.remove(); say(answers[key][lang], 'bot');
+      if(key === 'wa') window.open('https://wa.me/966545379819', '_blank', 'noopener');
+    }, 650);
+  }
+  function openChat(){
+    chat.classList.add('open'); fab.setAttribute('aria-expanded', true);
+    var dot = fab.querySelector('.dot'); if(dot) dot.remove();
+    if(!greeted){ greeted = true; reply('hi'); }
+    setTimeout(function(){ document.getElementById('chatI').focus({preventScroll:true}); }, 250);
+  }
+  function closeChat(){ chat.classList.remove('open'); fab.setAttribute('aria-expanded', false); }
+  fab.addEventListener('click', function(){ chat.classList.contains('open') ? closeChat() : openChat(); });
+  document.getElementById('openChat').addEventListener('click', openChat);
+  document.getElementById('chatX').addEventListener('click', closeChat);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeChat(); });
+  document.getElementById('chatQ').addEventListener('click', function(e){
     var b = e.target.closest('.chip'); if(!b) return;
-    [].forEach.call(this.children, function(c){ c.classList.toggle('on', c === b); });
-    lastQ = b.dataset.q;
-    var a = document.getElementById('askAns');
-    a.classList.remove('show'); void a.offsetWidth;
-    a.textContent = answers[lastQ][lang]; a.classList.add('show');
+    say(b.textContent, 'me'); reply(b.dataset.q);
   });
+  document.getElementById('chatF').addEventListener('submit', function(e){
+    e.preventDefault();
+    var i = document.getElementById('chatI'), q = i.value.trim(); if(!q) return;
+    say(q, 'me'); i.value = '';
+    var hit = keys.filter(function(k){ return k[1].test(q); })[0];
+    reply(hit ? hit[0] : 'none');
+  });
+
+  // ---------- likes ----------
+  document.querySelectorAll('.like').forEach(function(b, i){
+    var k = 'bnan-like-' + i, on = false;
+    try{ on = localStorage.getItem(k) === '1'; }catch(e){}
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', on);
+    b.addEventListener('click', function(){
+      on = !on; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on);
+      try{ localStorage.setItem(k, on ? '1' : '0'); }catch(e){}
+    });
+  });
+
+  // ---------- active nav ----------
+  var navAs = [].slice.call(document.querySelectorAll('#navLinks > a'));
+  var spy = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ var id = '#' + en.target.id; navAs.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === id); }); }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  navAs.forEach(function(a){ var t = document.querySelector(a.getAttribute('href')); if(t) spy.observe(t); });
 
   // ---------- journey steps ----------
   var stepEls = document.querySelectorAll('#steps .step');
