@@ -317,7 +317,7 @@ form{display:flex;flex-direction:column;gap:14px}
 footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
 .designby{display:flex;align-items:center;gap:18px;padding:30px 0;border-bottom:1px solid var(--line);margin-bottom:30px}
 .db-bar{width:3px;align-self:stretch;margin:4px 0;border-radius:3px;background:linear-gradient(180deg,var(--teal),var(--gold),var(--orange))}
-.db-qr{width:94px;height:94px;flex-shrink:0;padding:12px;border-radius:14px;background:#F1F2FB;transition:transform .2s,box-shadow .2s}
+.db-qr{width:104px;height:104px;flex-shrink:0;padding:10px;border-radius:14px;background:#F1F2FB;transition:transform .2s,box-shadow .2s}
 .db-qr:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(108,123,255,.3)}
 .db-qr svg{width:100%;height:100%}
 .db-txt small{display:block;font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.24em;color:var(--mute)}
@@ -327,7 +327,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 .foot svg{height:28px;width:auto}
 .foot .m{color:var(--mute);font-size:14px}
-.made{font-family:var(--mono);font-size:14px;color:var(--mute);direction:ltr}
+.made{font-family:var(--mono);font-size:15px;color:var(--mute);direction:ltr;text-align:center;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
 .made .h{color:var(--orange);display:inline-block;animation:beat 1.4s infinite}
 .made b{color:var(--ink)}
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
@@ -366,7 +366,8 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
 .askbar{margin-top:26px;width:100%;max-width:620px;display:flex;align-items:center;gap:14px;text-align:start;padding:14px;border-radius:20px;border:1px solid var(--line);background:rgba(20,26,72,.7);backdrop-filter:blur(10px);transition:.25s}
 .askbar:hover{border-color:var(--line2);transform:translateY(-2px)}
 .askbar .ask-ico{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--teal),#4A3FD1);display:grid;place-items:center;flex-shrink:0;box-shadow:var(--glow)}
-.askbar .ask-ico svg{width:26px;height:26px}
+.askbar .ask-ico svg{width:40px;height:40px;margin-top:4px}
+.askbar .ask-ico{overflow:hidden}
 .askbar b{display:block;font-size:18px}
 .askbar small{color:var(--mute);font-size:14px}
 .askbar .go{margin-inline-start:auto;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.06);display:grid;place-items:center;flex-shrink:0}
@@ -416,14 +417,15 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
 /* CHAT */
 .fab{position:fixed;bottom:22px;right:22px;z-index:80;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#8B97FF,#4A3FD1);display:grid;place-items:center;box-shadow:0 12px 30px rgba(108,123,255,.45),0 0 0 6px rgba(108,123,255,.12);transition:transform .2s}
 .fab:hover{transform:scale(1.06)}
-.fab svg{width:32px;height:32px}
+.fab svg{width:50px;height:50px;margin-top:4px}
 .fab .dot{position:absolute;top:4px;right:4px;width:14px;height:14px;border-radius:50%;background:var(--orange);border:2px solid var(--bg)}
 .chat{position:fixed;bottom:96px;right:22px;z-index:81;width:min(390px,calc(100vw - 24px));height:min(560px,calc(100vh - 130px));display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:#0E1238;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6);transform:translateY(16px) scale(.98);opacity:0;pointer-events:none;transition:.25s}
 .chat.open{transform:none;opacity:1;pointer-events:auto}
 @media (max-width:520px){.chat{right:12px;bottom:88px}.fab{right:14px;bottom:14px}}
 .chat-h{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#131A4A}
 .chat-h .ava{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#8B97FF,#4A3FD1);display:grid;place-items:center;box-shadow:var(--glow)}
-.chat-h .ava svg{width:24px;height:24px}
+.chat-h .ava svg{width:36px;height:36px;margin-top:3px}
+.chat-h .ava{overflow:hidden}
 .chat-h b{display:block;font-size:16px}
 .chat-h small{color:#5BE38F;font-size:12.5px;display:flex;align-items:center;gap:6px}
 .chat-h small::before{content:"";width:7px;height:7px;border-radius:50%;background:#2ECC71}
@@ -448,6 +450,35 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
 .chat-f button svg{width:20px;height:20px}
 [dir=rtl] .chat-f button svg{transform:scaleX(-1)}
 
+
+/* WELCOME ROBOT */
+.welcome{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;background:rgba(6,8,30,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:fade .4s ease}
+.welcome[hidden]{display:none}
+.welcome.out{opacity:0;transition:opacity .35s}
+.w-card{position:relative;width:min(860px,100%);display:grid;grid-template-columns:300px 1fr;gap:10px;align-items:end;border-radius:28px;padding:30px 34px 0;background:radial-gradient(circle at 20% 30%,rgba(155,108,246,.35),transparent 55%),linear-gradient(160deg,#1C2160,#0E1238);border:1px solid rgba(165,174,255,.25);box-shadow:0 40px 100px rgba(0,0,0,.6);overflow:hidden}
+.w-bot svg{width:100%;height:auto;display:block;animation:float 4s ease-in-out infinite}
+.w-talk{padding-bottom:34px;align-self:center}
+.w-talk h2{font-size:clamp(28px,4vw,40px);margin-top:14px;font-weight:900}
+.w-bubble{position:relative;margin-top:16px;padding:16px 18px;border-radius:18px;border-start-start-radius:6px;background:rgba(255,255,255,.06);border:1px solid var(--line);font-size:17.5px;line-height:1.9;color:#E3E6FF;min-height:118px}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--teal-2);vertical-align:-3px;margin-inline-start:2px;animation:blink .9s steps(1) infinite}
+.w-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.w-x{position:absolute;top:14px;inset-inline-end:14px;width:38px;height:38px;border-radius:12px;font-size:24px;color:var(--mute)}
+.w-x:hover{background:rgba(255,255,255,.07);color:var(--ink)}
+@keyframes float{50%{transform:translateY(-8px)}}
+@keyframes blink{50%{opacity:0}}
+.b-eyes{transform-box:fill-box;transform-origin:center;animation:eyeblink 5s infinite}
+@keyframes eyeblink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.b-core{animation:corepulse 2.4s ease-in-out infinite}
+@keyframes corepulse{50%{opacity:.45}}
+.talking .b-mouth{transform-box:fill-box;transform-origin:center top;animation:talk .22s ease-in-out infinite alternate}
+@keyframes talk{to{transform:scaleY(2.2)}}
+@media (max-width:720px){
+  .w-card{grid-template-columns:1fr;padding:22px 20px 0;text-align:start}
+  .w-bot{order:2;width:200px;margin:0 auto}
+  .w-talk{padding-bottom:6px}
+  .w-bubble{font-size:16px;min-height:0}
+}
+
 /* LOGO SVG */
 .lg-stroke{stroke:#EEF0FA;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;fill:none}
 .ping{transform-box:fill-box;transform-origin:center;animation:ping 2.6s ease-out infinite}
@@ -471,6 +502,52 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <filter id="soft" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+
+    <radialGradient id="bSkin" cx="42%" cy="35%" r="75%"><stop offset="0" stop-color="#F6E2FF"/><stop offset=".45" stop-color="#C98BF2"/><stop offset="1" stop-color="#6A45D6"/></radialGradient>
+    <linearGradient id="bHood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A2470"/><stop offset="1" stop-color="#121044"/></linearGradient>
+    <linearGradient id="bBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C5CF0"/><stop offset="1" stop-color="#2B2380"/></linearGradient>
+    <radialGradient id="bHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9B6CF6" stop-opacity=".55"/><stop offset="1" stop-color="#9B6CF6" stop-opacity="0"/></radialGradient>
+    <filter id="bGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <symbol id="bananBot" viewBox="0 0 300 360">
+      <circle cx="150" cy="170" r="150" fill="url(#bHalo)"/>
+      <!-- shoulders -->
+      <path d="M28 360C34 312 70 292 112 284H188C230 292 266 312 272 360Z" fill="url(#bBody)"/>
+      <path d="M112 284C120 306 134 318 150 318S180 306 188 284" fill="none" stroke="#A5AEFF" stroke-opacity=".5" stroke-width="2"/>
+      <path d="M60 318L96 304M240 318L204 304M74 346L104 330M226 346L196 330" stroke="#A5AEFF" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+      <circle class="b-core" cx="150" cy="338" r="9" fill="#F0567A" filter="url(#bGlow)"/>
+      <!-- neck -->
+      <rect x="130" y="232" width="40" height="58" rx="8" fill="#3B2F9E"/>
+      <path d="M131 248H169M131 262H169M131 276H169" stroke="#7C6BFF" stroke-width="3"/>
+      <!-- hood / hair -->
+      <path d="M66 176C58 96 100 46 150 46S242 96 234 176C238 214 226 252 206 270L196 196C196 128 176 100 150 100S104 128 104 196L94 270C74 252 62 214 66 176Z" fill="url(#bHood)"/>
+      <path d="M86 120C96 92 118 72 150 66M214 120C204 92 182 72 150 66" fill="none" stroke="#6C7BFF" stroke-opacity=".55" stroke-width="2"/>
+      <path d="M78 170H92L98 180M222 170H208L202 180M84 210H96M216 210H204" stroke="#3CC8F0" stroke-opacity=".6" stroke-width="2" fill="none"/>
+      <!-- face -->
+      <path d="M150 86C190 86 212 118 212 160C212 210 184 246 150 246S88 210 88 160C88 118 110 86 150 86Z" fill="url(#bSkin)"/>
+      <!-- circuit half -->
+      <g stroke="#FFFFFF" stroke-opacity=".55" stroke-width="1.4" fill="none">
+        <path d="M150 92V128H170L178 136V150"/><path d="M150 230V206H166L176 196"/><path d="M196 120L186 130V146"/><path d="M204 186H190L184 192"/>
+      </g>
+      <g fill="#FFFFFF" fill-opacity=".85"><circle cx="178" cy="150" r="2.2"/><circle cx="176" cy="196" r="2.2"/><circle cx="186" cy="146" r="2.2"/><circle cx="184" cy="192" r="2.2"/></g>
+      <path d="M150 88V244" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="1"/>
+      <!-- brows -->
+      <path d="M110 140Q123 132 136 138M164 138Q177 132 190 140" stroke="#3B2275" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <!-- eyes -->
+      <g class="b-eyes">
+        <path d="M108 158Q122 147 136 158Q122 167 108 158Z" fill="#1A1242"/>
+        <path d="M164 158Q178 147 192 158Q178 167 164 158Z" fill="#1A1242"/>
+        <circle cx="122" cy="157.5" r="4.6" fill="#3CC8F0" filter="url(#bGlow)"/>
+        <circle cx="178" cy="157.5" r="4.6" fill="#F5C76A" filter="url(#bGlow)"/>
+        <circle cx="123.5" cy="156" r="1.3" fill="#fff"/><circle cx="179.5" cy="156" r="1.3" fill="#fff"/>
+      </g>
+      <!-- nose / cheeks / mouth -->
+      <path d="M150 168V186Q147 190 144 189" stroke="#8A55C8" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <ellipse cx="114" cy="190" rx="10" ry="5" fill="#F0567A" opacity=".25"/><ellipse cx="186" cy="190" rx="10" ry="5" fill="#F0567A" opacity=".25"/>
+      <path class="b-mouth" d="M134 206Q150 218 166 206Q150 212 134 206Z" fill="#B23A6E"/>
+      <!-- ear pods -->
+      <circle cx="86" cy="166" r="15" fill="#2B2380" stroke="#A5AEFF" stroke-width="2"/><circle cx="86" cy="166" r="6" fill="#3CC8F0" filter="url(#bGlow)"/>
+      <circle cx="214" cy="166" r="15" fill="#2B2380" stroke="#A5AEFF" stroke-width="2"/><circle class="b-core" cx="214" cy="166" r="6" fill="#F0567A" filter="url(#bGlow)"/>
+    </symbol>
     <symbol id="bnan" viewBox="0 0 900 250">
       <g filter="url(#glow)">
         <!-- robot = community -->
@@ -582,7 +659,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
         <a class="btn btn-wa" href="https://wa.me/966545379819?text=%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A3%D9%86%D8%B6%D9%85%20%D9%84%D9%85%D8%AC%D8%AA%D9%85%D8%B9%20%D8%A8%D9%86%D8%A7%D9%86" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.3-4.4A9 9 0 1 1 21 12z"/></svg><span data-en="WhatsApp">واتساب</span></a>
       </div>
       <button class="askbar" id="openChat" type="button">
-        <span class="ask-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.3" fill="#fff"/><circle cx="15" cy="13" r="1.3" fill="#fff"/><path d="M2 12v3M22 12v3"/></svg></span>
+        <span class="ask-ico"><svg viewBox="62 40 176 216" aria-hidden="true"><use href="#bananBot"/></svg></span>
         <span><b data-en="Ask me">اسألني</b><small data-en="About joining, submitting a challenge, sharing ideas, or support…">عن الانضمام، رفع تحدٍّ، مشاركة الأفكار، أو الدعم…</small></span>
         <span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></span>
       </button>
@@ -1011,22 +1088,39 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
   <div class="wrap">
     <div class="designby" dir="ltr">
       <span class="db-bar"></span>
-      <a class="db-qr" href="https://wa.me/966545379819" target="_blank" rel="noopener" aria-label="Contact Afnan Aljohani on WhatsApp"><svg aria-hidden="true" shape-rendering="crispEdges" viewBox="0 0 25 25" class="segno"><path class="qrline" stroke="#0A0F2E" d="M0 0.5h7m1 0h2m1 0h3m2 0h1m1 0h7m-25 1h1m5 0h1m1 0h2m1 0h1m1 0h1m4 0h1m5 0h1m-25 1h1m1 0h3m1 0h1m1 0h3m1 0h3m3 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m2 0h2m1 0h3m3 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m1 0h3m7 0h1m1 0h3m1 0h1m-25 1h1m5 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-25 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-16 1h1m1 0h6m-17 1h1m2 0h8m4 0h1m1 0h1m2 0h1m1 0h3m-25 1h1m3 0h1m3 0h1m1 0h3m2 0h2m2 0h5m-22 1h1m1 0h4m3 0h2m2 0h5m1 0h1m2 0h1m-24 1h1m1 0h1m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m1 0h2m1 0h4m-25 1h2m2 0h3m2 0h1m2 0h1m1 0h1m2 0h2m5 0h1m-25 1h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m4 0h1m2 0h1m-24 1h4m2 0h1m2 0h2m4 0h1m1 0h1m2 0h5m-25 1h1m3 0h1m4 0h2m1 0h1m2 0h1m3 0h1m1 0h2m1 0h1m-25 1h1m1 0h1m1 0h1m1 0h2m1 0h2m2 0h2m1 0h5m1 0h2m-16 1h3m1 0h1m1 0h1m1 0h1m3 0h1m1 0h2m-24 1h7m1 0h4m4 0h1m1 0h1m1 0h1m3 0h1m-25 1h1m5 0h1m1 0h3m1 0h2m2 0h1m3 0h1m-21 1h1m1 0h3m1 0h1m1 0h2m5 0h6m-21 1h1m1 0h3m1 0h1m1 0h6m1 0h4m4 0h2m-25 1h1m1 0h3m1 0h1m2 0h4m1 0h1m2 0h1m2 0h5m-25 1h1m5 0h1m2 0h4m1 0h1m4 0h2m1 0h3m-25 1h7m1 0h3m3 0h1m1 0h1m1 0h1m2 0h1m2 0h1"/></svg></a>
+      <a class="db-qr" href="https://www.linkedin.com/in/afnan-aljohani-0b5a70315/" target="_blank" rel="noopener" aria-label="Afnan Aljohani on LinkedIn"><svg aria-hidden="true" shape-rendering="crispEdges" viewBox="0 0 33 33" class="segno"><path class="qrline" stroke="#0a0f2e" d="M0 0.5h7m5 0h2m2 0h6m1 0h1m2 0h7m-33 1h1m5 0h1m3 0h1m1 0h6m6 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h1m3 0h3m4 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h3m1 0h2m3 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h1m2 0h1m2 0h2m2 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h11m1 0h2m2 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h1m4 0h1m4 0h3m1 0h1m-25 1h1m1 0h5m3 0h6m1 0h1m4 0h1m1 0h1m1 0h5m-28 1h1m4 0h1m1 0h1m5 0h1m1 0h2m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h1m2 0h1m2 0h1m5 0h2m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m1 0h1m-29 1h1m1 0h1m2 0h1m6 0h1m1 0h1m1 0h6m4 0h3m1 0h1m-32 1h4m1 0h1m1 0h1m1 0h2m6 0h3m1 0h2m1 0h1m1 0h3m1 0h2m-33 1h1m1 0h1m1 0h1m5 0h2m1 0h7m3 0h2m1 0h1m2 0h1m1 0h2m-32 1h3m2 0h1m1 0h1m4 0h1m3 0h1m2 0h1m1 0h1m2 0h2m1 0h4m-30 1h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m4 0h1m3 0h2m1 0h3m-27 1h3m1 0h5m1 0h1m2 0h1m4 0h4m1 0h2m3 0h1m-33 1h1m2 0h1m1 0h1m2 0h3m1 0h2m3 0h5m1 0h5m1 0h2m1 0h1m-31 1h5m2 0h1m1 0h3m1 0h1m1 0h1m2 0h2m5 0h2m1 0h2m-32 1h2m2 0h1m6 0h2m3 0h3m2 0h3m1 0h1m1 0h5m-32 1h3m1 0h3m1 0h5m3 0h1m2 0h2m3 0h2m1 0h3m-30 1h1m2 0h1m1 0h1m2 0h1m5 0h2m1 0h3m2 0h3m1 0h1m3 0h1m1 0h1m-33 1h1m2 0h1m2 0h4m1 0h1m2 0h3m3 0h1m4 0h1m1 0h5m-32 1h1m3 0h1m3 0h1m1 0h2m1 0h1m1 0h1m3 0h1m1 0h2m1 0h8m-32 1h1m2 0h2m1 0h1m2 0h1m5 0h1m1 0h2m3 0h7m2 0h1m-24 1h1m3 0h3m1 0h1m1 0h4m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m4 0h2m2 0h2m1 0h1m3 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m1 0h2m2 0h1m4 0h5m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h3m4 0h1m1 0h1m3 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h4m1 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h6m3 0h1m3 0h7m2 0h1m-31 1h1m5 0h1m4 0h4m1 0h1m4 0h2m2 0h2m1 0h3m-31 1h7m1 0h1m2 0h4m2 0h1m4 0h3m1 0h2m3 0h1"/></svg></a>
       <div class="db-txt"><small>DESIGN BY</small><b>Afnan Aljohani</b><span>AI &amp; Data Science Engineer</span></div>
     </div>
   </div>
   <div class="wrap foot">
     <div style="display:flex;align-items:center;gap:14px"><svg viewBox="0 0 900 250" aria-hidden="true"><use href="#bnan"/></svg><span class="m" dir="ltr">© 2026 Bnan AI Community · LEARN · BUILD · IMPACT</span></div>
-    <div class="made">Made with <span class="h">♥</span> by <b>Afnan Aljohani</b></div>
+    <a class="m" href="https://www.linkedin.com/in/afnan-aljohani-0b5a70315/" target="_blank" rel="noopener" dir="ltr">LinkedIn ↗</a>
   </div>
+  <div class="made">Made with <span class="h">♥</span> by <b>Afnan Aljohani</b></div>
 </footer>
 
 
-<button class="fab" id="fab" aria-label="Ask Bnan" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.3" fill="#fff"/><circle cx="15" cy="13" r="1.3" fill="#fff"/><path d="M2 12v3M22 12v3"/></svg><span class="dot"></span></button>
+<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="wTitle" hidden>
+  <div class="w-card">
+    <div class="w-bot"><svg viewBox="0 0 300 360" aria-hidden="true"><use href="#bananBot"/></svg></div>
+    <div class="w-talk">
+      <span class="badge"><i></i><span data-en="Banan · online">بنان · متصلة الآن</span></span>
+      <h2 id="wTitle" data-en="Hi, I'm <span class='tri'>Banan</span> 👋">أهلًا، أنا <span class="tri">بنان</span> 👋</h2>
+      <p class="w-bubble"><span id="wText"></span><i class="caret"></i></p>
+      <div class="w-btns">
+        <button class="btn btn-primary" id="wGo" type="button" data-en="Let's start">يلا نبدأ</button>
+        <button class="btn btn-ghost" id="wAsk" type="button" data-en="Ask Banan">اسأل بنان</button>
+      </div>
+    </div>
+    <button class="w-x" id="wX" aria-label="Close">×</button>
+  </div>
+</div>
+
+<button class="fab" id="fab" aria-label="Ask Bnan" aria-expanded="false"><svg viewBox="62 40 176 216" aria-hidden="true"><use href="#bananBot"/></svg><span class="dot"></span></button>
 <div class="chat" id="chat" role="dialog" aria-label="Ask Bnan">
   <div class="chat-h">
-    <span class="ava"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="13" r="1.3" fill="#fff"/><circle cx="15" cy="13" r="1.3" fill="#fff"/><path d="M2 12v3M22 12v3"/></svg></span>
-    <div><b data-en="Ask Bnan">اسأل بنان</b><small data-en="Online now">متصل الآن</small></div>
+    <span class="ava"><svg viewBox="62 40 176 216" aria-hidden="true"><use href="#bananBot"/></svg></span>
+    <div><b data-en="Banan · AI assistant">بنان · مساعدتك الذكية</b><small data-en="Online now">متصلة الآن</small></div>
     <button class="x" id="chatX" aria-label="Close">×</button>
   </div>
   <div class="chat-b" id="chatB" aria-live="polite"></div>
@@ -1048,6 +1142,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
 <script>
 (function(){
   var root = document.documentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---------- i18n ----------
   var steps = {
@@ -1067,7 +1162,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     learn:{ar:"ابدأ من هنا 📚\n• دورة «الذكاء الاصطناعي لخدمة المجتمع» من وزارة الاتصالات على FutureX\n• جمعية الذكاء الاصطناعي (AIA)\n• أكاديمية سدايا\nكلها في قسم «مركز المعرفة» 👇",en:"Start here 📚\n• “AI for Community Service” course by MCIT on FutureX\n• Artificial Intelligence Association (AIA)\n• SDAIA Academy\nAll in the Knowledge Center section 👇"},
     contact:{ar:"تواصل معنا 📬\nالبريد: a.almass3dii@gmail.com\nواتساب: ‎+966 54 537 9819",en:"Contact us 📬\nEmail: a.almass3dii@gmail.com\nWhatsApp: +966 54 537 9819"},
     wa:{ar:"حيّاك 💚 بفتح لك واتساب الحين…",en:"Welcome 💚 Opening WhatsApp now…"},
-    hi:{ar:"هلا والله 👋 أنا مساعد بنان. اسألني عن الانضمام، الخدمات، الفعاليات، أو كيف ترفع تحدّيك.",en:"Hi there 👋 I'm Bnan's assistant. Ask me about joining, services, events, or submitting a challenge."},
+    hi:{ar:"هلا والله 👋 أنا بنان، مساعدتك الذكية. اسألني عن الانضمام، الخدمات، الفعاليات، أو كيف ترفع تحدّيك.",en:"Hi there 👋 I'm Banan, your AI assistant. Ask me about joining, services, events, or submitting a challenge."},
     none:{ar:"ما فهمت عليك تمامًا 🤖 جرّب تسأل عن: الانضمام، الخدمات، الفعاليات، الأقسام، أو الدعم.\nأو راسل أفنان مباشرة على واتساب 💚",en:"I didn't quite get that 🤖 Try asking about joining, services, events, departments or support.\nOr message Afnan directly on WhatsApp 💚"}
   };
   var keys = [
@@ -1095,6 +1190,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     var ci = document.getElementById('chatI'); ci.placeholder = ci.dataset['ph' + (l === 'ar' ? 'Ar' : 'En')];
     showCycle(cycIdx);
     try{ localStorage.setItem('bnan-lang', l); }catch(e){}
+    var w = document.getElementById('welcome'); if(w && !w.hidden && typeof typeWelcome === 'function') typeWelcome();
   }
   document.getElementById('langBtn').addEventListener('click', function(){ setLang(lang === 'ar' ? 'en' : 'ar'); });
   showCycle(0);
@@ -1148,6 +1244,43 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     var hit = keys.filter(function(k){ return k[1].test(q); })[0];
     reply(hit ? hit[0] : 'none');
   });
+
+
+  // ---------- welcome robot ----------
+  var wEl = document.getElementById('welcome');
+  var wMsg = {
+    ar:'حيّاك الله في مجتمع بنان للذكاء الاصطناعي 💜 أنا بنان، مساعدتك الذكية. هنا نتعلّم الذكاء الاصطناعي، نبني مشاريع حقيقية، ونصنع أثرًا يُشار إليه بالبنان. خلّني أوريك المكان!',
+    en:"Welcome to Bnan AI Community 💜 I'm Banan, your AI assistant. Here we learn AI, build real projects, and make an impact worth pointing to. Let me show you around!"
+  };
+  var seen = false;
+  try{ seen = sessionStorage.getItem('bnan-welcome') === '1'; }catch(e){}
+  var typeTimer;
+  function typeWelcome(){
+    var t = document.getElementById('wText'), msg = wMsg[lang], i = 0;
+    clearInterval(typeTimer); t.textContent = '';
+    if(reduceMotion){ t.textContent = msg; return; }
+    wEl.classList.add('talking');
+    typeTimer = setInterval(function(){
+      t.textContent = msg.slice(0, ++i);
+      if(i >= msg.length){ clearInterval(typeTimer); wEl.classList.remove('talking'); }
+    }, 28);
+  }
+  function closeWelcome(then){
+    clearInterval(typeTimer);
+    try{ sessionStorage.setItem('bnan-welcome', '1'); }catch(e){}
+    wEl.classList.add('out');
+    setTimeout(function(){ wEl.hidden = true; wEl.classList.remove('out'); document.body.style.overflow = ''; if(then) then(); }, 350);
+  }
+  if(!seen){
+    wEl.hidden = false; document.body.style.overflow = 'hidden';
+    setTimeout(typeWelcome, 450);
+    setTimeout(function(){ document.getElementById('wGo').focus({preventScroll:true}); }, 100);
+  }
+  document.getElementById('wGo').addEventListener('click', function(){ closeWelcome(); });
+  document.getElementById('wX').addEventListener('click', function(){ closeWelcome(); });
+  document.getElementById('wAsk').addEventListener('click', function(){ closeWelcome(openChat); });
+  wEl.addEventListener('click', function(e){ if(e.target === wEl) closeWelcome(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !wEl.hidden) closeWelcome(); });
 
   // ---------- likes ----------
   document.querySelectorAll('.like').forEach(function(b, i){
