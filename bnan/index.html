@@ -479,6 +479,27 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
   .w-bubble{font-size:16px;min-height:0}
 }
 
+
+/* PROJECTS */
+.proj{display:flex;flex-direction:column}
+.proj .ph{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.pi{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;color:var(--teal-2);background:rgba(108,123,255,.12);border:1px solid var(--line2)}
+.pi svg{width:24px;height:24px}
+.pstat{font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:999px}
+.p-build{background:rgba(108,123,255,.16);color:#B9C0FF}
+.p-done{background:rgba(46,204,113,.14);color:#6EE7A2}
+.p-soon{background:rgba(240,86,122,.14);color:#FF9DB4}
+.proj .tags{margin:14px 0 0}
+.pbar{height:6px;border-radius:9px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:auto;position:relative;top:18px}
+.pbar span{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#3CC8F0,#6C7BFF,#C77DFF,#F0567A);transition:width 1.4s cubic-bezier(.2,.8,.2,1) .2s}
+[dir=rtl] .pbar span{background:linear-gradient(-90deg,#3CC8F0,#6C7BFF,#C77DFF,#F0567A)}
+.rv.in .pbar span{width:var(--p)}
+.pmeta{display:flex;justify-content:space-between;margin-top:30px;font-size:13px;color:var(--mute2)}
+.pmeta b{color:var(--ink)}
+.proj.next{align-items:center;justify-content:center;text-align:center;border-style:dashed;border-color:rgba(165,174,255,.35);background:rgba(108,123,255,.04);min-height:280px}
+.proj.next:hover{border-color:var(--teal);transform:translateY(-3px)}
+.plus{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:30px;color:var(--teal-2);border:1px dashed var(--teal);margin-bottom:12px}
+
 /* LOGO SVG */
 .lg-stroke{stroke:#EEF0FA;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;fill:none}
 .ping{transform-box:fill-box;transform-origin:center;animation:ping 2.6s ease-out infinite}
@@ -612,7 +633,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
       <a href="#about" data-en="About">عن المجتمع</a>
       <a href="#services" data-en="Challenges Center">مركز التحديات</a>
       <a href="#ideas" data-en="Works Gallery">معرض الأعمال</a>
-      <a href="#departments" data-en="Departments">الأقسام</a>
+      <a href="#projects" data-en="My Projects">مشاريعي</a>
       <a href="#ecosystem" data-en="Knowledge Center">مركز المعرفة</a>
       <div class="more" id="more">
         <button type="button" aria-haspopup="true"><span data-en="More">المزيد</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 4l4 4 4-4"/></svg></button>
@@ -688,7 +709,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
   <div class="wrap">
     <div class="stats">
       <div class="stat"><b class="teal" data-count="74">0</b><span data-en="Registered members">متدرّب ومهتم سجّلوا معنا</span></div>
-      <div class="stat"><b class="orange">4</b><span data-en="Departments, one team">أقسام، فريق واحد</span></div>
+      <div class="stat"><b class="orange">6</b><span data-en="AI services">خدمات في الذكاء الاصطناعي</span></div>
       <div class="stat"><b class="gold">#1</b><span data-en="Hackathon first place">المركز الأول في هاكاثون</span></div>
       <div class="stat"><b>26–27</b><span data-en="Founding season">الموسم التأسيسي</span></div>
     </div>
@@ -760,7 +781,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     <div class="timeline">
       <div class="tl rv"><span class="dot">1</span><small>THE IDEA</small><h4 data-en="A personal effort">اجتهاد شخصي</h4><p data-en="A question: why don't we learn AI together, and apply it?">سؤال بسيط: ليش ما نتعلّم الذكاء الاصطناعي مع بعض ونطبّقه؟</p></div>
       <div class="tl rv"><span class="dot">2</span><small>THE CLUB</small><h4 data-en="An AI club">نادي ذكاء اصطناعي</h4><p data-en="The first step: a club for workshops, challenges and sessions.">الخطوة الأولى: نادٍ للورش والتحديات والجلسات.</p></div>
-      <div class="tl rv"><span class="dot">3</span><small>THE SPARK</small><h4 data-en="The spark">الشرارة</h4><p data-en="74+ registered, 4 departments, and an identity built by its members.">+74 مسجّل، 4 أقسام، وهوية صمّمها أعضاؤه.</p></div>
+      <div class="tl rv"><span class="dot">3</span><small>THE SPARK</small><h4 data-en="The spark">الشرارة</h4><p data-en="74+ registered and a complete visual identity.">+74 مسجّل، وهوية بصرية كاملة.</p></div>
       <div class="tl rv"><span class="dot">4</span><small>THE COMMUNITY</small><h4 data-en="Bnan AI Community">مجتمع بنان</h4><p data-en="An independent community offering AI services, programs and open projects.">مجتمع مستقل يقدّم خدمات وبرامج ومشاريع مفتوحة في الذكاء الاصطناعي.</p></div>
       <div class="tl rv"><span class="dot">5</span><small>NEXT</small><h4 data-en="What's next">القادم</h4><p data-en="Partnerships, a projects showcase, and a hackathon of our own.">شراكات، معرض مشاريع، وهاكاثون بنان الخاص.</p></div>
     </div>
@@ -794,11 +815,11 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
       <div class="card activity rv">
         <div class="h"><span data-en="Latest activity">آخر النشاط</span><span class="live" data-en="Live">محدّث</span></div>
         <ul class="feed">
-          <li data-en="Department leaders announcement: Sunday, 25 October 2026<em>this week</em>">إعلان قادة الأقسام: الأحد 25 أكتوبر 2026<em>هذا الأسبوع</em></li>
-          <li class="o" data-en="Deadline for department plans extended to 20 October<em>today</em>">تمديد موعد استلام خطط الأقسام حتى 20 أكتوبر<em>اليوم</em></li>
+          <li data-en="Bnan website and the Banan assistant launched<em>this week</em>">إطلاق موقع بنان ومساعدتها الذكية «بنان»<em>هذا الأسبوع</em></li>
+          <li class="o" data-en="Service and challenge requests are now open<em>now</em>">فتح باب طلبات الخدمات والتحديات<em>الآن</em></li>
           <li class="g" data-en="Bnan visual identity and brand book released<em>this month</em>">إطلاق هوية بنان البصرية ودليل الهوية<em>هذا الشهر</em></li>
-          <li data-en="Department preference survey: 74+ responses<em>this month</em>">استطلاع الأقسام: أكثر من 74 مشاركة<em>هذا الشهر</em></li>
-          <li class="o" data-en="AI Speaker department sessions begin<em>soon</em>">انطلاق جلسات قسم AI Speaker<em>قريبًا</em></li>
+          <li data-en="Building a generative-AI version of Ask Banan<em>in progress</em>">العمل على نسخة «اسأل بنان» بالذكاء التوليدي<em>قيد التطوير</em></li>
+          <li class="o" data-en="Bnan's first hands-on workshop<em>soon</em>">أول ورشة تطبيقية من بنان<em>قريبًا</em></li>
         </ul>
       </div>
     </div>
@@ -836,7 +857,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
       </div>
       <div class="card svc o rv">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"/></svg></div>
-        <h3 data-en="AI Speaker: presenting & public speaking">AI Speaker: العرض والإلقاء</h3>
+        <h3 data-en="Presentation & public-speaking coaching">تدريب العرض والإلقاء</h3>
         <p data-en="Present technical ideas clearly and confidently, to judges, managers and the public.">تقديم الأفكار التقنية بوضوح وثقة أمام لجان التحكيم والإدارات والجمهور.</p>
         <div class="tags"><span class="tag">Storytelling</span><span class="tag">Demo Day</span></div>
       </div>
@@ -844,34 +865,72 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
   </div>
 </section>
 
-<!-- DEPARTMENTS + PROGRAMS -->
-<section id="departments">
+<!-- PROJECTS -->
+<section id="projects">
   <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow">04 · Departments</div>
-      <h2 class="sec-title" data-en="4 departments. <span class='teal'>One team.</span>">4 أقسام. <span class="teal">فريق واحد.</span></h2>
-      <p class="sec-lead" data-en="Departments complement each other, and members can join more than one.">الأقسام تكمّل بعض، وتقدر تشارك في أكثر من قسم.</p>
+    <div class="sec-head row rv">
+      <div>
+        <div class="eyebrow">04 · Projects</div>
+        <h2 class="sec-title" data-en="Projects <span class='teal'>I'm working on</span>">مشاريع <span class="teal">أشتغل عليها</span></h2>
+        <p class="sec-lead" data-en="Bnan is a personal startup run by Afnan Aljohani. These are the projects I'm building now, and the ones I've finished.">بنان مشروع شخصي وستارت أب تديره أفنان الجهني. هذي المشاريع اللي أبنيها الحين، واللي خلّصتها.</p>
+      </div>
+      <a class="btn btn-ghost" href="#contact" data-type="partner" data-en="Work with me ←">اشتغل معي ←</a>
     </div>
-    <div class="grid g2">
-      <div class="card dept o rv">
-        <div class="ring o"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 12L6 20l18 8 18-8-18-8z"/><path d="M13 24v8c6 4 16 4 22 0v-8"/><circle cx="42" cy="28" r="2.5" fill="#6C7BFF" stroke="none"/><path d="M42 20v6"/><circle cx="24" cy="12" r="3" fill="#F0567A" stroke="none"/></svg></div>
-        <div><small>TRAINING & DEVELOPMENT</small><h3 data-en="Training & Development">التدريب والتطوير</h3><p data-en="Workshops, learning paths, and the weekly “Tech of the Week” post.">ورش ومسارات تعليمية ومنشور «تقنية الأسبوع».</p></div>
-      </div>
-      <div class="card dept rv">
-        <div class="ring"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6l15 9v18l-15 9-15-9V15z"/><path d="M24 6v36M9 15l30 18M39 15L9 33"/><circle cx="24" cy="24" r="4" fill="#F0567A" stroke="none"/></svg></div>
-        <div><small>PUBLIC RELATIONS</small><h3 data-en="Public Relations">العلاقات العامة</h3><p data-en="Content, outreach, publishing and hosting experts.">المحتوى والتواصل والنشر واستضافة الخبراء.</p></div>
-      </div>
-      <div class="card dept rv">
-        <div class="ring"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10h28"/><circle cx="10" cy="10" r="3" fill="#6C7BFF" stroke="none"/><circle cx="38" cy="10" r="3" fill="#6C7BFF" stroke="none"/><path d="M24 10v6M16 16h16l-3 14-5 6-5-6z"/><circle cx="24" cy="26" r="2.5"/><circle cx="24" cy="40" r="3" fill="#F0567A" stroke="none"/></svg></div>
-        <div><small>EVENTS & DESIGN</small><h3 data-en="Events & Design">الفعاليات والتصميم</h3><p data-en="Running events, designing content and documentation.">تنظيم الفعاليات وتصميم المحتوى والتوثيق.</p></div>
-      </div>
-      <div class="card dept o rv">
-        <div class="ring o"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="6" width="12" height="22" rx="6"/><path d="M18 14h12M18 20h12"/><path d="M11 22a13 13 0 0 0 26 0M24 35v7M17 42h14"/><path d="M6 18v8M42 18v8"/><circle cx="24" cy="6" r="3" fill="#F0567A" stroke="none"/></svg></div>
-        <div><small>AI SPEAKER</small><h3 data-en="AI Speaker: Speaking & Delivery">AI Speaker: الخطابة والإلقاء</h3><p data-en="Presentation sessions that prepare members to present with confidence.">جلسات العروض وتجهيز الأعضاء للتقديم بثقة على المسرح.</p></div>
-      </div>
+    <!-- To add a project: copy one <article class="card proj"> block and edit its text, status and percentage. -->
+    <div class="grid g3">
+      <article class="card proj rv">
+        <div class="ph"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></span><span class="pstat p-build" data-en="In progress">قيد التطوير</span></div>
+        <h3 data-en="Bnan Platform">منصة بنان</h3>
+        <p data-en="The community website and its assistant Banan: services, works gallery and direct contact.">موقع المجتمع ومساعدته الذكية «بنان»: خدمات، معرض أعمال، وتواصل مباشر.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+        <div class="pbar" role="img" aria-label="75%"><span style="--p:75%"></span></div>
+        <div class="pmeta"><span class="mono" dir="ltr">2026</span><b class="mono">75%</b></div>
+      </article>
+      <article class="card proj rv">
+        <div class="ph"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V3"/><circle cx="9" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/></svg></span><span class="pstat p-build" data-en="In progress">قيد التطوير</span></div>
+        <h3 data-en="Ask Banan with generative AI">«اسأل بنان» بالذكاء التوليدي</h3>
+        <p data-en="Upgrading Banan to answer from the community's content using an LLM with retrieval (RAG).">ترقية «بنان» لتجاوب من محتوى المجتمع باستخدام نموذج لغوي واسترجاع المعرفة (RAG).</p>
+        <div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">Python</span></div>
+        <div class="pbar" role="img" aria-label="30%"><span style="--p:30%"></span></div>
+        <div class="pmeta"><span class="mono" dir="ltr">2026</span><b class="mono">30%</b></div>
+      </article>
+      <article class="card proj rv">
+        <div class="ph"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></svg></span><span class="pstat p-soon" data-en="Exploring">فكرة قيد الدراسة</span></div>
+        <h3 data-en="AI presentation coach">مدرّب الإلقاء الذكي</h3>
+        <p data-en="Analyzes a recorded talk: pace, filler words and eye contact, and gives you tips.">يحلّل العرض المسجّل: سرعة الكلام، الكلمات الحشو، والتواصل البصري، ويعطيك نصائح.</p>
+        <div class="tags"><span class="tag">CV</span><span class="tag">Audio</span><span class="tag">NLP</span></div>
+        <div class="pbar" role="img" aria-label="10%"><span style="--p:10%"></span></div>
+        <div class="pmeta"><span class="mono" dir="ltr">2026–27</span><b class="mono">10%</b></div>
+      </article>
+      <article class="card proj rv">
+        <div class="ph"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="pstat p-done" data-en="Completed">مكتمل</span></div>
+        <h3 data-en="Medical image classifier">مصنّف الصور الطبية</h3>
+        <p data-en="A deep learning pipeline on 24,000+ medical images comparing EfficientNet, DenseNet and ViT, with a live demo.">مسار تعلّم عميق على أكثر من 24,000 صورة طبية، يقارن EfficientNet وDenseNet وViT، مع عرض مباشر.</p>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">ViT</span><span class="tag">CV</span></div>
+        <div class="pbar" role="img" aria-label="100%"><span style="--p:100%"></span></div>
+        <div class="pmeta"><span class="mono" dir="ltr">2024–25</span><b class="mono">100%</b></div>
+      </article>
+      <article class="card proj rv">
+        <div class="ph"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/></svg></span><span class="pstat p-done" data-en="Completed">مكتمل</span></div>
+        <h3 data-en="Telecom user behavior prediction">توقّع سلوك مستخدمي الاتصالات</h3>
+        <p data-en="A classification model segmenting STC user behavior, with data storytelling, in the Misk virtual work experience.">نموذج تصنيف لتقسيم سلوك مستخدمي STC مع سرد قصصي للبيانات، ضمن تجربة العمل الافتراضية من مسك.</p>
+        <div class="tags"><span class="tag">ML</span><span class="tag">Python</span><span class="tag">Storytelling</span></div>
+        <div class="pbar" role="img" aria-label="100%"><span style="--p:100%"></span></div>
+        <div class="pmeta"><span class="mono" dir="ltr">2026</span><b class="mono">100%</b></div>
+      </article>
+      <a class="card proj next rv" href="#contact" data-type="idea">
+        <span class="plus">+</span>
+        <h3 data-en="The next project">المشروع القادم</h3>
+        <p data-en="Have an idea or a challenge? It could be the next project we build together.">عندك فكرة أو تحدٍّ؟ ممكن يكون المشروع الجاي اللي نبنيه سوا.</p>
+      </a>
     </div>
+  </div>
+</section>
 
-    <div class="sec-head rv" style="margin:64px 0 26px">
+<!-- PROGRAMS -->
+<section id="programs" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv" style="margin:0 0 26px">
       <div class="eyebrow">Programs</div>
       <h3 class="sec-title" style="font-size:clamp(24px,3vw,34px)" data-en="What happens in Bnan">وش يصير في بنان؟</h3>
     </div>
@@ -903,19 +962,10 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
       <div class="pol rv"><b data-en="🔒 Some ideas stay private">🔒 بعض الأفكار تبقى خاصة</b><p data-en="Startup ideas or client work? We publish the concept, and keep the details and data private.">فكرة شركة ناشئة أو عمل لعميل؟ ننشر المفهوم ونحفظ التفاصيل والبيانات.</p></div>
       <div class="pol rv"><b data-en="🚀 Execution wins">🚀 التنفيذ هو الفرق</b><p data-en="A team that builds and publishes first owns the story, and the community stands behind it.">الفريق اللي يبني وينشر أولًا يملك القصة، والمجتمع كله خلفه.</p></div>
     </div>
-    <div class="filters rv" style="margin-bottom:18px" id="filters">
-      <button class="chip on" data-f="all" data-en="All">الكل</button>
-      <button class="chip" data-f="open" data-en="Open for teams">مفتوحة للفرق</button>
-      <button class="chip" data-f="build" data-en="In progress">قيد البناء</button>
-      <button class="chip" data-f="proto" data-en="Prototype">نموذج أولي</button>
-    </div>
     <div class="grid g3" id="ideaGrid">
       <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-001</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic lecture summarizer">ملخّص المحاضرات العربي</h3><p data-en="An assistant that turns Arabic lecture recordings into notes, key terms and quiz questions.">مساعد يحوّل تسجيلات المحاضرات العربية إلى ملخّص ومصطلحات وأسئلة مراجعة.</p><div class="tags"><span class="tag">NLP</span><span class="tag">Speech</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
-      <div class="card idea rv" data-s="build"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-002</span><span class="status s-build" data-en="In progress">قيد البناء</span></div><h3 data-en="AI Speaker coach">مدرّب الإلقاء الذكي</h3><p data-en="Analyzes a recorded presentation: pace, filler words, eye contact, and gives tips.">يحلّل عرضك المسجّل: سرعة الكلام، الكلمات الحشو، التواصل البصري، ويعطيك نصائح.</p><div class="tags"><span class="tag">CV</span><span class="tag">Audio</span></div><div class="by"><span class="av">ب</span><b data-en="AI Speaker Dept.">قسم AI Speaker</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
       <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-003</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic misinformation detector">كاشف الأخبار المضلّلة</h3><p data-en="A model that flags misleading Arabic posts and shows the reliable source.">نموذج ينبّه على المنشورات العربية المضلّلة ويعرض المصدر الموثوق.</p><div class="tags"><span class="tag">NLP</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
-      <div class="card idea rv" data-s="proto"><div class="top"><span class="type" data-en="Solution">حل</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-004</span><span class="status s-proto" data-en="Prototype">نموذج أولي</span></div><h3 data-en="Medical image classifier">مصنّف الصور الطبية</h3><p data-en="A deep learning pipeline on 24,000+ medical images comparing EfficientNet, DenseNet and ViT.">مسار تعلّم عميق على أكثر من 24,000 صورة طبية، يقارن EfficientNet وDenseNet وViT.</p><div class="tags"><span class="tag">CV</span><span class="tag">ViT</span></div><div class="by"><span class="av g">أ</span><b data-en="Afnan Aljohani">أفنان الجهني</b><em data-en="2025">2025</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
       <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-005</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Community pulse dashboard">لوحة نبض المجتمع</h3><p data-en="A live dashboard of attendance, participation and points that feeds the Wall of Fame.">لوحة حيّة للحضور والمشاركة والنقاط، تغذّي لوحة الشرف تلقائيًا.</p><div class="tags"><span class="tag">Data</span><span class="tag">BI</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
-      <div class="card idea rv" data-s="build"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-006</span><span class="status s-build" data-en="In progress">قيد البناء</span></div><h3 data-en="Ask Bnan assistant">مساعد «اسأل بنان»</h3><p data-en="An assistant that answers new members' questions about programs, departments and events.">مساعد يجاوب أسئلة الأعضاء الجدد عن البرامج والأقسام والفعاليات.</p><div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
     </div>
   </div>
 </section>
@@ -954,8 +1004,8 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     </div>
     <div class="tiers rv">
       <div class="tier"><span class="lv">LEVEL 1</span><h4 data-en="Member">عضو</h4><p data-en="Attends, learns and joins the weekly sessions and challenges.">يحضر ويتعلّم ويشارك في الجلسات والتحديات.</p></div>
-      <div class="tier"><span class="lv">LEVEL 2</span><h4 data-en="Contributor">مساهم</h4><p data-en="Explains a concept, joins a project team, or helps in a department.">يشرح مفهومًا، أو ينضم لفريق مشروع، أو يساعد في قسم.</p></div>
-      <div class="tier"><span class="lv">LEVEL 3</span><h4 data-en="Leader">قائد</h4><p data-en="Leads a department or project with a plan, a team and indicators.">يقود قسمًا أو مشروعًا بخطة وفريق ومؤشرات.</p></div>
+      <div class="tier"><span class="lv">LEVEL 2</span><h4 data-en="Contributor">مساهم</h4><p data-en="Explains a concept, joins a project team, or helps run an event.">يشرح مفهومًا، أو ينضم لفريق مشروع، أو يساعد في فعالية.</p></div>
+      <div class="tier"><span class="lv">LEVEL 3</span><h4 data-en="Leader">قائد</h4><p data-en="Leads a project or event with a plan, a team and indicators.">يقود مشروعًا أو فعالية بخطة وفريق ومؤشرات.</p></div>
       <div class="tier"><span class="lv">LEVEL 4</span><h4 data-en="Ambassador">سفير</h4><p data-en="Represents Bnan in events, partnerships and other communities.">يمثّل بنان في الفعاليات والشراكات والمجتمعات الأخرى.</p></div>
     </div>
     <div class="fund">
@@ -969,17 +1019,17 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
           <span><i style="background:var(--orange)"></i><span data-en="Events & hackathons">الفعاليات والهاكاثونات</span> <b>20%</b></span>
           <span><i style="background:#5C6396"></i><span data-en="Operations & tools">التشغيل والأدوات</span> <b>15%</b></span>
         </div>
-        <p class="note" data-en="Indicative split; reviewed by the leadership council each season.">توزيع استرشادي، يراجعه مجلس القادة كل موسم.</p>
+        <p class="note" data-en="Indicative split; reviewed every season.">توزيع استرشادي، يُراجع كل موسم.</p>
       </div>
       <div class="card rv">
         <h3 data-en="Our operating principles">مبادئ التشغيل</h3>
         <ul class="rules">
-          <li data-en="A monthly leadership council meeting, with published decisions.">اجتماع شهري لمجلس القادة، وقراراته معلنة.</li>
-          <li data-en="Every department has a season plan and 3 success indicators.">لكل قسم خطة موسم و3 مؤشرات نجاح.</li>
+          <li data-en="A clear plan every season, with published results.">خطة واضحة لكل موسم، ونتائج معلنة.</li>
+          <li data-en="Every project has a goal and 3 success indicators.">لكل مشروع هدف و3 مؤشرات نجاح.</li>
           <li data-en="Points and the Wall of Fame are based on clear criteria.">النقاط ولوحة الشرف مبنية على معايير واضحة.</li>
           <li data-en="Partnerships are signed in Bnan's name and serve the members.">الشراكات باسم بنان، وهدفها خدمة الأعضاء.</li>
           <li data-en="Ideas and projects are credited to their owners, always.">الأفكار والمشاريع تُنسب لأصحابها، دائمًا.</li>
-          <li data-en="A dedicated representative for member relations and complaints.">ممثّل مختص لعلاقات الأعضاء والشكاوى.</li>
+          <li data-en="A direct channel for suggestions and feedback.">قناة مباشرة للاقتراحات والملاحظات.</li>
         </ul>
       </div>
     </div>
@@ -1130,6 +1180,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     <button class="chip" data-q="service" data-en="Services?">وش تقدّمون؟</button>
     <button class="chip" data-q="events" data-en="Events?">فعالياتكم؟</button>
     <button class="chip" data-q="ideas" data-en="Will my idea be stolen?">هل تُسرق فكرتي؟</button>
+    <button class="chip" data-q="projects" data-en="Your projects?">مشاريعك؟</button>
     <button class="chip" data-q="learn" data-en="Where do I start?">من وين أبدأ؟</button>
     <button class="chip wa" data-q="wa" data-en="💚 WhatsApp">💚 واتساب</button>
   </div>
@@ -1151,24 +1202,24 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
   };
   var answers = {
     what:{ar:"بنان مجتمع ومشروع شخصي للذكاء الاصطناعي 🤖\nبدأ بفكرة نادٍ وصار مجتمعًا يقدّم خدمات وورشًا ومشاريع مفتوحة.\nشعارنا: تعلّم · ابنِ · اصنع الأثر.",en:"Bnan is an AI community and personal initiative 🤖\nIt started as a club idea and became a community offering services, workshops and open projects.\nLearn · Build · Impact."},
-    join:{ar:"الانضمام سهل 🙌\n1) اختر «انضمام» في نموذج التواصل أسفل الصفحة\n2) أو راسلنا على واتساب\nوبعدها تختار القسم اللي يناسبك، وعادي أكثر من قسم 😉",en:"Joining is easy 🙌\n1) Pick “Join” in the contact form below\n2) Or message us on WhatsApp\nThen choose your department (more than one is fine 😉)."},
-    service:{ar:"نقدّم 🛠️\n• استشارات وحلول ذكاء اصطناعي\n• تحليل بيانات ولوحات Power BI/Tableau\n• نماذج أولية ورؤية حاسوبية\n• ورش ومسارات تدريبية\n• تجهيز للهاكاثونات\n• تدريب على العرض والإلقاء (AI Speaker)",en:"We offer 🛠️\n• AI consulting & solutions\n• Data analysis & Power BI/Tableau dashboards\n• Prototypes & computer vision\n• Workshops & learning paths\n• Hackathon preparation\n• Presentation coaching (AI Speaker)"},
+    join:{ar:"الانضمام سهل 🙌\n1) اختر «انضمام» في نموذج التواصل أسفل الصفحة\n2) أو راسلنا على واتساب\nوبيوصلك كل جديد عن الورش والتحديات 😉",en:"Joining is easy 🙌\n1) Pick “Join” in the contact form below\n2) Or message us on WhatsApp\nThen you'll get every update about workshops and challenges 😉."},
+    service:{ar:"نقدّم 🛠️\n• استشارات وحلول ذكاء اصطناعي\n• تحليل بيانات ولوحات Power BI/Tableau\n• نماذج أولية ورؤية حاسوبية\n• ورش ومسارات تدريبية\n• تجهيز للهاكاثونات\n• تدريب على العرض والإلقاء",en:"We offer 🛠️\n• AI consulting & solutions\n• Data analysis & Power BI/Tableau dashboards\n• Prototypes & computer vision\n• Workshops & learning paths\n• Hackathon preparation\n• Presentation coaching"},
     events:{ar:"فعالياتنا 🔥\n🗓️ تقنية الأسبوع، كل أسبوع\n🧪 مختبر تطبيقي كل أسبوعين\n🏁 تحدّي بنان كل شهر مع لقاء خبير\n🏆 هاكاثون بنان ومعرض المشاريع كل موسم\nوأغلبها مجانية 🎁",en:"Our events 🔥\n🗓️ Tech of the Week, weekly\n🧪 Applied Lab, bi-weekly\n🏁 Monthly Bnan Challenge with an expert\n🏆 Bnan Hackathon & Showcase each season\nMost are free 🎁"},
     ideas:{ar:"فكرتك محفوظة 🔒\nكل فكرة تُنشر باسم صاحبها وتاريخها، والمشاريع برخصة تشترط ذكر المصدر.\nوإذا فكرتك مشروع تجاري، ننشر المفهوم فقط ونحفظ التفاصيل.",en:"Your idea is protected 🔒\nEvery idea is published with its author's name and date, and projects carry a license that requires attribution.\nIf it's a startup idea, we publish only the concept."},
     support:{ar:"أي دعم أو جائزة أو رعاية تجي عن طريق بنان ترجع للمجتمع 💙\nورش، مشاريع الأعضاء، فعاليات، وأدوات، مع تقرير سنوي معلن.",en:"Any support, prize or sponsorship through Bnan goes back to the community 💙\nWorkshops, members' projects, events and tools, with a public annual report."},
     cost:{ar:"العضوية والجلسات الأسبوعية مجانية 🎁\nبعض الخدمات للجهات تكون بمقابل، ودخلها يرجع لدعم المجتمع.",en:"Membership and weekly sessions are free 🎁\nSome services for organizations are paid, and that income supports the community."},
-    depts:{ar:"عندنا 4 أقسام، فريق واحد:\n🎓 التدريب والتطوير\n🔷 العلاقات العامة\n✒️ الفعاليات والتصميم\n🎙️ AI Speaker: الخطابة والإلقاء",en:"4 departments, one team:\n🎓 Training & Development\n🔷 Public Relations\n✒️ Events & Design\n🎙️ AI Speaker: Speaking & Delivery"},
+    projects:{ar:"مشاريع أشتغل عليها الحين 🚀\n• منصة بنان (75%)\n• «اسأل بنان» بالذكاء التوليدي (30%)\n• مدرّب الإلقاء الذكي (فكرة قيد الدراسة)\nومن المشاريع المكتملة: مصنّف الصور الطبية، وتوقّع سلوك مستخدمي الاتصالات. تفاصيلها في قسم «مشاريعي» 👇",en:"Projects I'm working on now 🚀\n• Bnan Platform (75%)\n• Ask Banan with generative AI (30%)\n• AI presentation coach (exploring)\nCompleted: a medical image classifier and telecom user behavior prediction. Details in “My Projects” 👇"},
     founder:{ar:"مؤسِّسة ورئيسة بنان: أفنان الجهني 👩‍💻\nمهندسة ذكاء اصطناعي وعلم بيانات، خرّيجة علوم الحاسب من جامعة جدة بمرتبة الشرف.",en:"Bnan's founder & president: Afnan Aljohani 👩‍💻\nAI & Data Science Engineer, Computer Science honors graduate from the University of Jeddah."},
     learn:{ar:"ابدأ من هنا 📚\n• دورة «الذكاء الاصطناعي لخدمة المجتمع» من وزارة الاتصالات على FutureX\n• جمعية الذكاء الاصطناعي (AIA)\n• أكاديمية سدايا\nكلها في قسم «مركز المعرفة» 👇",en:"Start here 📚\n• “AI for Community Service” course by MCIT on FutureX\n• Artificial Intelligence Association (AIA)\n• SDAIA Academy\nAll in the Knowledge Center section 👇"},
     contact:{ar:"تواصل معنا 📬\nالبريد: a.almass3dii@gmail.com\nواتساب: ‎+966 54 537 9819",en:"Contact us 📬\nEmail: a.almass3dii@gmail.com\nWhatsApp: +966 54 537 9819"},
     wa:{ar:"حيّاك 💚 بفتح لك واتساب الحين…",en:"Welcome 💚 Opening WhatsApp now…"},
     hi:{ar:"هلا والله 👋 أنا بنان، مساعدتك الذكية. اسألني عن الانضمام، الخدمات، الفعاليات، أو كيف ترفع تحدّيك.",en:"Hi there 👋 I'm Banan, your AI assistant. Ask me about joining, services, events, or submitting a challenge."},
-    none:{ar:"ما فهمت عليك تمامًا 🤖 جرّب تسأل عن: الانضمام، الخدمات، الفعاليات، الأقسام، أو الدعم.\nأو راسل أفنان مباشرة على واتساب 💚",en:"I didn't quite get that 🤖 Try asking about joining, services, events, departments or support.\nOr message Afnan directly on WhatsApp 💚"}
+    none:{ar:"ما فهمت عليك تمامًا 🤖 جرّب تسأل عن: الانضمام، الخدمات، الفعاليات، المشاريع، أو الدعم.\nأو راسل أفنان مباشرة على واتساب 💚",en:"I didn't quite get that 🤖 Try asking about joining, services, events, projects or support.\nOr message Afnan directly on WhatsApp 💚"}
   };
   var keys = [
     ['wa',/واتس|whats|قروب|group/i],['join',/انضم|أنضم|تسجيل|سجل|اشترك|عضوي|join|register|sign/i],
-    ['ideas',/سرق|تنسرق|حقوق|فكرت|steal|stol|idea|copy/i],['service',/خدم|تقدم|تقدّم|استشار|حل|service|offer|consult/i],
-    ['events',/فعالي|ورش|ورشة|هاكاثون|لقاء|event|workshop|hackathon/i],['depts',/قسم|أقسام|اقسام|department/i],
+    ['ideas',/سرق|تنسرق|حقوق|فكرت|steal|stol|idea|copy/i],['projects',/مشروع|مشاريع|تشتغلين|تشتغل|project|working on/i],['service',/خدم|تقدم|تقدّم|استشار|حل|service|offer|consult/i],
+    ['events',/فعالي|ورش|ورشة|هاكاثون|لقاء|event|workshop|hackathon/i],
     ['support',/دعم|رعاي|جائز|support|sponsor|prize/i],['cost',/مجان|سعر|تكلف|بكم|free|cost|price/i],
     ['founder',/مؤسس|رئيس|أفنان|افنان|مين|founder|president|who/i],['learn',/أبدأ|ابدأ|دورة|كورس|أتعلم|اتعلم|مصادر|start|course|learn/i],
     ['contact',/تواصل|رقم|ايميل|إيميل|بريد|contact|email|phone/i],['hi',/هلا|السلام|مرحب|hello|hi\b|hey/i],['what',/بنان|وش هو|ما هو|what|bnan/i]
@@ -1325,13 +1376,6 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     l.addEventListener('click', function(){ focusPart(l.classList.contains('on') ? null : l.dataset.p); });
   });
   document.querySelector('.legend').addEventListener('mouseleave', function(){ focusPart(null); });
-
-  // ---------- idea filters ----------
-  document.getElementById('filters').addEventListener('click', function(e){
-    var b = e.target.closest('.chip'); if(!b) return;
-    [].forEach.call(this.children, function(c){ c.classList.toggle('on', c === b); });
-    document.querySelectorAll('#ideaGrid .idea').forEach(function(c){ c.classList.toggle('hide', b.dataset.f !== 'all' && c.dataset.s !== b.dataset.f); });
-  });
 
   // ---------- CTA → preselect form type ----------
   document.querySelectorAll('a[data-type]').forEach(function(a){
