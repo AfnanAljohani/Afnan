@@ -500,6 +500,96 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
 .proj.next:hover{border-color:var(--teal);transform:translateY(-3px)}
 .plus{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:30px;color:var(--teal-2);border:1px dashed var(--teal);margin-bottom:12px}
 
+
+/* FEATURED PROJECT */
+.feature{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;align-items:center;margin-bottom:26px;padding:30px;border-radius:28px;border:1px solid rgba(165,174,255,.28);background:radial-gradient(circle at 15% 20%,rgba(60,200,240,.12),transparent 50%),radial-gradient(circle at 90% 90%,rgba(199,125,255,.14),transparent 50%),linear-gradient(160deg,rgba(26,32,84,.9),rgba(14,18,54,.9))}
+@media (max-width:980px){.feature{grid-template-columns:1fr;padding:20px}}
+.f-screen{position:relative}
+.ts{direction:rtl;aspect-ratio:16/10;border-radius:20px;padding:16px;background:linear-gradient(160deg,#0A1730,#071021);border:1px solid rgba(60,200,240,.35);box-shadow:0 0 0 6px rgba(255,255,255,.03),0 30px 60px rgba(0,0,0,.45),0 0 50px rgba(60,200,240,.12);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;font-size:clamp(10px,1.15vw,14px)}
+[lang=en] .ts{direction:ltr}
+.ts-top{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.ts-brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.95em}
+.ts-brand i{width:9px;height:9px;border-radius:50%;background:#3CC8F0;box-shadow:0 0 10px #3CC8F0}
+.ts-day{color:var(--mute);font-size:.9em;margin-inline-start:auto}
+.ts-clock{font-size:1.5em;font-weight:600;color:#fff;letter-spacing:.04em}
+.ts-alert{padding:8px 12px;border-radius:12px;font-weight:700;text-align:center;animation:pulseA 1.4s ease-in-out infinite}
+.ts-alert.back{background:rgba(240,86,122,.18);border:1px solid rgba(240,86,122,.5);color:#FFB3C4}
+.ts-alert.items{background:rgba(60,200,240,.14);border:1px solid rgba(60,200,240,.45);color:#A6E9FA}
+@keyframes pulseA{50%{opacity:.7}}
+.ts-main{flex:1;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.ts-now small{display:block;color:#3CC8F0;font-size:.85em}
+.ts-now b{display:block;font-size:2em;line-height:1.25;margin:4px 0;color:#fff}
+.ts-now span{color:var(--mute);font-size:.9em}
+.ts-ring{position:relative;width:clamp(86px,11vw,130px);aspect-ratio:1}
+.ts-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ts-ring circle{fill:none;stroke-width:9}
+.ts-ring .bg{stroke:rgba(255,255,255,.08)}
+.ts-ring .fg{stroke:#3CC8F0;stroke-linecap:round;stroke-dasharray:326.7;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 6px rgba(60,200,240,.6))}
+.ts-ring>div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ts-ring b{font-size:1.35em;color:#fff}
+.ts-ring small{color:var(--mute);font-size:.8em}
+.ts-path{display:flex;gap:4px;height:clamp(22px,2.6vw,30px)}
+.ts-path span{position:relative;border-radius:6px;background:rgba(108,123,255,.18);overflow:hidden;font-size:.72em;color:var(--mute);display:grid;place-items:center;white-space:nowrap}
+.ts-path span.brk{background:rgba(231,184,92,.2)}
+.ts-path span.lunch{background:rgba(240,86,122,.2)}
+.ts-path span.cur{outline:2px solid #3CC8F0;color:#fff}
+.ts-path em{font-style:normal;position:relative}
+.ts-path span i{position:absolute;inset:0 auto 0 0;background:rgba(60,200,240,.35)}
+[dir=rtl] .ts-path span i{inset:0 0 0 auto}
+.ts-demo{display:block;text-align:center;margin-top:12px;font-size:13px;color:#6EE7A2}
+.f-badges{display:flex;align-items:center;justify-content:space-between}
+.f-year{color:var(--mute2);font-size:13px}
+.f-info h3{font-size:clamp(24px,3vw,32px);margin-top:12px}
+.f-info>p{color:var(--mute);margin-top:10px}
+.f-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.f-kpis div{padding:12px 8px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line);text-align:center}
+.f-kpis b{display:block;font-size:24px;line-height:1.2;background:linear-gradient(90deg,#3CC8F0,#C77DFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.f-kpis span{font-size:12.5px;color:var(--mute);line-height:1.4;display:block}
+@media (max-width:520px){.f-kpis{grid-template-columns:repeat(2,1fr)}}
+.f-pts{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:10px}
+.f-pts li{display:grid;grid-template-columns:96px 1fr;gap:10px;font-size:15px;color:#D0D3EC}
+.f-pts b{color:var(--teal-2);font-size:14px}
+.f-info .tags{margin-top:16px}
+.f-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+
+/* DECKS */
+.deck{display:flex;flex-direction:column;padding:0;overflow:hidden;text-align:start;cursor:pointer}
+.deck:hover{transform:translateY(-4px)}
+.d-cover{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:#0A0F2E;border-bottom:1px solid var(--line)}
+.d-cover img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s ease}
+.deck:hover .d-cover img{transform:scale(1.04)}
+.d-count{position:absolute;bottom:12px;inset-inline-end:12px;padding:5px 12px;border-radius:999px;background:rgba(8,11,36,.8);backdrop-filter:blur(6px);font-size:12.5px;border:1px solid var(--line)}
+.d-body{display:flex;flex-direction:column;gap:8px;padding:22px 24px 24px;align-items:flex-start}
+.d-body b{font-size:21px}
+.d-desc{color:var(--mute);font-size:15.5px}
+.d-open{color:var(--teal-2);font-weight:700;font-size:15px;margin-top:4px}
+
+/* GRAPHICS */
+.masonry{columns:3 260px;column-gap:16px}
+.gx{display:block;width:100%;margin:0 0 16px;break-inside:avoid;position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0A0F2E;cursor:zoom-in;padding:0}
+.gx img{width:100%;height:auto;transition:transform .5s ease}
+.gx:hover img{transform:scale(1.04)}
+.gx-cap{position:absolute;inset:auto 0 0 0;padding:28px 14px 12px;font-size:14px;font-weight:700;text-align:start;background:linear-gradient(0deg,rgba(8,11,36,.92),transparent);opacity:0;transform:translateY(8px);transition:.3s}
+.gx:hover .gx-cap,.gx:focus-visible .gx-cap{opacity:1;transform:none}
+.gx.hide{display:none}
+@media (hover:none){.gx-cap{opacity:1;transform:none}}
+
+/* LIGHTBOX */
+.lbx{position:fixed;inset:0;z-index:110;background:rgba(5,7,24,.94);backdrop-filter:blur(8px);display:grid;grid-template-columns:64px 1fr 64px;grid-template-rows:auto 1fr;animation:fade .25s ease}
+.lbx[hidden]{display:none}
+.lb-top{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.lb-cap{font-weight:700}
+.lb-n{color:var(--mute);font-size:13px;margin-inline-start:auto}
+.lb-x{width:40px;height:40px;border-radius:12px;font-size:26px;color:var(--mute)}
+.lb-x:hover{background:rgba(255,255,255,.08);color:#fff}
+.lb-stage{overflow:auto;display:grid;place-items:center;padding:20px 0}
+.lb-stage img{max-width:100%;max-height:calc(100vh - 110px);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb-stage.tall img{max-height:none}
+.lb-nav{align-self:center;justify-self:center;width:48px;height:48px;border-radius:50%;font-size:30px;line-height:1;background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.lb-nav:hover{background:rgba(108,123,255,.3)}
+.lb-nav:disabled{opacity:.25;cursor:default}
+@media (max-width:640px){.lbx{grid-template-columns:40px 1fr 40px}.lb-nav{width:36px;height:36px;font-size:22px}}
+
 /* LOGO SVG */
 .lg-stroke{stroke:#EEF0FA;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;fill:none}
 .ping{transform-box:fill-box;transform-origin:center;animation:ping 2.6s ease-out infinite}
@@ -631,13 +721,15 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     <div class="nav-links" id="navLinks">
       <a href="#top" class="active" data-en="Home">الرئيسية</a>
       <a href="#about" data-en="About">عن بنان</a>
-      <a href="#services" data-en="Challenges Center">مركز التحديات</a>
-      <a href="#ideas" data-en="Works Gallery">معرض الأعمال</a>
-      <a href="#projects" data-en="My Projects">مشاريعي</a>
-      <a href="#ecosystem" data-en="Knowledge Center">مركز المعرفة</a>
+      <a href="#services" data-en="Services">الخدمات</a>
+      <a href="#projects" data-en="Projects">المشاريع</a>
+      <a href="#decks" data-en="Presentations">العروض</a>
+      <a href="#graphics" data-en="Graphic design">الجرافيك</a>
       <div class="more" id="more">
         <button type="button" aria-haspopup="true"><span data-en="More">المزيد</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 4l4 4 4-4"/></svg></button>
         <div class="more-menu">
+          <a href="#ideas" data-en="Ideas lab">مختبر الأفكار</a>
+          <a href="#ecosystem" data-en="Knowledge Center">مركز المعرفة</a>
           <a href="#story" data-en="Our story">قصتنا</a>
           <a href="#achievements" data-en="Achievements">الإنجازات</a>
           <a href="#model" data-en="Why Bnan?">ليش بنان؟</a>
@@ -710,7 +802,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     <div class="stats">
       <div class="stat"><b class="teal" data-count="15">0</b><span data-en="Certificates & awards">شهادة وجائزة للمؤسِّسة</span></div>
       <div class="stat"><b class="orange">6</b><span data-en="AI services">خدمات في الذكاء الاصطناعي</span></div>
-      <div class="stat"><b class="gold">5</b><span data-en="AI projects">مشاريع ذكاء اصطناعي</span></div>
+      <div class="stat"><b class="gold">6</b><span data-en="Projects">مشاريع وأفكار منفّذة</span></div>
       <div class="stat"><b>2026</b><span data-en="Founded">سنة التأسيس</span></div>
     </div>
   </div>
@@ -876,6 +968,38 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
       </div>
       <a class="btn btn-ghost" href="#contact" data-type="partner" data-en="Work with me ←">اشتغل معي ←</a>
     </div>
+    <article class="feature rv" id="smartScreen">
+      <div class="f-screen">
+        <div class="ts" id="ts" role="img" aria-label="Smart Training Screen live demo">
+          <div class="ts-top"><span class="ts-brand"><i></i><span id="tsTitle">الشاشة التدريبية الذكية</span></span><span class="ts-day" id="tsDay"></span><b class="ts-clock mono" id="tsClock">--:--</b></div>
+          <div class="ts-alert" id="tsAlert" hidden></div>
+          <div class="ts-main">
+            <div class="ts-now"><small id="tsNowLbl">● الفترة الحالية</small><b id="tsNow">—</b><span id="tsNext"></span></div>
+            <div class="ts-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="tsArc" cx="60" cy="60" r="52"/></svg><div><b class="mono" id="tsLeft">--:--</b><small id="tsLeftLbl">متبقي</small></div></div>
+          </div>
+          <div class="ts-path" id="tsPath"></div>
+        </div>
+        <span class="ts-demo" data-en="● Live demo · simulated training day">● عرض تجريبي حي · يوم تدريبي افتراضي</span>
+      </div>
+      <div class="f-info">
+        <div class="f-badges"><span class="pstat p-soon" data-en="Original idea · Ready to pilot">فكرة أصلية · جاهزة للتجربة</span><span class="mono f-year" dir="ltr">2026</span></div>
+        <h3 data-en="Smart Training Screen">الشاشة التدريبية الذكية</h3>
+        <p data-en="A smart display that follows the training day moment by moment: the current period and time left, the day's schedule, back-to-class alerts, reminders for trainees' belongings, and the week's challenges. It runs on its own, with no one pressing anything.">شاشة عرض ذكية تتابع اليوم التدريبي لحظة بلحظة: الفترة الحالية والوقت المتبقي عليها، جدول اليوم، تنبيهات العودة إلى القاعات، تذكير المتدربين بأغراضهم، وتحديات الأسبوع. وتشتغل تلقائيًا بدون أي تدخل.</p>
+        <div class="f-kpis">
+          <div><b class="mono">5</b><span data-en="sections, auto-rotating">أقسام تتنقل تلقائيًا</span></div>
+          <div><b class="mono">2</b><span data-en="smart alerts">تنبيهات ذكية</span></div>
+          <div><b class="mono">2</b><span data-en="languages">لغتان</span></div>
+          <div><b class="mono">0</b><span data-en="extra devices">أجهزة إضافية</span></div>
+        </div>
+        <ul class="f-pts">
+          <li><b data-en="Challenge">التحدي</b><span data-en="Late returns after breaks, forgotten belongings, and challenge deadlines lost between groups.">التأخر في العودة بعد الاستراحات، نسيان الأغراض، وضياع مواعيد التحديات بين المجموعات.</span></li>
+          <li><b data-en="Solution">الحل</b><span data-en="A live view of the current and next period, the day's path, and automatic alerts at the right moment.">عرض حي للفترة الحالية والقادمة ومسار اليوم، وتنبيهات تلقائية في اللحظة المناسبة.</span></li>
+          <li><b data-en="Who benefits">المستفيدون</b><span data-en="Trainees, trainers, and the training organization's management.">المتدربون، المدربون، وإدارة جهة التدريب.</span></li>
+        </ul>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">JavaScript</span><span class="tag">Offline</span><span class="tag">عربي · English</span></div>
+        <div class="f-cta"><button class="btn btn-primary" type="button" data-deck="smartscreen" data-en="View the proposal deck">شاهد عرض الفكرة</button><a class="btn btn-ghost" href="#contact" data-type="service" data-en="I want it for my organization">أبيها لجهتي</a></div>
+      </div>
+    </article>
     <!-- To add a project: copy one <article class="card proj"> block and edit its text, status and percentage. -->
     <div class="grid g3">
       <article class="card proj rv">
@@ -939,6 +1063,73 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
       <div class="card prog rv"><span class="when" data-en="2–6 weeks">2–6 أسابيع</span><div><h3 data-en="Scoped project">مشروع بنطاق محدد</h3><p data-en="From idea to a working prototype, with a clear scope and success indicators.">من الفكرة إلى نموذج أولي يشتغل، بنطاق واضح ومؤشرات نجاح.</p></div></div>
       <div class="card prog rv"><span class="when" data-en="1–2 days">يوم أو يومين</span><div><h3 data-en="Team workshop">ورشة لفريقك</h3><p data-en="A hands-on workshop that builds your team's AI and data skills.">ورشة تطبيقية ترفع مهارات فريقك في الذكاء الاصطناعي والبيانات.</p></div></div>
       <div class="card prog rv"><span class="when" data-en="Ongoing">مستمر</span><div><h3 data-en="Long-term partnership">شراكة طويلة المدى</h3><p data-en="Ongoing support to build and improve your AI solutions over time.">دعم مستمر لبناء حلولك في الذكاء الاصطناعي وتطويرها مع الوقت.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESENTATIONS -->
+<section id="decks">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <div class="eyebrow">Presentations</div>
+        <h2 class="sec-title" data-en="Presentation <span class='teal'>design</span>">تصاميم <span class="teal">العروض</span></h2>
+        <p class="sec-lead" data-en="Decks I designed: proposals, identities and pitches that tell the story clearly.">عروض صمّمتها: مقترحات وهويات وعروض تقديمية تحكي الفكرة بوضوح.</p>
+      </div>
+      <a class="btn btn-ghost" href="#contact" data-type="service" data-en="Design my deck →">صمّم عرضي ←</a>
+    </div>
+    <!-- To add a deck: export its pages to assets/decks/NAME-1.webp, NAME-2.webp… and copy one <button class="card deck"> block. -->
+    <div class="grid g2">
+      <button class="card deck rv" type="button" data-deck="smartscreen" data-pages="assets/decks/smartscreen-1.webp,assets/decks/smartscreen-2.webp,assets/decks/smartscreen-3.webp,assets/decks/smartscreen-4.webp" data-title="الشاشة التدريبية الذكية" data-title-en="Smart Training Screen">
+        <span class="d-cover"><img src="assets/decks/smartscreen-1.webp" alt="" loading="lazy"><span class="d-count mono">4 <span data-en="pages">صفحات</span></span></span>
+        <span class="d-body"><span class="tag" data-en="Project proposal">مقترح مشروع</span><b data-en="Smart Training Screen">الشاشة التدريبية الذكية</b><span class="d-desc" data-en="A project proposal deck: the challenge, the five screen sections, smart alerts and impact.">عرض فكرة مشروع: التحدي، أقسام الشاشة الخمسة، التنبيهات الذكية، والأثر.</span><span class="d-open" data-en="View deck →">شاهد العرض ←</span></span>
+      </button>
+      <button class="card deck rv" type="button" data-deck="brandbook" data-pages="assets/decks/brandbook-1.webp,assets/decks/brandbook-2.webp,assets/decks/brandbook-3.webp,assets/decks/brandbook-4.webp,assets/decks/brandbook-5.webp,assets/decks/brandbook-6.webp" data-title="دليل هوية بنان" data-title-en="Bnan Brand Book">
+        <span class="d-cover"><img src="assets/decks/brandbook-1.webp" alt="" loading="lazy" style="object-position:center 52%"><span class="d-count mono">6 <span data-en="pages">صفحات</span></span></span>
+        <span class="d-body"><span class="tag" data-en="Brand identity">هوية بصرية</span><b data-en="Bnan Brand Book">دليل هوية بنان</b><span class="d-desc" data-en="Name and story, logo, colors and type, and the design gallery.">الاسم والقصة، الشعار، الألوان والخطوط، ومعرض التصاميم.</span><span class="d-open" data-en="View deck →">شاهد العرض ←</span></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- GRAPHICS -->
+<section id="graphics">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <div class="eyebrow">Graphic design</div>
+        <h2 class="sec-title" data-en="Graphic <span class='teal'>design</span>">تصاميم <span class="teal">الجرافيك</span></h2>
+        <p class="sec-lead" data-en="Logos, social posts, headers and icons, all designed by Afnan Aljohani.">شعارات، بوستات، هيدرات، وأيقونات، كلها من تصميم أفنان الجهني.</p>
+      </div>
+    </div>
+    <div class="filters chips rv" id="gFilters" style="margin:0 0 22px">
+      <button class="chip on" type="button" data-f="all" data-en="All">الكل</button>
+      <button class="chip" type="button" data-f="logo" data-en="Logo">الشعار</button>
+      <button class="chip" type="button" data-f="post" data-en="Posts">بوستات</button>
+      <button class="chip" type="button" data-f="banner" data-en="Headers & banners">هيدرات وبانرات</button>
+      <button class="chip" type="button" data-f="icon" data-en="Icons">أيقونات</button>
+    </div>
+    <!-- To add a design: save it in assets/graphics/ and copy one <button class="gx"> line (data-cat: logo, post, banner or icon). -->
+    <div class="masonry" id="gGrid">
+      <button class="gx rv" type="button" data-cat="logo" data-full="assets/graphics/logo-wide.webp" data-cap="شعار بنان · النسخة العريضة" data-cap-en="Bnan logo · wide"><img src="assets/graphics/logo-wide.webp" alt="Bnan logo · wide" loading="lazy"><span class="gx-cap" data-en="Bnan logo · wide">شعار بنان · النسخة العريضة</span></button>
+      <button class="gx rv" type="button" data-cat="logo" data-full="assets/graphics/logo-square.webp" data-cap="شعار بنان · النسخة المربعة" data-cap-en="Bnan logo · square"><img src="assets/graphics/logo-square.webp" alt="Bnan logo · square" loading="lazy"><span class="gx-cap" data-en="Bnan logo · square">شعار بنان · النسخة المربعة</span></button>
+      <button class="gx rv" type="button" data-cat="logo" data-full="assets/graphics/logo-story.webp" data-cap="قصة الاسم والشعار" data-cap-en="Name & logo story"><img src="assets/graphics/logo-story.webp" alt="Name & logo story" loading="lazy"><span class="gx-cap" data-en="Name & logo story">قصة الاسم والشعار</span></button>
+      <button class="gx rv" type="button" data-cat="banner" data-full="assets/graphics/header-x.webp" data-cap="هيدر X" data-cap-en="X header"><img src="assets/graphics/header-x.webp" alt="X header" loading="lazy"><span class="gx-cap" data-en="X header">هيدر X</span></button>
+      <button class="gx rv" type="button" data-cat="banner" data-full="assets/graphics/header-linkedin.webp" data-cap="هيدر لينكدإن" data-cap-en="LinkedIn header"><img src="assets/graphics/header-linkedin.webp" alt="LinkedIn header" loading="lazy"><span class="gx-cap" data-en="LinkedIn header">هيدر لينكدإن</span></button>
+      <button class="gx rv" type="button" data-cat="banner" data-full="assets/graphics/header-email.webp" data-cap="هيدر البريد" data-cap-en="Email header"><img src="assets/graphics/header-email.webp" alt="Email header" loading="lazy"><span class="gx-cap" data-en="Email header">هيدر البريد</span></button>
+      <button class="gx rv" type="button" data-cat="banner" data-full="assets/graphics/banner-linkedin.webp" data-cap="بانر لينكدإن" data-cap-en="LinkedIn banner"><img src="assets/graphics/banner-linkedin.webp" alt="LinkedIn banner" loading="lazy"><span class="gx-cap" data-en="LinkedIn banner">بانر لينكدإن</span></button>
+      <button class="gx rv" type="button" data-cat="post" data-full="assets/graphics/post-join.webp" data-cap="بوست «المستقبل ما ينتظر»" data-cap-en="“The future doesn't wait” post"><img src="assets/graphics/post-join.webp" alt="“The future doesn't wait” post" loading="lazy"><span class="gx-cap" data-en="“The future doesn't wait” post">بوست «المستقبل ما ينتظر»</span></button>
+      <button class="gx rv" type="button" data-cat="post" data-full="assets/graphics/post-coming.webp" data-cap="تيزر «شي جاي…»" data-cap-en="“Something's coming” teaser"><img src="assets/graphics/post-coming.webp" alt="“Something's coming” teaser" loading="lazy"><span class="gx-cap" data-en="“Something's coming” teaser">تيزر «شي جاي…»</span></button>
+      <button class="gx rv" type="button" data-cat="post" data-full="assets/graphics/post-system.webp" data-cap="تيزر «النظام يشتغل…»" data-cap-en="“System booting” teaser"><img src="assets/graphics/post-system.webp" alt="“System booting” teaser" loading="lazy"><span class="gx-cap" data-en="“System booting” teaser">تيزر «النظام يشتغل…»</span></button>
+      <button class="gx rv" type="button" data-cat="post" data-full="assets/graphics/post-launch.webp" data-cap="بوست «التدشين قريب»" data-cap-en="“Launch soon” post"><img src="assets/graphics/post-launch.webp" alt="“Launch soon” post" loading="lazy"><span class="gx-cap" data-en="“Launch soon” post">بوست «التدشين قريب»</span></button>
+      <button class="gx rv" type="button" data-cat="icon" data-full="assets/graphics/icon-bnan.webp" data-cap="أيقونة بنان" data-cap-en="Bnan icon"><img src="assets/graphics/icon-bnan.webp" alt="Bnan icon" loading="lazy"><span class="gx-cap" data-en="Bnan icon">أيقونة بنان</span></button>
+      <button class="gx rv" type="button" data-cat="icon" data-full="assets/graphics/icon-announce.webp" data-cap="أيقونة الإعلانات" data-cap-en="Announcements icon"><img src="assets/graphics/icon-announce.webp" alt="Announcements icon" loading="lazy"><span class="gx-cap" data-en="Announcements icon">أيقونة الإعلانات</span></button>
+      <button class="gx rv" type="button" data-cat="icon" data-full="assets/graphics/icon-training.webp" data-cap="أيقونة التدريب والتطوير" data-cap-en="Training icon"><img src="assets/graphics/icon-training.webp" alt="Training icon" loading="lazy"><span class="gx-cap" data-en="Training icon">أيقونة التدريب والتطوير</span></button>
+      <button class="gx rv" type="button" data-cat="icon" data-full="assets/graphics/icon-events.webp" data-cap="أيقونة الفعاليات والتصميم" data-cap-en="Events & design icon"><img src="assets/graphics/icon-events.webp" alt="Events & design icon" loading="lazy"><span class="gx-cap" data-en="Events & design icon">أيقونة الفعاليات والتصميم</span></button>
+      <button class="gx rv" type="button" data-cat="icon" data-full="assets/graphics/icon-speaker.webp" data-cap="أيقونة الخطابة والإلقاء" data-cap-en="Public speaking icon"><img src="assets/graphics/icon-speaker.webp" alt="Public speaking icon" loading="lazy"><span class="gx-cap" data-en="Public speaking icon">أيقونة الخطابة والإلقاء</span></button>
+      <button class="gx rv" type="button" data-cat="icon" data-full="assets/graphics/icon-pr.webp" data-cap="أيقونة العلاقات العامة" data-cap-en="Public relations icon"><img src="assets/graphics/icon-pr.webp" alt="Public relations icon" loading="lazy"><span class="gx-cap" data-en="Public relations icon">أيقونة العلاقات العامة</span></button>
+      <button class="gx rv" type="button" data-cat="icon" data-full="assets/graphics/icon-important.webp" data-cap="أيقونة «المهم»" data-cap-en="“Important” icon"><img src="assets/graphics/icon-important.webp" alt="“Important” icon" loading="lazy"><span class="gx-cap" data-en="“Important” icon">أيقونة «المهم»</span></button>
+      <button class="gx rv" type="button" data-cat="icon" data-full="assets/graphics/icon-leaders.webp" data-cap="أيقونة القادة" data-cap-en="Leaders icon"><img src="assets/graphics/icon-leaders.webp" alt="Leaders icon" loading="lazy"><span class="gx-cap" data-en="Leaders icon">أيقونة القادة</span></button>
     </div>
   </div>
 </section>
@@ -1122,6 +1313,13 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
 </footer>
 
 
+<div class="lbx" id="lb" role="dialog" aria-modal="true" aria-label="Viewer" hidden>
+  <div class="lb-top"><span class="lb-cap" id="lbCap"></span><span class="lb-n mono" id="lbN"></span><button class="lb-x" id="lbX" aria-label="Close">×</button></div>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <div class="lb-stage" id="lbStage"><img id="lbImg" alt=""></div>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+</div>
+
 <div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="wTitle" hidden>
   <div class="w-card">
     <div class="w-bot"><svg viewBox="0 0 300 360" aria-hidden="true"><use href="#bananBot"/></svg></div>
@@ -1181,7 +1379,7 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
     ideas:{ar:"فكرتك محفوظة 🔒\nكل فكرة تُنشر باسم صاحبها وتاريخها، والمشاريع برخصة تشترط ذكر المصدر.\nوإذا فكرتك مشروع تجاري، ننشر المفهوم فقط ونحفظ التفاصيل.",en:"Your idea is protected 🔒\nEvery idea is published with its author's name and date, and projects carry a license that requires attribution.\nIf it's a startup idea, we publish only the concept."},
     support:{ar:"للشراكات والاستثمار 🤝\nاختر «شراكة واستثمار» في نموذج التواصل، أو راسل أفنان على واتساب أو لينكدإن.",en:"For partnerships and investment 🤝\nPick “Partnership / Investment” in the contact form, or message Afnan on WhatsApp or LinkedIn."},
     cost:{ar:"السعر يعتمد على نطاق المشروع 💡\nنحدد معك النطاق والسعر بوضوح قبل ما نبدأ. أرسل لنا تفاصيل فكرتك ونرد عليك بعرض.",en:"Pricing depends on the project scope 💡\nWe agree on a clear scope and price before we start. Send us your idea and we'll reply with a proposal."},
-    projects:{ar:"مشاريع أشتغل عليها الحين 🚀\n• منصة بنان (75%)\n• «اسأل بنان» بالذكاء التوليدي (30%)\n• مدرّب الإلقاء الذكي (فكرة قيد الدراسة)\nومن المشاريع المكتملة: مصنّف الصور الطبية، وتوقّع سلوك مستخدمي الاتصالات. تفاصيلها في قسم «مشاريعي» 👇",en:"Projects I'm working on now 🚀\n• Bnan Platform (75%)\n• Ask Banan with generative AI (30%)\n• AI presentation coach (exploring)\nCompleted: a medical image classifier and telecom user behavior prediction. Details in “My Projects” 👇"},
+    projects:{ar:"مشاريع أشتغل عليها الحين 🚀\n• الشاشة التدريبية الذكية (فكرة أصلية جاهزة للتجربة)\n• منصة بنان (75%)\n• «اسأل بنان» بالذكاء التوليدي (30%)\n• مدرّب الإلقاء الذكي (فكرة قيد الدراسة)\nومن المشاريع المكتملة: مصنّف الصور الطبية، وتوقّع سلوك مستخدمي الاتصالات. تفاصيلها في قسم «مشاريعي» 👇",en:"Projects I'm working on now 🚀\n• Smart Training Screen (original idea, ready to pilot)\n• Bnan Platform (75%)\n• Ask Banan with generative AI (30%)\n• AI presentation coach (exploring)\nCompleted: a medical image classifier and telecom user behavior prediction. Details in “My Projects” 👇"},
     founder:{ar:"مؤسِّسة ورئيسة بنان: أفنان الجهني 👩‍💻\nمهندسة ذكاء اصطناعي وعلم بيانات، خرّيجة علوم الحاسب من جامعة جدة بمرتبة الشرف.",en:"Bnan's founder & president: Afnan Aljohani 👩‍💻\nAI & Data Science Engineer, Computer Science honors graduate from the University of Jeddah."},
     learn:{ar:"ابدأ من هنا 📚\n• دورة «الذكاء الاصطناعي لخدمة المجتمع» من وزارة الاتصالات على FutureX\n• جمعية الذكاء الاصطناعي (AIA)\n• أكاديمية سدايا\nكلها في قسم «مركز المعرفة» 👇",en:"Start here 📚\n• “AI for Community Service” course by MCIT on FutureX\n• Artificial Intelligence Association (AIA)\n• SDAIA Academy\nAll in the Knowledge Center section 👇"},
     contact:{ar:"تواصل معنا 📬\nالبريد: a.almass3dii@gmail.com\nواتساب: ‎+966 54 537 9819",en:"Contact us 📬\nEmail: a.almass3dii@gmail.com\nWhatsApp: +966 54 537 9819"},
@@ -1305,6 +1503,95 @@ footer{border-top:1px solid var(--line);padding:0 0 34px;margin-top:40px}
   document.getElementById('wAsk').addEventListener('click', function(){ closeWelcome(openChat); });
   wEl.addEventListener('click', function(e){ if(e.target === wEl) closeWelcome(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !wEl.hidden) closeWelcome(); });
+
+
+  // ---------- smart training screen demo ----------
+  (function(){
+    var day = [
+      {t:'lec',m:90,ar:'المحاضرة الأولى',en:'Lecture 1'},{t:'brk',m:15,ar:'استراحة',en:'Break'},
+      {t:'lec',m:90,ar:'المحاضرة الثانية',en:'Lecture 2'},{t:'brk',m:15,ar:'استراحة',en:'Break'},
+      {t:'lec',m:60,ar:'المحاضرة الثالثة',en:'Lecture 3'},{t:'lunch',m:45,ar:'الغداء',en:'Lunch'},
+      {t:'lec',m:75,ar:'المحاضرة الرابعة',en:'Lecture 4'},{t:'brk',m:30,ar:'الختام',en:'Wrap-up'}
+    ];
+    var total = day.reduce(function(a,p){ return a + p.m; }, 0), start = 8 * 60;
+    var days = {ar:['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],en:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']};
+    var path = document.getElementById('tsPath'), arc = document.getElementById('tsArc');
+    if(!path) return;
+    path.innerHTML = day.map(function(p){ return '<span class="' + (p.t === 'lec' ? '' : p.t) + '" style="flex:' + p.m + '"><i></i><em></em></span>'; }).join('');
+    var segs = path.children, C = 2 * Math.PI * 52;
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+    function tick(){
+      var now = new Date();
+      // map the real clock onto a simulated 08:00–15:00 training day so the demo is always mid-day
+      var secs = ((now.getHours() * 60 + now.getMinutes()) % total) * 60 + now.getSeconds();
+      var acc = 0, i = 0;
+      while(i < day.length - 1 && secs >= (acc + day[i].m) * 60){ acc += day[i].m; i++; }
+      var cur = day[i], nxt = day[i + 1], left = (acc + cur.m) * 60 - secs, done = 1 - left / (cur.m * 60);
+      var clock = start + Math.floor(secs / 60);
+      var ar = lang === 'ar';
+      document.getElementById('tsClock').textContent = pad(Math.floor(clock / 60) % 24) + ':' + pad(clock % 60);
+      document.getElementById('tsDay').textContent = days[lang][now.getDay()] + (ar ? ' · اليوم التدريبي' : ' · Training day');
+      document.getElementById('tsTitle').textContent = ar ? 'الشاشة التدريبية الذكية' : 'Smart Training Screen';
+      document.getElementById('tsNowLbl').textContent = ar ? '● الفترة الحالية' : '● Current period';
+      document.getElementById('tsLeftLbl').textContent = ar ? 'متبقي' : 'left';
+      document.getElementById('tsNow').textContent = cur[lang];
+      document.getElementById('tsNext').textContent = nxt ? (ar ? 'بعدها: ' : 'Next: ') + nxt[lang] : (ar ? 'نهاية اليوم' : 'End of day');
+      document.getElementById('tsLeft').textContent = pad(Math.floor(left / 60)) + ':' + pad(left % 60);
+      arc.style.strokeDashoffset = C * done;
+      [].forEach.call(segs, function(sg, j){
+        sg.classList.toggle('cur', j === i);
+        sg.querySelector('i').style.width = (j < i ? 100 : j === i ? done * 100 : 0) + '%';
+        sg.querySelector('em').textContent = day[j].m >= 45 ? day[j][lang] : '';
+      });
+      var al = document.getElementById('tsAlert'), msg = '', cls = '';
+      if(cur.t === 'brk' && i < day.length - 1 && left <= 5 * 60){ msg = ar ? '⏰ الاستعداد للعودة: توجّهوا إلى القاعات' : '⏰ Get ready: head back to class'; cls = 'back'; }
+      else if(nxt && (nxt.t === 'lunch' || i === day.length - 2) && left <= 10 * 60){ msg = ar ? '🎒 لا تنسى أغراضك: البطاقة، الشاحن، السماعات' : "🎒 Don't forget your things: badge, charger, earbuds"; cls = 'items'; }
+      al.hidden = !msg; al.textContent = msg; al.className = 'ts-alert ' + cls;
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+
+  // ---------- lightbox (decks + graphics) ----------
+  var lbEl = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbList = [], lbI = 0, lbOpener = null;
+  function lbShow(i){
+    lbI = i; var it = lbList[i];
+    lbImg.src = it.src; lbImg.alt = it.cap;
+    document.getElementById('lbCap').textContent = it.cap;
+    document.getElementById('lbN').textContent = (i + 1) + ' / ' + lbList.length;
+    document.getElementById('lbPrev').disabled = i === 0;
+    document.getElementById('lbNext').disabled = i === lbList.length - 1;
+    document.getElementById('lbStage').scrollTop = 0;
+  }
+  function lbOpen(list, i, opener){ lbList = list; lbOpener = opener; lbEl.hidden = false; document.body.style.overflow = 'hidden'; lbShow(i || 0); document.getElementById('lbX').focus(); }
+  function lbClose(){ lbEl.hidden = true; document.body.style.overflow = ''; lbImg.src = ''; if(lbOpener) lbOpener.focus(); }
+  document.getElementById('lbX').addEventListener('click', lbClose);
+  document.getElementById('lbPrev').addEventListener('click', function(){ if(lbI > 0) lbShow(lbI - 1); });
+  document.getElementById('lbNext').addEventListener('click', function(){ if(lbI < lbList.length - 1) lbShow(lbI + 1); });
+  lbEl.addEventListener('click', function(e){ if(e.target === lbEl || e.target.id === 'lbStage') lbClose(); });
+  document.addEventListener('keydown', function(e){
+    if(lbEl.hidden) return;
+    if(e.key === 'Escape') lbClose();
+    var fwd = root.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight', back = root.dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
+    if(e.key === fwd && lbI < lbList.length - 1) lbShow(lbI + 1);
+    if(e.key === back && lbI > 0) lbShow(lbI - 1);
+  });
+  function openDeck(key, opener){
+    var card = document.querySelector('.deck[data-deck="' + key + '"]');
+    var title = lang === 'ar' ? card.dataset.title : card.dataset.titleEn;
+    var pages = card.dataset.pages.split(',');
+    lbOpen(pages.map(function(src, n){ return {src:src, cap:title + ' · ' + (n + 1)}; }), 0, opener);
+  }
+  document.querySelectorAll('[data-deck]').forEach(function(b){ b.addEventListener('click', function(){ openDeck(b.dataset.deck, b); }); });
+  document.getElementById('gGrid').addEventListener('click', function(e){
+    var t = e.target.closest('.gx'); if(!t) return;
+    var vis = [].filter.call(this.querySelectorAll('.gx'), function(x){ return !x.classList.contains('hide'); });
+    lbOpen(vis.map(function(x){ return {src:x.dataset.full, cap:lang === 'ar' ? x.dataset.cap : x.dataset.capEn}; }), vis.indexOf(t), t);
+  });
+  document.getElementById('gFilters').addEventListener('click', function(e){
+    var b = e.target.closest('.chip'); if(!b) return;
+    [].forEach.call(this.children, function(c){ c.classList.toggle('on', c === b); });
+    document.querySelectorAll('#gGrid .gx').forEach(function(x){ x.classList.toggle('hide', b.dataset.f !== 'all' && x.dataset.cat !== b.dataset.f); });
+  });
 
   // ---------- likes ----------
   document.querySelectorAll('.like').forEach(function(b, i){
