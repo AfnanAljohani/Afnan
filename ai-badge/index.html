@@ -303,8 +303,41 @@ ul.clist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .visits{display:inline-flex;gap:6px;align-items:center;font-size:13px}
 .visits .v-count{font-family:var(--f-mono)}
 </style>
+<style>
+html:not(.unlocked) .app{display:none}
+html.unlocked #gate{display:none}
+#gate{min-height:100vh;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:#061530;background-image:radial-gradient(circle at 15% 20%,rgba(34,211,238,.28),transparent 45%),radial-gradient(circle at 85% 80%,rgba(16,185,129,.24),transparent 45%),linear-gradient(rgba(125,249,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(125,249,255,.06) 1px,transparent 1px);background-size:auto,auto,28px 28px,28px 28px;font-family:"IBM Plex Sans Arabic",Tahoma,sans-serif;color:#EAF2FB}
+#gate form{width:min(360px,100%);display:grid;gap:12px;background:rgba(4,18,40,.75);border:1px solid rgba(125,249,255,.35);border-radius:16px;padding:24px;box-shadow:0 0 30px rgba(34,211,238,.15)}
+#gate h1{font-family:"Alexandria",sans-serif;font-size:22px;margin:0}
+#gate p{margin:0;color:#A9BAD3;font-size:14px}
+#gate input{font:600 20px "IBM Plex Mono",monospace;letter-spacing:.3em;text-align:center;padding:10px;border-radius:10px;border:1px solid rgba(125,249,255,.4);background:#0A1B36;color:#fff}
+#gate input:focus{outline:2px solid #22D3EE}
+#gate button{font:inherit;font-weight:700;padding:10px;border-radius:10px;border:0;background:#22D3EE;color:#04121C;cursor:pointer}
+#gate .err{color:#F08A8A;font-size:14px;min-height:1.4em}
+</style>
+<script>try{if(localStorage.getItem("aieb-unlock")==="03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4")document.documentElement.classList.add("unlocked");}catch(e){}</script>
 </head>
 <body>
+<div id="gate" dir="rtl" lang="ar">
+  <form id="gate-form" autocomplete="off">
+    <div style="font:600 12px 'IBM Plex Mono',monospace;color:#E3BC62;letter-spacing:.08em">// SDAIA · AI ENGINEER BADGE ★★★</div>
+    <h1>صفحة أفنان الخاصة</h1>
+    <p>اكتبي كلمة المرور للدخول.</p>
+    <label for="gate-pw" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">كلمة المرور</label>
+    <input id="gate-pw" type="password" inputmode="numeric" autofocus>
+    <button type="submit">دخول</button>
+    <div class="err" id="gate-err" aria-live="polite"></div>
+  </form>
+</div>
+<script>
+document.getElementById("gate-form").addEventListener("submit",async function(e){
+  e.preventDefault();
+  var v=document.getElementById("gate-pw").value, h="";
+  try{var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0");}).join("");}catch(err){h=v==="1234"?"03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4":"";}
+  if(h==="03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"){try{localStorage.setItem("aieb-unlock",h);}catch(err){}document.documentElement.classList.add("unlocked");window.scrollTo(0,0);}
+  else{document.getElementById("gate-err").textContent="كلمة المرور غير صحيحة.";document.getElementById("gate-pw").value="";}
+});
+</script>
 
 <div class="app" lang="ar" dir="rtl">
 <header class="top">
