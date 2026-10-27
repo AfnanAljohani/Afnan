@@ -302,9 +302,56 @@ ul.clist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .cmt p{margin:4px 0 0;font-size:14.5px;white-space:pre-wrap;overflow-wrap:anywhere}
 .visits{display:inline-flex;gap:6px;align-items:center;font-size:13px}
 .visits .v-count{font-family:var(--f-mono)}
+/* name gate */
+html:not(.named) .app{display:none}
+html.named #who{display:none}
+#who{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:#061530;background-image:radial-gradient(circle at 15% 20%,rgba(34,211,238,.28),transparent 45%),radial-gradient(circle at 85% 80%,rgba(16,185,129,.24),transparent 45%),linear-gradient(rgba(125,249,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(125,249,255,.06) 1px,transparent 1px);background-size:auto,auto,28px 28px,28px 28px;color:#EAF2FB;font-family:var(--f-body)}
+#who form{width:100%;max-width:380px;min-width:0;display:grid;gap:12px;background:rgba(4,18,40,.78);border:1px solid rgba(125,249,255,.35);border-radius:16px;padding:24px;box-shadow:0 0 30px rgba(34,211,238,.15)}
+#who h1{font-size:23px;color:#fff}
+#who p{margin:0;color:#A9BAD3;font-size:14px}
+#who input{width:100%;min-width:0;font:600 17px var(--f-body);padding:10px 12px;border-radius:10px;border:1px solid rgba(125,249,255,.4);background:#0A1B36;color:#fff}
+#who input:focus{outline:2px solid #22D3EE}
+#who button{font:inherit;font-weight:700;padding:10px;border-radius:10px;border:0;background:#22D3EE;color:#04121C;cursor:pointer}
+#who .prev{display:flex;flex-wrap:wrap;gap:6px}
+#who .prev button{background:transparent;color:#BFEFFF;border:1px solid rgba(125,249,255,.4);font-weight:500;padding:4px 12px;border-radius:999px}
+#who .err{color:#F08A8A;font-size:14px;min-height:1.2em}
+.me{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;border:1px solid var(--line);border-radius:999px;padding:3px 4px 3px 10px;white-space:nowrap}
+.me button{border:0;background:var(--surface-2);border-radius:999px;padding:2px 10px;font-size:12.5px}
 </style>
 </head>
 <body>
+
+<div id="who" dir="rtl" lang="ar">
+  <form id="who-form" autocomplete="off">
+    <div style="font:600 12px var(--f-mono);color:#E3BC62;letter-spacing:.08em">// SDAIA · AI ENGINEER BADGE ★★★</div>
+    <h1>أهلاً فيك 👋</h1>
+    <p>اكتب اسمك، وتصير لك صفحتك ومستوى تقدّمك الخاص. محد غيرك يقدر يغيّر تقدّمك.</p>
+    <label for="who-name" style="font-size:14px">الاسم</label>
+    <input id="who-name" maxlength="40" placeholder="اسمك">
+    <button type="submit">ادخل</button>
+    <div class="err" id="who-err" aria-live="polite"></div>
+    <div id="who-prev-wrap" hidden><p style="margin-bottom:6px">أو كمّل باسم محفوظ على هذا الجهاز:</p><div class="prev" id="who-prev"></div></div>
+  </form>
+</div>
+<script>
+(function(){
+  var u="", list=[];
+  try{u=localStorage.getItem("aiebp-user")||""; list=JSON.parse(localStorage.getItem("aiebp-users")||"[]")||[];}catch(e){}
+  if(u){document.documentElement.classList.add("named");return;}
+  function enter(name){
+    name=String(name).trim().slice(0,40);
+    if(!name){document.getElementById("who-err").textContent="اكتب اسمك أول.";return;}
+    try{localStorage.setItem("aiebp-user",name); if(list.indexOf(name)<0){list.push(name);localStorage.setItem("aiebp-users",JSON.stringify(list));} location.reload();}
+    catch(e){window.__aiebUser=name;document.documentElement.classList.add("named");}
+  }
+  document.getElementById("who-form").addEventListener("submit",function(e){e.preventDefault();enter(document.getElementById("who-name").value);});
+  if(list.length){
+    var box=document.getElementById("who-prev");
+    list.forEach(function(n){var b=document.createElement("button");b.type="button";b.textContent=n;b.addEventListener("click",function(){enter(n);});box.appendChild(b);});
+    document.getElementById("who-prev-wrap").hidden=false;
+  }
+})();
+</script>
 
 <div class="app" lang="ar" dir="rtl">
 <header class="top">
@@ -320,6 +367,7 @@ ul.clist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
       <a href="#links">الروابط</a>
       <a href="#comments">التعليقات</a>
     </nav>
+    <span class="me">👤 <b id="who-me">—</b><button type="button" id="who-switch">تغيير</button></span>
   </div>
   <div class="rail" aria-hidden="true"><i id="rail"></i></div>
 </header>
@@ -524,6 +572,10 @@ ul.clist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 <script>
 (function(){
 "use strict";
+var USER=""; try{USER=localStorage.getItem("aiebp-user")||"";}catch(e){ USER=window.__aiebUser||""; }
+if(!USER) USER=window.__aiebUser||"";
+function hsh(t){var h=5381;for(var i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))|0;return (h>>>0).toString(16);}
+var PFX="aiebp-"+hsh(USER)+"-";
 var DOM = {
   1:{ar:"البيانات وأسس تعلم الآلة وتقييم النماذج",en:"Data, ML Foundations & Model Evaluation",w:17.3,c:"--d1"},
   2:{ar:"أساسيات الذكاء الاصطناعي والتعلم العميق والتوليدي",en:"Core AI, Deep Learning & Generative AI",w:16.7,c:"--d2"},
@@ -758,9 +810,9 @@ var RULES = {
 };
 
 /* ---------- storage: claude db (cross-device) with localStorage fallback ---------- */
-var LS_KEY = "aiebp-progress-v1";
+var LS_KEY = PFX+"progress-v1";
 var mins = {};
-try { mins = JSON.parse(localStorage.getItem("aiebp-mins-v1") || "{}") || {}; } catch(e){ mins = {}; }
+try { mins = JSON.parse(localStorage.getItem(PFX+"mins-v1") || "{}") || {}; } catch(e){ mins = {}; }
 var done = {};
 try { done = JSON.parse(localStorage.getItem(LS_KEY) || "{}") || {}; } catch(e){ done = {}; }
 var remote = null, saveTimer = null;
@@ -780,10 +832,10 @@ function setSync(t){ document.getElementById("sync").textContent = t; }
     var db = await window.claude.use("db"), user = await window.claude.use("user");
     if (!db || !user) return;
     var id = await user.id(); if (!id) return;
-    remote = db.doc("data/users/" + id + "/progress/plan");
+    remote = db.doc("data/users/" + id + "/progress/plan-" + hsh(USER));
     var snap = await remote.get(); var data = snap && snap.data && snap.data();
     if (data && data.done) { for (var k in data.done) if (data.done[k]) done[k] = true; }
-    if (data && data.mins) { for (var m in data.mins) mins[m] = Math.max(mins[m]||0, data.mins[m]||0); try{localStorage.setItem("aiebp-mins-v1",JSON.stringify(mins));}catch(e){} }
+    if (data && data.mins) { for (var m in data.mins) mins[m] = Math.max(mins[m]||0, data.mins[m]||0); try{localStorage.setItem(PFX+"mins-v1",JSON.stringify(mins));}catch(e){} }
     saveLocal(); if (Object.keys(done).length || Object.keys(mins).length) remote.set({done: done, mins: mins, updatedAt: Date.now()}).catch(function(){});
     setSync("التقدّم محفوظ في حسابك ويظهر على أي جهاز.");
     renderAll();
@@ -992,7 +1044,7 @@ var HUB = {
       {q:"A vendor API meets 90% of requirements at a fraction of the cost of building in-house, keeps data in-region, and the deadline is 6 weeks. Recommended path?",o:["Build a custom model from scratch","Run a short PoC with the vendor, integrate it, and plan how to cover the remaining gaps","Postpone the project","Hire a new team first"],a:1,w:"الحل الجاهز يحقق أغلب الاحتياج والامتثال والوقت ضيق، فالشراء مع PoC هو الأقل مخاطرة."}]}
 };
 var selDom = "4";
-try { selDom = localStorage.getItem("aiebp-dom") || "4"; } catch(e){}
+try { selDom = localStorage.getItem(PFX+"dom") || "4"; } catch(e){}
 function vidLabel(v){
   var t=v[0], tag="فيديو", m=t.match(/^بحث( بالعربي)?: (.*)$/);
   if(m){tag=m[1]?"بحث عربي":"بحث يوتيوب";t=m[2];}
@@ -1072,9 +1124,9 @@ function motivFor(iso){var i=DAYS.findIndex(function(d){return d.d===iso;});retu
 
 /* ---------- study timer (minutes per date) ---------- */
 var T = {running:false, start:0, base:0, target:90*60};
-try { var ts = JSON.parse(localStorage.getItem("aiebp-timer") || "null"); if (ts) T = ts; } catch(e){}
-function saveT(){ try { localStorage.setItem("aiebp-timer", JSON.stringify(T)); } catch(e){} }
-function saveMins(){ try { localStorage.setItem("aiebp-mins-v1", JSON.stringify(mins)); } catch(e){} save(); }
+try { var ts = JSON.parse(localStorage.getItem(PFX+"timer") || "null"); if (ts) T = ts; } catch(e){}
+function saveT(){ try { localStorage.setItem(PFX+"timer", JSON.stringify(T)); } catch(e){} }
+function saveMins(){ try { localStorage.setItem(PFX+"mins-v1", JSON.stringify(mins)); } catch(e){} save(); }
 function elapsed(){ return T.base + (T.running ? Math.floor((Date.now()-T.start)/1000) : 0); }
 function fmt(sec){ sec=Math.max(0,sec); var m=Math.floor(sec/60), s=sec%60; return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0"); }
 function addMinutes(sec){ var m=Math.round(sec/60); if(m<1) return; mins[TODAY]=(mins[TODAY]||0)+m; saveMins(); renderCalendar(); }
@@ -1133,7 +1185,7 @@ function renderCalendar(){
 
 /* ---------- comments + visitors ---------- */
 var cdb=null, comments=[];
-try { comments = JSON.parse(localStorage.getItem("aiebp-comments") || "[]") || []; } catch(e){ comments=[]; }
+try { comments = JSON.parse(localStorage.getItem(PFX+"comments") || "[]") || []; } catch(e){ comments=[]; }
 function renderComments(){
   var el=document.getElementById("c-list"); if(!el) return;
   var list=comments.slice().sort(function(a,b){return (b.at||0)-(a.at||0);});
@@ -1146,12 +1198,13 @@ document.getElementById("c-form").addEventListener("submit",function(e){
   if(!name){msg.textContent="اكتبي اسمك أول.";return;}
   if(!text){msg.textContent="اكتبي التعليق.";return;}
   var c={name:name.slice(0,60),text:text.slice(0,1000),at:Date.now()};
-  try{localStorage.setItem("aiebp-name",name);}catch(err){}
+  try{localStorage.setItem(PFX+"name",name);}catch(err){}
   document.getElementById("c-text").value="";
   if(cdb){ cdb.collection("comments").add(c).then(function(){msg.textContent="انضاف تعليقك ✓";}).catch(function(){msg.textContent="ما قدرت أحفظ التعليق. تأكدي إن عندك صلاحية تعديل على الصفحة.";}); }
-  else { comments.push(c); try{localStorage.setItem("aiebp-comments",JSON.stringify(comments));}catch(err){} renderComments(); msg.textContent="انضاف تعليقك ✓ (محفوظ في هذا المتصفح)"; }
+  else { comments.push(c); try{localStorage.setItem(PFX+"comments",JSON.stringify(comments));}catch(err){} renderComments(); msg.textContent="انضاف تعليقك ✓ (محفوظ في هذا المتصفح)"; }
 });
-try{ var nm=localStorage.getItem("aiebp-name"); if(nm) document.getElementById("c-name").value=nm; }catch(e){}
+try{ var nm=localStorage.getItem(PFX+"name"); document.getElementById("c-name").value=nm||USER; }catch(e){ document.getElementById("c-name").value=USER; }
+var wn=document.getElementById("who-me"); if(wn) wn.textContent=USER||"زائر";
 function setVisits(n){ var a=document.querySelectorAll(".v-count"); a.forEach(function(x){x.textContent=n;}); }
 (async function shared(){
   try{
@@ -1191,10 +1244,11 @@ document.addEventListener("change",function(e){
   if (p===100) toast("أحسنتِ! خلّصتِ يوم "+parse(dId).getDate()+" ✓");
 });
 document.addEventListener("click",function(e){
+  if(e.target.closest("#who-switch")){try{localStorage.removeItem("aiebp-user");}catch(err){}location.reload();return;}
   if(e.target.closest("#t-go")){timerToggle();return;}
   if(e.target.closest("#t-end")){timerEnd();return;}
   var tm=e.target.closest("[data-tmin]"); if(tm){timerSet(+tm.getAttribute("data-tmin"));return;}
-  var dc=e.target.closest(".dcard"); if(dc){selDom=dc.getAttribute("data-d");try{localStorage.setItem("aiebp-dom",selDom);}catch(err){}renderDomains();return;}
+  var dc=e.target.closest(".dcard"); if(dc){selDom=dc.getAttribute("data-d");try{localStorage.setItem(PFX+"dom",selDom);}catch(err){}renderDomains();return;}
   var f=e.target.closest("[data-f]"); if(f){filter=f.getAttribute("data-f");renderFilters();renderPlan();return;}
   var o=e.target.closest(".opts button");
   if(o){var box=o.closest(".scn"),a=+box.getAttribute("data-a"),i=+o.getAttribute("data-i");
