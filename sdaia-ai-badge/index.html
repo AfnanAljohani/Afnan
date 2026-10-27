@@ -325,29 +325,63 @@ html.named #who{display:none}
   <form id="who-form" autocomplete="off">
     <div style="font:600 12px var(--f-mono);color:#E3BC62;letter-spacing:.08em">// SDAIA · AI ENGINEER BADGE ★★★</div>
     <h1>أهلاً فيك 👋</h1>
-    <p>اكتب اسمك، وتصير لك صفحتك ومستوى تقدّمك الخاص. محد غيرك يقدر يغيّر تقدّمك.</p>
+    <p>اكتب اسمك ورقم سري من 4 أرقام، وتصير لك صفحتك ومستوى تقدّمك الخاص.</p>
     <label for="who-name" style="font-size:14px">الاسم</label>
     <input id="who-name" maxlength="40" placeholder="اسمك">
+    <label for="who-pin" style="font-size:14px">الرقم السري (4 أرقام)</label>
+    <input id="who-pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" style="letter-spacing:.4em;text-align:center">
     <button type="submit">ادخل</button>
     <div class="err" id="who-err" aria-live="polite"></div>
-    <div id="who-prev-wrap" hidden><p style="margin-bottom:6px">أو كمّل باسم محفوظ على هذا الجهاز:</p><div class="prev" id="who-prev"></div></div>
+    <div id="who-prev-wrap" hidden><p style="margin-bottom:6px">الأسماء المحفوظة على هذا الجهاز:</p><div class="prev" id="who-prev"></div></div>
+    <details id="who-imp" style="border-top:1px solid rgba(125,249,255,.2);padding-top:10px">
+      <summary style="cursor:pointer;color:#7DF9FF;font-size:14.5px">عندك رمز تقدّم من جهاز ثاني؟</summary>
+      <div style="display:grid;gap:8px;margin-top:8px">
+        <p>الصق الرمز اللي نسخته من صفحتك، واكتب رقمك السري فوق، واضغط «استرجع تقدّمي».</p>
+        <label for="who-code" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">رمز التقدّم</label>
+        <textarea id="who-code" rows="3" style="font:500 12px var(--f-mono);direction:ltr;padding:8px;border-radius:10px;border:1px solid rgba(125,249,255,.4);background:#0A1B36;color:#fff;width:100%;min-width:0" placeholder="AIEB1.…"></textarea>
+        <button type="button" id="who-restore">استرجع تقدّمي</button>
+      </div>
+    </details>
   </form>
 </div>
 <script>
 (function(){
-  var u="", list=[];
-  try{u=localStorage.getItem("aiebp-user")||""; list=JSON.parse(localStorage.getItem("aiebp-users")||"[]")||[];}catch(e){}
+  function hsh(t){var h=5381;for(var i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))|0;return (h>>>0).toString(16);}
+  var u="", list=[], pins={};
+  try{u=localStorage.getItem("aiebp-user")||""; list=JSON.parse(localStorage.getItem("aiebp-users")||"[]")||[]; pins=JSON.parse(localStorage.getItem("aiebp-pins")||"{}")||{};}catch(e){}
   if(u){document.documentElement.classList.add("named");return;}
-  function enter(name){
-    name=String(name).trim().slice(0,40);
-    if(!name){document.getElementById("who-err").textContent="اكتب اسمك أول.";return;}
-    try{localStorage.setItem("aiebp-user",name); if(list.indexOf(name)<0){list.push(name);localStorage.setItem("aiebp-users",JSON.stringify(list));} location.reload();}
-    catch(e){window.__aiebUser=name;document.documentElement.classList.add("named");}
+  var err=function(t){document.getElementById("who-err").textContent=t;};
+  function go(name,ph){
+    try{
+      pins[name]=ph; localStorage.setItem("aiebp-pins",JSON.stringify(pins));
+      if(list.indexOf(name)<0){list.push(name);localStorage.setItem("aiebp-users",JSON.stringify(list));}
+      localStorage.setItem("aiebp-user",name); location.reload();
+    }catch(e){window.__aiebUser=name;document.documentElement.classList.add("named");}
   }
-  document.getElementById("who-form").addEventListener("submit",function(e){e.preventDefault();enter(document.getElementById("who-name").value);});
+  function read(){
+    var name=document.getElementById("who-name").value.trim().slice(0,40), pin=document.getElementById("who-pin").value.trim();
+    if(!name){err("اكتب اسمك أول.");return null;}
+    if(!/^\d{4}$/.test(pin)){err("الرقم السري لازم يكون 4 أرقام.");return null;}
+    return {name:name,ph:hsh(name+":"+pin)};
+  }
+  document.getElementById("who-form").addEventListener("submit",function(e){
+    e.preventDefault(); var r=read(); if(!r) return;
+    if(pins[r.name] && pins[r.name]!==r.ph){err("الرقم السري غير صحيح لهذا الاسم.");return;}
+    go(r.name,r.ph);
+  });
+  document.getElementById("who-restore").addEventListener("click",function(){
+    var code=document.getElementById("who-code").value.trim(), data;
+    try{ if(code.indexOf("AIEB1.")!==0) throw 0; var b=code.slice(6).replace(/-/g,"+").replace(/_/g,"/"); data=JSON.parse(decodeURIComponent(escape(atob(b)))); }catch(e){ err("الرمز غير صحيح. تأكد إنك نسخته كامل."); return; }
+    var pin=document.getElementById("who-pin").value.trim();
+    if(!/^\d{4}$/.test(pin)){err("اكتب رقمك السري (4 أرقام) فوق.");return;}
+    if(hsh(data.n+":"+pin)!==data.p){err("الرقم السري ما يطابق الرمز.");return;}
+    if(pins[data.n] && pins[data.n]!==data.p){err("هذا الاسم مستخدم على هذا الجهاز برقم سري مختلف.");return;}
+    try{localStorage.setItem("aiebp-"+hsh(data.n)+"-pending",code);}catch(e){}
+    go(data.n,data.p);
+  });
   if(list.length){
     var box=document.getElementById("who-prev");
-    list.forEach(function(n){var b=document.createElement("button");b.type="button";b.textContent=n;b.addEventListener("click",function(){enter(n);});box.appendChild(b);});
+    list.forEach(function(n){var b=document.createElement("button");b.type="button";b.textContent=n;b.addEventListener("click",function(){document.getElementById("who-name").value=n;var p=document.getElementById("who-pin");p.value="";p.focus();err(pins[n]?"اكتب رقمك السري.":"اختر رقم سري من 4 أرقام لهذا الاسم.");});box.appendChild(b);});
     document.getElementById("who-prev-wrap").hidden=false;
   }
 })();
@@ -412,6 +446,12 @@ html.named #who{display:none}
     </div>
     <div class="pbar"><i id="cal-bar"></i></div>
     <div class="cdoms" id="cal-doms"></div>
+  </div>
+  <div class="panel" id="xfer">
+    <h3>انقل تقدّمك لجهاز ثاني</h3>
+    <p class="muted" style="margin:0;font-size:14px">تقدّمك محفوظ على هذا الجهاز. إذا بتفتح الموقع من جهاز ثاني: انسخ الرمز، وفي الجهاز الثاني اكتب اسمك ورقمك السري، وافتح «عندك رمز تقدّم؟» والصقه هناك. الرمز يتغيّر كل ما تقدّمت، فانسخه من جديد قبل ما تنقل.</p>
+    <div class="row"><button type="button" class="btn primary" id="x-copy">انسخ رمز تقدّمي</button><span class="muted" id="x-msg" style="font-size:13.5px" aria-live="polite"></span></div>
+    <pre class="prompt-box" id="x-code" hidden></pre>
   </div>
   <div class="timer" id="timer">
     <div class="tring" id="t-ring"><span id="t-display" class="mono">90:00</span></div>
@@ -815,6 +855,18 @@ var mins = {};
 try { mins = JSON.parse(localStorage.getItem(PFX+"mins-v1") || "{}") || {}; } catch(e){ mins = {}; }
 var done = {};
 try { done = JSON.parse(localStorage.getItem(LS_KEY) || "{}") || {}; } catch(e){ done = {}; }
+(function applyPending(){
+  var code=null; try{code=localStorage.getItem(PFX+"pending");}catch(e){}
+  if(!code) return;
+  try{
+    var b=code.slice(6).replace(/-/g,"+").replace(/_/g,"/"), data=JSON.parse(decodeURIComponent(escape(atob(b))));
+    (data.d||[]).forEach(function(mask,i){var day=DAYS[i]; if(!day||!mask) return; keysOf(day).forEach(function(k,j){if(mask & (1<<j)) done[k]=true;});});
+    Object.keys(data.v||{}).forEach(function(dk){var mask=data.v[dk]; for(var j=0;j<31;j++) if(mask & (1<<j)) done["v"+dk+":"+j]=true;});
+    Object.keys(data.m||{}).forEach(function(dt){mins[dt]=Math.max(mins[dt]||0,data.m[dt]||0);});
+    localStorage.setItem(PFX+"progress-v1",JSON.stringify(done)); localStorage.setItem(PFX+"mins-v1",JSON.stringify(mins));
+  }catch(e){}
+  try{localStorage.removeItem(PFX+"pending");}catch(e){}
+})();
 var remote = null, saveTimer = null;
 function saveLocal(){ try { localStorage.setItem(LS_KEY, JSON.stringify(done)); } catch(e){} }
 function save(){
@@ -1226,6 +1278,14 @@ function ghCounter(){
   img.src="https://hits.sh/afnanaljohani.github.io/Afnan/sdaia-ai-badge.svg?label=%D8%A7%D9%84%D8%B2%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA&color=0891b2";
 }
 
+function makeCode(){
+  var pins={}; try{pins=JSON.parse(localStorage.getItem("aiebp-pins")||"{}")||{};}catch(e){}
+  var d=DAYS.map(function(day){var m=0;keysOf(day).forEach(function(k,j){if(done[k]) m|=(1<<j);});return m;});
+  while(d.length && !d[d.length-1]) d.pop();
+  var v={}; Object.keys(done).forEach(function(k){var mm=k.match(/^v(\d):(\d+)$/); if(mm){v[mm[1]]=(v[mm[1]]||0)|(1<<(+mm[2]));}});
+  var json=JSON.stringify({n:USER,p:pins[USER]||"",d:d,v:v,m:mins});
+  return "AIEB1."+btoa(unescape(encodeURIComponent(json))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
 /* ---------- events ---------- */
 function toast(t){var el=document.getElementById("toast");el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){el.hidden=true;},1600);}
 document.addEventListener("change",function(e){
@@ -1244,6 +1304,10 @@ document.addEventListener("change",function(e){
   if (p===100) toast("أحسنتِ! خلّصتِ يوم "+parse(dId).getDate()+" ✓");
 });
 document.addEventListener("click",function(e){
+  if(e.target.closest("#x-copy")){var code=makeCode(),pre=document.getElementById("x-code");pre.textContent=code;pre.hidden=false;
+    var sel=function(){var r=document.createRange();r.selectNodeContents(pre);var s2=getSelection();s2.removeAllRanges();s2.addRange(r);document.getElementById("x-msg").textContent="الرمز محدد، انسخه يدوياً.";};
+    try{navigator.clipboard.writeText(code).then(function(){document.getElementById("x-msg").textContent="انتسخ الرمز ✓ أرسله لنفسك والصقه في الجهاز الثاني.";},sel);}catch(err){sel();}
+    return;}
   if(e.target.closest("#who-switch")){try{localStorage.removeItem("aiebp-user");}catch(err){}location.reload();return;}
   if(e.target.closest("#t-go")){timerToggle();return;}
   if(e.target.closest("#t-end")){timerEnd();return;}
