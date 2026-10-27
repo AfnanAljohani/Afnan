@@ -230,6 +230,78 @@ ul.notes{padding-inline-start:20px;margin:0;display:grid;gap:6px;font-size:14.5p
 .rl b{color:var(--accent);font-size:14.5px}
 .rl span{font-size:13px;color:var(--muted)}
 .sclist{display:grid;gap:10px}
+/* ===== tech theme layer ===== */
+:root{--bg:#F2F8FC;--accent:#0891B2;--accent-soft:#D9F2F8;--neon:#06B6D4;--mint:#10B981;--grid:rgba(8,145,178,.07);--glass:rgba(255,255,255,.78)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060E1C;--surface:#0D1A2E;--surface-2:#13233D;--line:#1E3352;--accent:#22D3EE;--accent-ink:#04121C;--accent-soft:#0E3446;--neon:#22D3EE;--mint:#34D399;--grid:rgba(34,211,238,.05);--glass:rgba(13,26,46,.8)}}
+:root[data-theme="dark"]{--bg:#060E1C;--surface:#0D1A2E;--surface-2:#13233D;--line:#1E3352;--accent:#22D3EE;--accent-ink:#04121C;--accent-soft:#0E3446;--neon:#22D3EE;--mint:#34D399;--grid:rgba(34,211,238,.05);--glass:rgba(13,26,46,.8)}
+body{background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:34px 34px;background-attachment:fixed}
+.top{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.hex{background:linear-gradient(135deg,#0B2A55,#0E7490);color:#7DF9FF}
+.band{background:#061530;background-image:radial-gradient(circle at 12% 18%,rgba(34,211,238,.28),transparent 42%),radial-gradient(circle at 88% 85%,rgba(16,185,129,.24),transparent 45%),linear-gradient(rgba(125,249,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(125,249,255,.06) 1px,transparent 1px);background-size:auto,auto,28px 28px,28px 28px}
+.eyebrow{font-family:var(--f-mono);letter-spacing:.08em}
+.eyebrow::before{content:"// ";opacity:.6}
+.goal{direction:ltr;text-align:left;margin-top:18px;border:1px solid rgba(125,249,255,.35);background:rgba(4,18,40,.6);border-radius:12px;padding:12px 14px;font:500 13.5px/1.7 var(--f-mono);color:#BFEFFF;box-shadow:0 0 24px rgba(34,211,238,.15) inset;max-width:560px}
+.goal .k{color:#7DF9FF}.goal .s{color:#9EF0C6}.goal .c{color:#7E93B5}
+.goal-ar{direction:rtl;text-align:right;font-family:var(--f-display);font-size:17px;color:#fff;margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.goal-ar .lvl{background:linear-gradient(90deg,#E3BC62,#F6DD9A);color:#2B1D00;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700}
+.cursor{display:inline-block;width:8px;height:15px;background:#7DF9FF;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.motiv{border-inline-start:3px solid var(--mint);background:linear-gradient(90deg,transparent,var(--accent-soft));border-radius:8px;padding:8px 12px;font-weight:600;font-size:14.5px}
+.panel,details.day,.link,.dcard,.sess{transition:border-color .2s,box-shadow .2s}
+.panel:hover,.link:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.rail i{background:linear-gradient(90deg,var(--neon),var(--mint))}
+/* progress + calendar */
+.prog{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px}
+.prog-top{display:flex;gap:14px 26px;flex-wrap:wrap;align-items:end}
+.prog-top .big{font:600 44px/1 var(--f-mono);background:linear-gradient(90deg,var(--neon),var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
+.prog-top div{display:grid}
+.prog-top b{font:600 18px var(--f-mono)}
+.prog-top span{font-size:12.5px;color:var(--muted)}
+.pbar{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--neon),var(--mint));border-radius:99px;transition:width .4s}
+.cdoms{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+@media (max-width:700px){.cdoms{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.cd{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px;align-items:center;font-size:12px}
+.cd span:first-child{color:var(--c);font:600 12px var(--f-mono)}
+.cd b{font-size:12px}
+.months{display:grid;grid-template-columns:1fr;gap:18px}
+.month h3{font-size:16px;margin-bottom:8px}
+.cgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.ch{font-size:12px;color:var(--muted);text-align:center;padding-bottom:2px}
+.cc{display:grid;align-content:start;gap:3px;min-height:92px;padding:6px;border-radius:9px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);border-top:3px solid var(--c,var(--line));min-width:0;overflow:hidden}
+a.cc:hover{box-shadow:0 0 0 2px var(--accent-soft);border-color:var(--accent)}
+.cc.empty{background:transparent;border:0}
+.cc.off{opacity:.45;background:transparent}
+.cc.today{box-shadow:0 0 0 2px var(--accent),0 0 18px color-mix(in srgb,var(--neon) 35%,transparent)}
+.cc.full{background:color-mix(in srgb,var(--ok) 10%,var(--surface))}
+.cn{font-size:14px;font-weight:600}
+.ct{font-size:11.5px;line-height:1.35;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cm{display:flex;justify-content:space-between;gap:4px;font-size:10.5px;color:var(--muted);margin-top:auto}
+.cbar{display:block;height:4px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.cbar i{display:block;height:100%;background:var(--ok)}
+@media (max-width:620px){.ct{display:none}.cc{min-height:62px;padding:4px}.cm span:nth-child(2){display:none}}
+/* timer */
+.timer{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+@media (max-width:620px){.timer{grid-template-columns:1fr;justify-items:center;text-align:center}}
+.tring{--p:0;width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--neon) calc(var(--p)*1%),var(--surface-2) 0);display:grid;place-items:center}
+.tring span{width:128px;height:128px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font:600 30px/1 var(--f-mono)}
+.tside{display:grid;gap:10px;min-width:0}
+.tside .row button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tstats{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.tstats b{font:600 16px var(--f-mono);color:var(--ink);display:block}
+.cal-top{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+/* comments */
+.cform{display:grid;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.cform input,.cform textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;width:100%}
+.cform textarea{min-height:90px;resize:vertical}
+.cform input:focus,.cform textarea:focus{outline:2px solid var(--accent);outline-offset:0}
+ul.clist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.cmt{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:10px 12px}
+.cmt-h{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px}
+.cmt-h .mono{font-size:12px}
+.cmt p{margin:4px 0 0;font-size:14.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+.visits{display:inline-flex;gap:6px;align-items:center;font-size:13px}
+.visits .v-count{font-family:var(--f-mono)}
 </style>
 </head>
 <body>
@@ -239,12 +311,14 @@ ul.notes{padding-inline-start:20px;margin:0;display:grid;gap:6px;font-size:14.5p
   <div class="wrap">
     <a class="brand" href="#plan"><span class="hex">AI</span><span><b>خطة شارة مهندس الذكاء الاصطناعي</b><small>28 أكتوبر – 29 نوفمبر 2026 · أفنان</small></span></a>
     <nav class="tabs" aria-label="أقسام الصفحة">
+      <a href="#calendar">التقويم والمؤقت</a>
       <a href="#plan">الخطة اليومية</a>
       <a href="#domains">المحاور السبعة</a>
       <a href="#decide">شهر ولا مارس؟</a>
       <a href="#exam">عن الاختبار</a>
       <a href="#rules">قواعد القرار</a>
       <a href="#links">الروابط</a>
+      <a href="#comments">التعليقات</a>
     </nav>
   </div>
   <div class="rail" aria-hidden="true"><i id="rail"></i></div>
@@ -256,6 +330,12 @@ ul.notes{padding-inline-start:20px;margin:0;display:grid;gap:6px;font-size:14.5p
       <div class="eyebrow">SDAIA · AI Engineer Badge <span class="stars">★★★</span></div>
       <h1>شارة مهندس الذكاء الاصطناعي<span class="en">Target: Expert · Associate</span></h1>
       <p>33 يوم، كل يوم جلستين: ساعة ونصف الصبح للفهم العميق وساعة ونصف بالليل لحل السيناريوهات. علّمي ✓ على كل موضوع تخلصينه وينشطب، ويتحدّث تقدّمك تلقائياً.</p>
+      <div class="goal" aria-label="الهدف: شارة مهندس ذكاء اصطناعي من سدايا بمستوى خبير">
+        <div><span class="c"># الهدف</span></div>
+        <div><span class="k">target</span> = <span class="s">"SDAIA · AI Engineer Badge"</span></div>
+        <div><span class="k">level</span>&nbsp; = <span class="s">"EXPERT ★★★"</span> <span class="cursor"></span></div>
+        <div class="goal-ar">الهدف: شارة مهندس ذكاء اصطناعي · سدايا <span class="lvl">خبير ★★★</span></div>
+      </div>
       <div class="facts">
         <div><b id="f-left">33</b><span>يوم متبقي</span></div>
         <div><b id="f-done">0%</b><span>من المهام منجزة</span></div>
@@ -268,6 +348,42 @@ ul.notes{padding-inline-start:20px;margin:0;display:grid;gap:6px;font-size:14.5p
 </div>
 
 <main class="wrap">
+
+<section id="calendar">
+  <div class="sec-head">
+    <span class="eyebrow">التقويم والمؤقت</span>
+    <h2>تقدّمك، ومؤقت المذاكرة، وتقويم الخطة</h2>
+    <p class="muted">شغّلي المؤقت مع كل جلسة، ولما تنهينها تنحفظ الدقائق في يومها بالتقويم. اضغطي على أي يوم في التقويم ويفتح لك وش تسوين فيه.</p>
+  </div>
+  <div class="prog" aria-label="مستوى التقدّم">
+    <div class="prog-top">
+      <div><span>التقدّم الكلي</span><span class="big" id="cal-p">0%</span></div>
+      <div><b id="cal-days">0 / 33</b><span>أيام مكتملة</span></div>
+      <div><b id="cal-tasks">0</b><span>مهام منجزة</span></div>
+      <div><b id="cal-hours">0 / 99</b><span>ساعات مذاكرة (من المؤقت)</span></div>
+    </div>
+    <div class="pbar"><i id="cal-bar"></i></div>
+    <div class="cdoms" id="cal-doms"></div>
+  </div>
+  <div class="timer" id="timer">
+    <div class="tring" id="t-ring"><span id="t-display" class="mono">90:00</span></div>
+    <div class="tside">
+      <b id="t-state">جاهزة؟</b>
+      <div class="row">
+        <button type="button" class="btn primary" id="t-go">ابدئي الجلسة</button>
+        <button type="button" class="btn" id="t-end">إنهاء وحفظ</button>
+      </div>
+      <div class="row" role="group" aria-label="مدة الجلسة">
+        <span class="muted" style="font-size:13px">المدة:</span>
+        <button type="button" class="btn sm" data-tmin="90" aria-pressed="true">90 د · جلسة كاملة</button>
+        <button type="button" class="btn sm" data-tmin="45">45 د</button>
+        <button type="button" class="btn sm" data-tmin="25">25 د · بومودورو</button>
+      </div>
+      <div class="tstats"><div><b id="t-today">0 د</b>مذاكرة اليوم</div><div><b id="t-total">0 / 99 س</b>مجموع الساعات</div></div>
+    </div>
+  </div>
+  <div class="months" id="cal"></div>
+</section>
 
 <section id="plan">
   <div class="sec-head">
@@ -384,8 +500,24 @@ ul.notes{padding-inline-start:20px;margin:0;display:grid;gap:6px;font-size:14.5p
   <div class="links" id="links-extra"></div>
 </section>
 
+<section id="comments">
+  <div class="sec-head">
+    <span class="eyebrow">التعليقات</span>
+    <h2>التعليقات (<span id="c-count">0</span>)</h2>
+    <p class="muted">اكتبي اسمك وتعليقك واضغطي «أضيفي التعليق».</p>
+  </div>
+  <form class="cform" id="c-form" novalidate>
+    <label for="c-name">الاسم</label>
+    <input id="c-name" name="name" maxlength="60" autocomplete="name" placeholder="مثلاً: أفنان">
+    <label for="c-text">التعليق</label>
+    <textarea id="c-text" name="text" maxlength="1000" placeholder="اكتبي تعليقك أو ملاحظتك أو أي مصدر مفيد…"></textarea>
+    <div class="row"><button type="submit" class="btn primary">أضيفي التعليق</button><span id="c-msg" class="muted" style="font-size:13.5px" aria-live="polite"></span></div>
+  </form>
+  <ul class="clist" id="c-list"></ul>
+</section>
+
 </main>
-<footer><div class="wrap">بالتوفيق يا أفنان، والشارة إن شاء الله. توكّلي على الله وشدّي حيلك.</div></footer>
+<footer><div class="wrap" style="display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center;justify-content:space-between"><span class="visits">👁 عدد اللي دخلوا الموقع: <b class="v-count v-fallback">—</b><span id="gh-visits" hidden></span></span><span>بالتوفيق يا أفنان، والشارة إن شاء الله. توكّلي على الله وشدّي حيلك.</span></div></footer>
 <div class="toast" id="toast" hidden></div>
 </div>
 
@@ -627,6 +759,8 @@ var RULES = {
 
 /* ---------- storage: claude db (cross-device) with localStorage fallback ---------- */
 var LS_KEY = "aieb-progress-v1";
+var mins = {};
+try { mins = JSON.parse(localStorage.getItem("aieb-mins-v1") || "{}") || {}; } catch(e){ mins = {}; }
 var done = {};
 try { done = JSON.parse(localStorage.getItem(LS_KEY) || "{}") || {}; } catch(e){ done = {}; }
 var remote = null, saveTimer = null;
@@ -636,7 +770,7 @@ function save(){
   if (!remote) return;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(function(){
-    remote.set({done: done, updatedAt: Date.now()}).catch(function(){ setSync("ما قدرت أحفظ في الحساب الحين؛ محفوظ في هذا المتصفح."); });
+    remote.set({done: done, mins: mins, updatedAt: Date.now()}).catch(function(){ setSync("ما قدرت أحفظ في الحساب الحين؛ محفوظ في هذا المتصفح."); });
   }, 700);
 }
 function setSync(t){ document.getElementById("sync").textContent = t; }
@@ -649,7 +783,8 @@ function setSync(t){ document.getElementById("sync").textContent = t; }
     remote = db.doc("data/users/" + id + "/progress/plan");
     var snap = await remote.get(); var data = snap && snap.data && snap.data();
     if (data && data.done) { for (var k in data.done) if (data.done[k]) done[k] = true; }
-    saveLocal(); if (Object.keys(done).length) remote.set({done: done, updatedAt: Date.now()}).catch(function(){});
+    if (data && data.mins) { for (var m in data.mins) mins[m] = Math.max(mins[m]||0, data.mins[m]||0); try{localStorage.setItem("aieb-mins-v1",JSON.stringify(mins));}catch(e){} }
+    saveLocal(); if (Object.keys(done).length || Object.keys(mins).length) remote.set({done: done, mins: mins, updatedAt: Date.now()}).catch(function(){});
     setSync("التقدّم محفوظ في حسابك ويظهر على أي جهاز.");
     renderAll();
   }catch(e){}
@@ -688,7 +823,7 @@ function dayHTML(day,idx){
   h+='<summary><span class="date"><b>'+dt.getDate()+'</b><small>'+AR_MONTH[dt.getMonth()]+'</small></span>';
   h+='<span class="s-mid"><span class="ttl">'+esc(day.t)+'</span><span class="s-meta"><span>اليوم '+(idx+1)+' · '+AR_DAY[dt.getDay()]+'</span>'+domChip(day.dom)+'</span></span>';
   h+='<span class="ring" style="--p:'+p+'" aria-label="'+p+'% منجز"><span>'+p+'%</span></span></summary>';
-  h+='<div class="day-body"><div class="sessions">';
+  h+='<div class="day-body"><div class="motiv">'+esc(MOTIV[idx]||"")+'</div><div class="sessions">';
   h+='<div class="sess am"><h4>'+amLbl+' <span class="mono">1:30</span></h4><ul class="tasks">'+s.am.map(function(t,i){return taskLi(day.d+":a"+i,t);}).join("")+'</ul></div>';
   h+='<div class="sess pm"><h4>'+pmLbl+' <span class="mono">1:30</span></h4><ul class="tasks">'+s.pm.map(function(t,i){return taskLi(day.d+":p"+i,t);}).join("")+'</ul></div>';
   h+='</div>';
@@ -748,11 +883,11 @@ function renderToday(){
   else if (TODAY<DAYS[0].d){day=DAYS[0];idx=0;label="تبدأ الخطة "+(TODAY===("2026-10-27")?"بكرة":"قريباً")+" · الأربعاء 28 أكتوبر";}
   else {card.innerHTML='<span class="eyebrow">انتهت الخطة</span><h2>بالتوفيق في الاختبار</h2><p class="muted" style="margin:0">راجعي قواعد القرار وسجل الأخطاء.</p>';return;}
   var p=pct(day);
-  card.innerHTML='<span class="eyebrow">'+label+'</span><h2>'+esc(day.t)+'</h2><div class="meta">'+domChip(day.dom)+'<span class="mono">'+p+'% منجز</span></div>'+
+  card.innerHTML='<span class="eyebrow">'+label+'</span><div class="motiv">'+esc(motivFor(day.d))+'</div><h2>'+esc(day.t)+'</h2><div class="meta">'+domChip(day.dom)+'<span class="mono">'+p+'% منجز</span></div>'+
     '<ul class="tasks">'+sessions(day).am.slice(0,3).map(function(t,i){return taskLi(day.d+":a"+i,t);}).join("")+'</ul>'+
     '<div class="row"><a class="btn primary" href="#day-'+day.d+'" data-open="day-'+day.d+'">افتحي خطة اليوم كاملة</a></div>';
 }
-function renderAll(){renderPlan();renderStats();renderToday();if(typeof renderDomains==="function")renderDomains();}
+function renderAll(){renderPlan();renderStats();renderToday();renderDomains();renderCalendar();}
 
 function renderStatic(){
   if(document.getElementById("weights"))document.getElementById("weights").innerHTML=[1,2,3,4,5,6,7].map(function(k){var D=DOM[k];return '<div class="w-row" style="--c:var('+D.c+')"><div class="w-name"><b>'+k+'. '+D.ar+'</b><span class="en">'+D.en+'</span></div><div class="w-val">'+D.w.toFixed(1)+'%</div><div class="w-bar"><i style="width:'+(D.w/18*100)+'%"></i></div></div>';}).join("");
@@ -897,6 +1032,147 @@ function renderDomains(){
   document.getElementById("dom-detail").innerHTML=h;
 }
 
+/* ---------- motivation ---------- */
+var MOTIV = [
+ "أول خطوة هي أصعب خطوة، وأنتِ اليوم خطيتيها. بسم الله.",
+ "كل موضوع تفهمينه اليوم هو سؤال تحلينه يوم الاختبار.",
+ "مو لازم تكونين مثالية، لازم تكونين مستمرة.",
+ "الخبير كان يوماً مبتدئ ما استسلم.",
+ "ساعة ونصف الصبح وساعة ونصف الليل… وبعد شهر تكونين شخص ثاني.",
+ "افهمي «ليش» قبل «وش»، وراح تحلين أي سيناريو.",
+ "أسبوع كامل خلص! كافئي نفسك وكمّلي.",
+ "الشارة مو حلم، هي خطة وتنفيذ يومي.",
+ "اللي يتعب اليوم يرتاح يوم النتيجة.",
+ "كل خطأ في سجل الأخطاء هو درجة محفوظة في الاختبار.",
+ "ركّزي على التقدّم، مو على الكمال.",
+ "أنتِ أقرب للخبير مما تتوقعين. استمري.",
+ "الانضباط يغلب الحماس. اجلسي وابدئي، والحماس يلحقك.",
+ "أسبوعين خلصوا! نصف الطريق قرّب.",
+ "النشر (Deployment) أكبر محور… واليوم يومه. شدّي حيلك.",
+ "كل سيناريو تحلينه يقوّي حدسك كمهندسة.",
+ "اللي يفهم المراقبة والانجراف يفهم الأنظمة الحقيقية.",
+ "الموثوقية مو بس للأنظمة، حتى لعاداتك اليومية.",
+ "اختبار المنتصف مو حكم، هو بوصلة. اتبعيها.",
+ "الأساس القوي يرفع البناء. واليوم نبني البنية التحتية.",
+ "السرعة مهمة… بس الأهم الاتجاه الصحيح.",
+ "ثلاثة أسابيع! الاستمرار هذا لحاله إنجاز.",
+ "المهندسة المسؤولة تفكر في الناس قبل النموذج.",
+ "الأمن يبدأ من فكرة «لا تثقين بأي مدخل». ركّزي اليوم.",
+ "الأنظمة تتغير، وأنتِ تتطورين معها.",
+ "اربطي التقنية بالقيمة… هذا اللي يميّز الخبير.",
+ "راجعي بهدوء، الثقة تجي من التكرار.",
+ "اليوم تجربين الاختبار كامل… تنفّسي، اقرئي بتركيز، وتوكلي على الله.",
+ "الأخطاء اليوم هدية: تعرفين وين تركزين.",
+ "النشر محورك القوي… ثبّتيه.",
+ "آخر اختبار تجريبي. أنتِ جاهزة أكثر مما تتوقعين.",
+ "اكتبي قواعدك بخطك، تثبت في ذاكرتك.",
+ "ارتاحي، نامي بدري، وتوكلي على الله. الشارة لك بإذن الله ★★★"
+];
+function motivFor(iso){var i=DAYS.findIndex(function(d){return d.d===iso;});return MOTIV[i<0?0:i];}
+
+/* ---------- study timer (minutes per date) ---------- */
+var T = {running:false, start:0, base:0, target:90*60};
+try { var ts = JSON.parse(localStorage.getItem("aieb-timer") || "null"); if (ts) T = ts; } catch(e){}
+function saveT(){ try { localStorage.setItem("aieb-timer", JSON.stringify(T)); } catch(e){} }
+function saveMins(){ try { localStorage.setItem("aieb-mins-v1", JSON.stringify(mins)); } catch(e){} save(); }
+function elapsed(){ return T.base + (T.running ? Math.floor((Date.now()-T.start)/1000) : 0); }
+function fmt(sec){ sec=Math.max(0,sec); var m=Math.floor(sec/60), s=sec%60; return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0"); }
+function addMinutes(sec){ var m=Math.round(sec/60); if(m<1) return; mins[TODAY]=(mins[TODAY]||0)+m; saveMins(); renderCalendar(); }
+function timerTick(){
+  var el=elapsed(), left=T.target-el;
+  var d=document.getElementById("t-display"); if(!d) return;
+  d.textContent = left>=0 ? fmt(left) : "+"+fmt(-left);
+  document.getElementById("t-ring").style.setProperty("--p", Math.min(100, el*100/T.target));
+  document.getElementById("t-state").textContent = T.running ? (left>=0?"جاري المذاكرة… ركّزي 💪":"خلصت الجلسة! تقدرين توقفين وتحفظين") : (el>0?"متوقف مؤقتاً":"جاهزة؟");
+  document.getElementById("t-go").textContent = T.running ? "إيقاف مؤقت" : (el>0?"استئناف":"ابدئي الجلسة");
+  var today=mins[TODAY]||0, tot=0; for(var k in mins) tot+=mins[k];
+  document.getElementById("t-today").textContent = today+" د";
+  document.getElementById("t-total").textContent = (tot/60).toFixed(1)+" / 99 س";
+  if (T.running && left<=0 && !T.rang){ T.rang=true; saveT(); toast("خلصت الـ 90 دقيقة! أحسنتِ ✓"); }
+}
+function timerToggle(){
+  if (T.running){ T.base=elapsed(); T.running=false; } else { T.start=Date.now(); T.running=true; }
+  saveT(); timerTick();
+}
+function timerEnd(){
+  var el=elapsed(); addMinutes(el);
+  T={running:false,start:0,base:0,target:T.target}; saveT(); timerTick();
+  if (el>=60) toast("انحفظت "+Math.round(el/60)+" دقيقة في تقويم اليوم ✓");
+}
+function timerSet(min){ if (T.running||elapsed()>0) { toast("أنهي الجلسة الحالية أول"); return; } T.target=min*60; saveT(); timerTick();
+  document.querySelectorAll("[data-tmin]").forEach(function(b){b.setAttribute("aria-pressed", String(+b.getAttribute("data-tmin")===min));}); }
+setInterval(timerTick, 1000);
+
+/* ---------- calendar ---------- */
+function renderCalendar(){
+  var box=document.getElementById("cal"); if(!box) return;
+  var all=0,n=0,full=0; DAYS.forEach(function(d){var k=keysOf(d),c=0;k.forEach(function(x){all++;if(done[x]){n++;c++;}}); if(c===k.length) full++;});
+  var tot=0; for(var k in mins) tot+=mins[k];
+  var p=Math.round(n*100/all);
+  document.getElementById("cal-p").textContent=p+"%";
+  document.getElementById("cal-bar").style.width=p+"%";
+  document.getElementById("cal-days").textContent=full+" / 33";
+  document.getElementById("cal-hours").textContent=(tot/60).toFixed(1)+" / 99";
+  document.getElementById("cal-tasks").textContent=n+" / "+all;
+  document.getElementById("cal-doms").innerHTML=[1,2,3,4,5,6,7].map(function(k){var D=DOM[k],q=domPct(k);return '<div class="cd" style="--c:var('+D.c+')"><span>'+k+'</span><span class="dbar"><i style="width:'+q+'%"></i></span><b class="mono">'+q+'</b></div>';}).join("");
+  var byDate={}; DAYS.forEach(function(d,i){byDate[d.d]={d:d,i:i};});
+  var months=[{y:2026,m:9,label:"أكتوبر 2026"},{y:2026,m:10,label:"نوفمبر 2026"}];
+  var heads=["أحد","اثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
+  box.innerHTML=months.map(function(M){
+    var first=new Date(M.y,M.m,1), days=new Date(M.y,M.m+1,0).getDate(), cells="";
+    for(var b=0;b<first.getDay();b++) cells+='<div class="cc empty"></div>';
+    for(var dd=1;dd<=days;dd++){
+      var iso=M.y+"-"+String(M.m+1).padStart(2,"0")+"-"+String(dd).padStart(2,"0"), x=byDate[iso];
+      if(!x){cells+='<div class="cc off"><span class="cn mono">'+dd+'</span></div>';continue;}
+      var D=DOM[x.d.dom], q=pct(x.d), mm=mins[iso]||0;
+      cells+='<a class="cc'+(iso===TODAY?" today":"")+(q===100?" full":"")+'" href="#day-'+iso+'" data-open="day-'+iso+'" style="--c:var('+D.c+')" title="'+esc(x.d.t)+'"><span class="cn mono">'+dd+'</span><span class="ct">'+esc(x.d.t)+'</span><span class="cm"><span class="mono">'+q+'%</span>'+(mm?'<span class="mono">'+mm+'د</span>':'')+'</span><span class="cbar"><i style="width:'+q+'%"></i></span></a>';
+    }
+    return '<div class="month"><h3>'+M.label+'</h3><div class="cgrid">'+heads.map(function(h){return '<div class="ch">'+h+'</div>';}).join("")+cells+'</div></div>';
+  }).join("");
+}
+
+/* ---------- comments + visitors ---------- */
+var cdb=null, comments=[];
+try { comments = JSON.parse(localStorage.getItem("aieb-comments") || "[]") || []; } catch(e){ comments=[]; }
+function renderComments(){
+  var el=document.getElementById("c-list"); if(!el) return;
+  var list=comments.slice().sort(function(a,b){return (b.at||0)-(a.at||0);});
+  document.getElementById("c-count").textContent=list.length;
+  el.innerHTML = list.length ? list.map(function(c){var dt=new Date(c.at||0);return '<li class="cmt"><div class="cmt-h"><b>'+esc(c.name||"بدون اسم")+'</b><span class="mono muted">'+dt.getDate()+"/"+(dt.getMonth()+1)+" · "+String(dt.getHours()).padStart(2,"0")+":"+String(dt.getMinutes()).padStart(2,"0")+'</span></div><p>'+esc(c.text)+'</p></li>';}).join("") : '<li class="muted">ما فيه تعليقات للحين. اكتبي أول تعليق!</li>';
+}
+document.getElementById("c-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var name=document.getElementById("c-name").value.trim(), text=document.getElementById("c-text").value.trim(), msg=document.getElementById("c-msg");
+  if(!name){msg.textContent="اكتبي اسمك أول.";return;}
+  if(!text){msg.textContent="اكتبي التعليق.";return;}
+  var c={name:name.slice(0,60),text:text.slice(0,1000),at:Date.now()};
+  try{localStorage.setItem("aieb-name",name);}catch(err){}
+  document.getElementById("c-text").value="";
+  if(cdb){ cdb.collection("comments").add(c).then(function(){msg.textContent="انضاف تعليقك ✓";}).catch(function(){msg.textContent="ما قدرت أحفظ التعليق. تأكدي إن عندك صلاحية تعديل على الصفحة.";}); }
+  else { comments.push(c); try{localStorage.setItem("aieb-comments",JSON.stringify(comments));}catch(err){} renderComments(); msg.textContent="انضاف تعليقك ✓ (محفوظ في هذا المتصفح)"; }
+});
+try{ var nm=localStorage.getItem("aieb-name"); if(nm) document.getElementById("c-name").value=nm; }catch(e){}
+function setVisits(n){ var a=document.querySelectorAll(".v-count"); a.forEach(function(x){x.textContent=n;}); }
+(async function shared(){
+  try{
+    if(!window.claude||!window.claude.use) { ghCounter(); return; }
+    var db=await window.claude.use("db"), user=await window.claude.use("user");
+    if(!db){ ghCounter(); return; }
+    cdb=db;
+    db.collection("comments").onSnapshot(function(q){comments=q.docs.map(function(d){return d.data();});renderComments();},function(){});
+    var id=user?await user.id():null;
+    if(id){ var ref=db.collection("visits").doc(id); try{var s=await ref.get(),c=(s.exists&&s.data().count)||0; await ref.set({count:c+1,last:Date.now()});}catch(err){} }
+    db.collection("visits").onSnapshot(function(q){var total=0;q.docs.forEach(function(d){total+=(d.data().count||1);});setVisits(q.docs.length+" زائر · "+total+" زيارة");},function(){});
+  }catch(e){ ghCounter(); }
+})();
+function ghCounter(){
+  if(!/github\.io$/.test(location.hostname)) return;
+  var w=document.getElementById("gh-visits"); if(!w) return;
+  var img=new Image(); img.alt="عدد الزيارات"; img.height=20;
+  img.onload=function(){w.innerHTML="";w.appendChild(img);w.hidden=false;document.querySelectorAll(".v-fallback").forEach(function(x){x.hidden=true;});};
+  img.src="https://hits.sh/afnanaljohani.github.io/Afnan/ai-badge.svg?label=%D8%A7%D9%84%D8%B2%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA&color=0891b2";
+}
+
 /* ---------- events ---------- */
 function toast(t){var el=document.getElementById("toast");el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){el.hidden=true;},1600);}
 document.addEventListener("change",function(e){
@@ -904,7 +1180,7 @@ document.addEventListener("change",function(e){
   if (e.target.checked) done[k]=true; else delete done[k];
   save();
   document.querySelectorAll('input[data-k="'+k+'"]').forEach(function(i){i.checked=e.target.checked;});
-  renderDomStats();
+  renderDomStats(); renderCalendar();
   var dId=k.split(":")[0], day=DAYS.find(function(d){return d.d===dId;});
   if(!day){renderStats();return;}
   var p=pct(day);
@@ -915,6 +1191,9 @@ document.addEventListener("change",function(e){
   if (p===100) toast("أحسنتِ! خلّصتِ يوم "+parse(dId).getDate()+" ✓");
 });
 document.addEventListener("click",function(e){
+  if(e.target.closest("#t-go")){timerToggle();return;}
+  if(e.target.closest("#t-end")){timerEnd();return;}
+  var tm=e.target.closest("[data-tmin]"); if(tm){timerSet(+tm.getAttribute("data-tmin"));return;}
   var dc=e.target.closest(".dcard"); if(dc){selDom=dc.getAttribute("data-d");try{localStorage.setItem("aieb-dom",selDom);}catch(err){}renderDomains();return;}
   var f=e.target.closest("[data-f]"); if(f){filter=f.getAttribute("data-f");renderFilters();renderPlan();return;}
   var o=e.target.closest(".opts button");
@@ -936,7 +1215,8 @@ document.getElementById("mid-score").addEventListener("input",function(e){
   else out.innerHTML="<b>الأفضل التأجيل لمارس.</b> كمّلي نفس الخطة بإيقاع أهدأ، وخذي شهادة احترافية في الفترة هذي (تحسب 10% من التقييم).";
 });
 
-renderFilters(); renderStatic(); renderAll();
+renderFilters(); renderStatic(); renderAll(); renderComments(); timerTick();
+document.querySelectorAll("[data-tmin]").forEach(function(b){b.setAttribute("aria-pressed", String(+b.getAttribute("data-tmin")*60===T.target));});
 var td=document.getElementById("day-"+TODAY); if(td) td.open=true;
 })();
 </script>
