@@ -200,6 +200,36 @@ h3.lg{font-size:17px;margin-top:6px}
 .quote ul{margin:0;padding-inline-start:20px}
 footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:13px}
 .toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:9px;font-size:14px;z-index:40}
+/* domain hub */
+.dcards{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+@media (max-width:1000px){.dcards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:620px){.dcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.dcard{display:grid;gap:4px;text-align:start;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-width:0}
+.dcard:hover{border-color:var(--c)}
+.dcard[aria-pressed="true"]{border-color:var(--c);box-shadow:0 0 0 2px var(--c) inset}
+.dtop{display:flex;justify-content:space-between;gap:6px;font-size:12px;color:var(--muted)}
+.dn{color:var(--c);font-weight:700}
+.dname{font-size:13.5px;font-weight:600;line-height:1.45;min-height:2.9em}
+.dprog{display:flex;align-items:baseline;gap:4px;font-size:12px;color:var(--muted)}
+.dprog b{font-size:22px;color:var(--ink)}
+.dbar{display:block;height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.dbar i{display:block;height:100%;background:var(--c,var(--ok));border-radius:99px;transition:width .3s}
+#dom-detail{display:grid;gap:12px}
+.dhead{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:end;border-bottom:3px solid var(--c);padding-bottom:10px}
+.dhead h3{font-size:21px}
+.dhead .en{display:block}
+.dscore{display:grid;grid-template-columns:auto auto;gap:2px 6px;align-items:baseline;min-width:140px}
+.dscore b{font-size:38px;line-height:1}
+.dscore .dbar{grid-column:1/-1}
+.dgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.dgrid{grid-template-columns:1fr}}
+ul.notes{padding-inline-start:20px;margin:0;display:grid;gap:6px;font-size:14.5px}
+.rlist{display:grid;gap:6px}
+.rl{display:grid;gap:1px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.rl:hover{border-color:var(--accent)}
+.rl b{color:var(--accent);font-size:14.5px}
+.rl span{font-size:13px;color:var(--muted)}
+.sclist{display:grid;gap:10px}
 </style>
 </head>
 <body>
@@ -210,6 +240,7 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
     <a class="brand" href="#plan"><span class="hex">AI</span><span><b>خطة شارة مهندس الذكاء الاصطناعي</b><small>28 أكتوبر – 29 نوفمبر 2026 · أفنان</small></span></a>
     <nav class="tabs" aria-label="أقسام الصفحة">
       <a href="#plan">الخطة اليومية</a>
+      <a href="#domains">المحاور السبعة</a>
       <a href="#decide">شهر ولا مارس؟</a>
       <a href="#exam">عن الاختبار</a>
       <a href="#rules">قواعد القرار</a>
@@ -247,6 +278,16 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
   </div>
   <div class="filters" id="filters" role="group" aria-label="تصفية حسب المحور"></div>
   <div id="weeks" class="week-list" style="display:grid;gap:26px"></div>
+</section>
+
+<section id="domains">
+  <div class="sec-head">
+    <span class="eyebrow">المحاور السبعة</span>
+    <h2>كل محور: شرح، فيديوهات، مصادر، وسيناريوهات</h2>
+    <p class="muted">اختاري المحور، وكل اللي تحتاجينه له تحت بعض. الرقم من 100 يوضح كم خلّصتِ من المحور.</p>
+  </div>
+  <div class="dcards" id="dom-cards" role="group" aria-label="اختاري المحور"></div>
+  <div id="dom-detail"></div>
 </section>
 
 <section id="decide">
@@ -310,10 +351,6 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
     </div>
     <p class="muted" style="margin:0;font-size:14px">التقييم النهائي: الاختبار 50% · التعليم 20% · الخبرة المهنية 20% · الشهادات الاحترافية 10%. سدايا ما أعلنت درجات القطع لكل مستوى، والنسب المستهدفة أعلاه تقديري للتدريب فقط.</p>
   </div>
-  <div class="panel">
-    <h3>أوزان المحاور</h3>
-    <div class="weights" id="weights"></div>
-  </div>
   <div class="panel quote">
     <h3>خلاصة تجارب الدفعة الأولى</h3>
     <ul>
@@ -359,7 +396,7 @@ var DOM = {
   1:{ar:"البيانات وأسس تعلم الآلة وتقييم النماذج",en:"Data, ML Foundations & Model Evaluation",w:17.3,c:"--d1"},
   2:{ar:"أساسيات الذكاء الاصطناعي والتعلم العميق والتوليدي",en:"Core AI, Deep Learning & Generative AI",w:16.7,c:"--d2"},
   3:{ar:"هندسة برمجيات الذكاء الاصطناعي والتكامل",en:"AI Software Engineering & Integration",w:14.0,c:"--d3"},
-  4:{ar:"MLOps وLLMOps والنشر والموثوقية",en:"MLOps, LLMOps, Deployment & Reliability",w:18.0,c:"--d4"},
+  4:{ar:"MLOps و LLMOps والنشر والموثوقية",en:"MLOps, LLMOps, Deployment & Reliability",w:18.0,c:"--d4"},
   5:{ar:"المعمارية والبنية التحتية والأداء والتوسع",en:"Architecture, Infrastructure, Performance & Scalability",w:12.6,c:"--d5"},
   6:{ar:"الذكاء الاصطناعي المسؤول والأمن والحوكمة",en:"Responsible AI, Security & Governance",w:14.7,c:"--d6"},
   7:{ar:"الأعمال والممارسة المهنية والتعاون",en:"Business, Professional Practice & Collaboration",w:6.7,c:"--d7"},
@@ -715,14 +752,149 @@ function renderToday(){
     '<ul class="tasks">'+sessions(day).am.slice(0,3).map(function(t,i){return taskLi(day.d+":a"+i,t);}).join("")+'</ul>'+
     '<div class="row"><a class="btn primary" href="#day-'+day.d+'" data-open="day-'+day.d+'">افتحي خطة اليوم كاملة</a></div>';
 }
-function renderAll(){renderPlan();renderStats();renderToday();}
+function renderAll(){renderPlan();renderStats();renderToday();if(typeof renderDomains==="function")renderDomains();}
 
 function renderStatic(){
-  document.getElementById("weights").innerHTML=[1,2,3,4,5,6,7].map(function(k){var D=DOM[k];return '<div class="w-row" style="--c:var('+D.c+')"><div class="w-name"><b>'+k+'. '+D.ar+'</b><span class="en">'+D.en+'</span></div><div class="w-val">'+D.w.toFixed(1)+'%</div><div class="w-bar"><i style="width:'+(D.w/18*100)+'%"></i></div></div>';}).join("");
+  if(document.getElementById("weights"))document.getElementById("weights").innerHTML=[1,2,3,4,5,6,7].map(function(k){var D=DOM[k];return '<div class="w-row" style="--c:var('+D.c+')"><div class="w-name"><b>'+k+'. '+D.ar+'</b><span class="en">'+D.en+'</span></div><div class="w-val">'+D.w.toFixed(1)+'%</div><div class="w-bar"><i style="width:'+(D.w/18*100)+'%"></i></div></div>';}).join("");
   document.getElementById("rules-list").innerHTML=[4,1,2,6,3,5,7].map(function(k){var D=DOM[k];return '<div class="panel"><h3><span class="chip" style="--c:var('+D.c+')">'+D.w.toFixed(1)+'%</span>'+D.ar+'</h3><ul>'+RULES[k].map(function(r){return '<li>إذا '+r[0]+' ← '+r[1]+'</li>';}).join("")+'</ul></div>';}).join("");
   function card(x){return '<div class="link"><span class="kind">'+esc(x.k)+'</span><b>'+esc(x.n)+'</b><p>'+esc(x.d)+'</p><div class="url">'+esc(x.u)+'</div><div class="row"><a class="btn sm primary" href="'+esc(x.u)+'" target="_blank" rel="noopener">افتحي</a><button type="button" class="btn sm copy" data-copy="'+esc(x.u)+'">انسخي الرابط</button></div></div>';}
   document.getElementById("links-mine").innerHTML=Object.keys(LINKS).map(function(k){return card(LINKS[k]);}).join("");
   document.getElementById("links-extra").innerHTML=Object.keys(EXTRA).map(function(k){return card(EXTRA[k]);}).join("");
+}
+
+/* ---------- domain hub: notes, videos, reading, scenarios ---------- */
+function yt(id){return "https://www.youtube.com/watch?v="+id;}
+function yts(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q);}
+var HUB = {
+ 1:{notes:[
+   "ابدئي دايماً بتأطير المشكلة: وش الهدف التجاري؟ هل فيه labels (supervised) أو لا (unsupervised)؟ تصنيف ولا انحدار؟",
+   "جودة البيانات أهم من النموذج: القيم المفقودة، القيم الشاذة، عدم التوازن، والتسريب (leakage) أخطر شي لأنه يعطي نتيجة ممتازة كاذبة.",
+   "التقسيم يحاكي الإنتاج: test ما يُلمس إلا مرة وحدة، والبيانات الزمنية تتقسّم بالزمن، والعميل الواحد ما يظهر في التدريب والاختبار.",
+   "Overfitting: ممتاز في التدريب وضعيف في التحقق. العلاج: regularization، بيانات أكثر، نموذج أبسط، early stopping. Underfitting: العكس، نموذج أقوى أو ميزات أفضل.",
+   "المقياس يتحدد من تكلفة الخطأ: FN مكلف ← Recall. FP مكلف ← Precision. بيانات غير متوازنة ← PR-AUC وF1 بدل Accuracy.",
+   "تغيير العتبة (threshold) يبدّل بين Precision وRecall بدون إعادة تدريب، وغالباً هو الحل الأرخص في السيناريو.",
+   "الانحدار: MAE سهل التفسير، RMSE يعاقب الأخطاء الكبيرة، MAPE ينكسر قرب الصفر.",
+   "البيانات الجدولية: gradient boosting غالباً الأفضل. والتفسير مطلوب: نموذج أبسط أو SHAP."],
+  yt:[["StatQuest: The Confusion Matrix",yt("Kdsp6soqA7o")],["StatQuest: ROC and AUC",yt("4jRBRDbJemM")],["StatQuest: Cross Validation",yt("fSytzGwwBVw")],["StatQuest: Bias and Variance",yt("EuBBz3bI-aA")],["StatQuest: Regularization (Ridge / L2)",yt("Q81RR3yKn30")],["StatQuest: Random Forests",yt("J4Wdy0Wc_xQ")],["StatQuest: Gradient Boost",yt("3CC4N4z3GJc")],["Google Cloud Tech: What is Machine Learning?",yt("HcqpanDadyQ")],["بحث: Data leakage explained",yts("data leakage machine learning explained")],["بحث: Precision vs Recall (StatQuest)",yts("statquest precision recall")],["بحث بالعربي: شرح تعلم الآلة",yts("شرح تعلم الآلة بالعربي")]],
+  read:["gmlcc","statq","qarni","asiri"],
+  sc:[{q:"A screening model flags patients for a cheap, harmless follow-up test. Missing a sick patient is very serious. Only 1% of cases are positive. Which metric should guide model selection?",o:["Overall accuracy","Recall at an acceptable precision, compared using PR-AUC","Specificity only","R-squared"],a:1,w:"تفويت مريض خطير والمتابعة رخيصة، فالأولوية للـ Recall. والبيانات غير متوازنة، فالـ Accuracy مضلل وPR-AUC أنسب."},
+      {q:"A house-price model has an acceptable MAE, but a few predictions are off by millions, causing large financial losses. Which metric better reflects this risk?",o:["MAE","RMSE","Accuracy","Number of features"],a:1,w:"RMSE يربّع الخطأ فيعاقب الأخطاء الكبيرة، وهذا اللي يعكس الخسارة هنا."}]},
+ 2:{notes:[
+   "الشبكة العصبية تتعلم بالـ gradient descent والـ backpropagation. معدل التعلم العالي يخلي الـ loss يتذبذب، والمنخفض يبطّئ التدريب.",
+   "CNN للصور، RNN/LSTM للتسلسلات (قديم)، والـ Transformer هو الأساس الحالي للنصوص وأكثر.",
+   "الـ attention يخلي كل token يشوف باقي السياق. وتكلفته تكبر مع طول السياق، يعني زمن وتكلفة أعلى.",
+   "LLM يتنبأ بالـ token التالي. temperature منخفضة = إجابات ثابتة، وعالية = إبداع وتنوع. والهلوسة طبيعية لأنه يولّد نص محتمل، مو حقيقة مؤكدة.",
+   "اختيار الأسلوب: prompting للمهام البسيطة، RAG للمعرفة المتغيرة أو الخاصة مع استشهاد، fine-tuning للأسلوب والصيغة والسلوك.",
+   "LoRA/QLoRA يدرّب جزء صغير من الأوزان، فيكون أرخص وأقل ذاكرة. Distillation: نموذج صغير يتعلم من نموذج كبير.",
+   "تقييم LLM: مجموعة ذهبية، LLM-as-judge معاير على تقييم بشري، وقياس groundedness في RAG.",
+   "الوكلاء (agents): نموذج + أدوات + تخطيط. كل أداة صلاحية، فطبّقي least privilege."],
+  yt:[["3Blue1Brown: But what is a neural network?",yt("aircAruvnKk")],["3Blue1Brown: Gradient descent",yt("IHZwWFHWa-w")],["3Blue1Brown: Backpropagation",yt("Ilg3gGewQ5U")],["3Blue1Brown: Transformers, the tech behind LLMs",yt("wjZofJX0v4M")],["3Blue1Brown: Attention in transformers",yt("eMlx5fFNoYc")],["3Blue1Brown: LLMs explained briefly",yt("LPZh9BOjkQs")],["Karpathy: Intro to Large Language Models",yt("zjkBMFhNj_g")],["Karpathy: Deep Dive into LLMs like ChatGPT",yt("7xTGNNLPyMI")],["StatQuest: Word Embedding and Word2Vec",yt("viZrOnJclY0")],["IBM: What is RAG?",yt("T-D1OfcDW1M")],["IBM: RAG vs Fine-Tuning vs Prompt Engineering",yt("zYGDpG-pTho")],["IBM: What are AI Agents?",yt("F8NKVhkZZWI")],["بحث: LoRA and QLoRA explained",yts("LoRA QLoRA explained")],["بحث بالعربي: شرح الذكاء الاصطناعي التوليدي",yts("شرح الذكاء الاصطناعي التوليدي LLM بالعربي")]],
+  read:["hf","dlai","b3","eyan","nvidia"],
+  sc:[{q:"A support assistant must answer questions about a 50,000-item product catalog that changes daily. The base LLM answers fluently but invents product specifications. What is the most effective fix?",o:["Fine-tune the model weekly on the catalog","RAG: retrieve the relevant catalog entries and instruct the model to answer only from the retrieved context","Raise the temperature","Write a longer system prompt"],a:1,w:"بيانات تتغير يومياً وهلوسة في الحقائق، فالحل RAG يربط الإجابة بالمصدر. الـ fine-tuning ما يلحق التغيير اليومي."},
+      {q:"You have only 500 labeled X-ray images for a new classification task and limited compute. Which approach is most practical?",o:["Train a CNN from scratch","Transfer learning from a pretrained vision model, with data augmentation","k-means clustering","A text-only LLM classifier"],a:1,w:"بيانات قليلة، فنبدأ من نموذج مدرّب مسبقاً (transfer learning) ونضيف augmentation."}]},
+ 3:{notes:[
+   "نمط الاستدلال: batch (ملايين السجلات بدون استعجال)، real-time API (طلب برد فوري)، streaming (أحداث مستمرة)، edge (على الجهاز بدون اتصال أو للخصوصية).",
+   "العمليات الطويلة تصير async: طابور + worker + webhook أو polling. لا تطوّلين الـ timeout.",
+   "التعامل مع خدمات خارجية: timeout، retry بـ exponential backoff + jitter، idempotency، rate limits، fallback.",
+   "مخرجات LLM اللي يقرأها كود: structured output أو JSON schema، مع تحقق وإعادة محاولة.",
+   "الاختبار في ML: اختبارات كود + تحقق من البيانات (schema وقيم) + اختبارات سلوك النموذج + regression eval على golden set.",
+   "Versioning لكل شي: الكود (Git)، البيانات (DVC)، النماذج (registry)، والـ prompts.",
+   "Training-serving skew: نفس حساب الميزات في التدريب والإنتاج عن طريق feature store أو pipeline موحد.",
+   "Docker يضمن بيئة متطابقة، والـ microservices تفصل النموذج عن التطبيق وتسمح بتوسيعه لحاله."],
+  yt:[["بحث: Batch vs real-time inference",yts("batch vs real-time inference machine learning")],["بحث: Model serving REST API explained",yts("machine learning model serving explained")],["بحث: Feature store explained",yts("feature store explained machine learning")],["بحث: Testing ML systems",yts("testing machine learning systems in production")],["بحث: Docker for machine learning",yts("docker for machine learning explained")],["بحث: Retries, exponential backoff, circuit breaker",yts("exponential backoff circuit breaker explained")],["بحث: LLM function calling & structured outputs",yts("LLM function calling structured outputs explained")],["بحث بالعربي: شرح API والـ Docker",yts("شرح Docker و API بالعربي")]],
+  read:["mwml","rules","eyan","asiri"],
+  sc:[{q:"A nightly job must score 30 million customer records for next-day campaigns. There is no real-time requirement and cost matters. Which inference pattern fits best?",o:["Real-time REST call per record","A scheduled batch inference job writing results to a table","Streaming inference on Kafka","Edge inference on user devices"],a:1,w:"حجم كبير بدون استعجال، فالـ batch أرخص وأبسط."},
+      {q:"An LLM returns order data that downstream code parses into an ordering system. Malformed JSON occasionally breaks the pipeline. Best fix?",o:["Ask more politely in the prompt","Use structured outputs / a JSON schema, validate every response and retry or fall back on failure","Increase the temperature","Parse the text with regular expressions"],a:1,w:"المخرجات المقيّدة بـ schema مع التحقق والإعادة تضمن إن الكود ما ينكسر."}]},
+ 4:{notes:[
+   "مستويات نضج MLOps: (0) يدوي، (1) pipeline تدريب آلي، (2) CI/CD للـ pipeline نفسها. الإجابة غالباً الخطوة التالية للشركة.",
+   "Experiment tracking + model registry = تعرفين أي بيانات وكود وإعدادات أنتجت كل نموذج (lineage)، وترجعين لإصدار سابق بسهولة.",
+   "Shadow: ترافيك حقيقي بدون أثر على المستخدم. Canary: نسبة صغيرة مع مراقبة. Blue/green: تبديل كامل ورجوع فوري. A/B: قياس أثر تجاري.",
+   "Data drift: المدخلات تغيرت. Concept drift: العلاقة بين المدخلات والنتيجة تغيرت. Skew: فرق بين التدريب والإنتاج.",
+   "إذا الـ labels تتأخر، راقبي توزيع المدخلات والمخرجات كإنذار مبكر (PSI، KS).",
+   "إعادة التدريب: مجدولة أو مبنية على drift أو تراجع الأداء، ودايماً بعدها تقييم قبل النشر.",
+   "LLMOps: versioning للـ prompts، تقييم مستمر، guardrails، تتبع التكلفة والزمن، fallback وcircuit breaker.",
+   "الموثوقية: SLO واضح، تنبيهات، rollback سريع، وpostmortem بعد كل حادثة."],
+  yt:[["IBM: What is MLOps?",yt("OejCJL2EC3k")],["بحث: Shadow vs canary vs blue/green deployment",yts("shadow canary blue green deployment machine learning")],["بحث: A/B testing ML models",yts("A/B testing machine learning models production")],["بحث: Data drift vs concept drift",yts("data drift vs concept drift explained")],["بحث: MLflow model registry tutorial",yts("MLflow model registry tutorial")],["بحث: ML monitoring in production",yts("machine learning monitoring in production")],["بحث: LLMOps explained",yts("LLMOps explained")],["بحث بالعربي: شرح MLOps",yts("شرح MLOps بالعربي")]],
+  read:["gmlops","evid","fsdl","mwml","aws","awsmle"],
+  sc:[{q:"A new recommendation model passed offline evaluation. Before a full rollout, the business wants to know whether it increases revenue per session. Which approach?",o:["Shadow deployment","A/B test with enough traffic for statistical significance on revenue per session","Blue/green switch","Retrain with more data"],a:1,w:"السؤال عن أثر تجاري (revenue)، والـ A/B هو اللي يقيس الأثر بدلالة إحصائية. الـ shadow ما يقيس سلوك المستخدم."},
+      {q:"Ten minutes after deploying model v2, error rates spike. You must restore service immediately with minimal risk. What do you do?",o:["Hotfix the code directly in production","Roll back to v1 (switch blue/green back or redeploy the previous registry version), then investigate","Retrain v2","Wait to collect more data"],a:1,w:"الأولوية استعادة الخدمة: رجوع فوري للإصدار المستقر، وبعدها التحقيق."}]},
+ 5:{notes:[
+   "رتّبي القيود: الامتثال وإقامة البيانات أولاً، بعدها زمن الاستجابة، ثم التكلفة، ثم الدقة.",
+   "البيانات الحساسة في السعودية تبقى داخل المملكة: منطقة سحابية محلية أو on-prem أو هجين.",
+   "GPU للتدريب والاستدلال الثقيل، وCPU يكفي لنماذج صغيرة أو batch رخيص.",
+   "Latency (زمن الطلب، p95/p99) غير throughput (طلبات بالثانية). الـ batching يرفع الـ throughput ممكن على حساب الـ latency.",
+   "تحسين الاستدلال: quantization، distillation، pruning، continuous batching، KV cache، speculative decoding، ومحركات مثل vLLM وTriton.",
+   "التوسع: horizontal autoscaling أو serverless للحمل المتذبذب، مع حد أدنى دافئ لتجنب cold start.",
+   "التدريب الموزع: data parallelism إذا البيانات كثيرة، model/tensor/pipeline parallelism إذا النموذج ما يدخل في GPU واحد.",
+   "التكلفة: spot instances مع checkpoints، right-sizing، caching، واختيار أصغر نموذج يحقق الهدف."],
+  yt:[["بحث: vLLM and PagedAttention explained",yts("vLLM PagedAttention explained")],["بحث: LLM inference optimization",yts("LLM inference optimization quantization batching KV cache")],["بحث: KV cache explained",yts("KV cache explained transformers")],["بحث: Distributed training (data vs model parallel)",yts("distributed training data parallelism model parallelism explained")],["بحث: Kubernetes autoscaling explained",yts("kubernetes autoscaling explained")],["بحث: ML system design",yts("machine learning system design interview")],["بحث بالعربي: شرح الحوسبة السحابية",yts("شرح الحوسبة السحابية بالعربي")]],
+  read:["awsml","vllm","fsdl","chip"],
+  sc:[{q:"A 70B-parameter model's weights do not fit in a single GPU's memory for training. What is required?",o:["Data parallelism only","Model/tensor or pipeline parallelism, typically with sharding (e.g., FSDP or ZeRO)","A larger batch size","Train on CPUs"],a:1,w:"النموذج نفسه ما يدخل في GPU واحد، فلازم نقسمه (model/tensor parallelism). الـ data parallelism ينسخ النموذج كامل على كل GPU."},
+      {q:"An internal LLM assistant receives many repeated or near-identical questions (office hours, leave policy), and token costs keep rising. Best first step?",o:["Move to a larger model","Add semantic caching of responses and use prompt caching for the shared system prompt","Disable logging","Increase max tokens"],a:1,w:"الأسئلة المتكررة تتخدم من الـ cache بدون استدعاء النموذج، وهذا يقلل التكلفة والزمن."}]},
+ 6:{notes:[
+   "التحيّز يجي من البيانات (sampling، تاريخي، labeling). قيسي الأداء لكل فئة، لأن الدقة الكلية تخفي الفروق.",
+   "حذف العمود الحساس ما يكفي بسبب المتغيرات البديلة (proxies). المعالجة تكون قبل التدريب أو أثناءه أو بعده.",
+   "التفسير: global (أهم الميزات عموماً) وlocal (ليش هذا القرار بالذات؟ SHAP أو LIME). الجهات التنظيمية تطلب local.",
+   "Human-in-the-loop للقرارات عالية الأثر، مع Model cards وتوثيق وaudit trail.",
+   "أمن LLM: prompt injection مباشر وغير مباشر. الحماية معمارية: محتوى خارجي غير موثوق، least privilege، وتأكيد بشري.",
+   "هجمات ثانية: data poisoning، adversarial examples، model extraction (الحل: rate limiting ومراقبة)، membership inference.",
+   "السعودية: مبادئ أخلاقيات الذكاء الاصطناعي من سدايا، نظام حماية البيانات الشخصية (PDPL)، تصنيف البيانات من NDMO، وإرشادات الذكاء التوليدي.",
+   "عالمياً: NIST AI RMF (Govern, Map, Measure, Manage)، ISO/IEC 42001، وEU AI Act بمستويات المخاطر."],
+  yt:[["IBM: What Is a Prompt Injection Attack?",yt("jrHRe9lSqqA")],["بحث: OWASP Top 10 for LLM",yts("OWASP top 10 for LLM applications explained")],["بحث: SHAP values explained",yts("SHAP values explained")],["بحث: AI fairness metrics",yts("AI fairness metrics demographic parity equal opportunity explained")],["بحث: NIST AI RMF explained",yts("NIST AI risk management framework explained")],["بحث بالعربي: مبادئ أخلاقيات الذكاء الاصطناعي سدايا",yts("مبادئ أخلاقيات الذكاء الاصطناعي سدايا")],["بحث بالعربي: نظام حماية البيانات الشخصية",yts("شرح نظام حماية البيانات الشخصية السعودي")]],
+  read:["owasp","iml","nist","sdaiaGov","atlas"],
+  sc:[{q:"A bank must explain to a customer why an ML model rejected their loan application.",o:["Provide global feature importance for the whole model","Provide a local, per-decision explanation (e.g., SHAP) translated into clear reason codes, with an option for human review","Publish the model weights","No explanation is needed"],a:1,w:"العميل يسأل عن قراره هو، فيحتاج تفسير local لقراره، بلغة مفهومة، مع إمكانية مراجعة بشرية."},
+      {q:"Attackers send large volumes of crafted queries to your public model API to reconstruct a copy of the model.",o:["Data poisoning","Model extraction: mitigate with authentication, rate limiting, query monitoring and limiting output detail","Concept drift","Prompt injection"],a:1,w:"استنساخ النموذج عن طريق الاستعلامات اسمه model extraction. الحل: تحكم بالوصول، حد للطلبات، مراقبة، وتقليل تفاصيل المخرجات."}]},
+ 7:{notes:[
+   "ابدئي من المشكلة التجارية ومقياس النجاح (KPI)، مو من النموذج.",
+   "حوّلي مقاييس النموذج لأثر تجاري: كم تكلف الأخطاء؟ كم توفّر؟ وش المخاطر؟",
+   "Build vs buy: إذا حل جاهز يغطي الاحتياج ويحقق الامتثال، الشراء أسرع وأقل مخاطرة.",
+   "PoC صغير ومحدد لما القيمة غير مؤكدة، بعده MVP ثم إنتاج مع مراقبة.",
+   "التواصل مع غير التقنيين: الأثر والمخاطر والمقايضات، بدون مصطلحات.",
+   "التعاون: علماء البيانات، مهندسو البيانات، الأمن، القانوني، وأصحاب المصلحة. وثّقي القرارات وسلّمي بشكل مرتب."],
+  yt:[["Henrik Kniberg: Generative AI in a Nutshell",yt("2IK3DFHRFfw")],["بحث: Scoping ML projects with business KPIs",yts("how to scope a machine learning project business KPIs")],["بحث: Build vs buy AI",yts("build vs buy AI solutions enterprise")],["بحث: Communicating ML results to stakeholders",yts("communicating machine learning results to stakeholders")],["بحث بالعربي: إدارة مشاريع الذكاء الاصطناعي",yts("إدارة مشاريع الذكاء الاصطناعي")]],
+  read:["rules","chip"],
+  sc:[{q:"A department asks for 'an AI chatbot' but has no defined goal, users, or success criteria. What is your first step?",o:["Pick the most capable LLM","Run a discovery session with stakeholders to define the problem, users, success KPIs and constraints","Build a prototype immediately","Start fine-tuning"],a:1,w:"بدون هدف ومقياس نجاح ما تقدرين تحكمين على أي حل. أول خطوة تأطير المشكلة مع أصحاب المصلحة."},
+      {q:"A vendor API meets 90% of requirements at a fraction of the cost of building in-house, keeps data in-region, and the deadline is 6 weeks. Recommended path?",o:["Build a custom model from scratch","Run a short PoC with the vendor, integrate it, and plan how to cover the remaining gaps","Postpone the project","Hire a new team first"],a:1,w:"الحل الجاهز يحقق أغلب الاحتياج والامتثال والوقت ضيق، فالشراء مع PoC هو الأقل مخاطرة."}]}
+};
+var selDom = "4";
+try { selDom = localStorage.getItem("aieb-dom") || "4"; } catch(e){}
+function vidLabel(v){
+  var t=v[0], tag="فيديو", m=t.match(/^بحث( بالعربي)?: (.*)$/);
+  if(m){tag=m[1]?"بحث عربي":"بحث يوتيوب";t=m[2];}
+  var en=isTextOnlyEn(t);
+  return '<span class="tag">'+tag+'</span><a href="'+esc(v[1])+'" target="_blank" rel="noopener"'+(en?' dir="ltr" class="en"':'')+'>'+esc(t)+'</a>';
+}
+function vidKey(k,i){return "v"+k+":"+i;}
+function domKeys(k){
+  var ks=[]; DAYS.forEach(function(d){ if(String(d.dom)===String(k)) ks=ks.concat(keysOf(d)); });
+  HUB[k].yt.forEach(function(_,i){ks.push(vidKey(k,i));});
+  return ks;
+}
+function domPct(k){var ks=domKeys(k),n=0;ks.forEach(function(x){if(done[x])n++;});return Math.round(n*100/ks.length);}
+function scnHTML(sc){return '<div class="scn" data-a="'+sc.a+'"><div class="q">'+esc(sc.q)+'</div><div class="opts">'+sc.o.map(function(o,i){return '<button type="button" data-i="'+i+'">'+String.fromCharCode(65+i)+'. '+esc(o)+'</button>';}).join("")+'</div><div class="why" hidden>'+esc(sc.w)+'</div></div>';}
+function renderDomStats(){
+  [1,2,3,4,5,6,7].forEach(function(k){
+    var p=domPct(k), c=document.querySelector('.dcard[data-d="'+k+'"]');
+    if(c){c.querySelector(".dnum").textContent=p;c.querySelector(".dbar i").style.width=p+"%";}
+    var h=document.getElementById("dp-"+k); if(h) h.textContent=p;
+    var hb=document.getElementById("dpb-"+k); if(hb) hb.style.width=p+"%";
+  });
+}
+function renderDomains(){
+  document.getElementById("dom-cards").innerHTML=[1,2,3,4,5,6,7].map(function(k){var D=DOM[k],p=domPct(k);
+    return '<button type="button" class="dcard" data-d="'+k+'" aria-pressed="'+(String(k)===selDom)+'" style="--c:var('+D.c+')"><span class="dtop"><span class="dn">المحور '+k+'</span><span class="dw mono">'+D.w.toFixed(1)+'%</span></span><span class="dname">'+D.ar+'</span><span class="dprog"><b class="dnum mono">'+p+'</b><span class="mono">/ 100</span></span><span class="dbar"><i style="width:'+p+'%"></i></span></button>';}).join("");
+  var k=selDom, D=DOM[k], H=HUB[k], p=domPct(k);
+  var days=DAYS.map(function(d,i){return {d:d,i:i};}).filter(function(x){return String(x.d.dom)===String(k);});
+  var allSc=days.filter(function(x){return x.d.sc;}).map(function(x){return x.d.sc;}).concat(H.sc);
+  var rules=RULES[k].map(function(r){return '<li>إذا '+r[0]+' ← '+r[1]+'</li>';}).join("");
+  var h='<div class="dhead" style="--c:var('+D.c+')"><div><span class="eyebrow">المحور '+k+' · الوزن '+D.w.toFixed(1)+'%</span><h3>'+D.ar+'</h3><span class="en muted" style="font-size:13.5px">'+D.en+'</span></div><div class="dscore"><b class="mono" id="dp-'+k+'">'+p+'</b><span class="mono">/ 100</span><span class="dbar"><i id="dpb-'+k+'" style="width:'+p+'%"></i></span></div></div>';
+  h+='<p class="muted" style="margin:0;font-size:13.5px">التقدّم = مهام أيام هذا المحور في الخطة + الفيديوهات اللي علّمتِ عليها هنا.</p>';
+  h+='<div class="dgrid"><div class="panel"><h3>الشرح المختصر</h3><ul class="notes">'+H.notes.map(function(n){return '<li>'+esc(n)+'</li>';}).join("")+'</ul></div>';
+  h+='<div class="panel"><h3>فيديوهات يوتيوب</h3><p class="muted" style="margin:0;font-size:13px">علّمي ✓ بعد ما تشوفين الفيديو.</p><ul class="tasks">'+H.yt.map(function(v,i){var key=vidKey(k,i);return '<li><label><input type="checkbox" data-k="'+key+'"'+(done[key]?" checked":"")+'><span class="txt">'+vidLabel(v)+'</span></label></li>';}).join("")+'</ul></div></div>';
+  h+='<div class="dgrid"><div class="panel"><h3>اقرئي وذاكري من</h3><div class="rlist">'+H.read.map(function(r){var x=L(r);return '<a class="rl" href="'+esc(x.u)+'" target="_blank" rel="noopener"><b>'+esc(x.n)+'</b><span>'+esc(x.d)+'</span></a>';}).join("")+'</div></div>';
+  h+='<div class="panel"><h3>قواعد القرار</h3><ul>'+rules+'</ul><h3 style="margin-top:8px">أيام هذا المحور</h3><div class="row">'+days.map(function(x){var dt=parse(x.d.d);return '<a class="btn sm" href="#day-'+x.d.d+'" data-open="day-'+x.d.d+'">'+dt.getDate()+' '+AR_MONTH[dt.getMonth()]+'</a>';}).join("")+'</div></div></div>';
+  h+='<div class="panel"><h3>سيناريوهات المحور ('+allSc.length+')</h3><p class="muted" style="margin:0;font-size:13px">اختاري إجابتك ويطلع لك الصح والسبب.</p><div class="sclist">'+allSc.map(scnHTML).join("")+'</div></div>';
+  document.getElementById("dom-detail").innerHTML=h;
 }
 
 /* ---------- events ---------- */
@@ -732,7 +904,10 @@ document.addEventListener("change",function(e){
   if (e.target.checked) done[k]=true; else delete done[k];
   save();
   document.querySelectorAll('input[data-k="'+k+'"]').forEach(function(i){i.checked=e.target.checked;});
-  var dId=k.split(":")[0], day=DAYS.find(function(d){return d.d===dId;}), p=pct(day);
+  renderDomStats();
+  var dId=k.split(":")[0], day=DAYS.find(function(d){return d.d===dId;});
+  if(!day){renderStats();return;}
+  var p=pct(day);
   var det=document.getElementById("day-"+dId);
   if (det){var r=det.querySelector(".ring");r.style.setProperty("--p",p);r.querySelector("span").textContent=p+"%";det.classList.toggle("all-done",p===100);}
   renderStats();
@@ -740,6 +915,7 @@ document.addEventListener("change",function(e){
   if (p===100) toast("أحسنتِ! خلّصتِ يوم "+parse(dId).getDate()+" ✓");
 });
 document.addEventListener("click",function(e){
+  var dc=e.target.closest(".dcard"); if(dc){selDom=dc.getAttribute("data-d");try{localStorage.setItem("aieb-dom",selDom);}catch(err){}renderDomains();return;}
   var f=e.target.closest("[data-f]"); if(f){filter=f.getAttribute("data-f");renderFilters();renderPlan();return;}
   var o=e.target.closest(".opts button");
   if(o){var box=o.closest(".scn"),a=+box.getAttribute("data-a"),i=+o.getAttribute("data-i");
@@ -747,7 +923,7 @@ document.addEventListener("click",function(e){
     if(i!==a)o.classList.add("wrong"); box.querySelector(".why").hidden=false; return;}
   var c=e.target.closest(".copy");
   if(c){var txt=c.getAttribute("data-copy");
-    var fallback=function(){var pre=c.parentElement.querySelector(".prompt-box,.url")||c.closest(".link").querySelector(".url");if(pre){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);}toast("محدد، انسخيه يدوياً");};
+    var fallback=function(){var pre=c.parentElement.querySelector(".prompt-box,.url")||(c.closest(".link")&&c.closest(".link").querySelector(".url"));if(pre){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);}toast("محدد، انسخيه يدوياً");};
     try{navigator.clipboard.writeText(txt).then(function(){toast("تم النسخ");},fallback);}catch(err){fallback();}
     return;}
   var op=e.target.closest("[data-open]"); if(op){var d=document.getElementById(op.getAttribute("data-open")); if(!d){filter="all";renderFilters();renderPlan();d=document.getElementById(op.getAttribute("data-open"));} if(d) d.open=true;}
