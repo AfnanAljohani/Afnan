@@ -23,16 +23,63 @@ window.startBnanApp = function(){
     contact:{ar:"تواصل معنا 📬\nالبريد: a.almass3dii@gmail.com\nواتساب: ‎+966 54 537 9819",en:"Contact us 📬\nEmail: a.almass3dii@gmail.com\nWhatsApp: +966 54 537 9819"},
     wa:{ar:"حيّاك 💚 بفتح لك واتساب الحين…",en:"Welcome 💚 Opening WhatsApp now…"},
     hi:{ar:"هلا والله 👋 أنا بنان، مساعدتك الذكية. اسألني عن الخدمات، الأسعار، المشاريع، أو كيف ترفع تحدّيك.",en:"Hi there 👋 I'm Banan, your AI assistant. Ask me about services, pricing, projects, or submitting a challenge."},
-    none:{ar:"ما فهمت عليك تمامًا 🤖 جرّب تسأل عن: الخدمات، الأسعار، الورش، المشاريع، أو الشراكات.\nأو راسل أفنان مباشرة على واتساب 💚",en:"I didn't quite get that 🤖 Try asking about services, pricing, workshops, projects or partnerships.\nOr message Afnan directly on WhatsApp 💚"}
+    thanks:{ar:"العفو، هذا واجبنا 💜 إذا عندك أي سؤال ثاني أنا موجودة.",en:"You're welcome 💜 I'm here if you have any other question."},
+    how:{ar:"الحمدلله بخير، وأنت؟ 😊 قولي كيف أقدر أساعدك اليوم: خدمات، مشاريع، أو فكرة عندك؟",en:"I'm doing great, thanks! 😊 How can I help you today: services, projects, or an idea you have?"},
+    who:{ar:"أنا بنان 🤖 المساعدة الذكية لشركة بنان للتقنيات الذكية.\nأعرّفك على خدماتنا ومشاريعنا، وأساعدك ترفع طلب استشارة.",en:"I'm Banan 🤖 the AI assistant of Bnan AI Technologies.\nI can tell you about our services and projects, and help you request a consultation."},
+    bye:{ar:"مع السلامة 👋 سعدت بالحديث معك، وبنان دايم في خدمتك 💜",en:"Goodbye 👋 It was great talking to you. Bnan is always here to help 💜"},
+    ai:{ar:"الذكاء الاصطناعي ببساطة: أنظمة تتعلّم من البيانات وتساعدك تحلل، تتوقّع، وتتخذ قرارات أسرع 🧠\nمثلًا: توقّع المبيعات، فهم آراء العملاء، أو مساعد ذكي يرد على عملائك.\nتبي نشوف كيف يفيد شغلك أنت؟",en:"AI, simply put: systems that learn from data to help you analyze, predict and decide faster 🧠\nFor example: sales forecasting, understanding customer feedback, or a smart assistant for your customers.\nWant to see how it could help your work?"},
+    data:{ar:"تحليل البيانات يحوّل أرقامك لقرارات واضحة 📊\nنبني لك لوحات مؤشرات (Power BI أو Tableau) توضح وش ينباع أكثر، مين عملاؤك، ووين الفرص.\nعندك بيانات تبي نشوف وش تقول؟",en:"Data analysis turns your numbers into clear decisions 📊\nWe build dashboards (Power BI or Tableau) that show what sells, who your customers are, and where the opportunities are.\nHave data you'd like us to look at?"},
+    location:{ar:"مقرنا في الرياض 📍 ونشتغل مع العملاء في كل مكان عن بُعد.",en:"We're based in Riyadh 📍 and work with clients anywhere, remotely."},
+    yes:{ar:"حلو 👌 أسهل طريقة: اختر «استشارة» في نموذج التواصل أسفل الصفحة واكتب فكرتك، أو راسل أفنان على واتساب 0545379819 💜",en:"Great 👌 The easiest way: pick “Consultation” in the contact form below and describe your idea, or message Afnan on WhatsApp +966 54 537 9819 💜"},
+    none:{ar:"خلّني أتأكد إني فهمتك 🤔 تقصد الخدمات، الأسعار، المشاريع، أو تبي استشارة؟\nولو سؤالك عن شي ثاني، أفنان ترد عليك بنفسها على واتساب 0545379819 💜",en:"Let me make sure I understood 🤔 Do you mean our services, pricing, projects, or a consultation?\nIf it's something else, Afnan will answer you herself on WhatsApp +966 54 537 9819 💜"}
   };
-  var keys = [
-    ['wa',/واتس|whats|قروب|group/i],['join',/أبدأ مشروع|ابدأ مشروع|مشروع جديد|انضم|أنضم|اطلب|طلب خدمة|start a project|join|request|hire/i],
-    ['ideas',/سرق|تنسرق|حقوق|فكرت|steal|stol|idea|copy/i],['projects',/مشروع|مشاريع|تشتغلين|تشتغل|project|working on/i],['service',/خدم|تقدم|تقدّم|استشار|حل|service|offer|consult/i],
-    ['events',/فعالي|ورش|ورشة|هاكاثون|لقاء|event|workshop|hackathon/i],
-    ['support',/شراك|استثمار|دعم|رعاي|partner|invest|support|sponsor/i],['cost',/مجان|سعر|أسعار|اسعار|تكلف|بكم|free|cost|price|pricing/i],
-    ['founder',/مؤسس|رئيس|أفنان|افنان|مين|founder|president|who/i],['learn',/أبدأ|ابدأ|دورة|كورس|أتعلم|اتعلم|مصادر|start|course|learn/i],
-    ['contact',/تواصل|رقم|ايميل|إيميل|بريد|contact|email|phone/i],['hi',/هلا|السلام|مرحب|hello|hi\b|hey/i],['what',/بنان|وش هو|ما هو|what|bnan/i]
+  // Built-in understanding for when the Claude agent isn't connected: normalize the Arabic spelling,
+  // then score every intent by how many of its words appear; the best score wins.
+  function norm(t){
+    return t.toLowerCase()
+      .replace(/[\u064B-\u065F\u0670\u0640]/g, '')          // tashkeel and tatweel
+      .replace(/[أإآٱ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/ؤ/g, 'و').replace(/ئ/g, 'ي')
+      .replace(/[^\u0600-\u06FFa-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  var intents = [
+    ['hi', ['هاي','هلا','هلو','مرحبا','مرحبتين','اهلا','السلام','سلام','صباح','مساء','يا هلا','hi','hello','hey','salam'], true],
+    ['thanks', ['شكرا','مشكور','مشكوره','يعطيك العافيه','الله يعطيك','تسلم','تسلمين','جزاك','thanks','thank','thx']],
+    ['how', ['كيفك','كيف حالك','شلونك','علومك','وش اخبارك','اخبارك','how are you']],
+    ['bye', ['مع السلامه','باي','الى اللقاء','نشوفك','bye','goodbye','see you']],
+    ['who', ['مين انت','من انت','وش انتي','مين انتي','وش اسمك','اسمك','who are you','your name']],
+    ['wa', ['واتس','واتساب','whatsapp','قروب']],
+    ['cost', ['سعر','اسعار','بكم','كم السعر','تكلفه','تكلف','مجاني','مجانا','price','pricing','cost','free']],
+    ['join', ['ابدا مشروع','مشروع جديد','اطلب','طلب خدمه','ابي خدمه','ابغى خدمه','استشاره','احجز','موعد','hire','start a project','consultation','book']],
+    ['ideas', ['سرق','تنسرق','حقوق','فكرتي','steal','stolen','copy']],
+    ['projects', ['مشاريع','مشروعكم','اعمالكم','اعمال','بورتفوليو','تشتغلين','projects','portfolio','your work']],
+    ['service', ['خدمات','خدمه','تقدمون','تسوون','وش تسوون','وش تقدرون','حلول','services','what do you do','offer']],
+    ['data', ['بيانات','تحليل','داشبورد','لوحه','مؤشرات','باور بي اي','power bi','tableau','dashboard','data','analytics']],
+    ['ai', ['ذكاء اصطناعي','الذكاء الاصطناعي','تعلم الاله','تعلم اله','شات جي بي تي','نموذج لغوي','machine learning','ai','artificial intelligence','llm']],
+    ['events', ['ورش','ورشه','دوره تدريبيه','تدريب','هاكاثون','workshop','training','hackathon']],
+    ['support', ['شراكه','شراكات','استثمار','مستثمر','رعايه','partner','invest','sponsor']],
+    ['founder', ['مؤسس','مؤسسه','افنان','المؤسسه','founder','afnan','ceo']],
+    ['learn', ['من وين ابدا','وين ابدا','اتعلم','كورس','دوره','مصادر','learn','course']],
+    ['contact', ['تواصل','رقم','جوال','ايميل','بريد','contact','email','phone']],
+    ['location', ['وين مقركم','وين انتم','موقعكم','مقر','الرياض','location','where are you']],
+    ['yes', ['ايه','ايوه','نعم','اكيد','ابي','ابغى','yes','sure','ok']],
+    ['what', ['بنان','وش هو','وش هي','ما هو','ما هي','عن الشركه','bnan','about']]
   ];
+  function matchIntent(q){
+    var t = ' ' + norm(q) + ' ', best = null, bestScore = 0;
+    intents.forEach(function(it){
+      var score = 0;
+      it[1].forEach(function(w){
+        var nw = norm(w);
+        // Short Latin words must match whole words ("hi" is not "this").
+        var hit = /^[a-z]{1,3}$/.test(nw) ? new RegExp('\\b' + nw + '\\b').test(t) : t.indexOf(nw) !== -1;
+        if(hit) score += nw.length > 4 ? 2 : 1;
+      });
+      // A greeting only wins when nothing more specific was asked ("هلا، بكم السعر؟" is about price).
+      if(it[2] && score) score = 0.5;
+      if(score > bestScore){ bestScore = score; best = it[0]; }
+    });
+    return best;
+  }
   var els = [].slice.call(document.querySelectorAll('[data-en]'));
   els.forEach(function(el){ el.dataset.ar = el.innerHTML; });
   var lang = 'ar';
@@ -88,23 +135,25 @@ window.startBnanApp = function(){
     body.appendChild(t); body.scrollTop = body.scrollHeight;
     return t;
   }
-  function reply(key){
+  function reply(key, l){
     var t = typing();
     setTimeout(function(){
-      t.remove(); say(answers[key][lang], 'bot');
+      t.remove(); say(answers[key][l || lang], 'bot');
       if(key === 'wa') window.open('https://wa.me/966545379819', '_blank', 'noopener');
     }, 650);
   }
   // Typed questions go to the Claude agent when the backend is configured; otherwise (or on failure)
   // the built-in keyword answers keep the chat useful.
   function ask(q){
-    var hit = keys.filter(function(k){ return k[1].test(q); })[0];
-    if(!BnanAPI.isOnline()){ reply(hit ? hit[0] : 'none'); return; }
+    var hit = matchIntent(q);
+    // Answer in the language the visitor typed in, whatever the page language is.
+    var l = /[\u0600-\u06FF]/.test(q) ? 'ar' : /[a-z]/i.test(q) ? 'en' : lang;
+    if(!BnanAPI.isOnline()){ reply(hit || 'none', l); return; }
     busy = true; var t = typing();
     BnanAPI.askBanan(history.slice(-16), lang).then(function(data){
       t.remove(); say(data.reply, 'bot');
     }).catch(function(){
-      t.remove(); reply(hit ? hit[0] : 'none');
+      t.remove(); reply(hit || 'none', l);
     }).then(function(){ busy = false; });
   }
   function openChat(){
