@@ -7,10 +7,17 @@ window.BnanAPI = (function(){
   var base = (cfg.supabaseUrl || '').replace(/\/+$/, '') + '/rest/v1/';
   var online = !!(cfg.supabaseUrl && cfg.supabaseAnonKey);
 
+  // Legacy anon keys are JWTs and also go in Authorization; newer publishable keys (sb_publishable_…) go in apikey only.
+  function authHeaders(){
+    var h = {apikey:cfg.supabaseAnonKey};
+    if(/^eyJ/.test(cfg.supabaseAnonKey || '')) h.Authorization = 'Bearer ' + cfg.supabaseAnonKey;
+    return h;
+  }
+
   function request(path, options){
     options = options || {};
     var ctrl = new AbortController(), timer = setTimeout(function(){ ctrl.abort(); }, cfg.requestTimeoutMs || 5000);
-    var headers = Object.assign({apikey:cfg.supabaseAnonKey, Authorization:'Bearer ' + cfg.supabaseAnonKey}, options.headers || {});
+    var headers = Object.assign(authHeaders(), options.headers || {});
     return fetch(base + path, {method:options.method || 'GET', headers:headers, body:options.body, signal:ctrl.signal})
       .then(function(res){
         if(!res.ok) throw new Error('Request failed: ' + res.status);
@@ -68,7 +75,7 @@ window.BnanAPI = (function(){
     var ctrl = new AbortController(), timer = setTimeout(function(){ ctrl.abort(); }, cfg.chatTimeoutMs || 60000);
     return fetch(cfg.supabaseUrl.replace(/\/+$/, '') + '/functions/v1/' + (cfg.chatFunction || 'ask-banan'), {
       method:'POST',
-      headers:{'Content-Type':'application/json', apikey:cfg.supabaseAnonKey, Authorization:'Bearer ' + cfg.supabaseAnonKey},
+      headers:Object.assign({'Content-Type':'application/json'}, authHeaders()),
       body:JSON.stringify({messages:turns, lang:lang}),
       signal:ctrl.signal
     }).then(function(res){
