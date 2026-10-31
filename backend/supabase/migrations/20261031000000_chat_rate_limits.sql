@@ -16,9 +16,11 @@ revoke all on public.chat_rate_limits from anon, authenticated;
 
 -- Counts one message for this visitor in the current hour; true while under the limit.
 -- A single upsert, so concurrent messages from the same visitor can't skip the count.
+-- Runs as its owner so the table needs no grants; only the backend may execute it (below).
 create or replace function public.chat_rate_hit(p_ip_hash text, p_limit integer)
 returns boolean
 language sql
+security definer
 set search_path = ''
 as $$
   insert into public.chat_rate_limits as r (ip_hash, window_start, hits)
