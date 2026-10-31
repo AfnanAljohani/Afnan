@@ -62,11 +62,29 @@ window.BnanAPI = (function(){
     });
   }
 
+  // "Ask Banan" agent (Supabase Edge Function backed by Claude). Sends the visible conversation,
+  // returns the reply text. The model gets more time than content requests: tools and web search add steps.
+  function askBanan(turns, lang){
+    var ctrl = new AbortController(), timer = setTimeout(function(){ ctrl.abort(); }, cfg.chatTimeoutMs || 60000);
+    return fetch(cfg.supabaseUrl.replace(/\/+$/, '') + '/functions/v1/' + (cfg.chatFunction || 'ask-banan'), {
+      method:'POST',
+      headers:{'Content-Type':'application/json', apikey:cfg.supabaseAnonKey, Authorization:'Bearer ' + cfg.supabaseAnonKey},
+      body:JSON.stringify({messages:turns, lang:lang}),
+      signal:ctrl.signal
+    }).then(function(res){
+      // 429/503 still carry a friendly reply written by the server.
+      return res.json().then(function(data){
+        if(!data || typeof data.reply !== 'string') throw new Error('Chat failed: ' + res.status);
+        return data;
+      });
+    }).finally(function(){ clearTimeout(timer); });
+  }
+
   function mailtoLink(req, label){
     var subject = 'Bnan AI · ' + label + ' · ' + req.name;
     var body = req.name + '\n' + req.email + '\n\n' + req.message;
     return 'mailto:' + (cfg.contactEmail || '') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   }
 
-  return {isOnline:function(){ return online; }, loadContent:loadContent, sendContact:sendContact, mailtoLink:mailtoLink};
+  return {isOnline:function(){ return online; }, loadContent:loadContent, sendContact:sendContact, askBanan:askBanan, mailtoLink:mailtoLink};
 })();

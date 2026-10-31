@@ -7,5 +7,8 @@ window.BNAN_CONFIG = {
   supabaseUrl: '',
   supabaseAnonKey: '',
   contactEmail: 'a.almass3dii@gmail.com',
-  requestTimeoutMs: 5000
+  requestTimeoutMs: 5000,
+  // Name of the Supabase Edge Function that runs the Claude agent (backend/supabase/functions).
+  chatFunction: 'ask-banan',
+  chatTimeoutMs: 60000
 };

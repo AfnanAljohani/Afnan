@@ -69,18 +69,43 @@ window.startBnanApp = function(){
 
   // ---------- chat ----------
   var chat = document.getElementById('chat'), fab = document.getElementById('fab'), body = document.getElementById('chatB');
-  var greeted = false;
-  function say(text, who){
-    var m = document.createElement('div'); m.className = 'msg ' + who; m.textContent = text;
-    body.appendChild(m); body.scrollTop = body.scrollHeight;
+  var greeted = false, history = [], busy = false;
+  function esc(t){ return t.replace(/[&<>"']/g, function(c){ return {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]; }); }
+  // Agent replies may use **bold** and plain links; everything else stays text.
+  function rich(t){
+    return esc(t)
+      .replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>')
+      .replace(/(https?:\/\/[^\s<]+[^\s<.,،)])/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
   }
-  function reply(key){
+  function say(text, who){
+    var m = document.createElement('div'); m.className = 'msg ' + who;
+    if(who === 'bot') m.innerHTML = rich(text); else m.textContent = text;
+    body.appendChild(m); body.scrollTop = body.scrollHeight;
+    history.push({role:who === 'me' ? 'user' : 'assistant', content:text});
+  }
+  function typing(){
     var t = document.createElement('div'); t.className = 'typing'; t.innerHTML = '<i></i><i></i><i></i>';
     body.appendChild(t); body.scrollTop = body.scrollHeight;
+    return t;
+  }
+  function reply(key){
+    var t = typing();
     setTimeout(function(){
       t.remove(); say(answers[key][lang], 'bot');
       if(key === 'wa') window.open('https://wa.me/966545379819', '_blank', 'noopener');
     }, 650);
+  }
+  // Typed questions go to the Claude agent when the backend is configured; otherwise (or on failure)
+  // the built-in keyword answers keep the chat useful.
+  function ask(q){
+    var hit = keys.filter(function(k){ return k[1].test(q); })[0];
+    if(!BnanAPI.isOnline()){ reply(hit ? hit[0] : 'none'); return; }
+    busy = true; var t = typing();
+    BnanAPI.askBanan(history.slice(-16), lang).then(function(data){
+      t.remove(); say(data.reply, 'bot');
+    }).catch(function(){
+      t.remove(); reply(hit ? hit[0] : 'none');
+    }).then(function(){ busy = false; });
   }
   function openChat(){
     chat.classList.add('open'); fab.setAttribute('aria-expanded', true);
@@ -99,10 +124,9 @@ window.startBnanApp = function(){
   });
   document.getElementById('chatF').addEventListener('submit', function(e){
     e.preventDefault();
-    var i = document.getElementById('chatI'), q = i.value.trim(); if(!q) return;
+    var i = document.getElementById('chatI'), q = i.value.trim().slice(0, 2000); if(!q || busy) return;
     say(q, 'me'); i.value = '';
-    var hit = keys.filter(function(k){ return k[1].test(q); })[0];
-    reply(hit ? hit[0] : 'none');
+    ask(q);
   });
 
 
