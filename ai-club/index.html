@@ -549,6 +549,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 .cd-proj{align-self:flex-start;font-family:var(--display);font-weight:800;font-size:clamp(9px,.66vw,12px);color:#fff;background:var(--proj);border-radius:6px;padding:1px 7px}
 .cd-s.pj{--u:var(--proj)} .cd-s.pj b{color:#D9C2FF}
 .cm .dp{background:var(--proj)}
+.cs-proj{margin:0;font-family:var(--display);font-weight:800;color:#C9A8FF;font-size:clamp(15px,1.2vw,22px)}
 .cs-st.proj{color:#fff;background:var(--proj);border-color:var(--proj)}
 .cs-topic.pj{background:var(--proj-soft);border-color:rgba(166,107,255,.55)}
 .cs-week li.proj b{color:#C9A8FF}
@@ -1261,7 +1262,10 @@ function renderWeek(d){
 /* ---------- calendar ---------- */
 const UNIT_COL={'AIT-101':'#26B8B0','AIT-102':'#E5484D','AIT-103':'#5AA9E6','AIT-104':'#3D8BFF','AIT-105':'#9B7BFF','AIT-106':'#3DD68C','AIT-107':'#F2703D','AIT-108':'#EDBB5C','AIT-109':'#E36FB0','AIT-110':'#5FE0D6','AIT-111':'#C9A8FF'};
 const unitCol=u=>UNIT_COL[u]||'#93A4BC';
-const isProject=r=>!!(r&&(r[3]==='SFT-101'||r[3]==='AIT-111'));
+// Extra project milestones on days that also had a lecture
+const PROJECT_DAYS={'2026-10-08':['المشروع · المراحل الأولى والثانية والثالثة','Project · Phases 1, 2 & 3']};
+const isProject=r=>!!(r&&(r[3]==='SFT-101'||r[3]==='AIT-111'||PROJECT_DAYS[r[0]]));
+const projLabel=r=>PROJECT_DAYS[r[0]]?tx(PROJECT_DAYS[r[0]]):L('مشروع','Project');
 const isExam=r=>!!(r&&/exam/i.test(r[2]||''));
 const examLabel=r=>/safety/i.test(r[2])?L('اختبار السلامة','Safety exam'):`${L('اختبار','Exam')} · ${r[2].replace(/\D/g,'')}`;
 let calSwipedAt=0,calMonth=null,calSel=null,calKey='',calManual=0,hjDay=null,hjMonth=null,hjYear=null,hjFull=null;
@@ -1279,7 +1283,7 @@ function calCell(x,month,today){
   if(wd===0&&r&&r[1])inner+=`<span class="cd-wk">W${r[1]}</span>`;
   if(hol)inner+=`<span class="cd-hol">${tx(hol.name)}</span>`;
   if(ex)inner+=`<span class="cd-exam">${esc(examLabel(r))}</span><span class="cd-s ex"><span>${esc(r[4]||r[2])}</span></span>`;
-  else if(r&&r[4]){if(pj)inner+=`<span class="cd-proj">${L('مشروع','Project')}</span>`;inner+=`<span class="cd-s${hol?' off':''}${pj?' pj':''}" style="--u:${unitCol(r[3])}"><b>${esc(r[3]||r[2])}</b><span>${esc(r[4])}</span></span>`}
+  else if(r&&r[4]){if(pj)inner+=`<span class="cd-proj">${esc(projLabel(r))}</span>`;inner+=`<span class="cd-s${hol?' off':''}${pj?' pj':''}" style="--u:${unitCol(r[3])}"><b>${esc(r[3]||r[2])}</b><span>${esc(r[4])}</span></span>`}
   if(r&&k<today&&!hol)inner+=`<i class="cd-ok" aria-hidden="true">${IC_CHECK}</i>`;
   return `<button type="button" class="${cls}" data-d="${k}">${inner}</button>`;
 }
@@ -1306,7 +1310,7 @@ function renderCalendar(d,force){
   // agenda list for small screens
   const inMonth=cells.filter(x=>x.getMonth()===m&&(PLAN[iso(x)]||holidayOf(iso(x))&&x.getDay()<5));
   $('calList').innerHTML=inMonth.length?inMonth.map(x=>{const kk=iso(x),r=PLAN[kk],hol=holidayOf(kk),ex=isExam(r)&&!hol,pj=isProject(r)&&!hol;
-    return `<button type="button" class="cl-row${kk===today?' today':''}${kk<today?' past':''}${hol?' hol':''}${ex?' exam':''}${pj?' proj':''}${kk===calSel?' sel':''}" data-d="${kk}" style="--u:${unitCol(r?.[3])}"><span class="cl-d"><b>${x.getDate()}</b>${dow(x)}<small class="num">${hj(hjDay,x)} ${hj(hjMonth,x)}</small></span><span class="cl-t">${hol?`<em>${tx(hol.name)}</em>`:''}${ex?`<em class="ex">${esc(examLabel(r))}</em>`:''}${pj?`<em class="pj">${L('مشروع','Project')}</em>`:''}${r&&(r[4]||ex)?`<span${hol?' class="off"':''}>${esc(r[4]||r[2])}</span>`:''}</span></button>`}).join(''):`<p class="cl-empty">${L('ما فيه جلسات بهالشهر','No sessions this month')}</p>`;
+    return `<button type="button" class="cl-row${kk===today?' today':''}${kk<today?' past':''}${hol?' hol':''}${ex?' exam':''}${pj?' proj':''}${kk===calSel?' sel':''}" data-d="${kk}" style="--u:${unitCol(r?.[3])}"><span class="cl-d"><b>${x.getDate()}</b>${dow(x)}<small class="num">${hj(hjDay,x)} ${hj(hjMonth,x)}</small></span><span class="cl-t">${hol?`<em>${tx(hol.name)}</em>`:''}${ex?`<em class="ex">${esc(examLabel(r))}</em>`:''}${pj?`<em class="pj">${esc(projLabel(r))}</em>`:''}${r&&(r[4]||ex)?`<span${hol?' class="off"':''}>${esc(r[4]||r[2])}</span>`:''}</span></button>`}).join(''):`<p class="cl-empty">${L('ما فيه جلسات بهالشهر','No sessions this month')}</p>`;
   renderCalSide(d);
 }
 function renderCalSide(d){
@@ -1314,6 +1318,7 @@ function renderCalSide(d){
   const st=hol?['hol',L('إجازة','Day off')]:ex?['exam',L('اختبار','Exam')]:pj?['proj',L('مشروع','Project')]:!r?['none',L('ما فيه جلسة','No session')]:calSel<today?['done',L('تم أخذها','Completed')]:calSel===today?['now',L('اليوم','Today')]:['soon',L('قادمة','Upcoming')];
   let h=`<div class="cs-date"><span class="num">${x.getDate()}</span><div><b>${dow(x)}</b><span>${mon(x.getMonth())} ${x.getFullYear()}</span><span class="cs-hj">${hj(hjFull,x)}</span></div><span class="cs-st ${st[0]}">${st[1]}</span></div>`;
   if(hol)h+=`<p class="cs-hol">${tx(hol.name)}</p>`;
+  if(pj&&PROJECT_DAYS[calSel])h+=`<p class="cs-proj">${esc(projLabel(r))}</p>`;
   if(ex)h+=`<p class="cs-exam">${/safety/i.test(r[2])?esc(examLabel(r)):L('أسبوع الاختبارات','Exam week')+' · '+esc(r[2])}</p>`;
   if(r&&(r[4]||ex)){const[dl,dc]=delivery(r[6]);
     h+=`<div class="cs-topic${hol?' off':''}${ex?' ex':''}${pj?' pj':''}" style="--u:${ex?'var(--gold)':pj?'var(--proj)':unitCol(r[3])}"><span class="cs-code">${esc(r[3]?r[3]+' · ':'')}${/^\d/.test(r[2])?'Session '+esc(r[2]):esc(r[2])}</span><b>${esc(r[4]||r[2])}</b></div>
