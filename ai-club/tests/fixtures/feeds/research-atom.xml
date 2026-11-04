@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <title>Google Research Blog (Atom fixture)</title>
+  <link href="https://research.google/blog/" rel="alternate"/>
+  <updated>2026-10-27T17:35:00Z</updated>
+  <id>tag:fixture</id>
+  <entry>
+    <title type="html">The sleep framework: A new way for LLMs to retain knowledge in continual learning</title>
+    <link rel="alternate" href="https://research.google/blog/the-sleep-framework/"/>
+    <id>tag:1</id>
+    <published>2026-10-27T17:35:00Z</published>
+    <summary type="html">&lt;p&gt;A method that lets language models consolidate knowledge between training phases.&lt;/p&gt;</summary>
+    <media:thumbnail url="https://storage.googleapis.com/gweb-research2023-media/images/sleep.width-800.png"/>
+  </entry>
+  <entry>
+    <title>نموذج عربي لمعالجة اللغة في الرياض</title>
+    <link href="https://research.google/blog/arabic-nlp-riyadh/"/>
+    <id>tag:2</id>
+    <updated>2026-10-21T10:00:00Z</updated>
+    <summary>ملخص عربي من المصدر: تعاون بحثي في الرياض لتطوير نموذج لغوي عربي.</summary>
+  </entry>
+</feed>

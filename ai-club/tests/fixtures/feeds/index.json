@@ -1,0 +1,9 @@
+{
+  "https://blog.google/technology/ai/rss/": "google.xml",
+  "https://research.google/blog/rss/": "research-atom.xml",
+  "https://openai.com/news/rss.xml": "openai.xml",
+  "https://huggingface.co/blog/feed.xml": "hf.xml",
+  "https://news.mit.edu/rss/topic/artificial-intelligence2": "__timeout__",
+  "https://rss.arxiv.org/rss/cs.CL": "arxiv-cl.xml",
+  "https://english.aawsat.com/feed": "aawsat.xml"
+}

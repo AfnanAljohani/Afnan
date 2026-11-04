@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>المكتبة الرقمية · EWA AI Club</title>
+<meta name="description" content="المكتبة الرقمية لنادي الذكاء الاصطناعي: أحدث أخبار الذكاء الاصطناعي ومقالاته وأبحاثه من مصادر موثوقة، تتحدث يوميًا، مع قسم للذكاء الاصطناعي في السعودية.">
+<meta name="theme-color" content="#03090c">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:site_name" content="EWA AI Club">
+<meta property="og:title" content="المكتبة الرقمية · EWA AI Club">
+<meta property="og:description" content="أحدث أخبار ومقالات وأبحاث الذكاء الاصطناعي من مصادر موثوقة، تتحدث يوميًا.">
+<meta property="og:url" content="https://ewa-ai.vercel.app/library">
+<meta property="og:image" content="https://ewa-ai.vercel.app/img/og-card.jpg">
+<link rel="canonical" href="https://ewa-ai.vercel.app/library">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23b8f7d4'/%3E%3Cstop offset='.5' stop-color='%233fd68f'/%3E%3Cstop offset='1' stop-color='%2312925e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='700' font-size='26' text-anchor='middle' fill='%2302140b'%3EAI%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Readex+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/club.css">
+<link rel="stylesheet" href="assets/club-v2.css">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('aiclub-theme')||'dark'}catch(e){}</script>
+</head>
+<body class="lib-page">
+<div class="vignette" aria-hidden="true"></div>
+<a class="sr-only" href="#libMain">تخطَّ إلى المحتوى</a>
+
+<header class="nav scrolled" id="nav">
+  <div class="wrap">
+    <a href="./" class="brand" aria-label="EWA AI Club — الصفحة الرئيسية">
+      <span class="logo">AI</span>
+      <span class="brand-t"><b>EWA AI Club</b><small>أكاديمية الطاقة والمياه</small></span><span class="vtag">v2</span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="التنقل الرئيسي">
+      <a href="./#about"><span>01.</span>عن النادي</a>
+      <a href="./#heroes"><span>02.</span>الأبطال</a>
+      <a href="./#events"><span>03.</span>الفعاليات</a>
+      <a href="./#structure"><span>04.</span>الهيكل</a>
+      <a href="./#plan"><span>06.</span>الخطة</a>
+      <a href="./#projects"><span>◆</span>المشاريع</a>
+      <a href="library" class="active" aria-current="page"><span>↗</span>المكتبة الرقمية</a>
+    </nav>
+    <div class="nav-tools">
+      <a class="btn btn-primary nav-cta" href="./#join">انضم للنادي</a>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="تبديل الوضع الفاتح والداكن">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="themeIco"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="القائمة" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="libMain">
+  <section class="hero">
+    <div class="wrap lib-hero">
+      <span class="kicker">DIGITAL LIBRARY //</span>
+      <h1>المكتبة الرقمية</h1>
+      <p>أحدث أخبار الذكاء الاصطناعي ومقالاته وأبحاثه ومصادر التعلّم، نجمعها كل صباح من مصادر موثوقة ونلخّصها بالعربية مع رابط المادة الأصلية.</p>
+      <p class="lib-status" id="libStatus" role="status"><i></i><span>جارٍ التحميل…</span></p>
+    </div>
+  </section>
+
+  <div class="lib-tools">
+    <div class="wrap">
+      <div class="lib-tabs" role="group" aria-label="التصنيف" id="libTabs">
+        <button type="button" aria-pressed="true" data-cat="all">الكل</button>
+        <button type="button" aria-pressed="false" data-cat="saudi">الذكاء الاصطناعي في السعودية</button>
+      </div>
+      <div class="lib-row">
+        <label class="search" for="libQ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <span class="sr-only">ابحث في المكتبة</span>
+          <input id="libQ" type="search" placeholder="ابحث بالعنوان أو المصدر أو الموضوع…" autocomplete="off" maxlength="80">
+        </label>
+        <label class="sr-only" for="libType">نوع المحتوى</label>
+        <select class="lib-select" id="libType">
+          <option value="">كل الأنواع</option>
+          <option value="news">أخبار</option>
+          <option value="article">مقالات</option>
+          <option value="research">أبحاث</option>
+          <option value="learning">مصادر تعليمية</option>
+        </select>
+        <label class="sr-only" for="libDate">تاريخ النشر</label>
+        <select class="lib-select" id="libDate">
+          <option value="">أي وقت</option>
+          <option value="7">آخر 7 أيام</option>
+          <option value="30">آخر 30 يومًا</option>
+          <option value="90">آخر 90 يومًا</option>
+        </select>
+        <label class="sr-only" for="libLang">اللغة الأصلية</label>
+        <select class="lib-select" id="libLang">
+          <option value="">كل اللغات</option>
+          <option value="ar">العربية</option>
+          <option value="en">الإنجليزية</option>
+        </select>
+        <span class="lib-count" id="libCount" aria-live="polite"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="lib-grid" id="libGrid" aria-busy="true">
+      <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    </div>
+    <div class="lib-more"><button class="btn btn-ghost" id="libMore" type="button" hidden>تحميل المزيد</button></div>
+    <div class="lib-sources" id="libSources"></div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-bottom"><span>© 2026 نادي الذكاء الاصطناعي · أكاديمية الطاقة والمياه</span><span>الملخصات للاطلاع السريع؛ المرجع هو المادة الأصلية لدى مصدرها.</span></div>
+  </div>
+</footer>
+
+<script src="assets/club-data.js"></script>
+<script src="assets/library.js" defer></script>
+<script src="assets/chat.js" defer></script>
+</body>
+</html>

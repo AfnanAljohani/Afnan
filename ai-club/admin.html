@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لوحة الإدارة · EWA AI Club</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#03090c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233fd68f'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='700' font-size='26' text-anchor='middle' fill='%2302140b'%3EAI%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/club.css">
+<link rel="stylesheet" href="assets/club-v2.css">
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body class="adm-page">
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="nav scrolled">
+  <div class="wrap">
+    <a href="./" class="brand" aria-label="العودة إلى موقع النادي">
+      <span class="logo">AI</span>
+      <span class="brand-t"><b>EWA AI Club</b><small>لوحة الإدارة</small></span>
+    </a>
+    <div class="nav-tools">
+      <span class="ap-who" id="apWho" hidden></span>
+      <button class="btn btn-ghost btn-sm" id="apLogout" type="button" hidden>تسجيل الخروج</button>
+      <a class="btn btn-ghost btn-sm" href="./">الموقع</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap ap-main">
+  <!-- loading / not configured -->
+  <div class="card ap-gate" id="apBoot"><p>جارٍ التحقق من الاتصال…</p></div>
+
+  <!-- sign in -->
+  <section class="card ap-gate" id="apLogin" hidden aria-labelledby="apLoginT">
+    <h1 id="apLoginT">دخول المشرفين</h1>
+    <p>هذه الصفحة لمشرفي النادي. يُتحقَّق من الصلاحية في قاعدة البيانات مع كل عملية حفظ.</p>
+    <form id="apLoginForm" novalidate>
+      <label class="adm-f" for="apEmail">البريد الإلكتروني</label>
+      <input class="adm-in ltr" id="apEmail" type="email" autocomplete="username" inputmode="email" required>
+      <label class="adm-f" for="apPass">كلمة المرور</label>
+      <input class="adm-in ltr" id="apPass" type="password" autocomplete="current-password" required minlength="8">
+      <div class="adm-actions">
+        <button class="btn btn-primary btn-sm" type="submit">تسجيل الدخول</button>
+        <button class="ap-link" type="button" id="apForgot">نسيت كلمة المرور؟</button>
+      </div>
+      <p class="adm-msg" id="apLoginMsg" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- new password after a recovery link -->
+  <section class="card ap-gate" id="apRecover" hidden aria-labelledby="apRecT">
+    <h1 id="apRecT">تعيين كلمة مرور جديدة</h1>
+    <form id="apRecForm" novalidate>
+      <label class="adm-f" for="apNewPass">كلمة المرور الجديدة (12 حرفًا على الأقل)</label>
+      <input class="adm-in ltr" id="apNewPass" type="password" autocomplete="new-password" required minlength="12">
+      <div class="adm-actions"><button class="btn btn-primary btn-sm" type="submit">حفظ كلمة المرور</button></div>
+      <p class="adm-msg" id="apRecMsg" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- signed in but not an admin -->
+  <section class="card ap-gate" id="apDenied" hidden>
+    <h1>لا تملك صلاحية الإدارة</h1>
+    <p>هذا الحساب مسجّل لكنه غير مضاف لقائمة المشرفين. اطلب من مسؤول الموقع إضافته، أو سجّل الخروج وادخل بحساب آخر.</p>
+  </section>
+
+  <!-- the panel -->
+  <div id="apApp" hidden>
+    <nav class="ap-tabs" role="tablist" aria-label="أقسام لوحة الإدارة" id="apTabs">
+      <button role="tab" aria-selected="true" data-tab="overview" id="t-overview" aria-controls="p-overview">نظرة عامة</button>
+      <button role="tab" aria-selected="false" data-tab="content" id="t-content" aria-controls="p-content">الأخبار والفعاليات</button>
+      <button role="tab" aria-selected="false" data-tab="projects" id="t-projects" aria-controls="p-projects">المشاريع</button>
+      <button role="tab" aria-selected="false" data-tab="library" id="t-library" aria-controls="p-library">المكتبة الرقمية</button>
+      <button role="tab" aria-selected="false" data-tab="video" id="t-video" aria-controls="p-video">الفيديو</button>
+      <button role="tab" aria-selected="false" data-tab="assistant" id="t-assistant" aria-controls="p-assistant">المساعد الذكي</button>
+      <button role="tab" aria-selected="false" data-tab="site" id="t-site" aria-controls="p-site">الإعدادات والأبطال</button>
+    </nav>
+
+    <section class="ap-panel" role="tabpanel" id="p-overview" aria-labelledby="t-overview">
+      <div class="ap-grid">
+        <div class="card"><h2>حالة الخدمات</h2><ul class="ap-status" id="apStatus"><li>جارٍ الفحص…</li></ul></div>
+        <div class="card"><h2>المكتبة الرقمية</h2><div id="apLibSummary">…</div>
+          <div class="adm-actions"><button class="btn btn-primary btn-sm" id="apRefreshNow" type="button">تحديث الآن</button><span class="adm-msg" id="apRefreshMsg" role="status"></span></div></div>
+      </div>
+    </section>
+
+    <section class="ap-panel" role="tabpanel" id="p-content" aria-labelledby="t-content" hidden>
+      <div class="ap-bar">
+        <div class="seg" role="group" aria-label="النوع" id="apKind"><button aria-pressed="true" data-f="news" type="button">الأخبار</button><button aria-pressed="false" data-f="event" type="button">الفعاليات والورش</button></div>
+        <button class="btn btn-primary btn-sm" type="button" data-new="content">إضافة</button>
+      </div>
+      <div class="ap-list" id="list-content"></div>
+    </section>
+
+    <section class="ap-panel" role="tabpanel" id="p-projects" aria-labelledby="t-projects" hidden>
+      <div class="ap-bar"><p>المشاريع المنشورة تظهر في قسم «مشاريع النادي».</p><button class="btn btn-primary btn-sm" type="button" data-new="projects">إضافة مشروع</button></div>
+      <div class="ap-list" id="list-projects"></div>
+    </section>
+
+    <section class="ap-panel" role="tabpanel" id="p-library" aria-labelledby="t-library" hidden>
+      <div class="seg ap-sub" role="group" aria-label="أجزاء المكتبة" id="apLibSub">
+        <button aria-pressed="true" data-f="items" type="button">المواد</button>
+        <button aria-pressed="false" data-f="sources" type="button">المصادر</button>
+        <button aria-pressed="false" data-f="categories" type="button">التصنيفات</button>
+        <button aria-pressed="false" data-f="runs" type="button">سجل التشغيل</button>
+      </div>
+      <div id="apLibItems">
+        <div class="ap-bar"><label class="search"><span class="sr-only">بحث في المواد</span><input id="apItemQ" type="search" placeholder="ابحث في العناوين…"></label><button class="btn btn-ghost btn-sm" type="button" data-new="library_items">إضافة مادة يدويًا</button></div>
+        <div class="ap-list" id="list-library_items"></div>
+        <div class="lib-more"><button class="btn btn-ghost btn-sm" id="apItemsMore" type="button" hidden>تحميل المزيد</button></div>
+      </div>
+      <div id="apLibSources" hidden>
+        <div class="ap-bar"><p>تُجلب المصادر المفعّلة يوميًا الساعة 8:00 صباحًا بتوقيت الرياض. استخدم روابط RSS أو Atom مسموحًا بها فقط.</p><button class="btn btn-primary btn-sm" type="button" data-new="library_sources">إضافة مصدر</button></div>
+        <div class="ap-list" id="list-library_sources"></div>
+      </div>
+      <div id="apLibCats" hidden>
+        <div class="ap-bar"><p>الكلمات المفتاحية تحدد تصنيف المادة تلقائيًا (بالعربية أو الإنجليزية).</p><button class="btn btn-primary btn-sm" type="button" data-new="library_categories">إضافة تصنيف</button></div>
+        <div class="ap-list" id="list-library_categories"></div>
+      </div>
+      <div id="apLibRuns" hidden><div class="ap-list" id="list-library_runs"></div></div>
+    </section>
+
+    <section class="ap-panel" role="tabpanel" id="p-video" aria-labelledby="t-video" hidden>
+      <div class="card">
+        <h2>فيديو «الذكاء الاصطناعي في المملكة»</h2>
+        <p class="ap-hint">يبقى القسم مخفيًا في الموقع حتى تختار «منشور». استخدم فيديو تملك حق نشره، أو رابط YouTube من قناة رسمية تسمح بالتضمين، واذكر المصدر.</p>
+        <form id="apVideoForm" class="ap-form" novalidate></form>
+      </div>
+    </section>
+
+    <section class="ap-panel" role="tabpanel" id="p-assistant" aria-labelledby="t-assistant" hidden>
+      <div class="ap-bar"><p>المساعد يجيب فقط من المعلومات المنشورة هنا ومن المشاريع والفعاليات والمكتبة. المسودات والمخفي لا تصل إليه.</p><button class="btn btn-primary btn-sm" type="button" data-new="chatbot_knowledge">إضافة معلومة</button></div>
+      <div class="ap-list" id="list-chatbot_knowledge"></div>
+    </section>
+
+    <section class="ap-panel" role="tabpanel" id="p-site" aria-labelledby="t-site" hidden>
+      <div class="card">
+        <h2>الإعدادات العامة وأبطال النادي</h2>
+        <p>عدد ردود الاستبيان، وقادة الأقسام، والإعلانات، وقوائم الأبطال تُدار من محرّرها الأصلي داخل صفحة الموقع. بعد تسجيل الدخول هنا تصبح أزرار الحفظ فيه متاحة لك.</p>
+        <div class="adm-actions"><a class="btn btn-primary btn-sm" href="./#admin">فتح الإعدادات العامة</a><a class="btn btn-ghost btn-sm" href="./#heroes">تعديل الأبطال</a></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- editor dialog -->
+<dialog class="ap-dialog" id="apDialog" aria-labelledby="apDlgTitle">
+  <form method="dialog" class="ap-dlg-in" id="apDlgForm" novalidate>
+    <header><h2 id="apDlgTitle">تعديل</h2><button class="ec-x" value="cancel" type="button" id="apDlgClose" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header>
+    <div class="ap-dlg-body"><div class="ap-form" id="apDlgFields"></div><div class="ap-preview" id="apPreview" aria-live="polite"></div></div>
+    <footer>
+      <span class="adm-msg" id="apDlgMsg" role="alert"></span>
+      <button class="btn btn-ghost btn-sm" type="button" id="apDlgPreview">معاينة</button>
+      <button class="btn btn-primary btn-sm" type="submit" id="apDlgSave">حفظ</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog class="ap-dialog ap-confirm" id="apConfirm" aria-labelledby="apConfirmT">
+  <form method="dialog" class="ap-dlg-in">
+    <header><h2 id="apConfirmT">تأكيد الحذف</h2></header>
+    <div class="ap-dlg-body"><p id="apConfirmText"></p></div>
+    <footer><button class="btn btn-ghost btn-sm" value="no">إلغاء</button><button class="btn btn-danger btn-sm" value="yes">حذف نهائي</button></footer>
+  </form>
+</dialog>
+
+<div class="ap-toast" id="apToast" role="status" aria-live="polite"></div>
+
+<script src="assets/club-data.js"></script>
+<script src="assets/admin.js" defer></script>
+</body>
+</html>

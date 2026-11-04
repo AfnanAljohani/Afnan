@@ -1,0 +1,8 @@
+# Not part of the deployed site (kept in the repository only)
+supabase/
+tests/
+scripts/
+docs/
+README.md
+.env*
+node_modules/

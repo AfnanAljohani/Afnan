@@ -1,2 +1,10 @@
 .vercel
 .env*
+!.env.example
+node_modules/
+supabase/.temp/
+supabase/.branches/
+*.log
+.DS_Store
+tests/e2e/.run/
+tests/e2e/.storage/

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0"><channel><title>cs.CL updates on arXiv.org</title><link>http://rss.arxiv.org/rss/cs.CL</link><description>fixture</description>
+<item><title>From Fragmentation to Fusion: A Survey and Roadmap for Omnimodal Embeddings</title><link>https://arxiv.org/abs/2611.01001</link><description>arXiv:2611.01001v1 Announce Type: new Abstract: We survey omnimodal embedding models that place text, images and audio in one space.</description><pubDate>Tue, 03 Nov 2026 00:00:00 -0500</pubDate><dc:creator>A. Researcher</dc:creator></item>
+<item><title>A replaced paper</title><link>https://arxiv.org/abs/2609.00002</link><description>arXiv:2609.00002v3 Announce Type: replace Abstract: Old paper, new version.</description><pubDate>Tue, 03 Nov 2026 00:00:00 -0500</pubDate></item>
+<item><title>A cross-listed paper</title><link>https://arxiv.org/abs/2611.00003</link><description>arXiv:2611.00003v1 Announce Type: cross Abstract: Cross list.</description><pubDate>Tue, 03 Nov 2026 00:00:00 -0500</pubDate></item>
+</channel></rss>
