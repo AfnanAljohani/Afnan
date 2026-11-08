@@ -1,0 +1,164 @@
+{
+  "name": "nibras-tools",
+  "version": "1.0",
+  "format": "openai-tools",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "add_subject",
+        "description": "Add a study subject with its exam date and difficulty, then rebuild the schedule.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Subject name, max 60 characters"
+            },
+            "exam": {
+              "type": "string",
+              "description": "Exam date as YYYY-MM-DD, today or later"
+            },
+            "level": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "description": "1 easy, 2 medium, 3 hard"
+            }
+          },
+          "required": [
+            "name",
+            "exam"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "build_schedule",
+        "description": "Rebuild the day-by-day study plan from all subjects with upcoming exams.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "per_day": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "description": "Study sessions per day"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "next_task",
+        "description": "List today's planned study sessions.",
+        "parameters": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "next_exam",
+        "description": "Return the nearest upcoming exam and the days left.",
+        "parameters": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "start_timer",
+        "description": "Start a focus session.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "minutes": {
+              "type": "integer",
+              "enum": [
+                25,
+                45,
+                90
+              ]
+            }
+          },
+          "required": [
+            "minutes"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "daily_challenge",
+        "description": "Show a timed scenario question about applied AI.",
+        "parameters": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "explain_term",
+        "description": "Define an AI term from the built-in glossary (RAG, embeddings, function calling, agent, transformer, attention, fine-tuning, overfitting, precision, recall, token, prompt injection, hallucination, LLM).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "term": {
+              "type": "string"
+            },
+            "lang": {
+              "type": "string",
+              "enum": [
+                "ar",
+                "en"
+              ]
+            }
+          },
+          "required": [
+            "term"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "mark_done",
+        "description": "Mark today's study as complete and update the streak.",
+        "parameters": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_progress",
+        "description": "Return days completed, focus minutes, streak and quiz accuracy.",
+        "parameters": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    }
+  ]
+}
