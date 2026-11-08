@@ -12,7 +12,7 @@
   const el = html => { const d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstElementChild; };
   const F = D.phase4_final, T = F.tracks, B = F.business;
   const GOLD = '#C9A24A', GREEN = '#1F7A4D', BLUE = '#2F6FB0', GRAY = '#B7C2BC', RED = '#B42318', INK = '#44524A';
-  const OWN = { Afnan: t('أفنان', 'Afnan'), Sara: t('سارة', 'Sara'), Shahad: t('شهد', 'Shahad'), Khalid: t('خالد', 'Khalid'), Rahaf: t('رهف', 'Rahaf'), Extra: t('نموذج مرجعي', 'Benchmark'), Team: t('خط أساس', 'Baseline') };
+  const OWN = { Member: t('نموذج الفريق', 'Team model'), Extra: t('نموذج مرجعي', 'Benchmark'), Team: t('خط أساس', 'Baseline') };
   const own = o => OWN[o] || o;
   const short = m => m.replace(/^ETS\(.*\)$/, 'ETS').replace(/^ARIMAX\(.*\)$/, 'ARIMAX').replace(/^SARIMA\(.*\)$/, 'SARIMA').replace(/^Theta\(.*\)$/, 'Theta')
     .replace('SVM (linear / RBF-Nyström)', 'SVM').replace('Baseline · ', t('أساس · ', 'Baseline · '));
@@ -201,7 +201,7 @@
     const body = document.getElementById('p4Body'); body.innerHTML = '';
     const R = T[tr];
     let rows = R.rows.slice();
-    if (tr === 'classification' && F.khalid_classifier) rows.push(F.khalid_classifier);
+    if (tr === 'classification' && F.team_classifier) rows.push(F.team_classifier);
     const panels = el('<div class="panels"></div>'); body.appendChild(panels);
     const left = el(`<div class="panel s5"><h3>${TR[tr].metricLabel} ${t('على أسابيع الاختبار', 'on the test weeks')}</h3><p class="sub">${TR[tr].better}</p>${legend}</div>`);
     panels.appendChild(left);
@@ -235,8 +235,8 @@
       why = t(`أقل MAE على فترة التحقق. تعادل ضمن 1%: <b>${tied}</b>، وفاز <b>${R.champion}</b> لأنه بدون إفراط في التعلم وأسرع تدريبًا. النماذج الخطية أضعف بوضوح، وكل النماذج تتفوق على المتوسط.`,
         `Lowest validation MAE. Tied within 1%: <b>${tied}</b>; <b>${R.champion}</b> won as it does not over-fit and trains fastest. Linear models are clearly weaker; every model beats the average.`);
     } else {
-      why = t(`أقل MAE على فترة التحقق بين النماذج: <b>${short(R.champion)}</b>. لكن اختبار Diebold–Mariano يبيّن إن ولا نموذج أفضل إحصائيًا من المتوسط المتحرك 28 يوم، لذلك هدف MAPE أقل من 15% متحقق، وخط الأساس يحققه بعد. امتداد أفنان (تحديث صباحي على مستوى السجل) ينزّل الخطأ إلى <b class="num">${nf(R.nowcast.test)}</b> وحدة/يوم.`,
-        `Lowest validation MAE among models: <b>${short(R.champion)}</b>. But the Diebold–Mariano test shows no model is statistically better than the 28-day moving average, so the MAPE < 15% target is met, and the baseline meets it too. Afnan's same-morning nowcast cuts the error to <b class="num">${nf(R.nowcast.test)}</b> units/day.`);
+      why = t(`أقل MAE على فترة التحقق بين النماذج: <b>${short(R.champion)}</b>. لكن اختبار Diebold–Mariano يبيّن إن ولا نموذج أفضل إحصائيًا من المتوسط المتحرك 28 يوم، لذلك هدف MAPE أقل من 15% متحقق، وخط الأساس يحققه بعد. امتداد التحديث الصباحي على مستوى السجل ينزّل الخطأ إلى <b class="num">${nf(R.nowcast.test)}</b> وحدة/يوم.`,
+        `Lowest validation MAE among models: <b>${short(R.champion)}</b>. But the Diebold–Mariano test shows no model is statistically better than the 28-day moving average, so the MAPE < 15% target is met, and the baseline meets it too. A same-morning nowcast cuts the error to <b class="num">${nf(R.nowcast.test)}</b> units/day.`);
     }
     panels.appendChild(el(`<div class="panel s12"><h3>${t('لماذا فاز هذا النموذج؟', 'Why this model won')}</h3><p style="font-size:14px;color:var(--ink-2);margin:6px 0 0">${why}</p>${R.shap ? `<div class="insight">${t('أهم المؤثرات (SHAP)', 'Top drivers (SHAP)')}: <b>${R.shap}</b></div>` : ''}</div>`));
   }
@@ -333,7 +333,7 @@
       FIG('C_waterfall_caught', 'حالة نفاد اكتشفها النموذج', 'A stockout the model caught', 'شرح محلي لسجل واحد', 'Local explanation for one record'),
       FIG('C_waterfall_missed', 'حالة نفاد فاتت النموذج', 'A stockout the model missed', 'كان على الرف مخزون كافٍ ظاهريًا', 'The shelf still looked stocked'),
       FIG('C_waterfall_false_alarm', 'تنبيه خاطئ', 'A false alarm', 'مخزون صفر لكن لم يحدث نفاد', 'Zero stock but no stockout happened'),
-      FIG('C02_decision_tree_rules', 'شجرة القرار: قواعد للمخططين (أفنان)', 'Decision tree: planner rules (Afnan)', 'أعلى مستويات الشجرة كقواعد مقروءة', 'The top levels of the tree as readable rules', 1)],
+      FIG('C02_decision_tree_rules', 'شجرة القرار: قواعد للمخططين', 'Decision tree: planner rules', 'أعلى مستويات الشجرة كقواعد مقروءة', 'The top levels of the tree as readable rules', 1)],
     regression: [FIG('00_regression_leaderboard', 'MAE لكل النماذج', 'MAE by model', 'التحقق مقابل الاختبار', 'Validation vs test'),
       FIG('R_xgb_diagnostics', 'تشخيص XGBoost على الاختبار', 'XGBoost test diagnostics', 'الفعلي مقابل المتوقع، البواقي، المعايرة، فئة×أسبوع', 'Actual vs predicted, residuals, calibration, category × week', 1),
       FIG('R_xgb_shap_beeswarm', 'SHAP: تأثير كل ميزة', 'SHAP: effect of each feature', 'المخزون والصلاحية المتبقية يقودان الهدر', 'Stock and shelf life left drive waste'),
@@ -344,9 +344,9 @@
     forecasting: [FIG('00_forecasting_leaderboard', 'MAE لكل النماذج', 'MAE by model', 'وحدة/يوم · الأقل أفضل', 'Units/day · lower is better'),
       FIG('F_ets_backtest', 'ETS: التوقع مقابل الفعلي مع الأخطاء اليومية', 'ETS: forecast vs actual with daily errors', 'فترتا التحقق والاختبار', 'Validation and test periods', 1),
       FIG('F_test_period', 'فترة الاختبار: الفائز مقابل "نفس اليوم الأسبوع الماضي"', 'Test period: champion vs same day last week', 'توقعات اليوم التالي', 'Day-ahead forecasts', 1),
-      FIG('F04_xgb_shap', 'SHAP لنموذج XGBoost الزمني (أفنان)', 'SHAP for the XGBoost forecaster (Afnan)', 'خطة العروض بجانب التأخيرات الزمنية', 'The promotion plan ranks with the lags'),
+      FIG('F04_xgb_shap', 'SHAP لنموذج XGBoost الزمني', 'SHAP for the XGBoost forecaster', 'خطة العروض بجانب التأخيرات الزمنية', 'The promotion plan ranks with the lags'),
       FIG('F04_xgb_dependence', 'SHAP: التأخير 28 يوم والخصم', 'SHAP dependence: lag 28 and discount', '', '', 1),
-      FIG('F04b_nowcast', 'التحديث الصباحي (Nowcast) لأفنان', 'Afnan’s same-morning nowcast', 'يخفض الخطأ إلى 371 وحدة/يوم مقابل 710', 'Cuts the error to 371 units/day vs 710', 1)],
+      FIG('F04b_nowcast', 'التحديث الصباحي (Nowcast)', 'The same-morning nowcast', 'يخفض الخطأ إلى 371 وحدة/يوم مقابل 710', 'Cuts the error to 371 units/day vs 710', 1)],
     anomaly: [FIG('U01_anomaly', 'كشف الشذوذ: الطرق الأربع', 'Anomaly detection: the four methods', 'الرفع، رسم Isolation Forest، ومصفوفة الاتفاق', 'Lift, Isolation Forest flags and agreement matrix', 1)],
     clustering: [FIG('U02_clustering', 'التجميع: اختيار k والمجموعات وخطرها', 'Clustering: choosing k, the groups and their risk', 'Silhouette، K-Means على محورين، رفع كل مجموعة', 'Silhouette, K-Means on 2 axes, lift per group', 1)],
     rules: [FIG('U03_rules', 'قواعد الارتباط: تدريب مقابل اختبار', 'Association rules: train vs test', 'قواعد النفاد والهدر', 'Stockout and waste rules', 1)],
@@ -368,11 +368,10 @@
   /* ---------- Phase 4 overview ---------- */
   function renderOverview(body) {
     const tracks = ['classification', 'regression', 'forecasting'];
-    const rowsOf = tr => { const r = T[tr].rows.slice(); if (tr === 'classification' && F.khalid_classifier) r.push(F.khalid_classifier); return r; };
+    const rowsOf = tr => { const r = T[tr].rows.slice(); if (tr === 'classification' && F.team_classifier) r.push(F.team_classifier); return r; };
     const rank = (tr, r) => { const rows = rowsOf(tr).filter(x => !x.baseline && x.test != null).sort((a, b) => T[tr].higher ? b.test - a.test : a.test - b.test); return rows.indexOf(r) + 1; };
     const bestBase = tr => rowsOf(tr).filter(r => r.baseline && r.test != null).sort((a, b) => T[tr].higher ? b.test - a.test : a.test - b.test)[0];
     const nModels = tracks.reduce((n, tr) => n + rowsOf(tr).filter(r => !r.baseline).length, 0), nBase = tracks.reduce((n, tr) => n + rowsOf(tr).filter(r => r.baseline).length, 0);
-    const members = ['Sara', 'Afnan', 'Khalid', 'Shahad', 'Rahaf'];
     const steps = [
       [t('البيانات', 'Data'), t(`${nf(D.data.model_rows)} سجلًا جاهزًا من المرحلة الثالثة، و23 ميزة معروفة قبل بداية اليوم`, `${nf(D.data.model_rows)} model-ready records from Phase 3, and 23 features known before the day starts`)],
       [t('التقسيم الزمني', 'Time split'), t('73 أسبوع تدريب، 9 تحقق، 8 اختبار. لا تقسيم عشوائي', '73 training, 9 validation, 8 test weeks. Never random')],
@@ -385,7 +384,7 @@
     const val = (tr, r) => tr === 'forecasting' ? nf(r.test) : nf(r.test, 3);
     body.innerHTML = `
       <div class="flow6">${steps.map((s, i) => `<div><i class="num">${i + 1}</i><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div>
-      ${kpis([[t('منهجيات', 'Approaches'), AP.length - 1, t('تحليلية وتنبؤية ووصفية', 'predictive and descriptive'), 1], [t('نماذج مدرّبة', 'Models trained'), nModels, t('في التصنيف والانحدار والسلاسل', 'classification, regression, time series')], [t('خطوط أساس', 'Baselines'), nBase, t('للمقارنة العادلة', 'for a fair comparison')], [t('أعضاء الفريق', 'Team members'), members.length, t('لكل عضو نموذج أو أكثر', 'each owns at least one model')], [t('أيام الاختبار', 'Test days'), F.test_period.days, F.test_period.start + ' → ' + F.test_period.end], [t('النفاد المكتشف', 'Stockouts caught'), pct(champC.top20), t('بفحص 20% من السجلات', 'checking 20% of records')]])}
+      ${kpis([[t('منهجيات', 'Approaches'), AP.length - 1, t('تحليلية وتنبؤية ووصفية', 'predictive and descriptive'), 1], [t('نماذج مدرّبة', 'Models trained'), nModels, t('في التصنيف والانحدار والسلاسل', 'classification, regression, time series')], [t('خطوط أساس', 'Baselines'), nBase, t('للمقارنة العادلة', 'for a fair comparison')], [t('نماذج الفريق', 'Team models'), tracks.reduce((n, tr) => n + rowsOf(tr).filter(r => !r.baseline && r.owner === 'Member').length, 0), t('بناها أعضاء الفريق', 'built by the team')], [t('أيام الاختبار', 'Test days'), F.test_period.days, F.test_period.start + ' → ' + F.test_period.end], [t('النفاد المكتشف', 'Stockouts caught'), pct(champC.top20), t('بفحص 20% من السجلات', 'checking 20% of records')]])}
       <div class="panels">
         <div class="panel s12"><h3>${t('هل الفائز أفضل من الطريقة البسيطة؟', 'Does the winner beat the simple way?')}</h3><p class="sub">${t('الفائز مقابل أفضل خط أساس في كل منهجية · على أسابيع الاختبار', 'Winner vs the best baseline in each approach · on the test weeks')}</p>
           <div class="vsgrid">${winVsBase.map(x => `<div class="vs ${x.better ? 'ok' : 'tie'}"><small>${TR[x.tr].name}</small>
@@ -395,8 +394,8 @@
           <div class="table-wrap" style="box-shadow:none;max-height:520px;overflow:auto"><table class="mini-table"><thead><tr><th>${t('المنهجية', 'Approach')}</th><th>${t('النموذج', 'Model')}</th><th>${t('المالك', 'Owner')}</th><th>${t('النتيجة', 'Score')}</th><th>${t('الحالة', 'Status')}</th></tr></thead><tbody>
           ${tracks.map(tr => rowsOf(tr).sort((a, b) => T[tr].higher ? (b.test ?? -1) - (a.test ?? -1) : (a.test ?? 1e9) - (b.test ?? 1e9)).map((r, i) => `<tr class="${rowCls(tr, r)}">${i === 0 ? `<td rowspan="${rowsOf(tr).length}" style="vertical-align:top;font-weight:700">${TR[tr].name}<br><small style="font-weight:400;color:var(--ink-3)">${TR[tr].metricLabel} · ${TR[tr].better}</small></td>` : ''}<td>${short(r.model)}</td><td>${own(r.owner)}</td><td class="num"><b>${val(tr, r)}</b></td><td>${status(tr, r)}</td></tr>`).join('')).join('')}
           </tbody></table></div></div>
-        <div class="panel s5"><h3>${t('مساهمة كل عضو', 'Each member’s contribution')}</h3><p class="sub">${t('النماذج اللي بناها كل عضو وأفضل نتيجة', 'The models each member built and their best result')}</p>
-          <div class="team">${members.map(m => { const mine = tracks.flatMap(tr => rowsOf(tr).filter(r => r.owner === m).map(r => ({ tr, r }))); return `<div class="mem"><b>${own(m)}</b>${mine.length ? mine.map(x => `<span>${short(x.r.model)} · <em>${TR[x.tr].name.split(' · ')[0]}</em> · <b class="num">${val(x.tr, x.r)}</b>${x.r.model === T[x.tr].best_team && x.r.owner === T[x.tr].best_team_owner ? ` <i class="tagx tm">${t('الأفضل من الفريق', 'Best team')}</i>` : ''}</span>`).join('') : `<span style="color:var(--ink-3)">${t('قيادة الفريق والتنسيق', 'Team lead & coordination')}</span>`}</div>`; }).join('')}</div>
+        <div class="panel s5"><h3>${t('نماذج الفريق مقابل النماذج المرجعية', 'Team models vs benchmarks')}</h3><p class="sub">${t('أفضل نتيجة لكل فئة في كل منهجية', 'Best score of each group per approach')}</p>
+          <div class="team">${tracks.map(tr => { const g = role => rowsOf(tr).filter(r => role === 'base' ? r.baseline : role === 'team' ? (!r.baseline && r.owner === 'Member') : (!r.baseline && r.owner !== 'Member')).filter(r => r.test != null).sort((a, b) => T[tr].higher ? b.test - a.test : a.test - b.test)[0]; const tm = g('team'), bm = g('bench'), bs = g('base'); return `<div class="mem"><b>${TR[tr].name}</b><span>${t('أفضل نموذج من الفريق', 'Best team model')}: ${short(tm.model)} · <b class="num">${val(tr, tm)}</b></span><span>${t('أفضل نموذج مرجعي', 'Best benchmark')}: ${short(bm.model)} · <b class="num">${val(tr, bm)}</b></span><span>${t('أفضل خط أساس', 'Best baseline')}: ${short(bs.model)} · <b class="num">${val(tr, bs)}</b></span></div>`; }).join('')}</div>
           <div class="insight">${t('النماذج المرجعية (CatBoost وXGBoost وLightGBM والانحدار اللوجستي وETS وTheta) أُضيفت لرفع مستوى المقارنة.', 'The benchmark models (CatBoost, XGBoost, LightGBM, Logistic Regression, ETS, Theta) were added to raise the bar of the comparison.')}</div></div>
         <div class="panel s12"><h3>${t('المنهجيات الثماني في سطر', 'The eight approaches in one line each')}</h3>
           <div class="table-wrap" style="box-shadow:none"><table class="mini-table"><thead><tr><th>${t('المنهجية', 'Approach')}</th><th>${t('سؤال الأعمال', 'Business question')}</th><th>${t('الفائز', 'Winner')}</th><th>${t('اليوم', 'Today')}</th><th>${t('مع نماذجنا', 'With our models')}</th></tr></thead><tbody>

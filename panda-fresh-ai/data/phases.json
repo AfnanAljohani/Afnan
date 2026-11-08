@@ -1,6 +1,6 @@
 {
  "generated_from": {
-  "file": "PANDA_All_Phases_Dashboard.html (Khalid)",
+  "file": "PANDA_All_Phases_Dashboard.html",
   "model_data": "PANDA_Model_Ready_Modified (1).csv",
   "model_data_sha256": "9dd96729dee161ec506f3fc191bc9ba34050dbcf5d836a41a7de9e9d3bd62456"
  },
@@ -469,7 +469,7 @@
     "higher": true,
     "champion": "XGBoost",
     "best_team": "Random Forest",
-    "best_team_owner": "Shahad",
+    "best_team_owner": "Member",
     "tied": [
      "CatBoost",
      "XGBoost"
@@ -553,7 +553,7 @@
      },
      {
       "model": "Random Forest",
-      "owner": "Shahad",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 0.354,
@@ -572,7 +572,7 @@
      },
      {
       "model": "SVM (linear / RBF-Nyström)",
-      "owner": "Khalid",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 0.357,
@@ -591,7 +591,7 @@
      },
      {
       "model": "Decision Tree",
-      "owner": "Afnan",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 0.08,
@@ -629,7 +629,7 @@
      },
      {
       "model": "KNN",
-      "owner": "Sara",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 0.154,
@@ -739,7 +739,7 @@
     "higher": false,
     "champion": "XGBoost",
     "best_team": "Random Forest",
-    "best_team_owner": "Rahaf",
+    "best_team_owner": "Member",
     "tied": [
      "LightGBM",
      "CatBoost",
@@ -803,7 +803,7 @@
      },
      {
       "model": "Random Forest",
-      "owner": "Rahaf",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 0.547,
@@ -821,7 +821,7 @@
      },
      {
       "model": "Lasso Regression",
-      "owner": "Shahad",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 0.864,
@@ -839,7 +839,7 @@
      },
      {
       "model": "Ridge Regression",
-      "owner": "Sara",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 0.758,
@@ -857,7 +857,7 @@
      },
      {
       "model": "Linear Regression",
-      "owner": "Sara",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 0.758,
@@ -987,7 +987,7 @@
     "higher": false,
     "champion": "ETS(trend=True, damped=False, seasonal=None)",
     "best_team": "ARIMAX(0, 1, 1)x(1, 0, 1, 7)",
-    "best_team_owner": "Rahaf",
+    "best_team_owner": "Member",
     "tied": [
      "ETS(trend=True, damped=False, seasonal=None)"
     ],
@@ -1024,7 +1024,7 @@
      },
      {
       "model": "ARIMAX(0, 1, 1)x(1, 0, 1, 7)",
-      "owner": "Rahaf",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 794.53,
@@ -1069,7 +1069,7 @@
      },
      {
       "model": "SARIMA(0, 0, 2)x(0, 0, 0, 7)",
-      "owner": "Khalid",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 804.64,
@@ -1084,7 +1084,7 @@
      },
      {
       "model": "XGBoost (time features)",
-      "owner": "Afnan",
+      "owner": "Member",
       "baseline": false,
       "assigned": true,
       "cv_untuned": 802.74,
@@ -1212,23 +1212,12 @@
     ],
     "nowcast": {
      "model": "XGBoost start-of-day nowcast",
-     "owner": "Afnan",
+     "owner": "Member",
      "val": 448,
      "test": 371,
      "r2": 0.65
     }
    }
-  },
-  "khalid_classifier": {
-   "model": "ElasticNet → LightGBM",
-   "owner": "Khalid",
-   "baseline": false,
-   "assigned": true,
-   "acc": 0.966,
-   "f1": 0.436,
-   "test": 0.411,
-   "top20": 0.93,
-   "source": "deck p.36"
   },
   "business": {
    "today_vs_models": [
@@ -1771,6 +1760,17 @@
     "power": 0.8,
     "target_cut": 0.2
    }
+  },
+  "team_classifier": {
+   "model": "ElasticNet → LightGBM",
+   "owner": "Member",
+   "baseline": false,
+   "assigned": true,
+   "acc": 0.966,
+   "f1": 0.436,
+   "test": 0.411,
+   "top20": 0.93,
+   "source": "deck p.36"
   }
  }
 }

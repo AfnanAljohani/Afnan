@@ -77,6 +77,13 @@
   .swatch{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:6px}
 
   canvas{direction:ltr}
+  .side{overflow-y:auto;scrollbar-width:thin}
+  .side .foot a.dsig{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);color:#CFE0D6}
+  .side .foot .dsig .q{width:54px;height:54px;border-radius:10px;background:#F4F8F5;padding:5px;flex:none}
+  .side .foot .dsig .q svg{width:100%;height:100%;display:block}
+  .side .foot .dsig small{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7F9A8C}
+  .side .foot .dsig b{display:block;font-size:13.5px;color:#fff;direction:ltr}
+  .side .foot .dsig em{font-style:normal;font-size:12px;color:var(--gold)}
   .side .lang{align-self:flex-start;margin:0 8px}
   @media (max-width:900px){.side .lang{margin:0;flex-shrink:0}}
   @media (max-width:1280px){.kpis{grid-template-columns:repeat(3,1fr)}}
@@ -106,7 +113,7 @@
       <button data-v="p3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Phase 3 · Data Preparation</button>
       <button data-v="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Data Explorer</button>
     </nav>
-    <div class="foot"><a href="en.html">← Back to website</a>Academic project · EWA · InnovatiCS · Group 10<br>Synthetic data, not official Panda KPIs.</div>
+    <div class="foot"><a href="en.html">← Back to website</a>Academic project · EWA · InnovatiCS · Group 10<br>Synthetic data, not official Panda KPIs.<a class="dsig" href="https://www.linkedin.com/in/afnan-aljohani-0b5a70315/" target="_blank" rel="noopener"><span class="q"><svg xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="LinkedIn QR" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33"><path class="qrline" stroke="#0F2A1E" d="M0 0.5h7m5 0h2m2 0h6m1 0h1m2 0h7m-33 1h1m5 0h1m3 0h1m1 0h6m6 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h1m3 0h3m4 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h3m1 0h2m3 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h1m2 0h1m2 0h2m2 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h11m1 0h2m2 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h1m4 0h1m4 0h3m1 0h1m-25 1h1m1 0h5m3 0h6m1 0h1m4 0h1m1 0h1m1 0h5m-28 1h1m4 0h1m1 0h1m5 0h1m1 0h2m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h1m2 0h1m2 0h1m5 0h2m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m1 0h1m-29 1h1m1 0h1m2 0h1m6 0h1m1 0h1m1 0h6m4 0h3m1 0h1m-32 1h4m1 0h1m1 0h1m1 0h2m6 0h3m1 0h2m1 0h1m1 0h3m1 0h2m-33 1h1m1 0h1m1 0h1m5 0h2m1 0h7m3 0h2m1 0h1m2 0h1m1 0h2m-32 1h3m2 0h1m1 0h1m4 0h1m3 0h1m2 0h1m1 0h1m2 0h2m1 0h4m-30 1h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m4 0h1m3 0h2m1 0h3m-27 1h3m1 0h5m1 0h1m2 0h1m4 0h4m1 0h2m3 0h1m-33 1h1m2 0h1m1 0h1m2 0h3m1 0h2m3 0h5m1 0h5m1 0h2m1 0h1m-31 1h5m2 0h1m1 0h3m1 0h1m1 0h1m2 0h2m5 0h2m1 0h2m-32 1h2m2 0h1m6 0h2m3 0h3m2 0h3m1 0h1m1 0h5m-32 1h3m1 0h3m1 0h5m3 0h1m2 0h2m3 0h2m1 0h3m-30 1h1m2 0h1m1 0h1m2 0h1m5 0h2m1 0h3m2 0h3m1 0h1m3 0h1m1 0h1m-33 1h1m2 0h1m2 0h4m1 0h1m2 0h3m3 0h1m4 0h1m1 0h5m-32 1h1m3 0h1m3 0h1m1 0h2m1 0h1m1 0h1m3 0h1m1 0h2m1 0h8m-32 1h1m2 0h2m1 0h1m2 0h1m5 0h1m1 0h2m3 0h7m2 0h1m-24 1h1m3 0h3m1 0h1m1 0h4m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m4 0h2m2 0h2m1 0h1m3 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m1 0h2m2 0h1m4 0h5m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h3m4 0h1m1 0h1m3 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h4m1 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h6m3 0h1m3 0h7m2 0h1m-31 1h1m5 0h1m4 0h4m1 0h1m4 0h2m2 0h2m1 0h3m-31 1h7m1 0h1m2 0h4m2 0h1m4 0h3m1 0h2m3 0h1"/></svg></span><span><small>Design by</small><b>Afnan Aljohani</b><em>LinkedIn ↗</em></span></a></div>
   </aside>
 
   <main>
@@ -440,6 +447,7 @@ window.addEventListener('hashchange',fromHash); fromHash();
 <script src="data/phases.js"></script>
 <script src="data/site-extras.js"></script>
 <script src="assets/phases-dash.js"></script>
+<script src="assets/sales-dash.js"></script>
 <script src="assets/chat.js"></script>
 </body>
 </html>

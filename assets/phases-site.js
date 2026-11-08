@@ -85,7 +85,7 @@
 
   /* ---------------- 5. Phase 4 (final results) ---------------- */
   const F = D.phase4_final, T = F.tracks, B = F.business;
-  const OWN = { Afnan: t('أفنان', 'Afnan'), Sara: t('سارة', 'Sara'), Shahad: t('شهد', 'Shahad'), Khalid: t('خالد', 'Khalid'), Rahaf: t('رهف', 'Rahaf'), Extra: t('نموذج مرجعي', 'Benchmark') };
+  const OWN = { Member: t('نموذج الفريق', 'Team model'), Extra: t('نموذج مرجعي', 'Benchmark'), Team: t('خط أساس', 'Baseline') };
   const short = m => m.replace(/^(ETS|ARIMAX|SARIMA|Theta)\(.*\)$/, '$1');
   const row = (tr, m) => T[tr].rows.find(r => r.model === m);
   const cC = row('classification', T.classification.champion), cR = row('regression', T.regression.champion), cF = row('forecasting', T.forecasting.champion);
@@ -98,7 +98,7 @@
   const card = (title, model, owner, team, teamOwner, lines) => `<article class="p4-card main"><span class="badge-top">${t('الفائز', 'Winner')}</span>
     <h3>${title}</h3><p class="sub"><b style="color:var(--green-700);font-size:18px">${model}</b></p>
     <div class="mets">${lines.map(([l, v]) => `<div><span>${l}</span><b class="num">${v}</b></div>`).join('')}</div>
-    <p class="vs">${t('أفضل نموذج من الفريق', 'Best team model')}: <b>${short(team)}</b> · ${OWN[teamOwner] || teamOwner}</p></article>`;
+    <p class="vs">${t('أفضل نموذج من الفريق', 'Best team model')}: <b>${short(team)}</b></p></article>`;
   const tvd = k => B.today_vs_models.find(z => z.k === k);
   const p4 = el(`<section id="phase4-results"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">${t('النتائج', 'RESULTS')}</span>
@@ -135,7 +135,7 @@
         </ul></div>
     </div>
 
-    <div class="kh-links reveal">${X.khalid.map(k => { const K = L(k); return `<a href="${k.href}" target="_blank" rel="noopener"><span class="ic">${ICON.link}</span><span><b>${esc(K.title)}</b><span>${esc(K.text)}</span><small>${esc(L(X.khalidBy))}</small></span><span class="go">${t('↖', '↗')}</span></a>`; }).join('')}</div>
+    <div class="kh-links reveal">${X.reports.map(k => { const K = L(k); return `<a href="${k.href}" target="_blank" rel="noopener"><span class="ic">${ICON.link}</span><span><b>${esc(K.title)}</b><span>${esc(K.text)}</span></span><span class="go">${t('↖', '↗')}</span></a>`; }).join('')}</div>
     <div class="p4-cta reveal" style="gap:12px;flex-wrap:wrap"><a class="btn btn-gold" href="${DASH}#biz">${t('قرار الاستثمار: الداشبورد التنفيذي', 'Investment case: executive dashboard')}</a><a class="btn btn-green" href="${DASH}#p4">${t('مقارنة كل النماذج', 'Compare every model')}</a></div>
   </div></section>`);
 
@@ -160,6 +160,7 @@
   let ticking = false;
   const spy = () => {
     ticking = false;
+    if (window.PANDA_PAGED) return;
     const y = innerHeight * 0.35; let cur = null;
     for (const m of marks) if (m.node.getBoundingClientRect().top <= y) cur = m.k;
     links.forEach(a => {
