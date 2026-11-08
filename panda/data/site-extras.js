@@ -1,5 +1,5 @@
 /* Editable settings for the Phase 1–4 additions.
-   Safe to edit by hand: texts, award names, number of award-day photos, video and Khalid's links.
+   Safe to edit by hand: texts, award names, number of award-day photos, video and report links.
    Phase 4 numbers are NOT here: they come from data/phases.js. */
 window.PANDA_EXTRAS = {
   video: {
@@ -24,13 +24,12 @@ window.PANDA_EXTRAS = {
        then set max to the number of photos. 0 hides the photo strip. */
     photos: { dir: 'assets/awards/photos/', max: 0 }
   },
-  khalid: [
-    { href: 'reports/khalid/panda-all-phases-dashboard.html',
+  reports: [
+    { href: 'reports/panda-all-phases-dashboard.html',
       ar: { title: 'لوحة مراحل المشروع 1–4', text: 'كل مرحلة بمصدرها وأرقامها، مع فلاتر وتصدير CSV.' },
       en: { title: 'All-phases dashboard (1–4)', text: 'Every phase with its source and numbers, with filters and CSV export.' } },
-    { href: 'reports/khalid/panda-stockout-dashboard.html',
+    { href: 'reports/panda-stockout-dashboard.html',
       ar: { title: 'لوحة نفاد المخزون', text: 'أداء نموذج LightGBM، ومصفوفة التصنيف، ومراجعة السجلات.' },
       en: { title: 'Stockout dashboard', text: 'LightGBM model performance, confusion matrix and record review.' } }
   ],
-  khalidBy: { ar: 'إعداد: خالد الحربي', en: 'Built by Khalid Alhrabi' }
 };

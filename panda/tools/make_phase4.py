@@ -44,12 +44,12 @@ fc['dm']=[{'model':r['Model'],'p':clean(r['p-value']),'verdict':r['Verdict']} fo
 sig=html(6); cls['bootstrap']=[{'model':r['Model'],'ci':r['95% CI'],'worse':bool(r['Significantly worse than champion'])} for _,r in sig.iterrows()]
 sig=html(10); reg['bootstrap']=[{'model':r['Model'],'ci':r['95% CI'],'worse':bool(r['Significantly worse than champion'])} for _,r in sig.iterrows()]
 nowcast=re.search(r'validation MAE \*\*([\d,]+)\*\* · test MAE \*\*([\d,]+)\*\* units/day · test R² (\d+\.\d+)',''.join(nb['cells'][14]['outputs'][2]['data']['text/markdown']))
-fc['nowcast']={'model':'XGBoost start-of-day nowcast','owner':'Afnan','val':int(nowcast.group(1).replace(',','')),'test':int(nowcast.group(2).replace(',','')),'r2':float(nowcast.group(3))}
+fc['nowcast']={'model':'XGBoost start-of-day nowcast','owner':'Member','val':int(nowcast.group(1).replace(',','')),'test':int(nowcast.group(2).replace(',','')),'r2':float(nowcast.group(3))}
 ch=html(18); shap={r['Approach'].split(' · ')[0].lower():r['Top SHAP drivers'] for _,r in ch.iterrows()}
 cls['shap']=shap.get('classification'); reg['shap']=shap.get('regression')
 
-# Deck: Khalid's ElasticNet -> LightGBM classifier (Appendix F1, p.36) is not in notebook 00
-khalid_cls={'model':'ElasticNet → LightGBM','owner':'Khalid','baseline':False,'assigned':True,'acc':0.966,'f1':0.436,'test':0.411,'top20':0.93,'source':'deck p.36'}
+# Deck: ElasticNet -> LightGBM classifier (Appendix F1, p.36) is not in notebook 00
+team_cls={'model':'ElasticNet → LightGBM','owner':'Member','baseline':False,'assigned':True,'acc':0.966,'f1':0.436,'test':0.411,'top20':0.93,'source':'deck p.36'}
 
 business={  # Phase 4 deck, Team10_Panda_Group10_3.pdf
  'today_vs_models':[
@@ -77,7 +77,7 @@ business={  # Phase 4 deck, Team10_Panda_Group10_3.pdf
 P=json.load(open(phases_json))
 P['phase4_final']={'source':{'notebook':'00_Model_Comparison.ipynb','deck':'Team10_Panda_Group10_3.pdf'},
   'test_period':{'start':'2026-08-02','end':'2026-09-26','days':56},
-  'tracks':{'classification':cls,'regression':reg,'forecasting':fc},'khalid_classifier':khalid_cls,'business':business}
+  'tracks':{'classification':cls,'regression':reg,'forecasting':fc},'team_classifier':team_cls,'business':business}
 j=json.dumps(P,ensure_ascii=False,separators=(',',':'))
 open(out_json,'w').write(json.dumps(P,ensure_ascii=False,indent=1))
 open(out_js,'w').write('window.PANDA_PHASE_DATA='+j+';\n')

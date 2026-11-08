@@ -1,4 +1,4 @@
-"""Build panda/data/phases.js (+ phases.json) from Khalid's All-Phases dashboard data.
+"""Build panda/data/phases.js (+ phases.json) from the All-Phases dashboard data.
 Every Phase 4 number comes from window.PANDA_DATA / window.PANDA_PHASES in that file."""
 import re,sys,json,hashlib
 src,out_js,out_json=sys.argv[1:4]
@@ -26,7 +26,7 @@ for e in D['experiments']:
     exps[e['id']]={'summary':sm,'test_start':e['test_start'],'test_end':e['test_end'],'by_category':per_cat(e)}
 m=PH['meta']
 out={
- 'generated_from':{'file':'PANDA_All_Phases_Dashboard.html (Khalid)','model_data':D['source'],'model_data_sha256':D['sha256']},
+ 'generated_from':{'file':'PANDA_All_Phases_Dashboard.html ','model_data':D['source'],'model_data_sha256':D['sha256']},
  'phase1':{'objectives':[
    {'id':1,'metric':'MAPE','baseline':'25–30%','target':'< 15%','ar':'توقع الطلب على مستوى الفرع للمنتجات الطازجة مع أثر التقويم السعودي والعروض','en':'Forecast store-level demand for fresh products with Saudi calendar and promotion effects'},
    {'id':2,'metric':'Recall','baseline':'—','target':'≥ 85%','ar':'التنبؤ بنفاد المخزون وخطر قرب الانتهاء، وخفض نفاد العروض 25–30%','en':'Predict stockout and near-expiry risk; cut promo stockouts by 25–30%'},
@@ -39,6 +39,6 @@ out={
 }
 j=json.dumps(out,ensure_ascii=False,separators=(',',':'))
 open(out_json,'w').write(json.dumps(out,ensure_ascii=False,indent=1))
-open(out_js,'w').write('/* Generated from Khalid\'s PANDA_All_Phases_Dashboard.html by make_phases.py. Do not edit numbers by hand. */\nwindow.PANDA_PHASE_DATA='+j+';\n')
+open(out_js,'w').write('/* Generated from PANDA_All_Phases_Dashboard.html by make_phases.py. Do not edit numbers by hand. */\nwindow.PANDA_PHASE_DATA='+j+';\n')
 P=out['phase4']['experiments'][out['phase4']['primary']]['summary']
 print('primary',P);print(out['phase4']['experiments']['supplied__inventory_inputs']['by_category'][:2])

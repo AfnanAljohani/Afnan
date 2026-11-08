@@ -19,7 +19,7 @@
     .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[^\p{L}\p{N}%.\s-]/gu, ' ').replace(/\s+/g, ' ').trim();
 
   /* ---------- helpers over the Phase 4 data ---------- */
-  const OWN = { Afnan: t('أفنان', 'Afnan'), Sara: t('سارة', 'Sara'), Shahad: t('شهد', 'Shahad'), Khalid: t('خالد', 'Khalid'), Rahaf: t('رهف', 'Rahaf'), Extra: t('نموذج مرجعي', 'benchmark'), Team: t('خط أساس', 'baseline') };
+  const OWN = { Member: t('نموذج الفريق', 'team model'), Extra: t('نموذج مرجعي', 'benchmark'), Team: t('خط أساس', 'baseline') };
   const short = m => m.replace(/^(ETS|ARIMAX|SARIMA|Theta)\(.*\)$/, '$1');
   const TRN = { classification: t('التصنيف (خطر النفاد)', 'classification (stockout risk)'), regression: t('الانحدار (كمية الهدر)', 'regression (waste quantity)'), forecasting: t('السلاسل الزمنية (الطلب اليومي)', 'time series (daily demand)') };
   const champ = tr => F.tracks[tr].rows.find(r => r.model === F.tracks[tr].champion);
@@ -35,14 +35,13 @@
     ['ets', [' ets', 'ets ', 'تمهيد اسي']], ['arimax', ['arimax', 'اريماكس']], ['sarima', ['sarima', 'ساريما']], ['theta', ['theta', 'ثيتا']],
     ['lasso', ['lasso', 'لاسو']], ['ridge', ['ridge', 'ريدج']], ['linear', ['linear regression', 'الانحدار الخطي', 'خطي']], ['elasticnet', ['elasticnet', 'elastic']]
   ];
-  const OWNER_KEYS = [['Afnan', ['افنان', 'afnan']], ['Sara', ['ساره', 'sara']], ['Shahad', ['شهد', 'shahad', 'سهد']], ['Khalid', ['خالد', 'khalid']], ['Rahaf', ['رهف', 'rahaf']]];
 
   function modelAnswer(key) {
     if (!F) return null;
     const out = [];
     for (const tr of ['classification', 'regression', 'forecasting']) {
       let rows = F.tracks[tr].rows.slice();
-      if (tr === 'classification' && F.khalid_classifier) rows.push(F.khalid_classifier);
+      if (tr === 'classification' && F.team_classifier) rows.push(F.team_classifier);
       rows.filter(r => norm(r.model).includes(key)).forEach(r => {
         const win = r.model === F.tracks[tr].champion ? t(' — الفائز', ' — the winner') : r.model === F.tracks[tr].best_team ? t(' — أفضل نموذج من الفريق', ' — best team model') : '';
         out.push(`• <b>${short(r.model)}</b> (${OWN[r.owner] || r.owner}) ${t('في', 'in')} ${TRN[tr]}${win}: ${metricLine(tr, r)}`);
@@ -50,18 +49,6 @@
     }
     return out.length ? out.join('<br>') : null;
   }
-  function ownerAnswer(o) {
-    if (!F) return null;
-    const out = [];
-    for (const tr of ['classification', 'regression', 'forecasting']) {
-      let rows = F.tracks[tr].rows.slice();
-      if (tr === 'classification' && F.khalid_classifier) rows.push(F.khalid_classifier);
-      rows.filter(r => r.owner === o).forEach(r => out.push(`• <b>${short(r.model)}</b> ${t('في', 'in')} ${TRN[tr]}: ${metricLine(tr, r)}${r.model === F.tracks[tr].best_team ? t(' ← أفضل نموذج من الفريق', ' (best team model)') : ''}`));
-    }
-    if (o === 'Afnan' && F.tracks.forecasting.nowcast) out.push(`• ${t('امتداد: تحديث صباحي (Nowcast) ينزّل الخطأ إلى', 'Extension: a same-morning nowcast cuts the error to')} <b>${nf(F.tracks.forecasting.nowcast.test)}</b> ${t('وحدة/يوم', 'units/day')}`);
-    return out.length ? `${t('نماذج', 'Models by')} ${OWN[o]}:<br>${out.join('<br>')}` : null;
-  }
-
   /* ---------- knowledge base ---------- */
   const KB = [];
   const add = (keys, a, links) => KB.push({ keys: keys.map(norm), a, links: links || [] });
@@ -101,8 +88,8 @@
     t('حقول تكشف النتيجة استُبعدت أو استُخدمت من الفترة السابقة فقط، مثل نسبة التوفر في نفس اليوم وزوار نفس اليوم. وفحص الميزات أثبت أن النموذج يعتمد على المخزون الافتتاحي: بدونه ينخفض PR-AUC من 0.394 إلى 0.042.',
       'Fields that reveal the outcome were excluded or only used from the previous period, such as same-day availability and same-day footfall. The feature check showed the model depends on opening stock: without it PR-AUC drops from 0.394 to 0.042.'), [link(DASH + '#p4', t('فحوص التسرّب', 'Leakage checks'))]);
   add(['الفريق', 'الاعضاء', 'مين سوى', 'team', 'members', 'who'],
-    t('الفريق: سارة الشمراني (قائدة الفريق)، أفنان الجهني، خالد الحربي، شهد مروي، رهف الحضرمي. بمتابعة مروان الحاج (منسق المتدربين)، وخبراء الأعمال محمد الشرشابي وطارق النجدي، وخبير البيانات أحمد بتوا، والمطور شيخ ظهير الدين.',
-      'The team: Sara Alshamrani (team lead), Afnan Aljohani, Khalid Alhrabi, Shahad Marwi and Rahaf Alhadhrami; with Marwan Al-haj (trainee coordinator), business experts Mohamed Al Shirshabi and Tarek Elnagdy, data expert Ahmed Batwa and developer Shaik Zaheeruddin.'));
+    t('فريق Group 10 من متدربي الذكاء الاصطناعي وعلوم البيانات في برنامج EWA · InnovatiCS، بالتعاون مع خبراء أعمال وبيانات من بندة.',
+      'Group 10, a team of AI & data science trainees in the EWA · InnovatiCS programme, working with business and data experts from Panda.'));
   add(['الجوائز', 'جايزه', 'جوايز', 'فزتو', 'awards', 'award', 'prize'],
     t('فاز الفريق بجائزتين من نادي الذكاء الاصطناعي في أكاديمية الطاقة والمياه (EWA): أكثر موقع ابتكارًا، والمركز الثالث في مشاريع الذكاء الاصطناعي.', 'The team won two EWA AI Club awards: Most Innovative Website, and 3rd place in AI Projects.'), [link(SITE + '#awards', t('الجوائز', 'Awards'))]);
   add(['الزياره', 'زرتو', 'visit', 'صافولا', 'savola'],
@@ -116,7 +103,7 @@
       `${t('الفائزون في المرحلة الرابعة:', 'Phase 4 winners:')}<br>• ${TRN.classification}: <b>${F.tracks.classification.champion}</b> (${metricLine('classification', c)})<br>• ${TRN.regression}: <b>${F.tracks.regression.champion}</b> (${metricLine('regression', r)})<br>• ${TRN.forecasting}: <b>${short(F.tracks.forecasting.champion)}</b> (${metricLine('forecasting', f)})${O.anomaly ? `<br>• ${t('كشف الشذوذ', 'Anomaly detection')}: <b>${O.anomaly.winner}</b> · ${t('التجميع', 'Clustering')}: <b>${O.clustering.winner}</b> · ${t('قواعد الارتباط', 'Association rules')}: <b>${O.rules.winner}</b>` : ''}`,
       [link(DASH + '#p4', t('مقارنة كل النماذج', 'Compare every model'))]);
     add(['افضل نموذج من الفريق', 'نماذج الفريق', 'best team', 'team model'],
-      `${t('أفضل نموذج من الفريق في كل منهجية:', 'Best team model per approach:')}<br>• ${TRN.classification}: <b>${short(F.tracks.classification.best_team)}</b> (${OWN[F.tracks.classification.best_team_owner]})<br>• ${TRN.regression}: <b>${short(F.tracks.regression.best_team)}</b> (${OWN[F.tracks.regression.best_team_owner]})<br>• ${TRN.forecasting}: <b>${short(F.tracks.forecasting.best_team)}</b> (${OWN[F.tracks.forecasting.best_team_owner]})`);
+      `${t('أفضل نموذج من الفريق في كل منهجية:', 'Best team model per approach:')}<br>• ${TRN.classification}: <b>${short(F.tracks.classification.best_team)}</b> <br>• ${TRN.regression}: <b>${short(F.tracks.regression.best_team)}</b> <br>• ${TRN.forecasting}: <b>${short(F.tracks.forecasting.best_team)}</b> `);
     add(['نفاد المخزون', 'التصنيف', 'classification', 'stockout model', 'نموذج النفاد'],
       t(`النموذج الفائز في التصنيف <b>${F.tracks.classification.champion}</b>: ${metricLine('classification', c)}. بفحص 1 من 5 سجلات يكتشف ${pct(B.today_vs_models[0].with)} من حالات النفاد مقابل 20% بالفحص العشوائي، أي ${B.stockout.found_model} حالة يوميًا بدل ${B.stockout.found_random}.`,
         `The classification winner is <b>${F.tracks.classification.champion}</b>: ${metricLine('classification', c)}. Checking 1 in 5 records catches ${pct(B.today_vs_models[0].with)} of stockouts vs 20% with random checks: ${B.stockout.found_model} a day instead of ${B.stockout.found_random}.`), [link(DASH + '#p4', t('التصنيف', 'Classification'))]);
@@ -160,7 +147,6 @@
   /* ---------- answering ---------- */
   function answer(q) {
     const n = ' ' + norm(q) + ' ';
-    for (const [o, keys] of OWNER_KEYS) if (keys.some(k => n.includes(norm(k)))) { const a = ownerAnswer(o); if (a) return { a, links: [link(DASH + '#p4', t('مقارنة النماذج', 'Model comparison'))] }; }
     for (const [key, keys] of MODEL_KEYS) if (keys.some(k => n.includes(norm(k)))) { const a = modelAnswer(key); if (a) return { a, links: [link(DASH + '#p4', t('مقارنة النماذج', 'Model comparison'))] }; }
     let best = null, bestScore = 0;
     for (const e of KB) {
@@ -176,13 +162,16 @@
   const css = `
   .pc-fab{position:fixed;bottom:22px;inset-inline-end:22px;z-index:120;display:flex;align-items:center;gap:10px;border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;color:#0F2A1E;background:#C9A24A;border-radius:999px;padding:12px 18px 12px 14px;box-shadow:0 12px 30px rgba(15,42,30,.3);transition:transform .2s}
   .pc-fab:hover{transform:translateY(-2px)}
-  .pc-fab svg{width:22px;height:22px}
+  .pc-fab .pc-bot{display:grid;place-items:center;width:46px;height:46px;margin:-8px 0;border-radius:50%;background:#E6F0EA;box-shadow:inset 0 0 0 2px #fff;animation:pcBob 3s ease-in-out infinite}
+  .pc-fab .pc-bot svg{width:40px;height:40px}
+  @keyframes pcBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+  @media (prefers-reduced-motion:reduce){.pc-fab .pc-bot{animation:none}}
   .pc-panel{position:fixed;bottom:86px;inset-inline-end:22px;z-index:121;width:min(400px,calc(100vw - 32px));height:min(580px,calc(100vh - 120px));background:#fff;border-radius:20px;box-shadow:0 24px 60px rgba(15,42,30,.3);display:none;flex-direction:column;overflow:hidden;border:1px solid #E2E8E4;font-family:inherit}
   .pc-panel.open{display:flex;animation:pcIn .25s ease}
   @keyframes pcIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
   .pc-head{background:linear-gradient(135deg,#0F2A1E,#295F45);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px}
-  .pc-head .av{width:38px;height:38px;border-radius:12px;background:#C9A24A;color:#0F2A1E;display:grid;place-items:center;flex-shrink:0}
-  .pc-head .av svg{width:20px;height:20px}
+  .pc-head .av{width:46px;height:46px;border-radius:14px;background:#E6F0EA;display:grid;place-items:center;flex-shrink:0}
+  .pc-head .av svg{width:40px;height:40px}
   .pc-head b{display:block;font-size:15px}
   .pc-head small{font-size:12px;color:#CFE0D6}
   .pc-head button{margin-inline-start:auto;background:rgba(255,255,255,.1);border:0;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px}
@@ -199,12 +188,13 @@
   .pc-note{font-size:11px;color:#6B7A72;text-align:center;padding:0 12px 8px;background:#fff}
   @media (max-width:560px){.pc-fab span{display:none}.pc-fab{padding:14px}}`;
   const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+const robot = '<svg viewBox="0 0 64 64" aria-hidden="true"><defs><pattern id="pcShm" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#fff"/><rect width="3" height="3" fill="#C8102E"/><rect x="3" y="3" width="3" height="3" fill="#C8102E"/></pattern></defs><path d="M10 28 Q32 2 54 28 L58 50 Q54 54 50 50 L46 32 L18 32 L14 50 Q10 54 6 50 Z" fill="url(#pcShm)" stroke="#9B0D22" stroke-width="1"/><ellipse cx="32" cy="15" rx="17" ry="4.2" fill="#1A1A1A"/><ellipse cx="32" cy="15" rx="17" ry="4.2" fill="none" stroke="#3A3A3A" stroke-width="1"/><rect x="17" y="20" width="30" height="24" rx="9" fill="#123A63"/><rect x="20" y="23" width="24" height="18" rx="7" fill="#0B2742"/><circle cx="26.5" cy="30" r="3.2" fill="#5EF2E6"/><circle cx="37.5" cy="30" r="3.2" fill="#5EF2E6"/><rect x="28" y="35.5" width="1.8" height="3.2" rx=".9" fill="#5EF2E6"/><rect x="31.1" y="34.5" width="1.8" height="4.6" rx=".9" fill="#5EF2E6"/><rect x="34.2" y="35.5" width="1.8" height="3.2" rx=".9" fill="#5EF2E6"/><rect x="29" y="45" width="6" height="3" fill="#123A63"/><rect x="22" y="48" width="20" height="12" rx="6" fill="#123A63"/><circle cx="32" cy="54" r="3" fill="#5EF2E6"/><circle cx="32" cy="54" r="1.4" fill="#0B2742"/></svg>';
   const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>';
   const fab = document.createElement('button'); fab.className = 'pc-fab'; fab.setAttribute('aria-label', t('مساعد بيانات بندة', 'Panda data assistant'));
-  fab.innerHTML = `${icon}<span>${t('اسأل عن المشروع', 'Ask about the project')}</span>`;
+  fab.innerHTML = `<i class="pc-bot">${robot}</i><span>${t('اسأل عن المشروع', 'Ask about the project')}</span>`;
   const panel = document.createElement('div'); panel.className = 'pc-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', t('مساعد بيانات بندة', 'Panda data assistant'));
-  const SUG = [t('مين النموذج الفائز؟', 'Which model won?'), t('كم نوفر لو استثمرنا؟', 'How much would we save?'), t('كم حجم البيانات؟', 'How big is the data?'), t('وش نماذج أفنان؟', 'What are Afnan’s models?'), t('وش الخطة الجاية؟', 'What is the plan?'), t('وش يسبب النفاد؟', 'What drives stockouts?')];
-  panel.innerHTML = `<div class="pc-head"><span class="av">${icon}</span><div><b>${t('مساعد بيانات بندة', 'Panda data assistant')}</b><small>${t('يجاوب من بيانات المشروع ونتائجه', 'Answers from the project’s data and results')}</small></div><button aria-label="${t('إغلاق', 'Close')}">✕</button></div>
+  const SUG = [t('مين النموذج الفائز؟', 'Which model won?'), t('كم نوفر لو استثمرنا؟', 'How much would we save?'), t('كم حجم البيانات؟', 'How big is the data?'), t('وش أفضل نموذج من الفريق؟', 'Best team model?'), t('وش الخطة الجاية؟', 'What is the plan?'), t('وش يسبب النفاد؟', 'What drives stockouts?')];
+  panel.innerHTML = `<div class="pc-head"><span class="av">${robot}</span><div><b>${t('بندوي · مساعد بيانات بندة', 'Bandawi · Panda data assistant')}</b><small>${t('يجاوب من بيانات المشروع ونتائجه', 'Answers from the project’s data and results')}</small></div><button aria-label="${t('إغلاق', 'Close')}">✕</button></div>
     <div class="pc-body" aria-live="polite"></div>
     <div class="pc-sugg">${SUG.map(s => `<button>${s}</button>`).join('')}</div>
     <form class="pc-form"><input type="text" placeholder="${t('اكتب سؤالك…', 'Type your question…')}" aria-label="${t('سؤالك', 'Your question')}" autocomplete="off"><button type="submit">${t('إرسال', 'Send')}</button></form>
