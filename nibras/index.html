@@ -220,25 +220,167 @@ form.addsub input,form.addsub select{min-width:0;padding:8px 10px;border-radius:
 footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
 footer b{color:var(--fg);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== hero band: one fixed dark look in both themes ===== */
+:root{--h-bg:#120a0d;--h-bg2:#2b0f1a;--h-fg:#f7edf0;--h-mut:#c7adb5;--h-line:rgba(255,226,233,.13);--glow:#ffcf8a;--glow2:#e98aa0}
+.hero{position:relative;overflow:hidden;background:radial-gradient(110% 85% at 50% -12%,var(--h-bg2) 0%,var(--h-bg) 62%);color:var(--h-fg);isolation:isolate}
+.hero{border-bottom:1px solid var(--h-line)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.hero-in{max-width:1200px;margin:0 auto;padding-block:18px 84px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:48px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-size:21px;font-weight:700;color:var(--h-fg);text-decoration:none}
+.logo .mk{width:36px;height:36px;border-radius:10px;background:linear-gradient(160deg,#9b2c45,#5a1626);display:grid;place-items:center;color:var(--glow);box-shadow:0 0 24px -4px rgba(255,207,138,.45)}
+.logo .mk svg{width:20px;height:20px}
+.nav-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--h-mut);text-decoration:none;font-size:14px;padding:6px 10px;border-radius:8px}
+.nav-links a:hover{color:var(--h-fg);background:rgba(255,255,255,.06)}
+.hero .lang{background:transparent;border:1px solid var(--h-line);color:var(--h-fg)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center}
+@media (max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:36px}.hero-in{gap:32px}}
+.kick{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--glow);direction:ltr;display:inline-block}
+.big{font-family:var(--f-display);font-weight:700;font-size:clamp(76px,12vw,156px);line-height:1;margin:6px 0 10px;background:linear-gradient(180deg,#fff8ea 8%,var(--glow) 52%,var(--glow2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 40px rgba(255,207,138,.22))}
+.lead{font-size:clamp(17px,2vw,21px);line-height:1.75;color:var(--h-mut);max-width:36ch;margin:0;text-wrap:pretty}
+.lead b{color:var(--h-fg);font-weight:600}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.b-glow,.b-line{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 22px;font-weight:600;text-decoration:none;font-size:15px}
+.b-glow{background:var(--glow);color:#2b0f1a;box-shadow:0 10px 34px -10px rgba(255,207,138,.7)}
+.b-glow:hover{background:#ffdba3}
+.b-line{border:1px solid var(--h-line);color:var(--h-fg);background:rgba(255,255,255,.03)}
+.b-line:hover{background:rgba(255,255,255,.08)}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:34px;padding-top:20px;border-top:1px solid var(--h-line)}
+@media (max-width:520px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.facts b{display:block;font-family:var(--f-mono);font-weight:500;font-size:24px;color:var(--h-fg);direction:ltr;text-align:left}
+[dir="rtl"] .facts b{text-align:right}
+.facts span{font-size:12.5px;color:var(--h-mut)}
+.term{background:rgba(12,7,9,.74);border:1px solid var(--h-line);border-radius:16px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.75),0 0 80px -20px rgba(255,207,138,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.term-top{display:flex;gap:6px;padding:11px 14px;border-bottom:1px solid var(--h-line);align-items:center}
+.term-top i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.16)}
+.term-top span{margin-inline-start:auto;font-family:var(--f-mono);font-size:11.5px;color:var(--h-mut);direction:ltr}
+.term-body{-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%);padding:16px;height:330px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;font-size:14px;overflow:hidden}
+.tl{max-width:92%;line-height:1.6;animation:tlIn .35s ease both}
+.tl-u{align-self:flex-start;background:var(--glow2);color:#1d0b11;padding:7px 13px;border-radius:13px;border-end-start-radius:4px;font-weight:500}
+.tl-c{align-self:flex-end;font-family:"IBM Plex Mono","IBM Plex Sans Arabic",monospace;direction:ltr;text-align:left;color:#d5e7f0;background:rgba(255,255,255,.05);border:1px solid var(--h-line);border-radius:9px;padding:8px 11px;font-size:12.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+.tl-c .k{color:var(--glow)}
+.tl-b{align-self:flex-end;background:rgba(255,255,255,.08);color:var(--h-fg);padding:7px 13px;border-radius:13px;border-end-end-radius:4px}
+.caret{display:inline-block;width:7px;height:1em;background:var(--glow);vertical-align:-2px;margin-inline-start:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@keyframes tlIn{from{opacity:0;transform:translateY(6px)}}
+
+/* ===== section headings ===== */
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;scroll-margin-top:16px}
+.sec-h h2{font-family:var(--f-display);font-size:clamp(26px,3.4vw,38px);line-height:1.2;margin:4px 0 0;font-weight:700;text-wrap:balance}
+.sec-h p{margin:4px 0 0;color:var(--muted);max-width:52ch}
+.kicker{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;direction:ltr;display:inline-block}
+#how,#film{scroll-margin-top:16px}
+
+/* ===== film ===== */
+.film{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:28px;align-items:center;padding:22px}
+@media (max-width:820px){.film{grid-template-columns:minmax(0,1fr)}}
+.film h2{font-family:var(--f-display);font-size:clamp(24px,3vw,32px);margin:6px 0 8px;font-weight:700}
+.film p{margin:0;color:var(--muted)}
+.film video{display:block;width:100%;max-width:100%;aspect-ratio:16/9;border-radius:12px;background:#120a0d;box-shadow:0 24px 60px -30px rgba(42,15,25,.6)}
+
+/* ===== Nibras assistant widget (fixed dark look) ===== */
+:root{--w-bg:#170d12;--w-bg2:#24111a;--w-card:rgba(255,255,255,.06);--w-line:rgba(255,226,233,.14);--w-fg:#f7edf0;--w-mut:#c2a8b1;--w-on:#22e08a}
+.nb-fab{position:fixed;z-index:60;left:max(18px,env(safe-area-inset-left,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));width:66px;height:66px;border-radius:50%;border:0;padding:0;background:radial-gradient(circle at 50% 30%,#4a1a2b,#1a0b11);box-shadow:0 14px 34px -10px rgba(42,15,25,.7),0 0 0 3px rgba(255,207,138,.35);display:grid;place-items:center;overflow:hidden}
+.nb-fab .nb-av{width:58px;height:64px;margin-top:10px}
+.nb-fab::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(255,207,138,.55);animation:ring 2.4s ease-out infinite;pointer-events:none}
+@keyframes ring{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+.nb-tip{position:fixed;z-index:60;left:calc(max(18px,env(safe-area-inset-left,0px)) + 76px);bottom:calc(36px + env(safe-area-inset-bottom,0px));background:var(--w-bg);color:var(--w-fg);border:1px solid var(--w-line);padding:6px 12px;border-radius:10px;font-size:13px;white-space:nowrap;box-shadow:0 10px 24px -12px rgba(0,0,0,.6)}
+.nb-modal{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(10,5,8,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.nb-card{position:relative;width:min(920px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr);gap:12px;align-items:center;padding:36px 40px 0;border-radius:24px;color:var(--w-fg);background:radial-gradient(90% 120% at 15% 10%,#4b1a2d 0%,transparent 60%),linear-gradient(135deg,#2b1220,#150a10);border:1px solid var(--w-line);box-shadow:0 50px 120px -30px rgba(0,0,0,.8);animation:pop .35s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}}
+@media (max-width:720px){.nb-card{grid-template-columns:minmax(0,1fr);padding:28px 22px 0}.nb-card .nb-fig{order:-1;max-width:190px;margin:0 auto}}
+.nb-x{position:absolute;top:14px;inset-inline-end:16px;background:none;border:0;color:var(--w-mut);font-size:26px;line-height:1;padding:4px 8px;border-radius:8px}
+.nb-x:hover{color:var(--w-fg);background:rgba(255,255,255,.06)}
+.nb-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid var(--w-line);background:rgba(255,255,255,.04);font-size:13.5px;color:var(--w-mut)}
+.nb-on{width:9px;height:9px;border-radius:50%;background:var(--w-on);box-shadow:0 0 0 3px rgba(34,224,138,.18)}
+.nb-card h3{font-family:var(--f-display);font-size:clamp(34px,5vw,52px);line-height:1.15;margin:16px 0 18px;font-weight:700}
+.nb-grad{background:linear-gradient(90deg,var(--glow),var(--glow2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nb-type{min-height:110px;background:var(--w-card);border:1px solid var(--w-line);border-radius:16px;padding:16px 18px;font-size:16px;line-height:1.8}
+.nb-acts{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 36px}
+.nb-go{border:0;border-radius:14px;padding:13px 26px;font-weight:700;color:#2b0f1a;background:linear-gradient(135deg,var(--glow),#f5b37f);box-shadow:0 0 0 3px rgba(255,207,138,.25)}
+.nb-ask{border:1px solid var(--w-line);border-radius:14px;padding:13px 26px;font-weight:700;color:var(--w-fg);background:rgba(255,255,255,.04)}
+.nb-ask:hover{background:rgba(255,255,255,.09)}
+.nb-fig{align-self:end;filter:drop-shadow(0 0 40px rgba(233,138,160,.35))}
+.nb-fig .nb-av{width:100%;height:auto;display:block}
+.nb-eyes{animation:bl 5s infinite;transform-origin:100px 112px}
+@keyframes bl{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.nb-flame{animation:fl 1.6s ease-in-out infinite;transform-origin:100px 45px}
+@keyframes fl{50%{transform:scale(.9,1.08)}}
+.nb-panel{position:fixed;z-index:65;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(96px + env(safe-area-inset-bottom,0px));width:min(390px,calc(100vw - 32px));height:min(600px,calc(100vh - 130px));display:flex;flex-direction:column;border-radius:22px;overflow:hidden;color:var(--w-fg);background:linear-gradient(180deg,var(--w-bg2),var(--w-bg));border:1px solid var(--w-line);box-shadow:0 40px 90px -30px rgba(0,0,0,.8);animation:pop .3s ease both}
+.nb-head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--w-line)}
+.nb-ph{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#4a1a2b,#1a0b11);overflow:hidden;display:grid;place-items:center;flex:none;box-shadow:0 0 0 2px rgba(255,207,138,.4)}
+.nb-ph .nb-av{width:40px;height:44px;margin-top:8px}
+.nb-head b{display:block;font-size:15.5px}
+.nb-head small{display:flex;align-items:center;gap:6px;color:var(--w-on);font-size:12.5px}
+.nb-head .nb-x{position:static;margin-inline-start:auto}
+.nb-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.nb-m{max-width:88%;padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere}
+.nb-m.b{align-self:flex-start;background:rgba(255,255,255,.07);border:1px solid var(--w-line);border-start-start-radius:4px}
+.nb-m.u{align-self:flex-end;background:linear-gradient(135deg,#9b2c45,#6d1d31);border-start-end-radius:4px}
+.nb-m a{color:var(--glow)}
+.nb-m .nb-do{display:inline-block;margin-top:8px;border:1px solid rgba(255,207,138,.5);color:var(--glow);background:rgba(255,207,138,.08);border-radius:10px;padding:5px 12px;font-size:13px}
+.nb-chips{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid var(--w-line)}
+.nb-chip{border:1px solid var(--w-line);background:rgba(255,255,255,.04);color:var(--w-fg);border-radius:999px;padding:6px 13px;font-size:13px}
+.nb-chip:hover{border-color:rgba(255,207,138,.6)}
+.nb-form{display:flex;gap:10px;padding:12px 16px 16px;border-top:1px solid var(--w-line)}
+.nb-form input{flex:1;min-width:0;background:rgba(0,0,0,.25);border:1px solid rgba(233,138,160,.5);color:var(--w-fg);border-radius:14px;padding:12px 14px}
+.nb-form input::placeholder{color:var(--w-mut)}
+.nb-send{width:48px;border:0;border-radius:14px;background:linear-gradient(135deg,var(--glow2),#9b2c45);color:#fff;display:grid;place-items:center}
+.nb-send svg{width:20px;height:20px}
+[dir="rtl"] .nb-send svg{transform:scaleX(-1)}
+@media (prefers-reduced-motion:reduce){.nb-fab::after{display:none}}
+@media (max-width:640px){.nb-tip{display:none}}
 </style>
 </head>
 <body>
-<div class="wrap" id="app" dir="rtl" lang="ar">
-  <header>
-    <div class="brand">
-      <div class="mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--on-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1.1 1.3 1.1 2.2h5c0-.9.5-1.7 1.1-2.2A6 6 0 0 0 12 3Z"/><path d="M12 7v3l2 1"/></svg>
+<div id="app" dir="rtl" lang="ar">
+<section class="hero" aria-label="Nibras">
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="hero-in">
+    <nav class="nav">
+      <a class="logo" href="#top" id="top"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1.1 1.3 1.1 2.2h5c0-.9.5-1.7 1.1-2.2A6 6 0 0 0 12 3Z"/><path d="M12 7v3l2 1"/></svg></span><span data-i="brand">نبراس</span></a>
+      <div class="nav-links">
+        <a href="#try" data-i="nTry"></a><a href="#how" data-i="nHow"></a><a href="#film" data-i="nFilm"></a>
+        <button class="lang" id="langBtn" type="button">English</button>
       </div>
+    </nav>
+    <div class="hero-grid">
       <div>
-        <h1 data-i="brand">نبراس</h1>
-        <p data-i="tagline"></p>
+        <span class="kick">AI STUDY AGENT · 2026</span>
+        <h1 class="big" data-i="brand">نبراس</h1>
+        <p class="lead" data-h="heroLead"></p>
+        <div class="cta">
+          <a class="b-glow" href="#try" data-i="ctaTry"></a>
+          <a class="b-line" href="#film" data-i="ctaFilm"></a>
+        </div>
+        <div class="facts">
+          <div><b>9</b><span data-i="f1"></span></div>
+          <div><b>AR·EN</b><span data-i="f2"></span></div>
+          <div><b>0</b><span data-i="f3"></span></div>
+          <div><b>100%</b><span data-i="f4"></span></div>
+        </div>
       </div>
+      <div class="term" aria-hidden="true">
+        <div class="term-top"><i></i><i></i><i></i><span>nibras · agent trace</span></div>
+        <div class="term-body" id="ticker"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <header class="sec-h" id="try">
+    <div>
+      <span class="kicker">01 · Try it</span>
+      <h2 data-i="tryT"></h2>
+      <p data-i="tagline"></p>
     </div>
     <div class="status">
       <span class="pill"><span class="dot"></span><span data-i="ready"></span></span>
       <span class="pill">🔥 <b id="pStreak">0</b> <span data-i="streakU"></span></span>
       <span class="pill">⭐ <b id="pPoints">0</b> <span data-i="pointsU"></span></span>
-      <button class="lang" id="langBtn" type="button">English</button>
     </div>
   </header>
 
@@ -347,15 +489,23 @@ footer b{color:var(--fg);font-weight:600}
     </section>
   </div>
 
+  <header class="sec-h" id="how"><div><span class="kicker">02 · How it thinks</span><h2 data-i="howT"></h2><p data-i="howP"></p></div></header>
   <section class="panel how">
-    <h2 data-i="howT"></h2>
     <div class="loop">
       <div><b data-i="h1"></b><span data-i="h1d"></span></div>
       <div><b data-i="h2"></b><span data-i="h2d"></span></div>
       <div><b data-i="h3"></b><span data-i="h3d"></span></div>
       <div><b data-i="h4"></b><span data-i="h4d"></span></div>
     </div>
-    <div class="tools"><code>add_subject</code><code>build_schedule</code><code>next_task</code><code>next_exam</code><code>start_timer</code><code>daily_challenge</code><code>explain_term</code><code>mark_done</code><code>get_progress</code></div>
+  </section>
+
+  <section class="panel film" id="film">
+    <div>
+      <span class="kicker">03 · Teaser</span>
+      <h2 data-i="filmT"></h2>
+      <p data-i="filmP"></p>
+    </div>
+    <video src="assets/nibras-teaser.mp4" poster="assets/teaser-poster.jpg" controls playsinline muted preload="metadata"></video>
   </section>
 
   <footer>
@@ -364,11 +514,47 @@ footer b{color:var(--fg);font-weight:600}
   </footer>
 </div>
 
+<button class="nb-fab" id="nbFab" type="button" aria-label="Ask Nibras"><svg class="nb-av" viewBox="0 0 200 220" aria-hidden="true"><defs><radialGradient id="AVh" cx="50%" cy="30%" r="70%"><stop offset="0" stop-color="#ffe9c7"/><stop offset=".55" stop-color="#f2a9b8"/><stop offset="1" stop-color="#8a2a40"/></radialGradient><linearGradient id="AVb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b1f33"/><stop offset="1" stop-color="#2a0f19"/></linearGradient></defs><circle cx="100" cy="34" r="30" fill="#ffcf8a" opacity=".22"/><path class="nb-flame" d="M100 14c9 11 11 20 0 31c-11-11-9-20 0-31z" fill="#ffcf8a"/><path d="M100 45v18" stroke="#ffcf8a" stroke-width="3" stroke-linecap="round"/><circle cx="40" cy="114" r="14" fill="#2a0f19" stroke="#f2a9b8" stroke-width="3"/><circle cx="160" cy="114" r="14" fill="#2a0f19" stroke="#f2a9b8" stroke-width="3"/><circle cx="40" cy="114" r="5" fill="#ffcf8a"/><circle cx="160" cy="114" r="5" fill="#ffcf8a"/><rect x="48" y="62" width="104" height="102" rx="46" fill="url(#AVh)"/><path d="M126 70v12h10M134 82v8" stroke="#fff" stroke-opacity=".55" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="136" cy="92" r="2.5" fill="#fff" fill-opacity=".7"/><rect x="62" y="94" width="76" height="36" rx="18" fill="#2a0f19"/><g class="nb-eyes"><circle cx="84" cy="112" r="7" fill="#ffcf8a"/><circle cx="116" cy="112" r="7" fill="#ffcf8a"/><circle cx="86.5" cy="109.5" r="2.2" fill="#fff"/><circle cx="118.5" cy="109.5" r="2.2" fill="#fff"/></g><circle cx="66" cy="140" r="7" fill="#e0798f" opacity=".45"/><circle cx="134" cy="140" r="7" fill="#e0798f" opacity=".45"/><path d="M89 143q11 8 22 0" stroke="#7a1f33" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="86" y="162" width="28" height="16" rx="5" fill="#6b1f33"/><path d="M90 167h20M90 173h20" stroke="#f2a9b8" stroke-opacity=".6" stroke-width="2"/><path d="M36 220c4-28 30-44 64-44s60 16 64 44z" fill="url(#AVb)"/><path d="M60 204l18-8M140 204l-18-8" stroke="#f2a9b8" stroke-opacity=".35" stroke-width="2"/><circle cx="100" cy="202" r="7" fill="#ffcf8a"/></svg></button>
+<div class="nb-tip" id="nbTip" data-i="wTip"></div>
+<div class="nb-modal" id="nbModal" hidden role="dialog" aria-modal="true" aria-labelledby="nbHello">
+  <div class="nb-card">
+    <button class="nb-x" id="nbClose" type="button" aria-label="close">×</button>
+    <div>
+      <span class="nb-badge"><span class="nb-on"></span><span data-i="wOnline"></span></span>
+      <h3 id="nbHello"><span data-i="wHello"></span> <span class="nb-grad" data-i="brand">نبراس</span> 👋</h3>
+      <div class="nb-type" id="nbType"></div>
+      <div class="nb-acts">
+        <button class="nb-go" id="nbGo" type="button" data-i="wGo"></button>
+        <button class="nb-ask" id="nbAsk" type="button" data-i="wAsk"></button>
+      </div>
+    </div>
+    <div class="nb-fig"><svg class="nb-av" viewBox="0 0 200 220" aria-hidden="true"><defs><radialGradient id="AVh" cx="50%" cy="30%" r="70%"><stop offset="0" stop-color="#ffe9c7"/><stop offset=".55" stop-color="#f2a9b8"/><stop offset="1" stop-color="#8a2a40"/></radialGradient><linearGradient id="AVb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b1f33"/><stop offset="1" stop-color="#2a0f19"/></linearGradient></defs><circle cx="100" cy="34" r="30" fill="#ffcf8a" opacity=".22"/><path class="nb-flame" d="M100 14c9 11 11 20 0 31c-11-11-9-20 0-31z" fill="#ffcf8a"/><path d="M100 45v18" stroke="#ffcf8a" stroke-width="3" stroke-linecap="round"/><circle cx="40" cy="114" r="14" fill="#2a0f19" stroke="#f2a9b8" stroke-width="3"/><circle cx="160" cy="114" r="14" fill="#2a0f19" stroke="#f2a9b8" stroke-width="3"/><circle cx="40" cy="114" r="5" fill="#ffcf8a"/><circle cx="160" cy="114" r="5" fill="#ffcf8a"/><rect x="48" y="62" width="104" height="102" rx="46" fill="url(#AVh)"/><path d="M126 70v12h10M134 82v8" stroke="#fff" stroke-opacity=".55" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="136" cy="92" r="2.5" fill="#fff" fill-opacity=".7"/><rect x="62" y="94" width="76" height="36" rx="18" fill="#2a0f19"/><g class="nb-eyes"><circle cx="84" cy="112" r="7" fill="#ffcf8a"/><circle cx="116" cy="112" r="7" fill="#ffcf8a"/><circle cx="86.5" cy="109.5" r="2.2" fill="#fff"/><circle cx="118.5" cy="109.5" r="2.2" fill="#fff"/></g><circle cx="66" cy="140" r="7" fill="#e0798f" opacity=".45"/><circle cx="134" cy="140" r="7" fill="#e0798f" opacity=".45"/><path d="M89 143q11 8 22 0" stroke="#7a1f33" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="86" y="162" width="28" height="16" rx="5" fill="#6b1f33"/><path d="M90 167h20M90 173h20" stroke="#f2a9b8" stroke-opacity=".6" stroke-width="2"/><path d="M36 220c4-28 30-44 64-44s60 16 64 44z" fill="url(#AVb)"/><path d="M60 204l18-8M140 204l-18-8" stroke="#f2a9b8" stroke-opacity=".35" stroke-width="2"/><circle cx="100" cy="202" r="7" fill="#ffcf8a"/></svg></div>
+  </div>
+</div>
+<section class="nb-panel" id="nbPanel" hidden aria-label="Nibras assistant">
+  <div class="nb-head">
+    <span class="nb-ph"><svg class="nb-av" viewBox="0 0 200 220" aria-hidden="true"><defs><radialGradient id="AVh" cx="50%" cy="30%" r="70%"><stop offset="0" stop-color="#ffe9c7"/><stop offset=".55" stop-color="#f2a9b8"/><stop offset="1" stop-color="#8a2a40"/></radialGradient><linearGradient id="AVb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b1f33"/><stop offset="1" stop-color="#2a0f19"/></linearGradient></defs><circle cx="100" cy="34" r="30" fill="#ffcf8a" opacity=".22"/><path class="nb-flame" d="M100 14c9 11 11 20 0 31c-11-11-9-20 0-31z" fill="#ffcf8a"/><path d="M100 45v18" stroke="#ffcf8a" stroke-width="3" stroke-linecap="round"/><circle cx="40" cy="114" r="14" fill="#2a0f19" stroke="#f2a9b8" stroke-width="3"/><circle cx="160" cy="114" r="14" fill="#2a0f19" stroke="#f2a9b8" stroke-width="3"/><circle cx="40" cy="114" r="5" fill="#ffcf8a"/><circle cx="160" cy="114" r="5" fill="#ffcf8a"/><rect x="48" y="62" width="104" height="102" rx="46" fill="url(#AVh)"/><path d="M126 70v12h10M134 82v8" stroke="#fff" stroke-opacity=".55" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="136" cy="92" r="2.5" fill="#fff" fill-opacity=".7"/><rect x="62" y="94" width="76" height="36" rx="18" fill="#2a0f19"/><g class="nb-eyes"><circle cx="84" cy="112" r="7" fill="#ffcf8a"/><circle cx="116" cy="112" r="7" fill="#ffcf8a"/><circle cx="86.5" cy="109.5" r="2.2" fill="#fff"/><circle cx="118.5" cy="109.5" r="2.2" fill="#fff"/></g><circle cx="66" cy="140" r="7" fill="#e0798f" opacity=".45"/><circle cx="134" cy="140" r="7" fill="#e0798f" opacity=".45"/><path d="M89 143q11 8 22 0" stroke="#7a1f33" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="86" y="162" width="28" height="16" rx="5" fill="#6b1f33"/><path d="M90 167h20M90 173h20" stroke="#f2a9b8" stroke-opacity=".6" stroke-width="2"/><path d="M36 220c4-28 30-44 64-44s60 16 64 44z" fill="url(#AVb)"/><path d="M60 204l18-8M140 204l-18-8" stroke="#f2a9b8" stroke-opacity=".35" stroke-width="2"/><circle cx="100" cy="202" r="7" fill="#ffcf8a"/></svg></span>
+    <div><b data-i="wTitle"></b><small><span class="nb-on"></span><span data-i="wOnNow"></span></small></div>
+    <button class="nb-x" id="nbPClose" type="button" aria-label="close">×</button>
+  </div>
+  <div class="nb-log" id="nbLog" aria-live="polite"></div>
+  <div class="nb-chips" id="nbChips"></div>
+  <form class="nb-form" id="nbForm"><input id="nbQ" autocomplete="off" aria-label="question"><button class="nb-send" type="submit" aria-label="send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></button></form>
+</section>
+</div>
+
 <script>
 (()=>{
 /* ================= i18n ================= */
 const TX={
- ar:{brand:"نبراس",tagline:"وكيل ذكاء اصطناعي يرتّب مذاكرتك، يضبط تركيزك، ويختبرك كل يوم",ready:"الوكيل جاهز",streakU:"أيام متتالية",pointsU:"نقطة",
+ ar:{nTry:"جرّبه",nHow:"كيف يفكّر",nFilm:"العرض",ctaTry:"جرّب نبراس الآن",ctaFilm:"▶ شاهد العرض",
+  heroLead:"وكيل ذكاء اصطناعي <b>يرتّب مذاكرتك</b> لعدة مواد حسب تواريخ اختباراتك، <b>يضبط تركيزك</b>، و<b>يختبرك كل يوم</b>. وكل أداة يستدعيها تشوفها قدامك.",
+  f1:"أدوات ينفّذها الوكيل",f2:"عربي وإنجليزي",f3:"تسجيل دخول",f4:"داخل متصفحك",
+  tryT:"اكتب له، وخلّه يرتّب يومك",howP:"أربع خطوات في كل رسالة، وكلها ظاهرة لك.",filmT:"نبراس في 15 ثانية",filmP:"عرض قصير يلخّص الفكرة: من مادة واحدة إلى جدول كامل.",
+  wTip:"اسأل نبراس 💡",wOnline:"نبراس · متصل الآن",wHello:"أهلًا، أنا",wGo:"يلا نبدأ",wAsk:"اسأل نبراس",wTitle:"نبراس · مساعدك الذكي",wOnNow:"متصل الآن",wPh:"اكتب سؤالك…",
+  wIntro:"حيّاك الله في نبراس 💡 أنا مساعدك الذكي للمذاكرة. أرتّب جدولك لعدة مواد، وأذكّرك باختباراتك، وأختبرك كل يوم.",
+  wWelcome:"هلا والله 👋 أنا نبراس، مساعدك الذكي.\nاسألني عن طريقة الاستخدام، الجدول، الخصوصية، أو مين صمّم المشروع.",
+  wFallback:"هذا سؤال يفهمه الوكيل الرئيسي أكثر مني. أرسله له؟",wSend:"أرسله للوكيل",brand:"نبراس",tagline:"وكيل ذكاء اصطناعي يرتّب مذاكرتك، يضبط تركيزك، ويختبرك كل يوم",ready:"الوكيل جاهز",streakU:"أيام متتالية",pointsU:"نقطة",
   chatTitle:"اسأل نبراس",chatSub:"يختار الأداة المناسبة وينفّذها قدامك",send:"أرسل",ph:"مثال: ضيف مادة Deep Learning اختبارها 5 ديسمبر",
   tSched:"جدولي",tCal:"التقويم",tFocus:"المؤقت",tChal:"تحدي اليوم",tStats:"تقدّمي",
   subjects:"موادي",example:"مثال",arrange:"رتّب لي جدول",add:"أضيفي",fName:"اسم المادة",lv1:"سهلة",lv2:"متوسطة",lv3:"صعبة",
@@ -383,7 +569,14 @@ const TX={
   privacy:"كل بياناتك محفوظة في متصفحك فقط",switched:"تم، صرت أتكلم عربي 👋",
   chips:["رتّب لي جدول","وش أسوي اليوم؟","متى اختباري الجاي؟","ضيف مادة Deep Learning اختبارها 5 ديسمبر","اختبرني","وش يعني RAG؟","شغّل مؤقت 45","خلصت"],
   dShort:["أحد","اثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"],loc:"ar-SA-u-ca-gregory-nu-latn",hloc:"ar-SA-u-ca-islamic-umalqura-nu-latn"},
- en:{brand:"Nibras",tagline:"An AI agent that plans your study, guards your focus, and quizzes you daily",ready:"Agent ready",streakU:"day streak",pointsU:"pts",
+ en:{nTry:"Try it",nHow:"How it thinks",nFilm:"Teaser",ctaTry:"Try Nibras now",ctaFilm:"▶ Watch the teaser",
+  heroLead:"An AI agent that <b>plans your study</b> across subjects by exam date, <b>guards your focus</b>, and <b>quizzes you daily</b>. Every tool it calls happens in plain sight.",
+  f1:"tools the agent runs",f2:"Arabic & English",f3:"sign-ins",f4:"in your browser",
+  tryT:"Tell it what you need. It plans your day.",howP:"Four steps on every message, all of them visible.",filmT:"Nibras in 15 seconds",filmP:"A short teaser: from one subject to a full study plan.",
+  wTip:"Ask Nibras 💡",wOnline:"Nibras · online now",wHello:"Hi, I'm",wGo:"Let's start",wAsk:"Ask Nibras",wTitle:"Nibras · your smart assistant",wOnNow:"Online now",wPh:"Type your question…",
+  wIntro:"Welcome to Nibras 💡 I'm your AI study assistant. I plan your schedule across subjects, keep track of your exams, and quiz you every day.",
+  wWelcome:"Hi there 👋 I'm Nibras, your smart assistant.\nAsk me how it works, about the schedule, privacy, or who built it.",
+  wFallback:"The main agent handles that better than I do. Send it over?",wSend:"Send to the agent",brand:"Nibras",tagline:"An AI agent that plans your study, guards your focus, and quizzes you daily",ready:"Agent ready",streakU:"day streak",pointsU:"pts",
   chatTitle:"Ask Nibras",chatSub:"It picks the right tool and runs it in front of you",send:"Send",ph:"e.g. add subject Deep Learning, exam Dec 5",
   tSched:"Schedule",tCal:"Calendar",tFocus:"Focus",tChal:"Daily quiz",tStats:"Progress",
   subjects:"My subjects",example:"Example",arrange:"Build my schedule",add:"Add",fName:"Subject name",lv1:"Easy",lv2:"Medium",lv3:"Hard",
@@ -712,22 +905,104 @@ $("#reset").onclick=()=>{const b=$("#reset");if(b.dataset.c){S={subs:[],nextId:1
 /* ================= language ================= */
 function applyLang(){
  const app=$("#app");app.dir=L==="ar"?"rtl":"ltr";app.lang=L;document.documentElement.lang=L;document.documentElement.dir=app.dir;document.title=L==="ar"?"نبراس · Nibras":"Nibras · نبراس";
- document.querySelectorAll("[data-i]").forEach(el=>{const v=T(el.dataset.i);if(typeof v==="string")el.textContent=v});
+ document.querySelectorAll("[data-i]").forEach(el=>{const v=T(el.dataset.i);if(typeof v==="string")el.textContent=v});document.querySelectorAll("[data-h]").forEach(el=>{el.innerHTML=T(el.dataset.h)});$("#nbQ").placeholder=T("wPh");
  $("#langBtn").textContent=L==="ar"?"English":"العربية";$("#q").placeholder=T("ph");$("#fName").placeholder=T("fName");
  [...$("#fLevel").options].forEach(o=>o.textContent=T("lv"+o.value));
  document.querySelectorAll("#durs button").forEach(b=>b.textContent=b.dataset.m+T("min"));
  const ch=$("#chips");ch.innerHTML="";T("chips").forEach(c=>{const b=document.createElement("button");b.className="chip";b.type="button";b.textContent=c;b.onclick=()=>handle(c);ch.appendChild(b)});
  delete $("#reset").dataset.c;
 }
-$("#langBtn").onclick=()=>{L=L==="ar"?"en":"ar";try{localStorage.setItem("nibras.lang",L)}catch(e){}applyLang();renderAll();showQ();say("msg bot",T("switched"))};
+$("#langBtn").onclick=()=>{L=L==="ar"?"en":"ar";try{localStorage.setItem("nibras.lang",L)}catch(e){}applyLang();renderAll();showQ();say("msg bot",T("switched"));nbReset();tickReset()};
 
 function renderAll(){
  document.querySelectorAll("#perDay button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.n===S.perDay));
  renderSubs();renderSched();renderCal();renderHeader();renderStats();renderScore();drawT()}
 
+
+/* ================= hero: light dust ================= */
+(function(){const cv=$("#dust");let cx=null;try{cx=cv&&cv.getContext("2d")}catch(e){}if(!cx)return;let W=0,H=0,dpr=1,P=[],raf=0,vis=true;
+ const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ function size(){dpr=Math.min(2,devicePixelRatio||1);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
+  P=Array.from({length:Math.round(Math.min(110,W/11))},()=>spawn(true))}
+ function spawn(any){const x=W*.5+(Math.random()-.5)*W*.9;return{x,y:any?Math.random()*H:H+10,r:Math.random()*1.8+.4,v:Math.random()*.35+.12,a:Math.random()*.6+.2,d:(Math.random()-.5)*.2}}
+ function frame(){cx.clearRect(0,0,W,H);
+  const g=cx.createRadialGradient(W*.5,-H*.1,0,W*.5,-H*.1,H*1.05);g.addColorStop(0,"rgba(255,207,138,.20)");g.addColorStop(.45,"rgba(233,138,160,.07)");g.addColorStop(1,"rgba(0,0,0,0)");
+  cx.fillStyle=g;cx.beginPath();cx.moveTo(W*.5-40,0);cx.lineTo(W*.5+40,0);cx.lineTo(W*.95,H);cx.lineTo(W*.05,H);cx.closePath();cx.fill();
+  for(const p of P){if(!still){p.y-=p.v;p.x+=p.d}if(p.y<-10)Object.assign(p,spawn(false));
+   const fade=Math.min(1,p.y/H*1.4);cx.fillStyle=`rgba(255,215,160,${p.a*fade})`;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fill()}
+  if(!still&&vis)raf=requestAnimationFrame(frame)}
+ size();frame();addEventListener("resize",()=>{size();if(still)frame()});
+ try{new IntersectionObserver(e=>{vis=e[0].isIntersecting;cancelAnimationFrame(raf);if(vis&&!still)raf=requestAnimationFrame(frame)}).observe(cv)}catch(e){}
+})();
+
+/* ================= hero: live agent trace ================= */
+const TICK={ar:[["u","ضيف مادة Deep Learning اختبارها 5 ديسمبر"],["c",'→ add_subject({"name":"Deep Learning","exam":"12-05","level":3})\n← {"ok":true,"schedule_days":28}'],["b","أضفت Deep Learning ✅ وعدّلت جدولك."],["u","رتّب لي جدول"],["c",'→ build_schedule({"per_day":2})\n← {"ok":true,"sessions":44,"days":28}'],["b","رتّبت 44 جلسة على 28 يوم 📅 وقبل كل اختبار يوم مراجعة."],["u","وش يعني RAG؟"],["c",'→ explain_term({"term":"rag"})\n← {"ok":true,"term":"RAG"}'],["b","النموذج يبحث في مستنداتك أولاً، ثم يجاوب منها."]],
+ en:[["u","Add subject Deep Learning, exam Dec 5"],["c",'→ add_subject({"name":"Deep Learning","exam":"12-05","level":3})\n← {"ok":true,"schedule_days":28}'],["b","Added Deep Learning ✅ Schedule updated."],["u","Build my schedule"],["c",'→ build_schedule({"per_day":2})\n← {"ok":true,"sessions":44,"days":28}'],["b","Planned 44 sessions over 28 days 📅 with a review before each exam."],["u","What is RAG?"],["c",'→ explain_term({"term":"rag"})\n← {"ok":true,"term":"RAG"}'],["b","The model searches your documents first, then answers from them."]]};
+let tickTimer=null,tickGen=0;
+function tickReset(){tickGen++;clearTimeout(tickTimer);const box=$("#ticker");if(!box)return;box.innerHTML="";const gen=tickGen;
+ const still=matchMedia("(prefers-reduced-motion: reduce)").matches;const seq=TICK[L];
+ if(still){seq.slice(0,6).forEach(([k,t])=>box.insertAdjacentHTML("beforeend",line(k,t)));return}
+ let i=0;const next=()=>{if(gen!==tickGen)return;if(i>=seq.length){tickTimer=setTimeout(()=>{if(gen===tickGen){box.innerHTML="";i=0;next()}},2600);return}
+  const [k,t]=seq[i++];if(k==="u"){const el=document.createElement("div");el.className="tl tl-u";box.appendChild(el);let j=0;const ty=()=>{if(gen!==tickGen)return;el.innerHTML=esc(t.slice(0,++j))+'<span class="caret"></span>';if(j<t.length)tickTimer=setTimeout(ty,38);else{el.textContent=t;trim();tickTimer=setTimeout(next,450)}};ty()}
+  else{box.insertAdjacentHTML("beforeend",line(k,t));trim();tickTimer=setTimeout(next,k==="c"?900:1500)}};
+ function trim(){while(box.children.length>6)box.firstElementChild.remove()}
+ next()}
+function line(k,t){if(k==="c"){const [a,b]=t.split("\n");return `<div class="tl tl-c"><span class="k">${esc(a)}</span>\n${esc(b)}</div>`}return `<div class="tl tl-${k}">${esc(t)}</div>`}
+
+/* ================= assistant widget ================= */
+const FAQ={ar:[
+  {q:"وش هو نبراس؟",k:["وش هو","ما هو","نبراس","فكره"],a:"نبراس وكيل ذكاء اصطناعي للمذاكرة. تضيف موادك وتواريخ اختباراتها، فيرتّب لك جدولاً يومياً، ويشغّل مؤقت التركيز، ويختبرك بأسئلة سيناريو. واسمه من النبراس: المصباح اللي ينير الطريق 💡"},
+  {q:"كيف أبدأ؟",k:["ابدا","ابدء","استخدم","طريقه"],a:"سهلة 👇\n1. اكتب للوكيل: «ضيف مادة Python اختبارها 20 ديسمبر»\n2. بعدها: «رتّب لي جدول»\n3. وكل يوم اسأله: «وش أسوي اليوم؟»",do:["جرّبها الحين","ضيف مادة Python اختبارها 20 ديسمبر"]},
+  {q:"كيف يرتّب الجدول؟",k:["يرتب","الجدول","توزيع","جدول"],a:"يعطي كل مادة درجة حسب صعوبتها وقرب اختبارها، ويقل وزنها كل ما أخذت جلسات. الأعلى درجة تاخذ جلسات اليوم، واليوم اللي قبل الاختبار دايماً مراجعة."},
+  {q:"هل بياناتي محفوظة؟",k:["بيانات","خصوصيه","محفوظ","امان","سيرفر"],a:"كل بياناتك تبقى في متصفحك فقط (localStorage). ما فيه سيرفر، ولا تسجيل دخول، ولا شي ينرسل لأي مكان 🔒"},
+  {q:"وش الأدوات؟",k:["ادوات","اداه","tools","function"],a:"عنده 9 أدوات: إضافة مادة، ترتيب الجدول، مهمة اليوم، أقرب اختبار، المؤقت، التحدي، شرح المصطلحات، تسجيل الإنجاز، والتقدّم. وكل استدعاء يطلع لك في المحادثة بقيمه ونتيجته."},
+  {q:"يتكلم إنجليزي؟",k:["انجليزي","english","لغه"],a:"إيه 👍 اضغط English فوق، أو اكتب له بالإنجليزي مباشرة، وهو يرد بنفس لغة رسالتك."},
+  {q:"مين صمّمه؟",k:["مين","صمم","طور","المطور"],a:"صمّمته وطوّرته أفنان الجهني، مهندسة ذكاء اصطناعي وعلوم بيانات.",link:["LinkedIn","https://www.linkedin.com/in/afnan-aljohani-0b5a70315/"]},
+  {q:"شاهد العرض 🎬",k:["عرض","فيديو","مقطع"],a:"عرض قصير مدته 15 ثانية، تحت في قسم «العرض» 👇",go:"#film"}],
+ en:[
+  {q:"What is Nibras?",k:["what is","nibras","idea"],a:"Nibras is an AI study agent. Add your subjects and exam dates, and it builds a daily plan, runs focus sessions, and quizzes you with scenario questions. The name means a lamp that lights the way 💡"},
+  {q:"How do I start?",k:["start","begin","use","how do"],a:"Easy 👇\n1. Tell the agent: “add subject Python, exam Dec 20”\n2. Then: “build my schedule”\n3. Each day ask: “what should I do today?”",do:["Try it now","add subject Python, exam Dec 20"]},
+  {q:"How is the plan built?",k:["plan","schedule","built"],a:"Each subject gets a score from its difficulty and how close its exam is, and the score drops with every session it already got. The top scores fill the day, and the day before an exam is always a review."},
+  {q:"Is my data private?",k:["data","privacy","private","server","safe"],a:"Everything stays in your own browser (localStorage). No server, no sign-in, nothing is sent anywhere 🔒"},
+  {q:"What tools does it use?",k:["tool","function"],a:"Nine tools: add subject, build schedule, today's task, next exam, timer, quiz, explain a term, mark done, and progress. Every call appears in the chat with its arguments and result."},
+  {q:"Does it speak Arabic?",k:["arabic","language","عربي"],a:"Yes 👍 Press العربية at the top, or just write in Arabic and it answers in the language of your message."},
+  {q:"Who built it?",k:["who","built","made","designer"],a:"Designed and built by Afnan Aljohani, AI & Data Science Engineer.",link:["LinkedIn","https://www.linkedin.com/in/afnan-aljohani-0b5a70315/"]},
+  {q:"Watch the teaser 🎬",k:["teaser","video","watch"],a:"A 15-second teaser is just below, in the Teaser section 👇",go:"#film"}]};
+let nbSeen=false,nbTyping=0;
+try{nbSeen=sessionStorage.getItem("nibras.seen")==="1"}catch(e){}
+const nbStill=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+function typeInto(el,text,done){const id=++nbTyping;if(nbStill()){el.textContent=text;done&&done();return}let i=0;const chars=[...text];
+ const step=()=>{if(id!==nbTyping)return;el.textContent=chars.slice(0,i+=2).join("");const lg=$("#nbLog");if(lg)lg.scrollTop=lg.scrollHeight;if(i<chars.length)setTimeout(step,22);else done&&done()};step()}
+function nbMsg(cls,text,extra){const d=document.createElement("div");d.className="nb-m "+cls;$("#nbLog").appendChild(d);
+ if(cls==="u"){d.textContent=text;$("#nbLog").scrollTop=$("#nbLog").scrollHeight;return}
+ const tx=document.createElement("span");d.appendChild(tx);typeInto(tx,text,()=>{if(extra)extra(d);$("#nbLog").scrollTop=$("#nbLog").scrollHeight})}
+function nbAnswer(item){nbMsg("b",item.a,d=>{
+ if(item.do){const b=document.createElement("button");b.type="button";b.className="nb-do";b.textContent=item.do[0];b.onclick=()=>{nbHidePanel();document.getElementById("try").scrollIntoView({behavior:nbStill()?"auto":"smooth"});handle(item.do[1])};d.appendChild(document.createElement("br"));d.appendChild(b)}
+ if(item.link){const a=document.createElement("a");a.href=item.link[1];a.target="_blank";a.rel="noopener";a.textContent=item.link[0]+" ↗";d.appendChild(document.createElement("br"));d.appendChild(a)}
+ if(item.go){const b=document.createElement("button");b.type="button";b.className="nb-do";b.textContent=pick("انتقل للعرض","Go to teaser");b.onclick=()=>{nbHidePanel();document.querySelector(item.go).scrollIntoView({behavior:nbStill()?"auto":"smooth"})};d.appendChild(document.createElement("br"));d.appendChild(b)}})}
+function nbAsk(text){if(!text.trim())return;nbMsg("u",text);const t=norm(text);const list=FAQ[/[؀-ۿ]/.test(text)?"ar":"en"];
+ const hit=list.find(f=>norm(f.q)===t)||list.find(f=>f.k.some(w=>t.includes(norm(w))));
+ setTimeout(()=>{if(hit)nbAnswer(hit);else nbMsg("b",T("wFallback"),d=>{const b=document.createElement("button");b.type="button";b.className="nb-do";b.textContent=T("wSend");b.onclick=()=>{nbHidePanel();document.getElementById("try").scrollIntoView({behavior:nbStill()?"auto":"smooth"});handle(text)};d.appendChild(document.createElement("br"));d.appendChild(b)})},350)}
+function nbReset(){nbTyping++;const lg=$("#nbLog");lg.innerHTML="";const ch=$("#nbChips");ch.innerHTML="";
+ FAQ[L].forEach(f=>{const b=document.createElement("button");b.type="button";b.className="nb-chip";b.textContent=f.q;b.onclick=()=>nbAsk(f.q);ch.appendChild(b)});
+ if(!$("#nbPanel").hidden)nbMsg("b",T("wWelcome"))}
+function nbShowPanel(){$("#nbModal").hidden=true;$("#nbTip").hidden=true;const p=$("#nbPanel");if(!p.hidden)return;p.hidden=false;if(!$("#nbLog").children.length)nbMsg("b",T("wWelcome"));setTimeout(()=>$("#nbQ").focus(),50)}
+function nbHidePanel(){$("#nbPanel").hidden=true}
+function nbOpenModal(){$("#nbModal").hidden=false;$("#nbTip").hidden=true;$("#nbType").textContent="";typeInto($("#nbType"),T("wIntro"));setTimeout(()=>$("#nbGo").focus(),50)}
+function nbCloseModal(){nbTyping++;$("#nbModal").hidden=true;nbSeen=true;try{sessionStorage.setItem("nibras.seen","1")}catch(e){}}
+setTimeout(()=>{const t=$("#nbTip");if(t)t.hidden=true},9000);
+$("#nbFab").onclick=()=>{if(!$("#nbPanel").hidden){nbHidePanel();return}if(!nbSeen)nbOpenModal();else nbShowPanel()};
+$("#nbClose").onclick=nbCloseModal;
+$("#nbModal").addEventListener("click",e=>{if(e.target.id==="nbModal")nbCloseModal()});
+$("#nbGo").onclick=()=>{nbCloseModal();document.getElementById("try").scrollIntoView({behavior:nbStill()?"auto":"smooth"});setTimeout(()=>$("#q").focus({preventScroll:true}),400)};
+$("#nbAsk").onclick=()=>{nbCloseModal();nbShowPanel()};
+$("#nbPClose").onclick=nbHidePanel;
+$("#nbForm").addEventListener("submit",e=>{e.preventDefault();const v=$("#nbQ").value;$("#nbQ").value="";nbAsk(v)});
+addEventListener("keydown",e=>{if(e.key==="Escape"){if(!$("#nbModal").hidden)nbCloseModal();else if(!$("#nbPanel").hidden)nbHidePanel()}});
+
 /* ================= boot ================= */
 if(!S||!Array.isArray(S.subs))S=fresh();else S.sched=buildSchedule();
-save();applyLang();renderAll();showQ();
+save();applyLang();renderAll();showQ();nbReset();tickReset();
 say("msg bot",L==="ar"
  ?`هلا 👋 أنا <strong>نبراس</strong>، وكيلك للمذاكرة.\n${S.example?"حطّيت مواد مثال على تواريخ اختباراتك، وتقدرين تحذفينها. ":""}ضيفي موادك وتواريخ اختباراتها، وأنا أرتّب لك جدول يوازن بينها.`
  :`Hi 👋 I'm <strong>Nibras</strong>, your study agent.\n${S.example?"I've added example subjects on your exam dates; feel free to remove them. ":""}Add your subjects and exam dates and I'll build a balanced schedule.`);

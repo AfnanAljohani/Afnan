@@ -6,6 +6,10 @@ You talk to it in Arabic or English. It works out what you want, picks one of ni
 
 **[Open Nibras](https://afnanaljohani.github.io/Afnan/nibras/)** · no install, no sign-in, works on phone and desktop.
 
+[![Nibras teaser](assets/teaser-poster.jpg)](assets/nibras-teaser.mp4)
+
+**[▶ Watch the 15-second teaser](assets/nibras-teaser.mp4)**
+
 > **نبراس** وكيل ذكاء اصطناعي للمذاكرة، بالعربي والإنجليزي. تضيفين موادك وتواريخ اختباراتها، فيرتّب لك جدولاً يومياً، ويشغّل مؤقت التركيز، ويختبرك بأسئلة سيناريو، ويعرض كل أداة يستدعيها قدامك.
 
 Nibras does not call a language model. Intent detection is rule-based and runs entirely in the browser, which is why it is instant, free, and private. The tools are written so that an LLM with function calling can be dropped in front of them later without changing them.
@@ -13,6 +17,10 @@ Nibras does not call a language model. Intent detection is rule-based and runs e
 ---
 
 ## What it looks like
+
+**The landing.** The name, one sentence on what it does, and a live agent trace that replays real tool calls on a loop.
+
+![Landing](assets/hero.png)
 
 **The schedule.** Subjects on top, each with its exam date, days left, and difficulty. Below them, the plan the agent built, one row per day.
 
@@ -37,6 +45,12 @@ Nibras does not call a language model. Intent detection is rule-based and runs e
 **Progress, in English.** One button switches the whole interface, direction included. The agent answers in the language of each message.
 
 ![Progress](assets/progress-en.png)
+
+**The assistant.** A floating guide in the corner. The first tap opens a welcome card that types its own introduction; after that it opens a chat with ready questions about how Nibras works, privacy, and who built it. Anything outside its scope is handed to the main agent with one tap.
+
+![Assistant welcome](assets/assistant-welcome.png)
+
+![Assistant chat](assets/assistant-chat.png)
 
 **On a phone.** The same app, stacked into one column.
 
