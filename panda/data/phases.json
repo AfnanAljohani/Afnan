@@ -1,0 +1,456 @@
+{
+ "generated_from": {
+  "file": "PANDA_All_Phases_Dashboard.html (Khalid)",
+  "model_data": "PANDA_Model_Ready_Modified (1).csv",
+  "model_data_sha256": "9dd96729dee161ec506f3fc191bc9ba34050dbcf5d836a41a7de9e9d3bd62456"
+ },
+ "phase1": {
+  "objectives": [
+   {
+    "id": 1,
+    "metric": "MAPE",
+    "baseline": "25–30%",
+    "target": "< 15%",
+    "ar": "توقع الطلب على مستوى الفرع للمنتجات الطازجة مع أثر التقويم السعودي والعروض",
+    "en": "Forecast store-level demand for fresh products with Saudi calendar and promotion effects"
+   },
+   {
+    "id": 2,
+    "metric": "Recall",
+    "baseline": "—",
+    "target": "≥ 85%",
+    "ar": "التنبؤ بنفاد المخزون وخطر قرب الانتهاء، وخفض نفاد العروض 25–30%",
+    "en": "Predict stockout and near-expiry risk; cut promo stockouts by 25–30%"
+   },
+   {
+    "id": 3,
+    "metric": "OSA",
+    "baseline": "—",
+    "target": "+3–5 pts",
+    "ar": "تحسين التموين والتوزيع بين المراكز والفروع ورفع التوفر على الرف",
+    "en": "Optimise DC/store replenishment and raise on-shelf availability"
+   },
+   {
+    "id": 4,
+    "metric": "Waste",
+    "baseline": "5–8%",
+    "target": "−20–25%",
+    "ar": "قياس المبيعات الضائعة والتخفيضات والهدر وخفض المخزون الذاهب للتخفيض أو الانتهاء",
+    "en": "Quantify lost sales, markdown and waste; cut stock going to markdown or expiry"
+   }
+  ],
+  "assumptions": {
+   "mape_baseline": "25–30%",
+   "promo_stockout_baseline": "8–12%",
+   "markdown_baseline": "5–8%"
+  }
+ },
+ "data": {
+  "raw_rows": 1000000,
+  "raw_columns": 26,
+  "model_rows": 863096,
+  "model_columns": 31,
+  "model_stockouts": 22841,
+  "date_start": "2025-01-05",
+  "date_end": "2026-09-26"
+ },
+ "phase4": {
+  "task": "stockout_classification",
+  "experiments": {
+   "supplied__inventory_inputs": {
+    "summary": {
+     "split": "supplied",
+     "profile": "inventory_inputs",
+     "model": "LightGBM_31",
+     "rows": 76716,
+     "threshold": 0.1141,
+     "accuracy": 0.9587,
+     "precision": 0.2477,
+     "recall": 0.2474,
+     "f1": 0.2476,
+     "average_precision": 0.2142,
+     "roc_auc": 0.8132,
+     "prevalence": 0.0275,
+     "mcc": 0.2263,
+     "tn": 73028,
+     "fp": 1582,
+     "fn": 1585,
+     "tp": 521,
+     "alerts": 2103
+    },
+    "test_start": "2026-08-02",
+    "test_end": "2026-09-26",
+    "by_category": [
+     {
+      "category": "Bakery",
+      "n": 12602,
+      "tp": 80,
+      "fp": 236,
+      "fn": 270,
+      "tn": 12016,
+      "stockouts": 350,
+      "precision": 0.2532,
+      "recall": 0.2286,
+      "f1": 0.2402
+     },
+     {
+      "category": "Dairy",
+      "n": 12761,
+      "tp": 89,
+      "fp": 275,
+      "fn": 259,
+      "tn": 12138,
+      "stockouts": 348,
+      "precision": 0.2445,
+      "recall": 0.2557,
+      "f1": 0.25
+     },
+     {
+      "category": "Frozen",
+      "n": 12700,
+      "tp": 91,
+      "fp": 269,
+      "fn": 266,
+      "tn": 12074,
+      "stockouts": 357,
+      "precision": 0.2528,
+      "recall": 0.2549,
+      "f1": 0.2538
+     },
+     {
+      "category": "Grocery",
+      "n": 12829,
+      "tp": 91,
+      "fp": 281,
+      "fn": 286,
+      "tn": 12171,
+      "stockouts": 377,
+      "precision": 0.2446,
+      "recall": 0.2414,
+      "f1": 0.243
+     },
+     {
+      "category": "Meat",
+      "n": 12854,
+      "tp": 79,
+      "fp": 248,
+      "fn": 236,
+      "tn": 12291,
+      "stockouts": 315,
+      "precision": 0.2416,
+      "recall": 0.2508,
+      "f1": 0.2461
+     },
+     {
+      "category": "Produce",
+      "n": 12970,
+      "tp": 91,
+      "fp": 273,
+      "fn": 268,
+      "tn": 12338,
+      "stockouts": 359,
+      "precision": 0.25,
+      "recall": 0.2535,
+      "f1": 0.2517
+     }
+    ]
+   },
+   "supplied__observed_record": {
+    "summary": {
+     "split": "supplied",
+     "profile": "observed_record",
+     "model": "LightGBM_balanced",
+     "rows": 76716,
+     "threshold": 0.9589,
+     "accuracy": 1.0,
+     "precision": 0.9995,
+     "recall": 0.9995,
+     "f1": 0.9995,
+     "average_precision": 0.9997,
+     "roc_auc": 1.0,
+     "prevalence": 0.0275,
+     "mcc": 0.9995,
+     "tn": 74609,
+     "fp": 1,
+     "fn": 1,
+     "tp": 2105,
+     "alerts": 2106
+    },
+    "test_start": "2026-08-02",
+    "test_end": "2026-09-26",
+    "by_category": [
+     {
+      "category": "Bakery",
+      "n": 12602,
+      "tp": 350,
+      "fp": 0,
+      "fn": 0,
+      "tn": 12252,
+      "stockouts": 350,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     {
+      "category": "Dairy",
+      "n": 12761,
+      "tp": 348,
+      "fp": 0,
+      "fn": 0,
+      "tn": 12413,
+      "stockouts": 348,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     {
+      "category": "Frozen",
+      "n": 12700,
+      "tp": 357,
+      "fp": 0,
+      "fn": 0,
+      "tn": 12343,
+      "stockouts": 357,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     {
+      "category": "Grocery",
+      "n": 12829,
+      "tp": 377,
+      "fp": 0,
+      "fn": 0,
+      "tn": 12452,
+      "stockouts": 377,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     {
+      "category": "Meat",
+      "n": 12854,
+      "tp": 315,
+      "fp": 0,
+      "fn": 0,
+      "tn": 12539,
+      "stockouts": 315,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     {
+      "category": "Produce",
+      "n": 12970,
+      "tp": 358,
+      "fp": 1,
+      "fn": 1,
+      "tn": 12610,
+      "stockouts": 359,
+      "precision": 0.9972,
+      "recall": 0.9972,
+      "f1": 0.9972
+     }
+    ]
+   },
+   "stratified__inventory_inputs": {
+    "summary": {
+     "split": "stratified",
+     "profile": "inventory_inputs",
+     "model": "ElasticNet_then_LightGBM",
+     "rows": 172620,
+     "threshold": 0.1199,
+     "accuracy": 0.9607,
+     "precision": 0.2458,
+     "recall": 0.2353,
+     "f1": 0.2404,
+     "average_precision": 0.2165,
+     "roc_auc": 0.8235,
+     "prevalence": 0.0265,
+     "mcc": 0.2203,
+     "tn": 164753,
+     "fp": 3299,
+     "fn": 3493,
+     "tp": 1075,
+     "alerts": 4374
+    },
+    "test_start": "2025-01-05",
+    "test_end": "2026-09-26",
+    "by_category": [
+     {
+      "category": "Bakery",
+      "n": 28574,
+      "tp": 182,
+      "fp": 534,
+      "fn": 585,
+      "tn": 27273,
+      "stockouts": 767,
+      "precision": 0.2542,
+      "recall": 0.2373,
+      "f1": 0.2454
+     },
+     {
+      "category": "Dairy",
+      "n": 28579,
+      "tp": 158,
+      "fp": 544,
+      "fn": 596,
+      "tn": 27281,
+      "stockouts": 754,
+      "precision": 0.2251,
+      "recall": 0.2095,
+      "f1": 0.217
+     },
+     {
+      "category": "Frozen",
+      "n": 28514,
+      "tp": 189,
+      "fp": 593,
+      "fn": 602,
+      "tn": 27130,
+      "stockouts": 791,
+      "precision": 0.2417,
+      "recall": 0.2389,
+      "f1": 0.2403
+     },
+     {
+      "category": "Grocery",
+      "n": 28992,
+      "tp": 173,
+      "fp": 548,
+      "fn": 558,
+      "tn": 27713,
+      "stockouts": 731,
+      "precision": 0.2399,
+      "recall": 0.2367,
+      "f1": 0.2383
+     },
+     {
+      "category": "Meat",
+      "n": 28698,
+      "tp": 194,
+      "fp": 511,
+      "fn": 545,
+      "tn": 27448,
+      "stockouts": 739,
+      "precision": 0.2752,
+      "recall": 0.2625,
+      "f1": 0.2687
+     },
+     {
+      "category": "Produce",
+      "n": 29263,
+      "tp": 179,
+      "fp": 569,
+      "fn": 607,
+      "tn": 27908,
+      "stockouts": 786,
+      "precision": 0.2393,
+      "recall": 0.2277,
+      "f1": 0.2334
+     }
+    ]
+   },
+   "stratified__observed_record": {
+    "summary": {
+     "split": "stratified",
+     "profile": "observed_record",
+     "model": "LightGBM_63",
+     "rows": 172620,
+     "threshold": 0.4015,
+     "accuracy": 1.0,
+     "precision": 0.9983,
+     "recall": 1.0,
+     "f1": 0.9991,
+     "average_precision": 1.0,
+     "roc_auc": 1.0,
+     "prevalence": 0.0265,
+     "mcc": 0.9991,
+     "tn": 168044,
+     "fp": 8,
+     "fn": 0,
+     "tp": 4568,
+     "alerts": 4576
+    },
+    "test_start": "2025-01-05",
+    "test_end": "2026-09-26",
+    "by_category": [
+     {
+      "category": "Bakery",
+      "n": 28574,
+      "tp": 767,
+      "fp": 1,
+      "fn": 0,
+      "tn": 27806,
+      "stockouts": 767,
+      "precision": 0.9987,
+      "recall": 1.0,
+      "f1": 0.9993
+     },
+     {
+      "category": "Dairy",
+      "n": 28579,
+      "tp": 754,
+      "fp": 0,
+      "fn": 0,
+      "tn": 27825,
+      "stockouts": 754,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     {
+      "category": "Frozen",
+      "n": 28514,
+      "tp": 791,
+      "fp": 2,
+      "fn": 0,
+      "tn": 27721,
+      "stockouts": 791,
+      "precision": 0.9975,
+      "recall": 1.0,
+      "f1": 0.9987
+     },
+     {
+      "category": "Grocery",
+      "n": 28992,
+      "tp": 731,
+      "fp": 1,
+      "fn": 0,
+      "tn": 28260,
+      "stockouts": 731,
+      "precision": 0.9986,
+      "recall": 1.0,
+      "f1": 0.9993
+     },
+     {
+      "category": "Meat",
+      "n": 28698,
+      "tp": 739,
+      "fp": 2,
+      "fn": 0,
+      "tn": 27957,
+      "stockouts": 739,
+      "precision": 0.9973,
+      "recall": 1.0,
+      "f1": 0.9986
+     },
+     {
+      "category": "Produce",
+      "n": 29263,
+      "tp": 786,
+      "fp": 2,
+      "fn": 0,
+      "tn": 28475,
+      "stockouts": 786,
+      "precision": 0.9975,
+      "recall": 1.0,
+      "f1": 0.9987
+     }
+    ]
+   }
+  },
+  "primary": "supplied__inventory_inputs",
+  "diagnostic": "supplied__observed_record"
+ }
+}

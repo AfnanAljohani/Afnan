@@ -436,5 +436,9 @@ document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>show(b.datase
 function fromHash(){const h=location.hash.slice(1)||'overview';if(['overview','p2','p3','explore'].includes(h))show(h)}
 window.addEventListener('hashchange',fromHash); fromHash();
 </script>
+<!-- Phases 1 & 4 additions -->
+<script src="data/phases.js"></script>
+<script src="data/site-extras.js"></script>
+<script src="assets/phases-dash.js"></script>
 </body>
 </html>
