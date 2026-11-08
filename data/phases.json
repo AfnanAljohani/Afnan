@@ -452,5 +452,1012 @@
   },
   "primary": "supplied__inventory_inputs",
   "diagnostic": "supplied__observed_record"
+ },
+ "phase4_final": {
+  "source": {
+   "notebook": "00_Model_Comparison.ipynb",
+   "deck": "Team10_Panda_Group10_3.pdf"
+  },
+  "test_period": {
+   "start": "2026-08-02",
+   "end": "2026-09-26",
+   "days": 56
+  },
+  "tracks": {
+   "classification": {
+    "metric": "PR-AUC",
+    "higher": true,
+    "champion": "XGBoost",
+    "best_team": "Random Forest",
+    "best_team_owner": "Shahad",
+    "tied": [
+     "CatBoost",
+     "XGBoost"
+    ],
+    "rows": [
+     {
+      "model": "CatBoost",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 0.333,
+      "cv_tuned": 0.369,
+      "val": 0.399,
+      "val_f1": 0.442,
+      "acc": 0.964,
+      "precision": 0.381,
+      "recall": 0.509,
+      "f1": 0.436,
+      "roc": 0.945,
+      "test": 0.413,
+      "top20": 0.931,
+      "fit_s": 28.793,
+      "gap": 0.009
+     },
+     {
+      "model": "XGBoost",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 0.314,
+      "cv_tuned": 0.387,
+      "val": 0.396,
+      "val_f1": 0.438,
+      "acc": 0.966,
+      "precision": 0.398,
+      "recall": 0.478,
+      "f1": 0.434,
+      "roc": 0.945,
+      "test": 0.412,
+      "top20": 0.93,
+      "fit_s": 19.084,
+      "gap": 0.004
+     },
+     {
+      "model": "LightGBM",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 0.347,
+      "cv_tuned": 0.385,
+      "val": 0.393,
+      "val_f1": 0.441,
+      "acc": 0.967,
+      "precision": 0.407,
+      "recall": 0.461,
+      "f1": 0.432,
+      "roc": 0.945,
+      "test": 0.407,
+      "top20": 0.927,
+      "fit_s": 28.313,
+      "gap": 0.064
+     },
+     {
+      "model": "Logistic Regression",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 0.377,
+      "cv_tuned": 0.377,
+      "val": 0.389,
+      "val_f1": 0.437,
+      "acc": 0.965,
+      "precision": 0.389,
+      "recall": 0.488,
+      "f1": 0.433,
+      "roc": 0.944,
+      "test": 0.39,
+      "top20": 0.925,
+      "fit_s": 4.457,
+      "gap": -0.005
+     },
+     {
+      "model": "Random Forest",
+      "owner": "Shahad",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 0.354,
+      "cv_tuned": 0.374,
+      "val": 0.379,
+      "val_f1": 0.434,
+      "acc": 0.967,
+      "precision": 0.412,
+      "recall": 0.44,
+      "f1": 0.426,
+      "roc": 0.944,
+      "test": 0.39,
+      "top20": 0.925,
+      "fit_s": 102.145,
+      "gap": 0.009
+     },
+     {
+      "model": "SVM (linear / RBF-Nyström)",
+      "owner": "Khalid",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 0.357,
+      "cv_tuned": 0.342,
+      "val": 0.363,
+      "val_f1": 0.428,
+      "acc": 0.965,
+      "precision": 0.387,
+      "recall": 0.459,
+      "f1": 0.42,
+      "roc": 0.94,
+      "test": 0.371,
+      "top20": 0.917,
+      "fit_s": 17.748,
+      "gap": 0.003
+     },
+     {
+      "model": "Decision Tree",
+      "owner": "Afnan",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 0.08,
+      "cv_tuned": 0.345,
+      "val": 0.345,
+      "val_f1": 0.425,
+      "acc": 0.965,
+      "precision": 0.384,
+      "recall": 0.471,
+      "f1": 0.423,
+      "roc": 0.936,
+      "test": 0.347,
+      "top20": 0.915,
+      "fit_s": 5.944,
+      "gap": 0.007
+     },
+     {
+      "model": "Baseline · low on-hand rule",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 0.319,
+      "val_f1": 0.405,
+      "acc": 0.959,
+      "precision": 0.338,
+      "recall": 0.494,
+      "f1": 0.401,
+      "roc": 0.936,
+      "test": 0.328,
+      "top20": 0.908,
+      "fit_s": null,
+      "gap": -0.004
+     },
+     {
+      "model": "KNN",
+      "owner": "Sara",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 0.154,
+      "cv_tuned": 0.314,
+      "val": 0.317,
+      "val_f1": 0.395,
+      "acc": 0.962,
+      "precision": 0.338,
+      "recall": 0.41,
+      "f1": 0.371,
+      "roc": 0.913,
+      "test": 0.321,
+      "top20": 0.848,
+      "fit_s": 0.254,
+      "gap": -0.004
+     },
+     {
+      "model": "Baseline · stratified random",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 0.029,
+      "val_f1": 0.055,
+      "acc": 0.419,
+      "precision": 0.027,
+      "recall": 0.575,
+      "f1": 0.052,
+      "roc": 0.496,
+      "test": 0.027,
+      "top20": 0.19,
+      "fit_s": null,
+      "gap": -0.0
+     },
+     {
+      "model": "Baseline · majority class",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 0.027,
+      "val_f1": 0.0,
+      "acc": 0.973,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc": 0.5,
+      "test": 0.027,
+      "top20": 0.183,
+      "fit_s": null,
+      "gap": -0.001
+     }
+    ],
+    "bootstrap": [
+     {
+      "model": "CatBoost",
+      "ci": "0.393 – 0.436",
+      "worse": false
+     },
+     {
+      "model": "XGBoost",
+      "ci": "0.392 – 0.434",
+      "worse": false
+     },
+     {
+      "model": "LightGBM",
+      "ci": "0.387 – 0.429",
+      "worse": true
+     },
+     {
+      "model": "Random Forest",
+      "ci": "0.369 – 0.412",
+      "worse": true
+     },
+     {
+      "model": "Logistic Regression",
+      "ci": "0.369 – 0.412",
+      "worse": true
+     },
+     {
+      "model": "SVM (linear / RBF-Nyström)",
+      "ci": "0.349 – 0.393",
+      "worse": true
+     },
+     {
+      "model": "Decision Tree",
+      "ci": "0.329 – 0.366",
+      "worse": true
+     },
+     {
+      "model": "Baseline · low on-hand rule",
+      "ci": "0.309 – 0.348",
+      "worse": true
+     },
+     {
+      "model": "KNN",
+      "ci": "0.301 – 0.341",
+      "worse": true
+     }
+    ],
+    "shap": "On_Hand_Qty, Order_Cover_Ratio, Stock_per_Shelf_Day, Supply_Risk"
+   },
+   "regression": {
+    "metric": "MAE",
+    "higher": false,
+    "champion": "XGBoost",
+    "best_team": "Random Forest",
+    "best_team_owner": "Rahaf",
+    "tied": [
+     "LightGBM",
+     "CatBoost",
+     "XGBoost",
+     "Random Forest"
+    ],
+    "rows": [
+     {
+      "model": "LightGBM",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 0.542,
+      "cv_tuned": 0.528,
+      "val": 0.511,
+      "val_r2": 0.754,
+      "test": 0.52,
+      "rmse": 1.295,
+      "r2": 0.722,
+      "bias": -0.019,
+      "gain": 0.483,
+      "wape": 0.035,
+      "fit_s": 24.934,
+      "gap": -0.002
+     },
+     {
+      "model": "CatBoost",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 0.547,
+      "cv_tuned": 0.525,
+      "val": 0.514,
+      "val_r2": 0.744,
+      "test": 0.523,
+      "rmse": 1.298,
+      "r2": 0.721,
+      "bias": -0.009,
+      "gain": 0.48,
+      "wape": 0.032,
+      "fit_s": 21.703,
+      "gap": 0.062
+     },
+     {
+      "model": "XGBoost",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 0.567,
+      "cv_tuned": 0.531,
+      "val": 0.515,
+      "val_r2": 0.755,
+      "test": 0.524,
+      "rmse": 1.283,
+      "r2": 0.728,
+      "bias": -0.007,
+      "gain": 0.479,
+      "wape": 0.032,
+      "fit_s": 16.12,
+      "gap": -0.001
+     },
+     {
+      "model": "Random Forest",
+      "owner": "Rahaf",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 0.547,
+      "cv_tuned": 0.53,
+      "val": 0.516,
+      "val_r2": 0.728,
+      "test": 0.526,
+      "rmse": 1.358,
+      "r2": 0.695,
+      "bias": -0.006,
+      "gain": 0.477,
+      "wape": 0.032,
+      "fit_s": 162.2,
+      "gap": -0.015
+     },
+     {
+      "model": "Lasso Regression",
+      "owner": "Shahad",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 0.864,
+      "cv_tuned": 0.738,
+      "val": 0.713,
+      "val_r2": 0.467,
+      "test": 0.723,
+      "rmse": 1.845,
+      "r2": 0.437,
+      "bias": 0.01,
+      "gain": 0.281,
+      "wape": 0.041,
+      "fit_s": 3.441,
+      "gap": 0.036
+     },
+     {
+      "model": "Ridge Regression",
+      "owner": "Sara",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 0.758,
+      "cv_tuned": 0.725,
+      "val": 0.728,
+      "val_r2": 0.469,
+      "test": 0.738,
+      "rmse": 1.84,
+      "r2": 0.44,
+      "bias": 0.016,
+      "gain": 0.267,
+      "wape": 0.045,
+      "fit_s": 4.157,
+      "gap": 0.041
+     },
+     {
+      "model": "Linear Regression",
+      "owner": "Sara",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 0.758,
+      "cv_tuned": 0.758,
+      "val": 0.732,
+      "val_r2": 0.469,
+      "test": 0.742,
+      "rmse": 1.841,
+      "r2": 0.439,
+      "bias": 0.018,
+      "gain": 0.262,
+      "wape": 0.046,
+      "fit_s": 4.148,
+      "gap": 0.043
+     },
+     {
+      "model": "Baseline · median",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 0.876,
+      "val_r2": -0.132,
+      "test": 0.889,
+      "rmse": 2.614,
+      "r2": -0.131,
+      "bias": -0.889,
+      "gain": 0.116,
+      "wape": 1.0,
+      "fit_s": null,
+      "gap": 0.017
+     },
+     {
+      "model": "Baseline · category × zone mean",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 1.001,
+      "val_r2": -0.0,
+      "test": 1.006,
+      "rmse": 2.459,
+      "r2": -0.0,
+      "bias": 0.01,
+      "gain": -0.0,
+      "wape": 0.059,
+      "fit_s": null,
+      "gap": 0.0
+     },
+     {
+      "model": "Baseline · mean",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 1.001,
+      "val_r2": -0.0,
+      "test": 1.006,
+      "rmse": 2.459,
+      "r2": -0.0,
+      "bias": 0.01,
+      "gain": 0.0,
+      "wape": 0.058,
+      "fit_s": null,
+      "gap": 0.0
+     }
+    ],
+    "bootstrap": [
+     {
+      "model": "LightGBM",
+      "ci": "0.511 – 0.528",
+      "worse": false
+     },
+     {
+      "model": "CatBoost",
+      "ci": "0.514 – 0.531",
+      "worse": false
+     },
+     {
+      "model": "XGBoost",
+      "ci": "0.515 – 0.532",
+      "worse": false
+     },
+     {
+      "model": "Random Forest",
+      "ci": "0.517 – 0.535",
+      "worse": true
+     },
+     {
+      "model": "Lasso Regression",
+      "ci": "0.710 – 0.734",
+      "worse": true
+     },
+     {
+      "model": "Ridge Regression",
+      "ci": "0.725 – 0.749",
+      "worse": true
+     },
+     {
+      "model": "Linear Regression",
+      "ci": "0.729 – 0.753",
+      "worse": true
+     },
+     {
+      "model": "Baseline · median",
+      "ci": "0.870 – 0.907",
+      "worse": true
+     },
+     {
+      "model": "Baseline · mean",
+      "ci": "0.989 – 1.023",
+      "worse": true
+     },
+     {
+      "model": "Baseline · category × zone mean",
+      "ci": "0.989 – 1.023",
+      "worse": true
+     }
+    ],
+    "shap": "On_Hand_Qty, Stock_per_Shelf_Day, Remaining_Shelf_Life_Days, Remaining_Shelf_Life_Days_Missing_Flag"
+   },
+   "forecasting": {
+    "metric": "MAE",
+    "higher": false,
+    "champion": "ETS(trend=True, damped=False, seasonal=None)",
+    "best_team": "ARIMAX(0, 1, 1)x(1, 0, 1, 7)",
+    "best_team_owner": "Rahaf",
+    "tied": [
+     "ETS(trend=True, damped=False, seasonal=None)"
+    ],
+    "rows": [
+     {
+      "model": "Baseline · 28-day moving average",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 876.22,
+      "val_mape": 2.66,
+      "test": 731.79,
+      "rmse": 860.79,
+      "mape": 2.2,
+      "mase": 0.61,
+      "bias": -186.49
+     },
+     {
+      "model": "ETS(trend=True, damped=False, seasonal=None)",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 787.37,
+      "cv_tuned": 784.32,
+      "val": 877.75,
+      "val_mape": 2.67,
+      "test": 728.54,
+      "rmse": 866.45,
+      "mape": 2.19,
+      "mase": 0.61,
+      "bias": -191.11
+     },
+     {
+      "model": "ARIMAX(0, 1, 1)x(1, 0, 1, 7)",
+      "owner": "Rahaf",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 794.53,
+      "cv_tuned": 754.83,
+      "val": 889.23,
+      "val_mape": 2.7,
+      "test": 703.89,
+      "rmse": 829.09,
+      "mape": 2.12,
+      "mase": 0.59,
+      "bias": -87.19
+     },
+     {
+      "model": "Baseline · historical mean",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 890.19,
+      "val_mape": 2.71,
+      "test": 707.59,
+      "rmse": 843.0,
+      "mape": 2.13,
+      "mase": 0.59,
+      "bias": -40.51
+     },
+     {
+      "model": "Theta(deseasonalize=True)",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 811.35,
+      "cv_tuned": 811.35,
+      "val": 891.98,
+      "val_mape": 2.7,
+      "test": 736.58,
+      "rmse": 864.65,
+      "mape": 2.21,
+      "mase": 0.62,
+      "bias": -169.5
+     },
+     {
+      "model": "SARIMA(0, 0, 2)x(0, 0, 0, 7)",
+      "owner": "Khalid",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 804.64,
+      "cv_tuned": 781.16,
+      "val": 900.57,
+      "val_mape": 2.74,
+      "test": 715.03,
+      "rmse": 852.8,
+      "mape": 2.15,
+      "mase": 0.6,
+      "bias": -50.48
+     },
+     {
+      "model": "XGBoost (time features)",
+      "owner": "Afnan",
+      "baseline": false,
+      "assigned": true,
+      "cv_untuned": 802.74,
+      "cv_tuned": 759.92,
+      "val": 923.09,
+      "val_mape": 2.81,
+      "test": 710.45,
+      "rmse": 838.08,
+      "mape": 2.14,
+      "mase": 0.59,
+      "bias": -39.66
+     },
+     {
+      "model": "LightGBM (time features)",
+      "owner": "Extra",
+      "baseline": false,
+      "assigned": false,
+      "cv_untuned": 825.68,
+      "cv_tuned": 754.46,
+      "val": 923.63,
+      "val_mape": 2.82,
+      "test": 731.95,
+      "rmse": 863.79,
+      "mape": 2.21,
+      "mase": 0.61,
+      "bias": -20.87
+     },
+     {
+      "model": "Baseline · 7-day moving average",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 945.56,
+      "val_mape": 2.86,
+      "test": 772.1,
+      "rmse": 942.12,
+      "mape": 2.33,
+      "mase": 0.65,
+      "bias": -17.93
+     },
+     {
+      "model": "Baseline · seasonal naïve (same day last week)",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 1121.37,
+      "val_mape": 3.42,
+      "test": 1066.88,
+      "rmse": 1322.5,
+      "mape": 3.21,
+      "mase": 0.89,
+      "bias": -99.23
+     },
+     {
+      "model": "Baseline · naïve (yesterday)",
+      "owner": "Team",
+      "baseline": true,
+      "assigned": false,
+      "cv_untuned": null,
+      "cv_tuned": null,
+      "val": 1290.87,
+      "val_mape": 3.9,
+      "test": 929.45,
+      "rmse": 1119.77,
+      "mape": 2.8,
+      "mase": 0.78,
+      "bias": 27.3
+     }
+    ],
+    "dm": [
+     {
+      "model": "ARIMAX(0, 1, 1)x(1, 0, 1, 7)",
+      "p": 0.796,
+      "verdict": "no significant difference"
+     },
+     {
+      "model": "Baseline · historical mean",
+      "p": 0.856,
+      "verdict": "no significant difference"
+     },
+     {
+      "model": "ETS(trend=True, damped=False, seasonal=None)",
+      "p": 0.97,
+      "verdict": "no significant difference"
+     },
+     {
+      "model": "SARIMA(0, 0, 2)x(0, 0, 0, 7)",
+      "p": 0.843,
+      "verdict": "no significant difference"
+     },
+     {
+      "model": "Theta(deseasonalize=True)",
+      "p": 0.156,
+      "verdict": "no significant difference"
+     },
+     {
+      "model": "XGBoost (time features)",
+      "p": 0.666,
+      "verdict": "no significant difference"
+     },
+     {
+      "model": "LightGBM (time features)",
+      "p": 0.494,
+      "verdict": "no significant difference"
+     },
+     {
+      "model": "Baseline · 7-day moving average",
+      "p": 0.051,
+      "verdict": "no significant difference"
+     },
+     {
+      "model": "Baseline · seasonal naïve (same day last week)",
+      "p": 0.0,
+      "verdict": "significantly worse"
+     },
+     {
+      "model": "Baseline · naïve (yesterday)",
+      "p": 0.0,
+      "verdict": "significantly worse"
+     }
+    ],
+    "nowcast": {
+     "model": "XGBoost start-of-day nowcast",
+     "owner": "Afnan",
+     "val": 448,
+     "test": 371,
+     "r2": 0.65
+    }
+   }
+  },
+  "khalid_classifier": {
+   "model": "ElasticNet → LightGBM",
+   "owner": "Khalid",
+   "baseline": false,
+   "assigned": true,
+   "acc": 0.966,
+   "f1": 0.436,
+   "test": 0.411,
+   "top20": 0.93,
+   "source": "deck p.36"
+  },
+  "business": {
+   "today_vs_models": [
+    {
+     "k": "stockout",
+     "today": 0.2,
+     "with": 0.93,
+     "unit": "share",
+     "page": 16
+    },
+    {
+     "k": "waste",
+     "today": 0.2,
+     "with": 0.68,
+     "unit": "share",
+     "page": 16
+    },
+    {
+     "k": "forecast",
+     "today": 0.275,
+     "with": 0.022,
+     "unit": "error",
+     "page": 16
+    },
+    {
+     "k": "nba",
+     "today": 7,
+     "with": 46,
+     "of": 50,
+     "unit": "picks",
+     "page": 16
+    }
+   ],
+   "stockout": {
+    "records_day": 1370,
+    "stockouts_day": 38,
+    "found_random": 8,
+    "found_model": 35,
+    "lift": 4.6,
+    "lift_top10": 7.8,
+    "hit_model": "1 in 8",
+    "hit_random": "1 in 36",
+    "checks": 274,
+    "page": 28
+   },
+   "waste": {
+    "units_day": 1218,
+    "sar_day": 23000,
+    "covered_top20": 0.68,
+    "covered_top10": 0.51,
+    "zero_waste_share": 0.57,
+    "mae_gain": 0.48,
+    "page": 29
+   },
+   "forecast": {
+    "units_day": 33296,
+    "mae": 729,
+    "mape": 0.022,
+    "within3": 0.7,
+    "within5": 0.98,
+    "nowcast_mape": 0.011,
+    "page": 32
+   },
+   "unusual": {
+    "share": 0.01,
+    "waste_x": 11,
+    "stockout_x": 5.9,
+    "page": 33
+   },
+   "case": {
+    "saving_low": 1.7,
+    "saving_high": 2.1,
+    "waste_today": 8.3,
+    "after20": 6.6,
+    "after25": 6.2,
+    "currency": "SAR M / year",
+    "page": 19
+   },
+   "pilot": {
+    "weeks": "1–3",
+    "pass_waste": 0.2,
+    "pass_stockout": 0.85,
+    "ab_records_per_group": 3004,
+    "ab_days": 5,
+    "page": 19
+   },
+   "drivers": {
+    "stockout": [
+     [
+      "stock",
+      0.83
+     ],
+     [
+      "supplier",
+      0.08
+     ],
+     [
+      "price",
+      0.05
+     ],
+     [
+      "shelf",
+      0.02
+     ],
+     [
+      "calendar",
+      0.01
+     ]
+    ],
+    "waste": [
+     [
+      "stock",
+      0.7
+     ],
+     [
+      "shelf",
+      0.27
+     ],
+     [
+      "product",
+      0.01
+     ],
+     [
+      "supplier",
+      0.01
+     ],
+     [
+      "price",
+      0.01
+     ],
+     [
+      "calendar",
+      0.01
+     ]
+    ],
+    "page": 18
+   },
+   "approaches": [
+    {
+     "k": "stockout",
+     "method": "classification · XGBoost",
+     "today": "2 in 10",
+     "with": "9 in 10",
+     "page": 27
+    },
+    {
+     "k": "waste",
+     "method": "regression · XGBoost",
+     "today": "20%",
+     "with": "68%",
+     "page": 27
+    },
+    {
+     "k": "forecast",
+     "method": "time series · ETS",
+     "today": "25–30%",
+     "with": "2.2%",
+     "page": 27
+    },
+    {
+     "k": "anomaly",
+     "method": "anomaly detection · Robust z-score",
+     "today": "—",
+     "with": "11×",
+     "page": 27
+    },
+    {
+     "k": "clusters",
+     "method": "clustering · K-Means",
+     "today": "—",
+     "with": "5.6×",
+     "page": 27
+    },
+    {
+     "k": "rules",
+     "method": "association rules · FP-Growth",
+     "today": "15%",
+     "with": "66%",
+     "page": 27
+    },
+    {
+     "k": "nba",
+     "method": "recommendation · prediction-based",
+     "today": "7 of 50",
+     "with": "46 of 50",
+     "page": 27
+    },
+    {
+     "k": "ab",
+     "method": "A/B testing · Welch test",
+     "today": "—",
+     "with": "+60% / +64%",
+     "page": 27
+    }
+   ]
+  },
+  "ablation": [
+   {
+    "scenario": "A · team feature set",
+    "n": 23,
+    "pr_auc": 0.3937,
+    "roc_auc": 0.9455,
+    "waste_mae": 0.5134,
+    "waste_r2": 0.7581
+   },
+   {
+    "scenario": "B · + same-day footfall (leakage)",
+    "n": 25,
+    "pr_auc": 0.3956,
+    "roc_auc": 0.9459,
+    "waste_mae": 0.5135,
+    "waste_r2": 0.7587
+   },
+   {
+    "scenario": "C · − stock position",
+    "n": 19,
+    "pr_auc": 0.0416,
+    "roc_auc": 0.613,
+    "waste_mae": 0.9308,
+    "waste_r2": 0.2557
+   },
+   {
+    "scenario": "D · − calendar",
+    "n": 18,
+    "pr_auc": 0.3948,
+    "roc_auc": 0.9458,
+    "waste_mae": 0.5135,
+    "waste_r2": 0.7583
+   }
+  ]
  }
 }

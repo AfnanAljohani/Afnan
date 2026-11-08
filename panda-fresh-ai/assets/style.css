@@ -354,7 +354,7 @@ html[dir="rtl"] .ticker .track{animation-name:tickRtl}
 .ticker:hover .track{animation-play-state:paused}
 .ticker .item{display:flex;align-items:center;gap:10px;padding:12px 28px;font-size:14px;font-weight:600;white-space:nowrap}
 .ticker .item b{font-size:16px}
-.ticker .item::after{content:"✦";margin-inline-start:28px;opacity:.6}
+.ticker .item::after{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;margin-inline-start:28px;opacity:.45}
 @keyframes tick{to{transform:translateX(-50%)}}
 @keyframes tickRtl{to{transform:translateX(50%)}}
 .hero2 .kpi-strip{z-index:3}
@@ -471,3 +471,7 @@ html[dir="rtl"] .ticker .track{animation-name:tickRtl}
 }
 @media (prefers-reduced-motion:reduce){.bento .q::before{animation:none}}
 .bento .tile{font-family:inherit;color:inherit}
+.deck-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.deck-tabs button{font-family:inherit;font-size:14px;font-weight:600;color:#CFE0D6;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:9px 18px;cursor:pointer;transition:.2s}
+.deck-tabs button span{font-size:12px;opacity:.7;margin-inline-start:6px}
+.deck-tabs button.on{background:var(--gold);border-color:var(--gold);color:var(--green-900)}

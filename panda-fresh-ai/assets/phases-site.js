@@ -48,7 +48,7 @@
   if (problem) {
     const sec = el(`<section class="section-tint" id="problem-video"><div class="container"><div class="pvideo reveal">
       <div><div class="section-head" style="margin-bottom:0"><span class="eyebrow">${esc(VL.eyebrow)}</span><h2>${esc(VL.title)}</h2><p>${esc(VL.text)}</p></div>
-        <div class="meta"><span>▶ 1:22</span><span>${t('عربي · English', 'Arabic · English')}</span><span>PANDA · Fresh Food AI</span></div></div>
+</div>
       <div class="vframe"><video id="pvVideo" src="${V.src}" poster="${V.poster}" preload="metadata" playsinline controls></video>
         <button class="play" id="pvPlay" aria-label="${t('تشغيل الفيديو', 'Play video')}"><span>▶</span></button></div>
     </div></div></section>`);
@@ -85,115 +85,64 @@
     }
   }
 
-  /* ---------------- 5. Phase 4 ---------------- */
-  const E = D.phase4.experiments, M = E[D.phase4.primary], G = E[D.phase4.diagnostic];
-  const R = E.stratified__inventory_inputs;
-  const s = M.summary, g = G.summary;
-  const lift = s.average_precision / s.prevalence;
-  const alertRate = s.alerts / s.rows;
-  const months = (a, b) => { const f = d => new Date(d + 'T00:00:00Z').toLocaleDateString(AR ? 'ar-SA-u-ca-gregory-nu-latn' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }); return `${f(a)} – ${f(b)}`; };
-  const rec1 = D.phase1.objectives.find(o => o.metric === 'Recall');
-
+  /* ---------------- 5. Phase 4 (final results) ---------------- */
+  const F = D.phase4_final, T = F.tracks, B = F.business;
+  const OWN = { Afnan: t('أفنان', 'Afnan'), Sara: t('سارة', 'Sara'), Shahad: t('شهد', 'Shahad'), Khalid: t('خالد', 'Khalid'), Rahaf: t('رهف', 'Rahaf'), Extra: t('نموذج مرجعي', 'Benchmark') };
+  const short = m => m.replace(/^(ETS|ARIMAX|SARIMA|Theta)\(.*\)$/, '$1');
+  const row = (tr, m) => T[tr].rows.find(r => r.model === m);
+  const cC = row('classification', T.classification.champion), cR = row('regression', T.regression.champion), cF = row('forecasting', T.forecasting.champion);
+  const nApproaches = B.approaches.length;
   const banner = el(`<div class="phase-banner" id="phase4"><div class="container"><div>
-    <span class="eyebrow">PHASE 4 · MODELING &amp; EVALUATION <span class="tag gold" style="margin-inline-start:8px">NEW</span></span>
-    <h2>${t('المرحلة الرابعة: النمذجة والتقييم', 'Phase 4: Modeling &amp; evaluation')}</h2>
-    <p>${t(`درّبنا نماذج LightGBM للتنبؤ بنفاد المخزون على ${nf(P.model_rows)} سجلًا من بيانات النمذجة المعدّلة، واختبرناها على أسابيع لم يرها النموذج أبدًا.`,
-      `We trained LightGBM models to predict stockouts on ${nf(P.model_rows)} records of the modified model-ready data, and tested them on weeks the model had never seen.`)}</p>
+    <span class="eyebrow">PHASE 4 · MODELING &amp; RESULTS <span class="tag gold" style="margin-inline-start:8px">NEW</span></span>
+    <h2>${t('المرحلة الرابعة: النمذجة ونتائج الأعمال', 'Phase 4: Modeling &amp; business results')}</h2>
+    <p>${t(`طبّقنا ${nApproaches} منهجيات، وقارنّا عدة نماذج في كل منهجية، واختبرنا الفائز مرة واحدة على 8 أسابيع لم يرها أي نموذج.`, `We applied ${nApproaches} approaches, compared several models in each, and tested the winner once on 8 weeks no model had seen.`)}</p>
   </div><div class="big">04</div></div></div>`);
-
-  const met = (lab, v) => `<div><span>${lab}</span><b class="num">${v}</b></div>`;
+  const card = (title, model, owner, team, teamOwner, lines) => `<article class="p4-card main"><span class="badge-top">${t('الفائز', 'Winner')}</span>
+    <h3>${title}</h3><p class="sub"><b style="color:var(--green-700);font-size:18px">${model}</b></p>
+    <div class="mets">${lines.map(([l, v]) => `<div><span>${l}</span><b class="num">${v}</b></div>`).join('')}</div>
+    <p class="vs">${t('أفضل نموذج من الفريق', 'Best team model')}: <b>${short(team)}</b> · ${OWN[teamOwner] || teamOwner}</p></article>`;
+  const tvd = k => B.today_vs_models.find(z => z.k === k);
   const p4 = el(`<section id="phase4-results"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">${t('النتائج', 'RESULTS')}</span>
-      <h2>${t('هل نقدر نعرف الرف اللي بينفد قبل ما ينفد؟', 'Can we spot the shelf that will run out, before it does?')}</h2>
-      <p>${t('نعرض نسختين من النموذج بصراحة: نسخة تتوقع قبل بداية اليوم وهي اللي تهم بندة، ونسخة تشخيصية تكشف النفاد بعد ما يصير.', 'We show two versions of the model honestly: one that predicts before the day starts, which is what matters to Panda, and a diagnostic one that detects stockouts after they happen.')}</p></div>
+      <h2>${t('من بيانات بندة إلى روتين صباحي واحد', 'From Panda’s data to one morning routine')}</h2>
+      <p>${t('كل رقم هنا مقاس على أسابيع الاختبار، ومقارن بطريقة العمل الحالية.', 'Every number here is measured on the test weeks and compared with how the work is done today.')}</p></div>
 
     <div class="p4-intro reveal">
-      <div class="k"><span>${t('بيانات النمذجة', 'Model-ready data')}</span><b class="num">${nf(P.model_rows)}</b><small>${t('سجل', 'records')} · ${nf(P.model_columns)} ${t('عمودًا', 'columns')}</small></div>
-      <div class="k"><span>${t('سجلات الاختبار', 'Test records')}</span><b class="num">${nf(s.rows)}</b><small class="num">${months(M.test_start, M.test_end)}</small></div>
-      <div class="k"><span>${t('حالات النفاد الفعلية في الاختبار', 'Actual stockouts in test')}</span><b class="num">${nf(s.tp + s.fn)}</b><small>${pct(s.prevalence, 2)} ${t('من السجلات', 'of records')}</small></div>
-      <div class="k"><span>${t('النموذج', 'Model')}</span><b class="num" style="font-size:22px">LightGBM</b><small>${t('اختبار زمني، وليس عشوائيًا', 'time-based test, not random')}</small></div>
+      <div class="k"><span>${t('نفاد مكتشف بفحص 1 من 5 سجلات', 'Stockouts found checking 1 in 5 records')}</span><b class="num">${pct(tvd('stockout').with, 0)}</b><small>${t('اليوم', 'today')} ${pct(tvd('stockout').today, 0)} · ×${B.stockout.lift}</small></div>
+      <div class="k"><span>${t('الهدر في قائمة واحدة', 'Waste on one list')}</span><b class="num">${pct(tvd('waste').with, 0)}</b><small>${t('اليوم', 'today')} ${pct(tvd('waste').today, 0)}</small></div>
+      <div class="k"><span>${t('خطأ توقع الطلب اليومي', 'Daily demand forecast error')}</span><b class="num">${pct(B.forecast.mape, 1)}</b><small>${t('الهدف أقل من 15%', 'target below 15%')}</small></div>
+      <div class="k"><span>${t('توفير سنوي متوقع (سيناريو)', 'Expected annual saving (scenario)')}</span><b class="num">SAR ${B.case.saving_low}–${B.case.saving_high}M</b><small>${t('إذا أكدت التجربة الهدف', 'if the pilot confirms the target')}</small></div>
     </div>
 
-    <div class="p4-cards reveal">
-      <article class="p4-card main"><span class="badge-top">${t('التوقع الحقيقي · قبل بداية اليوم', 'Real forecast · before the day starts')}</span>
-        <h3>${t('مدخلات المخزون فقط', 'Inventory inputs only')}</h3>
-        <p class="sub">${t('يستخدم فقط ما هو معروف قبل اليوم: المخزون والطلبات والمورد والتقويم والسياق.', 'Uses only what is known before the day: stock, orders, supplier, calendar and context.')}</p>
-        <div class="mets">${met('PR-AUC', nf(s.average_precision, 3))}${met('ROC-AUC', nf(s.roc_auc, 3))}${met(t('الاستدعاء', 'Recall'), pct(s.recall))}${met(t('الإحكام', 'Precision'), pct(s.precision))}</div>
-        <p class="vs">${t(`<b>أفضل من التخمين العشوائي بـ ×${nf(lift, 1)}</b>: PR-AUC ${nf(s.average_precision, 3)} مقابل ${nf(s.prevalence, 3)}. اكتشف <b class="num">${nf(s.tp)}</b> من <b class="num">${nf(s.tp + s.fn)}</b> حالة نفاد بـ <span class="num">${nf(s.alerts)}</span> تنبيه.`,
-          `<b>×${nf(lift, 1)} better than random guessing</b>: PR-AUC ${nf(s.average_precision, 3)} vs ${nf(s.prevalence, 3)}. Caught <b class="num">${nf(s.tp)}</b> of <b class="num">${nf(s.tp + s.fn)}</b> stockouts with <span class="num">${nf(s.alerts)}</span> alerts.`)}</p>
-      </article>
-      <article class="p4-card diag"><span class="badge-top">${t('تشخيص بعد الحدث · ليس توقعًا', 'After-the-fact diagnosis · not a forecast')}</span>
-        <h3>${t('السجل المرصود كاملًا', 'Full observed record')}</h3>
-        <p class="sub">${t('يشمل المبيعات والهدر الفعليين لنفس اليوم.', "Includes the same day's actual units sold and waste.")}</p>
-        <div class="mets">${met('F1', pct(g.f1, 2))}${met(t('الاستدعاء', 'Recall'), pct(g.recall, 2))}${met(t('الإحكام', 'Precision'), pct(g.precision, 2))}${met(t('الأخطاء', 'Errors'), nf(g.fp + g.fn))}</div>
-        <p class="vs">${t('هذي هي <b>مشكلة التسرّب</b> اللي حذّرنا منها في المرحلتين الثانية والثالثة: النتيجة شبه كاملة لأن بيانات نفس اليوم تكشف الجواب. ينفع لكشف النفاد بعد حدوثه، ولا يُستخدم للتوقع.',
-          'This is the <b>leakage problem</b> we flagged in Phases 2 and 3: the score is near-perfect because same-day data reveals the answer. Useful to detect stockouts after they happen, not to forecast them.')}</p>
-      </article>
-    </div>
-
-    <div class="p4-charts reveal">
-      <div class="card"><h3>${t('النموذج مقابل التخمين العشوائي', 'Model vs. random guessing')}</h3><p class="sub" style="margin:2px 0 12px;color:var(--ink-3);font-size:13px">${t('التخمين العشوائي بنفس عدد التنبيهات', 'Random guessing with the same number of alerts')}</p>
-        <div class="legend" style="display:flex;gap:14px;font-size:12.5px;color:var(--ink-2);margin-bottom:6px"><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#1F7A4D;margin-inline-end:6px"></i>${t('النموذج', 'Model')}</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#B7C2BC;margin-inline-end:6px"></i>${t('عشوائي', 'Random')}</span></div>
-        <div id="p4Bars"></div></div>
-      <div class="card"><h3>${t('نتائج التصنيف', 'Classification outcomes')}</h3><p class="sub" style="margin:2px 0 4px;color:var(--ink-3);font-size:13px">${t('النموذج الأساسي على سجلات الاختبار', 'Main model on the test records')}</p>
-        <div class="cm"><span></span><span class="h">${t('توقع: لا نفاد', 'Predicted: no')}</span><span class="h">${t('توقع: نفاد', 'Predicted: stockout')}</span>
-          <span class="r">${t('فعلي: لا نفاد', 'Actual: no')}</span><div class="cell tn"><b class="num">${nf(s.tn)}</b><span>${t('صحيح', 'Correct')}</span></div><div class="cell fp"><b class="num">${nf(s.fp)}</b><span>${t('تنبيه خاطئ', 'False alert')}</span></div>
-          <span class="r">${t('فعلي: نفاد', 'Actual: stockout')}</span><div class="cell fn"><b class="num">${nf(s.fn)}</b><span>${t('نفاد فائت', 'Missed')}</span></div><div class="cell tp"><b class="num">${nf(s.tp)}</b><span>${t('نفاد مكتشف', 'Caught')}</span></div></div>
-        <p style="font-size:13px;color:var(--ink-2);margin:12px 0 0">${t(`الدقة العامة ${pct(s.accuracy)} مضلّلة هنا: نموذج يقول "ما فيه نفاد" دائمًا يحصل على ${pct(1 - s.prevalence)}.`, `Overall accuracy of ${pct(s.accuracy)} is misleading here: a model that always says "no stockout" scores ${pct(1 - s.prevalence)}.`)}</p></div>
-    </div>
-
-    <div class="p4-charts two reveal">
-      <div class="card"><h3>${t('الأداء حسب الفئة', 'Performance by category')}</h3><p class="sub" style="margin:2px 0 12px;color:var(--ink-3);font-size:13px">${t('الاستدعاء لكل فئة · النموذج الأساسي', 'Recall per category · main model')}</p><div id="p4Cats"></div></div>
-      <div class="card"><h3>${t('هل النتيجة ثابتة؟', 'Is the result stable?')}</h3>
-        <p style="font-size:14px;color:var(--ink-2)">${t('أعدنا الاختبار بتقسيم عشوائي طبقي على كامل الفترة، وطلعت النتيجة قريبة جدًا من الاختبار الزمني. يعني الأداء مو صدفة أسابيع معيّنة.', 'We repeated the test with a stratified random split over the whole period, and the result came out very close to the time-based test, so the performance is not a fluke of particular weeks.')}</p>
-        <table style="font-size:13.5px"><thead><tr><th>${t('الاختبار', 'Test')}</th><th>F1</th><th>PR-AUC</th><th>ROC-AUC</th></tr></thead><tbody>
-          <tr><td>${t('زمني (أغسطس–سبتمبر 2026)', 'Time-based (Aug–Sep 2026)')}</td><td class="num">${nf(s.f1, 3)}</td><td class="num">${nf(s.average_precision, 3)}</td><td class="num">${nf(s.roc_auc, 3)}</td></tr>
-          <tr><td>${t('عشوائي طبقي', 'Stratified random')}</td><td class="num">${nf(R.summary.f1, 3)}</td><td class="num">${nf(R.summary.average_precision, 3)}</td><td class="num">${nf(R.summary.roc_auc, 3)}</td></tr>
-        </tbody></table></div>
+    <div class="p4-cards three reveal">
+      ${card(t('خطر نفاد المخزون · تصنيف', 'Stockout risk · classification'), T.classification.champion, '', T.classification.best_team, T.classification.best_team_owner, [['PR-AUC', nf(cC.test, 3)], ['ROC-AUC', nf(cC.roc, 3)], [t('أعلى 20%', 'Top 20%'), pct(cC.top20, 0)], ['F1', nf(cC.f1, 2)]])}
+      ${card(t('كمية الهدر · انحدار', 'Waste quantity · regression'), T.regression.champion, '', T.regression.best_team, T.regression.best_team_owner, [['MAE', nf(cR.test, 3)], ['R²', nf(cR.r2, 2)], [t('أفضل من المتوسط', 'vs average'), '−' + pct(cR.gain, 0)], ['WAPE', pct(cR.wape, 1)]])}
+      ${card(t('الطلب اليومي · سلاسل زمنية', 'Daily demand · time series'), short(T.forecasting.champion), '', T.forecasting.best_team, T.forecasting.best_team_owner, [['MAE', nf(cF.test)], ['MAPE', nf(cF.mape, 2) + '%'], ['MASE', nf(cF.mase, 2)], [t('±3% من الأيام', 'Days ±3%'), pct(B.forecast.within3, 0)]])}
     </div>
 
     <div class="p4-steps reveal">
-      <div class="card"><h3>${t('الهدف مقابل النتيجة', 'Target vs. result')}</h3>
-        <p style="font-size:14.5px;color:var(--ink-2)">${t(`هدف المرحلة الأولى للاستدعاء <b class="num">${rec1.target}</b>، والنموذج الحالي يحقق <b class="num">${pct(s.recall)}</b> عند عتبة متوازنة. الفجوة واضحة، وهذي خطواتنا لسدّها:`, `Phase 1 set a recall target of <b class="num">${rec1.target}</b>; the current model reaches <b class="num">${pct(s.recall)}</b> at a balanced threshold. The gap is clear, and these are our next steps to close it:`)}</p>
+      <div class="card"><h3>${t('كيف اخترنا الفائز؟', 'How we chose the winner')}</h3>
         <ul>
-          <li>${t('إضافة خصائص تاريخية (lags ومتوسطات متحركة) من الطلب الأسبوعي في ABT-A.', 'Add history features (lags, rolling means) from weekly demand in ABT-A.')}</li>
-          <li>${t('ضبط عتبة القرار لرفع الاستدعاء مقابل تنبيهات أكثر.', 'Tune the decision threshold to raise recall in exchange for more alerts.')}</li>
-          <li>${t('بناء توقع الطلب الأسبوعي لتحقيق هدف MAPE أقل من 15%.', 'Build the weekly demand forecast towards the MAPE < 15% target.')}</li>
-          <li>${t('تأكيد تعريف المخزون (بداية اليوم أو نهايته) مع فريق بندة.', 'Confirm the stock definition (opening vs. closing) with the Panda team.')}</li>
+          <li>${t('كل نموذج اتضبط على بيانات التدريب فقط، بتقسيم زمني.', 'Every model was tuned on training data only, with a time-based split.')}</li>
+          <li>${t('الترتيب على فترة التحقق، والنماذج اللي الفرق بينها أقل من 1% تعتبر متعادلة ويفوز الأقل إفراطًا في التعلم.', 'Ranking on the validation period; models within 1% are tied and the least over-fitted wins.')}</li>
+          <li>${t('الفائز اختُبر مرة واحدة على 8 أسابيع لاحقة، مع اختبارات إحصائية تبيّن أي فرق حقيقي.', 'The winner was tested once on 8 later weeks, with statistical tests showing which differences are real.')}</li>
+          <li>${t('أي نموذج لا يتفوق على خط الأساس يُذكر بوضوح: في الطلب اليومي النماذج متقاربة جدًا مع المتوسط المتحرك 28 يوم.', 'Where a model does not beat the baseline we say so: for daily demand the models are very close to the 28-day moving average.')}</li>
         </ul></div>
-      <div class="card"><h3>${t('حدود يجب معرفتها', 'Limits to keep in mind')}</h3>
+      <div class="card"><h3>${t('الخطوة التالية', 'Next step')}</h3>
         <ul>
-          <li>${t('البيانات اصطناعية لأغراض أكاديمية، والأرقام ليست مؤشرات رسمية لبندة.', 'The data is synthetic for academic use; the numbers are not official Panda KPIs.')}</li>
-          <li>${t(`نسبة النفاد ${pct(s.prevalence, 2)} فقط، لذلك PR-AUC هو المقياس الصحيح وليس الدقة العامة.`, `Stockouts are only ${pct(s.prevalence, 2)} of records, so PR-AUC is the right measure, not accuracy.`)}</li>
-          <li>${t('فترة الاختبار الزمني 8 أسابيع فقط (أغسطس–سبتمبر 2026).', 'The time-based test covers only 8 weeks (Aug–Sep 2026).')}</li>
-          <li>${t(`بيانات النمذجة المعدّلة ${nf(P.model_rows)} سجل، وتختلف قليلًا عن ${'871,314'} في المرحلة الثالثة بسبب قواعد تنظيف محدّثة.`, `The modified model-ready data has ${nf(P.model_rows)} records, slightly different from Phase 3's 871,314 because of updated cleaning rules.`)}</li>
+          <li>${t('تجربة ميدانية 3 أسابيع في عدد محدود من الفروع.', 'A 3-week pilot in a few stores.')}</li>
+          <li>${t(`معيار النجاح: خفض الهدر ${pct(B.pilot.pass_waste, 0)} واكتشاف ${pct(B.pilot.pass_stockout, 0)} من النفاد.`, `Pass criteria: waste down ${pct(B.pilot.pass_waste, 0)} and ${pct(B.pilot.pass_stockout, 0)} of stockouts caught.`)}</li>
+          <li>${t('تأكيد أن المخزون يُعدّ قبل بداية اليوم، لأن دقة النماذج تعتمد عليه.', 'Confirm stock is counted before the day starts; the models depend on it.')}</li>
+          <li>${t('البيانات أكاديمية، والتوفير سيناريو تثبته التجربة.', 'The data is academic; the saving is a scenario for the pilot to prove.')}</li>
         </ul></div>
     </div>
 
     <div class="kh-links reveal">${X.khalid.map(k => { const K = L(k); return `<a href="${k.href}" target="_blank" rel="noopener"><span class="ic">${ICON.link}</span><span><b>${esc(K.title)}</b><span>${esc(K.text)}</span><small>${esc(L(X.khalidBy))}</small></span><span class="go">${t('↖', '↗')}</span></a>`; }).join('')}</div>
-    <div class="p4-cta reveal"><a class="btn btn-green" href="${DASH}#p4">${t('افتح داشبورد المرحلة الرابعة ←', 'Open the Phase 4 dashboard →')}</a></div>
+    <div class="p4-cta reveal" style="gap:12px;flex-wrap:wrap"><a class="btn btn-gold" href="${DASH}#biz">${t('قرار الاستثمار: الداشبورد التنفيذي', 'Investment case: executive dashboard')}</a><a class="btn btn-green" href="${DASH}#p4">${t('مقارنة كل النماذج', 'Compare every model')}</a></div>
   </div></section>`);
 
   const footer = $('footer');
   if (footer) { footer.before(awards); footer.before(banner); footer.before(p4); }
-
-  /* bars (no chart library needed on the website) */
-  const bars = (box, rows, max = 1) => {
-    box.innerHTML = rows.map(r => `<div style="margin:10px 0">
-      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${r.label}</span><b class="num">${r.text}</b></div>
-      ${r.vals.map(v => `<div style="height:12px;background:var(--green-50);border-radius:6px;margin-top:4px;overflow:hidden"><div style="height:100%;width:${Math.max(0.6, v.v / max * 100)}%;background:${v.c};border-radius:6px;transition:width 1s"></div></div>`).join('')}</div>`).join('');
-  };
-  const MODEL = '#1F7A4D', RAND = '#B7C2BC';
-  bars($('#p4Bars'), [
-    { label: 'PR-AUC', text: `${nf(s.average_precision, 3)} · ${nf(s.prevalence, 3)}`, vals: [{ v: s.average_precision, c: MODEL }, { v: s.prevalence, c: RAND }] },
-    { label: 'ROC-AUC', text: `${nf(s.roc_auc, 3)} · 0.500`, vals: [{ v: s.roc_auc, c: MODEL }, { v: 0.5, c: RAND }] },
-    { label: t('الاستدعاء', 'Recall'), text: `${pct(s.recall)} · ${pct(alertRate)}`, vals: [{ v: s.recall, c: MODEL }, { v: alertRate, c: RAND }] },
-    { label: t('الإحكام', 'Precision'), text: `${pct(s.precision)} · ${pct(s.prevalence)}`, vals: [{ v: s.precision, c: MODEL }, { v: s.prevalence, c: RAND }] }
-  ]);
-  const CAT = { Bakery: t('مخبوزات', 'Bakery'), Dairy: t('ألبان', 'Dairy'), Frozen: t('مجمدات', 'Frozen'), Grocery: t('بقالة', 'Grocery'), Meat: t('لحوم', 'Meat'), Produce: t('خضار وفواكه', 'Produce') };
-  const cats = M.by_category.slice().sort((a, b) => b.recall - a.recall);
-  const cmax = Math.max(...cats.map(c => c.recall));
-  bars($('#p4Cats'), cats.map(c => ({ label: `${CAT[c.category] || c.category} <span style="color:var(--ink-3)" class="num">(${nf(c.tp)}/${nf(c.stockouts)})</span>`, text: pct(c.recall), vals: [{ v: c.recall, c: MODEL }] })), cmax * 1.1);
 
   /* zoom: reuse the page's existing lightbox */
   document.addEventListener('click', e => {
