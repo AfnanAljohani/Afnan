@@ -25,11 +25,11 @@
     </a>
     <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
     <ul id="menu">
-            <li><a href="#deck">Presentation</a></li>
+      <li><a href="#phase1">Phases</a></li>
+      <li><a href="#awards">Awards</a></li>
       <li><a href="#tableau">Tableau</a></li>
+      <li><a href="#deck">Presentation</a></li>
       <li><a href="#visit">Visit</a></li>
-      <li><a href="#phase2">Phase 2</a></li>
-      <li><a href="#phase3">Phase 3</a></li>
       <li><a href="dashboard-en.html">Dashboard</a></li>
     </ul>
     <a class="lang" href="index.html" hreflang="ar" lang="ar" title="النسخة العربية"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>العربية</a>
@@ -49,7 +49,7 @@
   <div class="container hero-grid">
     <div>
       <div class="hero-brand"><img class="icon" src="assets/panda-icon.png" alt=""><img class="word" src="assets/panda-white.png" alt="Panda"><span class="bar"></span><img class="sv" src="assets/savola-white.png" alt="Savola"></div>
-      <span class="eyebrow"><span class="live-dot"></span>PANDA × EWA · GROUP 10 · PHASE 2 &amp; 3</span>
+      <span class="eyebrow"><span class="live-dot"></span>PANDA × EWA · GROUP 10 · PHASES 1–4</span>
       <h1><span class="ln"><span>AI-powered <em class="shine">demand &amp; inventory</em></span></span><span class="ln"><span>optimization</span></span><span class="ln"><span>for fresh food</span></span></h1>
       <p class="lead">We turn one million records of product, supplier, store and distribution-center data into sharper decisions: how much to order, when to replenish, and how to cut waste and stockouts.</p>
       <div class="actions"><a class="btn btn-gold" href="#deck">Watch our presentation</a><a class="btn btn-ghost" href="dashboard-en.html">Interactive dashboard</a></div>
@@ -70,6 +70,35 @@
     </div>
   </div>
 </header>
+
+<!-- ============ JOURNEY ============ -->
+<section class="section-dark" id="journey">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">PROJECT JOURNEY</span>
+      <h2>From a business question to a deployable model</h2>
+      <p>The project follows CRISP-DM. This site covers Phase 2 and Phase 3 in detail.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl done"><div class="dot num">1</div><h3>Business Understanding</h3><p>Problem statement, objectives and success criteria.</p><span class="tag gold">Completed</span></div>
+      <div class="tl done"><div class="dot num">2</div><h3>Data Understanding</h3><p>Descriptive statistics, relationships, a data quality report and 10 analytical questions.</p><span class="tag gold">Completed</span></div>
+      <div class="tl done"><div class="dot num">3</div><h3>Data Preparation</h3><p>Every issue treated, features engineered, and two model-ready analytical tables built.</p><span class="tag gold">Completed</span></div>
+      <div class="tl"><div class="dot num">4</div><h3>Modeling &amp; Evaluation</h3><p>Train baseline and advanced models, evaluated on held-out test weeks.</p><span class="tag">Next</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHASE 1 ============ -->
+<div class="phase-banner" id="phase1">
+  <div class="container">
+    <div>
+      <span class="eyebrow">PHASE 1 · BUSINESS UNDERSTANDING</span>
+      <h2>Phase 1: Business Understanding</h2>
+      <p>The problem we are solving for Panda, and the project's objectives and success criteria.</p>
+    </div>
+    <div class="big">01</div>
+  </div>
+</div>
 
 <!-- ============ PROBLEM ============ -->
 <section id="problem">
@@ -97,93 +126,6 @@
       <div class="card"><b class="num">−20–25%</b><span>Waste reduction</span></div>
       <div class="card"><b class="num">−25–30%</b><span>Stockout reduction</span></div>
       <div class="card"><b class="num">+3–5</b><span>Points of on-shelf availability</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ JOURNEY ============ -->
-<section class="section-dark" id="journey">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">PROJECT JOURNEY</span>
-      <h2>From a business question to a deployable model</h2>
-      <p>The project follows CRISP-DM. This site covers Phase 2 and Phase 3 in detail.</p>
-    </div>
-    <div class="timeline reveal">
-      <div class="tl done"><div class="dot num">1</div><h3>Business Understanding</h3><p>Problem statement, objectives and success criteria.</p><span class="tag gold">Completed</span></div>
-      <div class="tl done"><div class="dot num">2</div><h3>Data Understanding</h3><p>Descriptive statistics, relationships, a data quality report and 10 analytical questions.</p><span class="tag gold">Completed</span></div>
-      <div class="tl done"><div class="dot num">3</div><h3>Data Preparation</h3><p>Every issue treated, features engineered, and two model-ready analytical tables built.</p><span class="tag gold">Completed</span></div>
-      <div class="tl"><div class="dot num">4</div><h3>Modeling &amp; Evaluation</h3><p>Train baseline and advanced models, evaluated on held-out test weeks.</p><span class="tag">Next</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PRESENTATION ============ -->
-<section class="section-dark" id="deck">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">OUR PRESENTATION</span>
-      <h2>Our presentation: Phases 1 to 4</h2>
-      <p>The full project deck in 63 slides: business and data understanding, data preparation, modeling and business results, plus the appendices. The Phase 2–3 deck is still one click away below.</p>
-    </div>
-    <div class="deck-wrap reveal">
-      <div class="deck-tabs" role="tablist"><button class="on" data-deck="all" role="tab">Full deck · Phases 1–4 <span class="num">63</span></button><button data-deck="p23" role="tab">Phases 2 &amp; 3 <span class="num">19</span></button></div>
-      <div class="stage" id="stage" tabindex="0" aria-roledescription="carousel" aria-label="Presentation slides">
-        <img class="on" src="assets/slides4/slide-01.jpg" alt="AI-Powered Fresh Food Demand & Inventory Optimization">
-        <button class="nav-btn prev" id="dPrev" aria-label="Previous">‹</button>
-        <button class="nav-btn next" id="dNext" aria-label="Next">›</button>
-        <div class="progress"><i id="dProg" style="width:1.59%"></i></div>
-      </div>
-      <div class="deck-bar">
-        <div class="cap"><span id="dCap">AI-Powered Fresh Food Demand & Inventory Optimization</span><small><span class="num" id="dNum">1 / 63</span> · PANDA · Group 10</small></div>
-        <div class="tools">
-          <button class="btn btn-ghost" id="dFull">Full screen</button>
-          <a class="btn btn-gold" id="dDl" href="assets/PANDA_Group10_Phases1-4_Presentation.pdf" download>Download deck (PDF)</a>
-        </div>
-      </div>
-      <div class="thumbs" id="thumbs"><button data-i="0" aria-label="Slide 1"><img src="assets/slides4/thumbs/slide-01.jpg" alt="" loading="lazy"><span class="num">1</span></button><button data-i="1" aria-label="Slide 2"><img src="assets/slides4/thumbs/slide-02.jpg" alt="" loading="lazy"><span class="num">2</span></button><button data-i="2" aria-label="Slide 3"><img src="assets/slides4/thumbs/slide-03.jpg" alt="" loading="lazy"><span class="num">3</span></button><button data-i="3" aria-label="Slide 4"><img src="assets/slides4/thumbs/slide-04.jpg" alt="" loading="lazy"><span class="num">4</span></button><button data-i="4" aria-label="Slide 5"><img src="assets/slides4/thumbs/slide-05.jpg" alt="" loading="lazy"><span class="num">5</span></button><button data-i="5" aria-label="Slide 6"><img src="assets/slides4/thumbs/slide-06.jpg" alt="" loading="lazy"><span class="num">6</span></button><button data-i="6" aria-label="Slide 7"><img src="assets/slides4/thumbs/slide-07.jpg" alt="" loading="lazy"><span class="num">7</span></button><button data-i="7" aria-label="Slide 8"><img src="assets/slides4/thumbs/slide-08.jpg" alt="" loading="lazy"><span class="num">8</span></button><button data-i="8" aria-label="Slide 9"><img src="assets/slides4/thumbs/slide-09.jpg" alt="" loading="lazy"><span class="num">9</span></button><button data-i="9" aria-label="Slide 10"><img src="assets/slides4/thumbs/slide-10.jpg" alt="" loading="lazy"><span class="num">10</span></button><button data-i="10" aria-label="Slide 11"><img src="assets/slides4/thumbs/slide-11.jpg" alt="" loading="lazy"><span class="num">11</span></button><button data-i="11" aria-label="Slide 12"><img src="assets/slides4/thumbs/slide-12.jpg" alt="" loading="lazy"><span class="num">12</span></button><button data-i="12" aria-label="Slide 13"><img src="assets/slides4/thumbs/slide-13.jpg" alt="" loading="lazy"><span class="num">13</span></button><button data-i="13" aria-label="Slide 14"><img src="assets/slides4/thumbs/slide-14.jpg" alt="" loading="lazy"><span class="num">14</span></button><button data-i="14" aria-label="Slide 15"><img src="assets/slides4/thumbs/slide-15.jpg" alt="" loading="lazy"><span class="num">15</span></button><button data-i="15" aria-label="Slide 16"><img src="assets/slides4/thumbs/slide-16.jpg" alt="" loading="lazy"><span class="num">16</span></button><button data-i="16" aria-label="Slide 17"><img src="assets/slides4/thumbs/slide-17.jpg" alt="" loading="lazy"><span class="num">17</span></button><button data-i="17" aria-label="Slide 18"><img src="assets/slides4/thumbs/slide-18.jpg" alt="" loading="lazy"><span class="num">18</span></button><button data-i="18" aria-label="Slide 19"><img src="assets/slides4/thumbs/slide-19.jpg" alt="" loading="lazy"><span class="num">19</span></button><button data-i="19" aria-label="Slide 20"><img src="assets/slides4/thumbs/slide-20.jpg" alt="" loading="lazy"><span class="num">20</span></button><button data-i="20" aria-label="Slide 21"><img src="assets/slides4/thumbs/slide-21.jpg" alt="" loading="lazy"><span class="num">21</span></button><button data-i="21" aria-label="Slide 22"><img src="assets/slides4/thumbs/slide-22.jpg" alt="" loading="lazy"><span class="num">22</span></button><button data-i="22" aria-label="Slide 23"><img src="assets/slides4/thumbs/slide-23.jpg" alt="" loading="lazy"><span class="num">23</span></button><button data-i="23" aria-label="Slide 24"><img src="assets/slides4/thumbs/slide-24.jpg" alt="" loading="lazy"><span class="num">24</span></button><button data-i="24" aria-label="Slide 25"><img src="assets/slides4/thumbs/slide-25.jpg" alt="" loading="lazy"><span class="num">25</span></button><button data-i="25" aria-label="Slide 26"><img src="assets/slides4/thumbs/slide-26.jpg" alt="" loading="lazy"><span class="num">26</span></button><button data-i="26" aria-label="Slide 27"><img src="assets/slides4/thumbs/slide-27.jpg" alt="" loading="lazy"><span class="num">27</span></button><button data-i="27" aria-label="Slide 28"><img src="assets/slides4/thumbs/slide-28.jpg" alt="" loading="lazy"><span class="num">28</span></button><button data-i="28" aria-label="Slide 29"><img src="assets/slides4/thumbs/slide-29.jpg" alt="" loading="lazy"><span class="num">29</span></button><button data-i="29" aria-label="Slide 30"><img src="assets/slides4/thumbs/slide-30.jpg" alt="" loading="lazy"><span class="num">30</span></button><button data-i="30" aria-label="Slide 31"><img src="assets/slides4/thumbs/slide-31.jpg" alt="" loading="lazy"><span class="num">31</span></button><button data-i="31" aria-label="Slide 32"><img src="assets/slides4/thumbs/slide-32.jpg" alt="" loading="lazy"><span class="num">32</span></button><button data-i="32" aria-label="Slide 33"><img src="assets/slides4/thumbs/slide-33.jpg" alt="" loading="lazy"><span class="num">33</span></button><button data-i="33" aria-label="Slide 34"><img src="assets/slides4/thumbs/slide-34.jpg" alt="" loading="lazy"><span class="num">34</span></button><button data-i="34" aria-label="Slide 35"><img src="assets/slides4/thumbs/slide-35.jpg" alt="" loading="lazy"><span class="num">35</span></button><button data-i="35" aria-label="Slide 36"><img src="assets/slides4/thumbs/slide-36.jpg" alt="" loading="lazy"><span class="num">36</span></button><button data-i="36" aria-label="Slide 37"><img src="assets/slides4/thumbs/slide-37.jpg" alt="" loading="lazy"><span class="num">37</span></button><button data-i="37" aria-label="Slide 38"><img src="assets/slides4/thumbs/slide-38.jpg" alt="" loading="lazy"><span class="num">38</span></button><button data-i="38" aria-label="Slide 39"><img src="assets/slides4/thumbs/slide-39.jpg" alt="" loading="lazy"><span class="num">39</span></button><button data-i="39" aria-label="Slide 40"><img src="assets/slides4/thumbs/slide-40.jpg" alt="" loading="lazy"><span class="num">40</span></button><button data-i="40" aria-label="Slide 41"><img src="assets/slides4/thumbs/slide-41.jpg" alt="" loading="lazy"><span class="num">41</span></button><button data-i="41" aria-label="Slide 42"><img src="assets/slides4/thumbs/slide-42.jpg" alt="" loading="lazy"><span class="num">42</span></button><button data-i="42" aria-label="Slide 43"><img src="assets/slides4/thumbs/slide-43.jpg" alt="" loading="lazy"><span class="num">43</span></button><button data-i="43" aria-label="Slide 44"><img src="assets/slides4/thumbs/slide-44.jpg" alt="" loading="lazy"><span class="num">44</span></button><button data-i="44" aria-label="Slide 45"><img src="assets/slides4/thumbs/slide-45.jpg" alt="" loading="lazy"><span class="num">45</span></button><button data-i="45" aria-label="Slide 46"><img src="assets/slides4/thumbs/slide-46.jpg" alt="" loading="lazy"><span class="num">46</span></button><button data-i="46" aria-label="Slide 47"><img src="assets/slides4/thumbs/slide-47.jpg" alt="" loading="lazy"><span class="num">47</span></button><button data-i="47" aria-label="Slide 48"><img src="assets/slides4/thumbs/slide-48.jpg" alt="" loading="lazy"><span class="num">48</span></button><button data-i="48" aria-label="Slide 49"><img src="assets/slides4/thumbs/slide-49.jpg" alt="" loading="lazy"><span class="num">49</span></button><button data-i="49" aria-label="Slide 50"><img src="assets/slides4/thumbs/slide-50.jpg" alt="" loading="lazy"><span class="num">50</span></button><button data-i="50" aria-label="Slide 51"><img src="assets/slides4/thumbs/slide-51.jpg" alt="" loading="lazy"><span class="num">51</span></button><button data-i="51" aria-label="Slide 52"><img src="assets/slides4/thumbs/slide-52.jpg" alt="" loading="lazy"><span class="num">52</span></button><button data-i="52" aria-label="Slide 53"><img src="assets/slides4/thumbs/slide-53.jpg" alt="" loading="lazy"><span class="num">53</span></button><button data-i="53" aria-label="Slide 54"><img src="assets/slides4/thumbs/slide-54.jpg" alt="" loading="lazy"><span class="num">54</span></button><button data-i="54" aria-label="Slide 55"><img src="assets/slides4/thumbs/slide-55.jpg" alt="" loading="lazy"><span class="num">55</span></button><button data-i="55" aria-label="Slide 56"><img src="assets/slides4/thumbs/slide-56.jpg" alt="" loading="lazy"><span class="num">56</span></button><button data-i="56" aria-label="Slide 57"><img src="assets/slides4/thumbs/slide-57.jpg" alt="" loading="lazy"><span class="num">57</span></button><button data-i="57" aria-label="Slide 58"><img src="assets/slides4/thumbs/slide-58.jpg" alt="" loading="lazy"><span class="num">58</span></button><button data-i="58" aria-label="Slide 59"><img src="assets/slides4/thumbs/slide-59.jpg" alt="" loading="lazy"><span class="num">59</span></button><button data-i="59" aria-label="Slide 60"><img src="assets/slides4/thumbs/slide-60.jpg" alt="" loading="lazy"><span class="num">60</span></button><button data-i="60" aria-label="Slide 61"><img src="assets/slides4/thumbs/slide-61.jpg" alt="" loading="lazy"><span class="num">61</span></button><button data-i="61" aria-label="Slide 62"><img src="assets/slides4/thumbs/slide-62.jpg" alt="" loading="lazy"><span class="num">62</span></button><button data-i="62" aria-label="Slide 63"><img src="assets/slides4/thumbs/slide-63.jpg" alt="" loading="lazy"><span class="num">63</span></button></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TABLEAU ============ -->
-<section id="tableau">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">TABLEAU · SALES &amp; OPERATIONS</span>
-      <h2>Tableau dashboard: Sales &amp; Operations</h2>
-      <p>A dashboard we built in Tableau covering sales, waste, stockouts and promotion share versus the previous year, plus sales by city and stockout rate by category. Click the image to enlarge it.</p>
-    </div>
-    <div class="showcase reveal">
-      <div class="window">
-        <div class="bar"><i></i><i></i><i></i><span>PANDA | Sales &amp; Operations Dashboard</span></div>
-        <button id="tabZoom" aria-label="Enlarge dashboard"><img src="assets/tableau-dashboard.jpg" alt="PANDA Tableau sales and operations dashboard" loading="lazy"></button>
-      </div>
-      <div class="tab-kpis">
-        <div class="k"><span>Total Sales</span><b class="num">SAR 19.41M</b><small class="down num">−0.02% vs PY</small></div>
-        <div class="k"><span>Waste Qty</span><b class="num">37,247</b><small class="up num">−2.0% vs PY</small></div>
-        <div class="k"><span>Stockout Rate</span><b class="num">2.5%</b><small class="up num">−0.03 pp vs PY</small></div>
-        <div class="k"><span>Promotion Sales Share</span><b class="num">19.1%</b><small class="down num">−1.1 pp vs PY</small></div>
-        <div class="k"><span>Unit Sales</span><b class="num">1.14M</b><small class="up num">+0.24% vs PY</small></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ VISIT ============ -->
-<section class="section-dark" id="visit">
-  <div class="container">
-    <div class="visit-head reveal">
-      <div class="section-head">
-        <span class="eyebrow">PANDA VISIT · FIELD VISIT</span>
-        <h2>Our visit to Panda</h2>
-        <p>We visited Savola Group headquarters in Jeddah, met the Panda team, presented our project and discussed the real-world challenges behind fresh-food data.</p>
-      </div>
-      <div class="visit-meta"><span><b>Jeddah</b> · Savola Group HQ</span><span><b>EWA</b> × Panda Retail</span></div>
-    </div>
-    <div class="bento">
-      <button class="tile g reveal" data-src="assets/visit/team.jpg" aria-label="Group 10 at Panda"><img src="assets/visit/team.jpg" alt="Group 10 at Panda" loading="lazy"><span class="cap"><b>Group 10 at Panda</b><small>EWA AI &amp; Data Science Program × Panda Retail</small></span></button><button class="tile w reveal" data-src="assets/visit/window.jpg" aria-label="The view from Panda offices"><img src="assets/visit/window.jpg" alt="The view from Panda offices" loading="lazy"><span class="cap"><b>The view from Panda offices</b><small>Ocean-view workspace</small></span></button><button class="tile t reveal" data-src="assets/visit/tower.jpg" aria-label="The HQ tower"><img src="assets/visit/tower.jpg" alt="The HQ tower" loading="lazy"><span class="cap"><b>The HQ tower</b><small>Jeddah Corniche</small></span></button><button class="tile n reveal" data-src="assets/visit/hq-night.jpg" aria-label="Savola Group HQ at night"><img src="assets/visit/hq-night.jpg" alt="Savola Group HQ at night" loading="lazy"><span class="cap"><b>Savola Group HQ at night</b><small>Jeddah</small></span></button><button class="tile m reveal" data-src="assets/visit/meeting.jpg" aria-label="Meeting session"><img src="assets/visit/meeting.jpg" alt="Meeting session" loading="lazy"><span class="cap"><b>Meeting session</b><small>Presenting and discussing with the Panda team</small></span></button><button class="tile a reveal" data-src="assets/visit/corniche.jpg" aria-label="Jeddah Corniche from above"><img src="assets/visit/corniche.jpg" alt="Jeddah Corniche from above" loading="lazy"><span class="cap"><b>Jeddah Corniche from above</b><small>The HQ by the sea</small></span></button><button class="tile d reveal" data-src="assets/visit/hq-day.jpg" aria-label="HQ by day"><img src="assets/visit/hq-day.jpg" alt="HQ by day" loading="lazy"><span class="cap"><b>HQ by day</b><small>Savola Group</small></span></button>
-      <div class="q reveal" aria-label="Better Together"><b>معك تفرق</b><span>BETTER TOGETHER</span></div>
     </div>
   </div>
 </section>
@@ -528,13 +470,91 @@
       <div class="card"><div class="q">?</div><div><h3>Reference date</h3><p>Confirm the <span class="num">27 Sep 2026</span> extraction date</p></div></div>
       <div class="card"><div class="q">?</div><div><h3>Missing source fields</h3><p>Promo_Type · Shelf_Capacity · Reorder_Point · Markdown_Flag</p></div></div>
     </div>
+  </div>
+</section>
 
-    <div class="cta reveal" style="margin-top:72px">
+<!-- ============ PHASE 4 + AWARDS (added by assets/phases-site.js) ============ -->
+<div id="p4-slot"></div>
+
+<!-- ============ TABLEAU ============ -->
+<section id="tableau">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">TABLEAU · SALES &amp; OPERATIONS</span>
+      <h2>Tableau dashboard: Sales &amp; Operations</h2>
+      <p>A dashboard we built in Tableau covering sales, waste, stockouts and promotion share versus the previous year, plus sales by city and stockout rate by category. Click the image to enlarge it.</p>
+    </div>
+    <div class="showcase reveal">
+      <div class="window">
+        <div class="bar"><i></i><i></i><i></i><span>PANDA | Sales &amp; Operations Dashboard</span></div>
+        <button id="tabZoom" aria-label="Enlarge dashboard"><img src="assets/tableau-dashboard.jpg" alt="PANDA Tableau sales and operations dashboard" loading="lazy"></button>
+      </div>
+      <div class="tab-kpis">
+        <div class="k"><span>Total Sales</span><b class="num">SAR 19.41M</b><small class="down num">−0.02% vs PY</small></div>
+        <div class="k"><span>Waste Qty</span><b class="num">37,247</b><small class="up num">−2.0% vs PY</small></div>
+        <div class="k"><span>Stockout Rate</span><b class="num">2.5%</b><small class="up num">−0.03 pp vs PY</small></div>
+        <div class="k"><span>Promotion Sales Share</span><b class="num">19.1%</b><small class="down num">−1.1 pp vs PY</small></div>
+        <div class="k"><span>Unit Sales</span><b class="num">1.14M</b><small class="up num">+0.24% vs PY</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRESENTATION ============ -->
+<section class="section-dark" id="deck">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">OUR PRESENTATION</span>
+      <h2>Our presentation: Phases 1 to 4</h2>
+      <p>The full project deck in 63 slides: business and data understanding, data preparation, modeling and business results, plus the appendices. The Phase 2–3 deck is still one click away below.</p>
+    </div>
+    <div class="deck-wrap reveal">
+      <div class="deck-tabs" role="tablist"><button class="on" data-deck="all" role="tab">Full deck · Phases 1–4 <span class="num">63</span></button><button data-deck="p23" role="tab">Phases 2 &amp; 3 <span class="num">19</span></button></div>
+      <div class="stage" id="stage" tabindex="0" aria-roledescription="carousel" aria-label="Presentation slides">
+        <img class="on" src="assets/slides4/slide-01.jpg" alt="AI-Powered Fresh Food Demand & Inventory Optimization">
+        <button class="nav-btn prev" id="dPrev" aria-label="Previous">‹</button>
+        <button class="nav-btn next" id="dNext" aria-label="Next">›</button>
+        <div class="progress"><i id="dProg" style="width:1.59%"></i></div>
+      </div>
+      <div class="deck-bar">
+        <div class="cap"><span id="dCap">AI-Powered Fresh Food Demand & Inventory Optimization</span><small><span class="num" id="dNum">1 / 63</span> · PANDA · Group 10</small></div>
+        <div class="tools">
+          <button class="btn btn-ghost" id="dFull">Full screen</button>
+          <a class="btn btn-gold" id="dDl" href="assets/PANDA_Group10_Phases1-4_Presentation.pdf" download>Download deck (PDF)</a>
+        </div>
+      </div>
+      <div class="thumbs" id="thumbs"><button data-i="0" aria-label="Slide 1"><img src="assets/slides4/thumbs/slide-01.jpg" alt="" loading="lazy"><span class="num">1</span></button><button data-i="1" aria-label="Slide 2"><img src="assets/slides4/thumbs/slide-02.jpg" alt="" loading="lazy"><span class="num">2</span></button><button data-i="2" aria-label="Slide 3"><img src="assets/slides4/thumbs/slide-03.jpg" alt="" loading="lazy"><span class="num">3</span></button><button data-i="3" aria-label="Slide 4"><img src="assets/slides4/thumbs/slide-04.jpg" alt="" loading="lazy"><span class="num">4</span></button><button data-i="4" aria-label="Slide 5"><img src="assets/slides4/thumbs/slide-05.jpg" alt="" loading="lazy"><span class="num">5</span></button><button data-i="5" aria-label="Slide 6"><img src="assets/slides4/thumbs/slide-06.jpg" alt="" loading="lazy"><span class="num">6</span></button><button data-i="6" aria-label="Slide 7"><img src="assets/slides4/thumbs/slide-07.jpg" alt="" loading="lazy"><span class="num">7</span></button><button data-i="7" aria-label="Slide 8"><img src="assets/slides4/thumbs/slide-08.jpg" alt="" loading="lazy"><span class="num">8</span></button><button data-i="8" aria-label="Slide 9"><img src="assets/slides4/thumbs/slide-09.jpg" alt="" loading="lazy"><span class="num">9</span></button><button data-i="9" aria-label="Slide 10"><img src="assets/slides4/thumbs/slide-10.jpg" alt="" loading="lazy"><span class="num">10</span></button><button data-i="10" aria-label="Slide 11"><img src="assets/slides4/thumbs/slide-11.jpg" alt="" loading="lazy"><span class="num">11</span></button><button data-i="11" aria-label="Slide 12"><img src="assets/slides4/thumbs/slide-12.jpg" alt="" loading="lazy"><span class="num">12</span></button><button data-i="12" aria-label="Slide 13"><img src="assets/slides4/thumbs/slide-13.jpg" alt="" loading="lazy"><span class="num">13</span></button><button data-i="13" aria-label="Slide 14"><img src="assets/slides4/thumbs/slide-14.jpg" alt="" loading="lazy"><span class="num">14</span></button><button data-i="14" aria-label="Slide 15"><img src="assets/slides4/thumbs/slide-15.jpg" alt="" loading="lazy"><span class="num">15</span></button><button data-i="15" aria-label="Slide 16"><img src="assets/slides4/thumbs/slide-16.jpg" alt="" loading="lazy"><span class="num">16</span></button><button data-i="16" aria-label="Slide 17"><img src="assets/slides4/thumbs/slide-17.jpg" alt="" loading="lazy"><span class="num">17</span></button><button data-i="17" aria-label="Slide 18"><img src="assets/slides4/thumbs/slide-18.jpg" alt="" loading="lazy"><span class="num">18</span></button><button data-i="18" aria-label="Slide 19"><img src="assets/slides4/thumbs/slide-19.jpg" alt="" loading="lazy"><span class="num">19</span></button><button data-i="19" aria-label="Slide 20"><img src="assets/slides4/thumbs/slide-20.jpg" alt="" loading="lazy"><span class="num">20</span></button><button data-i="20" aria-label="Slide 21"><img src="assets/slides4/thumbs/slide-21.jpg" alt="" loading="lazy"><span class="num">21</span></button><button data-i="21" aria-label="Slide 22"><img src="assets/slides4/thumbs/slide-22.jpg" alt="" loading="lazy"><span class="num">22</span></button><button data-i="22" aria-label="Slide 23"><img src="assets/slides4/thumbs/slide-23.jpg" alt="" loading="lazy"><span class="num">23</span></button><button data-i="23" aria-label="Slide 24"><img src="assets/slides4/thumbs/slide-24.jpg" alt="" loading="lazy"><span class="num">24</span></button><button data-i="24" aria-label="Slide 25"><img src="assets/slides4/thumbs/slide-25.jpg" alt="" loading="lazy"><span class="num">25</span></button><button data-i="25" aria-label="Slide 26"><img src="assets/slides4/thumbs/slide-26.jpg" alt="" loading="lazy"><span class="num">26</span></button><button data-i="26" aria-label="Slide 27"><img src="assets/slides4/thumbs/slide-27.jpg" alt="" loading="lazy"><span class="num">27</span></button><button data-i="27" aria-label="Slide 28"><img src="assets/slides4/thumbs/slide-28.jpg" alt="" loading="lazy"><span class="num">28</span></button><button data-i="28" aria-label="Slide 29"><img src="assets/slides4/thumbs/slide-29.jpg" alt="" loading="lazy"><span class="num">29</span></button><button data-i="29" aria-label="Slide 30"><img src="assets/slides4/thumbs/slide-30.jpg" alt="" loading="lazy"><span class="num">30</span></button><button data-i="30" aria-label="Slide 31"><img src="assets/slides4/thumbs/slide-31.jpg" alt="" loading="lazy"><span class="num">31</span></button><button data-i="31" aria-label="Slide 32"><img src="assets/slides4/thumbs/slide-32.jpg" alt="" loading="lazy"><span class="num">32</span></button><button data-i="32" aria-label="Slide 33"><img src="assets/slides4/thumbs/slide-33.jpg" alt="" loading="lazy"><span class="num">33</span></button><button data-i="33" aria-label="Slide 34"><img src="assets/slides4/thumbs/slide-34.jpg" alt="" loading="lazy"><span class="num">34</span></button><button data-i="34" aria-label="Slide 35"><img src="assets/slides4/thumbs/slide-35.jpg" alt="" loading="lazy"><span class="num">35</span></button><button data-i="35" aria-label="Slide 36"><img src="assets/slides4/thumbs/slide-36.jpg" alt="" loading="lazy"><span class="num">36</span></button><button data-i="36" aria-label="Slide 37"><img src="assets/slides4/thumbs/slide-37.jpg" alt="" loading="lazy"><span class="num">37</span></button><button data-i="37" aria-label="Slide 38"><img src="assets/slides4/thumbs/slide-38.jpg" alt="" loading="lazy"><span class="num">38</span></button><button data-i="38" aria-label="Slide 39"><img src="assets/slides4/thumbs/slide-39.jpg" alt="" loading="lazy"><span class="num">39</span></button><button data-i="39" aria-label="Slide 40"><img src="assets/slides4/thumbs/slide-40.jpg" alt="" loading="lazy"><span class="num">40</span></button><button data-i="40" aria-label="Slide 41"><img src="assets/slides4/thumbs/slide-41.jpg" alt="" loading="lazy"><span class="num">41</span></button><button data-i="41" aria-label="Slide 42"><img src="assets/slides4/thumbs/slide-42.jpg" alt="" loading="lazy"><span class="num">42</span></button><button data-i="42" aria-label="Slide 43"><img src="assets/slides4/thumbs/slide-43.jpg" alt="" loading="lazy"><span class="num">43</span></button><button data-i="43" aria-label="Slide 44"><img src="assets/slides4/thumbs/slide-44.jpg" alt="" loading="lazy"><span class="num">44</span></button><button data-i="44" aria-label="Slide 45"><img src="assets/slides4/thumbs/slide-45.jpg" alt="" loading="lazy"><span class="num">45</span></button><button data-i="45" aria-label="Slide 46"><img src="assets/slides4/thumbs/slide-46.jpg" alt="" loading="lazy"><span class="num">46</span></button><button data-i="46" aria-label="Slide 47"><img src="assets/slides4/thumbs/slide-47.jpg" alt="" loading="lazy"><span class="num">47</span></button><button data-i="47" aria-label="Slide 48"><img src="assets/slides4/thumbs/slide-48.jpg" alt="" loading="lazy"><span class="num">48</span></button><button data-i="48" aria-label="Slide 49"><img src="assets/slides4/thumbs/slide-49.jpg" alt="" loading="lazy"><span class="num">49</span></button><button data-i="49" aria-label="Slide 50"><img src="assets/slides4/thumbs/slide-50.jpg" alt="" loading="lazy"><span class="num">50</span></button><button data-i="50" aria-label="Slide 51"><img src="assets/slides4/thumbs/slide-51.jpg" alt="" loading="lazy"><span class="num">51</span></button><button data-i="51" aria-label="Slide 52"><img src="assets/slides4/thumbs/slide-52.jpg" alt="" loading="lazy"><span class="num">52</span></button><button data-i="52" aria-label="Slide 53"><img src="assets/slides4/thumbs/slide-53.jpg" alt="" loading="lazy"><span class="num">53</span></button><button data-i="53" aria-label="Slide 54"><img src="assets/slides4/thumbs/slide-54.jpg" alt="" loading="lazy"><span class="num">54</span></button><button data-i="54" aria-label="Slide 55"><img src="assets/slides4/thumbs/slide-55.jpg" alt="" loading="lazy"><span class="num">55</span></button><button data-i="55" aria-label="Slide 56"><img src="assets/slides4/thumbs/slide-56.jpg" alt="" loading="lazy"><span class="num">56</span></button><button data-i="56" aria-label="Slide 57"><img src="assets/slides4/thumbs/slide-57.jpg" alt="" loading="lazy"><span class="num">57</span></button><button data-i="57" aria-label="Slide 58"><img src="assets/slides4/thumbs/slide-58.jpg" alt="" loading="lazy"><span class="num">58</span></button><button data-i="58" aria-label="Slide 59"><img src="assets/slides4/thumbs/slide-59.jpg" alt="" loading="lazy"><span class="num">59</span></button><button data-i="59" aria-label="Slide 60"><img src="assets/slides4/thumbs/slide-60.jpg" alt="" loading="lazy"><span class="num">60</span></button><button data-i="60" aria-label="Slide 61"><img src="assets/slides4/thumbs/slide-61.jpg" alt="" loading="lazy"><span class="num">61</span></button><button data-i="61" aria-label="Slide 62"><img src="assets/slides4/thumbs/slide-62.jpg" alt="" loading="lazy"><span class="num">62</span></button><button data-i="62" aria-label="Slide 63"><img src="assets/slides4/thumbs/slide-63.jpg" alt="" loading="lazy"><span class="num">63</span></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE ============ -->
+<section class="section-tint" id="explore">
+  <div class="container">
+    <div class="cta reveal">
       <div>
         <h2>See the numbers come alive</h2>
         <p>A dashboard combining Phase 2 and Phase 3 indicators, with an interactive explorer over a 10,000-record sample.</p>
       </div>
       <a class="btn btn-gold" href="dashboard-en.html">Open dashboard →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section class="section-dark" id="visit">
+  <div class="container">
+    <div class="visit-head reveal">
+      <div class="section-head">
+        <span class="eyebrow">PANDA VISIT · FIELD VISIT</span>
+        <h2>Our visit to Panda</h2>
+        <p>We visited Savola Group headquarters in Jeddah, met the Panda team, presented our project and discussed the real-world challenges behind fresh-food data.</p>
+      </div>
+      <div class="visit-meta"><span><b>Jeddah</b> · Savola Group HQ</span><span><b>EWA</b> × Panda Retail</span></div>
+    </div>
+    <div class="bento">
+      <button class="tile g reveal" data-src="assets/visit/team.jpg" aria-label="Group 10 at Panda"><img src="assets/visit/team.jpg" alt="Group 10 at Panda" loading="lazy"><span class="cap"><b>Group 10 at Panda</b><small>EWA AI &amp; Data Science Program × Panda Retail</small></span></button><button class="tile w reveal" data-src="assets/visit/window.jpg" aria-label="The view from Panda offices"><img src="assets/visit/window.jpg" alt="The view from Panda offices" loading="lazy"><span class="cap"><b>The view from Panda offices</b><small>Ocean-view workspace</small></span></button><button class="tile t reveal" data-src="assets/visit/tower.jpg" aria-label="The HQ tower"><img src="assets/visit/tower.jpg" alt="The HQ tower" loading="lazy"><span class="cap"><b>The HQ tower</b><small>Jeddah Corniche</small></span></button><button class="tile n reveal" data-src="assets/visit/hq-night.jpg" aria-label="Savola Group HQ at night"><img src="assets/visit/hq-night.jpg" alt="Savola Group HQ at night" loading="lazy"><span class="cap"><b>Savola Group HQ at night</b><small>Jeddah</small></span></button><button class="tile m reveal" data-src="assets/visit/meeting.jpg" aria-label="Meeting session"><img src="assets/visit/meeting.jpg" alt="Meeting session" loading="lazy"><span class="cap"><b>Meeting session</b><small>Presenting and discussing with the Panda team</small></span></button><button class="tile a reveal" data-src="assets/visit/corniche.jpg" aria-label="Jeddah Corniche from above"><img src="assets/visit/corniche.jpg" alt="Jeddah Corniche from above" loading="lazy"><span class="cap"><b>Jeddah Corniche from above</b><small>The HQ by the sea</small></span></button><button class="tile d reveal" data-src="assets/visit/hq-day.jpg" aria-label="HQ by day"><img src="assets/visit/hq-day.jpg" alt="HQ by day" loading="lazy"><span class="cap"><b>HQ by day</b><small>Savola Group</small></span></button>
+      <div class="q reveal" aria-label="Better Together"><b>معك تفرق</b><span>BETTER TOGETHER</span></div>
     </div>
   </div>
 </section>
@@ -664,5 +684,6 @@ document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElemen
 <script src="data/phases.js"></script>
 <script src="data/site-extras.js"></script>
 <script src="assets/phases-site.js"></script>
+<script src="assets/chat.js"></script>
 </body>
 </html>
