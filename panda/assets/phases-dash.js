@@ -61,7 +61,7 @@
   .p4meta div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 16px;text-align:center;min-width:92px}
   .p4meta b{display:block;font-size:24px;color:${GOLD}}
   .p4meta span{font-size:12px;color:#CFE0D6}
-  .apgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  .apgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
   .ap{font-family:inherit;text-align:start;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto auto;column-gap:12px;row-gap:2px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;cursor:pointer;box-shadow:var(--shadow);transition:transform .2s,border-color .2s,box-shadow .2s;color:var(--ink)}
   .ap:hover{transform:translateY(-2px);border-color:#CFE0D6}
   .ap .ic{grid-row:1/5;width:42px;height:42px;border-radius:12px;background:var(--green-100);color:var(--green-600);display:grid;place-items:center}
@@ -81,8 +81,44 @@
   .rulebox div+div{background:var(--green-50)}
   .rulebox span{font-weight:700;color:${RED};min-width:44px;font-size:12.5px;letter-spacing:.04em}
   .rulebox div+div span{color:var(--green-700)}
-  @media (max-width:1100px){.apgrid{grid-template-columns:repeat(2,1fr)}.tv{grid-template-columns:repeat(2,1fr)}.biz-hero{grid-template-columns:1fr}.champ{grid-template-columns:1fr}}
-  @media (max-width:900px){.tv,.roles,.steps{grid-template-columns:1fr}.apgrid{grid-template-columns:1fr 1fr}.p4meta{width:100%}.p4meta div{flex:1}}`;
+  .figgrid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-flow:dense;gap:14px;margin-top:6px}
+  .fig{font-family:inherit;text-align:start;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px;cursor:zoom-in;display:flex;flex-direction:column;gap:4px;transition:transform .2s,box-shadow .2s;color:var(--ink)}
+  .fig:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .fig.wide{grid-column:span 2}
+  .fig .im{display:grid;place-items:center;background:#fff;border-radius:10px;height:190px;overflow:hidden;border:1px solid var(--green-50)}
+  .fig.wide .im{height:210px}
+  .fig img{max-width:100%;max-height:100%;object-fit:contain}
+  .fig b{font-size:13.5px;margin-top:4px}
+  .fig small{font-size:12px;color:var(--ink-3)}
+  .figlb{position:fixed;inset:0;z-index:130;background:rgba(6,18,12,.88);display:none;align-items:center;justify-content:center;padding:20px}
+  .figlb.open{display:flex}
+  .figlb .in{background:#fff;border-radius:16px;max-width:min(1400px,96vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden}
+  .figlb .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .figlb .bar button{border:0;background:var(--green-50);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px}
+  .figlb img{max-width:100%;max-height:calc(92vh - 60px);object-fit:contain;padding:10px;background:#fff}
+  .flow6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
+  .flow6 div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow);position:relative}
+  .flow6 i{font-style:normal;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--green-600);color:#fff;font-weight:700;font-size:13px;margin-bottom:6px}
+  .flow6 b{display:block;font-size:14.5px}
+  .flow6 span{font-size:12.5px;color:var(--ink-2)}
+  .vsgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .vs{border-radius:14px;padding:14px 16px;border:1px solid var(--line);background:var(--green-50)}
+  .vs.ok{border-color:#BFDCCB}.vs.tie{background:#FFF8E6;border-color:#F0DDAE}
+  .vs small{font-size:12.5px;color:var(--ink-3)}
+  .vs .pair{display:flex;align-items:center;gap:12px;margin:8px 0}
+  .vs .pair div{flex:1;background:#fff;border-radius:10px;padding:8px 10px}
+  .vs .pair span{display:block;font-size:12px;color:var(--ink-3)}
+  .vs .pair b{font-size:20px}
+  .vs em{font-style:normal;font-size:12px;color:var(--ink-3)}
+  .vs p{margin:0;font-size:13px;color:var(--ink-2)}
+  .team{display:flex;flex-direction:column;gap:8px}
+  .mem{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .mem>b{display:block;font-size:14.5px;color:var(--green-700);margin-bottom:4px}
+  .mem span{display:block;font-size:12.5px;color:var(--ink-2);margin:2px 0}
+  .mem em{font-style:normal;color:var(--ink-3)}
+  .mem i{font-style:normal}
+  @media (max-width:1100px){.flow6{grid-template-columns:repeat(3,1fr)}.apgrid{grid-template-columns:repeat(2,1fr)}.figgrid{grid-template-columns:1fr 1fr}.tv{grid-template-columns:repeat(2,1fr)}.biz-hero{grid-template-columns:1fr}.champ{grid-template-columns:1fr}}
+  @media (max-width:900px){.flow6,.vsgrid,.figgrid{grid-template-columns:1fr}.fig.wide{grid-column:auto}.tv,.roles,.steps{grid-template-columns:1fr}.apgrid{grid-template-columns:1fr 1fr}.p4meta{width:100%}.p4meta div{flex:1}}`;
   document.head.appendChild(el(`<style>${css}</style>`));
 
   /* ---------- side menu ---------- */
@@ -128,6 +164,7 @@
   };
   const O = F.other || {};
   const AP = [
+    { k: 'overview', ic: '<path d="M4 19h16M4 15l4-4 4 3 7-8"/><circle cx="8" cy="11" r="1"/><circle cx="12" cy="14" r="1"/><circle cx="19" cy="6" r="1"/>', name: t('نظرة شاملة', 'Overview'), q: t('شرح المرحلة الرابعة وكل النماذج', 'Phase 4 explained, every model'), win: () => t('3 فائزين + 5', '3 winners + 5'), kpi: () => `${cls.rows.length + T.regression.rows.length + T.forecasting.rows.length + 1} ${t('نموذج وخط أساس', 'models & baselines')}` },
     { k: 'classification', ic: '<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>', name: t('التصنيف', 'Classification'), q: t('خطر نفاد المخزون', 'Stockout risk'), win: () => cls.champion, kpi: () => `${pct(champC.top20)} ${t('من النفاد', 'of stockouts')}` },
     { k: 'regression', ic: '<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>', name: t('الانحدار', 'Regression'), q: t('كمية الهدر', 'Waste quantity'), win: () => T.regression.champion, kpi: () => `${pct(B.waste.covered_top20)} ${t('من الهدر', 'of waste')}` },
     { k: 'forecasting', ic: '<path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-6"/>', name: t('السلاسل الزمنية', 'Time series'), q: t('الطلب اليومي', 'Daily demand'), win: () => 'ETS', kpi: () => `MAPE ${pct(B.forecast.mape, 1)}` },
@@ -140,8 +177,8 @@
   const v4 = el(`<section class="view" id="p4" style="padding:0">
     <div class="p4head"><div><span class="eyebrow-d">PHASE 4 · MODELING</span><h1>${t('المرحلة الرابعة · المنهجيات الثماني ونماذجها', 'Phase 4 · The eight approaches and their models')}</h1>
       <p>${t('اختاري منهجية لعرض كل النماذج اللي جرّبناها فيها، والنموذج الفائز، وأفضل نموذج من الفريق. كل النتائج على 8 أسابيع اختبار لم يرها أي نموذج.', 'Pick an approach to see every model we tried, the winner and the best team model. All results are on 8 test weeks no model had seen.')}</p></div>
-      <div class="p4meta"><div><b class="num">${AP.length}</b><span>${t('منهجيات', 'approaches')}</span></div><div><b class="num">${cls.rows.length + T.regression.rows.length + T.forecasting.rows.length + 1}</b><span>${t('نموذج وخط أساس', 'models & baselines')}</span></div><div><b class="num">${F.test_period.days}</b><span>${t('يوم اختبار', 'test days')}</span></div></div></div>
-    <div class="apgrid" id="apGrid">${AP.map((a, i) => `<button class="ap${i ? '' : ' on'}" data-k="${a.k}"><span class="ic">${ic(a.ic)}</span><span class="nm">${a.name}</span><span class="q">${a.q}</span><span class="w">${t('الفائز', 'Winner')}: <b>${short(a.win())}</b></span><span class="kp num">${a.kpi()}</span></button>`).join('')}</div>
+      <div class="p4meta"><div><b class="num">${AP.length - 1}</b><span>${t('منهجيات', 'approaches')}</span></div><div><b class="num">${cls.rows.length + T.regression.rows.length + T.forecasting.rows.length + 1}</b><span>${t('نموذج وخط أساس', 'models & baselines')}</span></div><div><b class="num">${F.test_period.days}</b><span>${t('يوم اختبار', 'test days')}</span></div></div></div>
+    <div class="apgrid" id="apGrid">${AP.map((a, i) => `<button class="ap${i ? '' : ' on'}" data-k="${a.k}"><span class="ic">${ic(a.ic)}</span><span class="nm">${a.name}</span><span class="q">${a.q}</span><span class="w">${a.k === 'overview' ? '' : t('الفائز', 'Winner') + ': '}<b>${short(a.win())}</b></span><span class="kp num">${a.kpi()}</span></button>`).join('')}</div>
     <div class="p4sub"><h2 id="apTitle"></h2><button class="chk" data-k="checks">${t('فحوص التسرّب والميزات', 'Leakage & feature checks')}</button></div>
     <div id="p4Body"></div>
   </section>`);
@@ -281,13 +318,101 @@
     hbar('abC', [t('المبيعات', 'Units sold'), t('الهدر', 'Waste')], [['', [A.units_uplift, A.waste_uplift], [GREEN, GOLD]]], { fmt: v => '+' + pct(v), vertical: true, xfmt: v => Math.round(v * 100) + '%', th: 70 });
   }
 
-  const RENDER = { anomaly: renderAnomaly, clustering: renderClustering, rules: renderRules, recommendation: renderRec, abtest: renderAB, checks: renderChecks };
+  /* ---------- notebook figures (Jupyter) ---------- */
+  const FIG = (f, ar, en, car, cen, wide) => ({ f: 'assets/figures/' + f + '.png', title: t(ar, en), cap: t(car, cen), wide });
+  const FIGS = {
+    overview: [FIG('00_classification_leaderboard', 'التصنيف: PR-AUC لكل النماذج', 'Classification: PR-AUC by model', 'التحقق (رمادي) والاختبار (أخضر)', 'Validation (grey) and test (green)'),
+      FIG('00_regression_leaderboard', 'الانحدار: MAE لكل النماذج', 'Regression: MAE by model', 'الأقل أفضل', 'Lower is better'),
+      FIG('00_forecasting_leaderboard', 'السلاسل الزمنية: MAE لكل النماذج', 'Forecasting: MAE by model', 'وحدة/يوم · الأقل أفضل', 'Units/day · lower is better')],
+    classification: [FIG('00_classification_leaderboard', 'PR-AUC لكل النماذج', 'PR-AUC by model', 'التحقق مقابل الاختبار لكل نموذج وخط أساس', 'Validation vs test for every model and baseline'),
+      FIG('00_classification_curves', 'منحنى الدقة-الاستدعاء ومنحنى المكاسب', 'Precision–recall and gains curves', 'فحص 20% من السجلات الأعلى خطرًا يكتشف 93% من النفاد', 'Reviewing the riskiest 20% of records catches 93% of stockouts', 1),
+      FIG('C_xgb_diagnostics', 'تشخيص XGBoost على الاختبار', 'XGBoost test diagnostics', 'مصفوفة التصنيف، ROC، الدقة-الاستدعاء، المكاسب', 'Confusion matrix, ROC, precision–recall, gains', 1),
+      FIG('C_xgb_shap_beeswarm', 'SHAP: تأثير كل ميزة', 'SHAP: effect of each feature', 'الأحمر قيمة عالية، واليمين يرفع خطر النفاد', 'Red = high value; right pushes the risk up'),
+      FIG('C_xgb_shap_bar', 'SHAP: أهمية الميزات', 'SHAP: feature importance', 'المخزون المتاح هو الإشارة الأقوى', 'Stock on hand is the strongest signal'),
+      FIG('C_xgb_shap_dependence', 'SHAP: علاقة المخزون ونسبة التغطية بالخطر', 'SHAP dependence: stock and cover ratio', 'كلما قل المخزون ارتفع الخطر بحدة', 'Risk climbs sharply as stock falls', 1),
+      FIG('C_waterfall_caught', 'حالة نفاد اكتشفها النموذج', 'A stockout the model caught', 'شرح محلي لسجل واحد', 'Local explanation for one record'),
+      FIG('C_waterfall_missed', 'حالة نفاد فاتت النموذج', 'A stockout the model missed', 'كان على الرف مخزون كافٍ ظاهريًا', 'The shelf still looked stocked'),
+      FIG('C_waterfall_false_alarm', 'تنبيه خاطئ', 'A false alarm', 'مخزون صفر لكن لم يحدث نفاد', 'Zero stock but no stockout happened'),
+      FIG('C02_decision_tree_rules', 'شجرة القرار: قواعد للمخططين (أفنان)', 'Decision tree: planner rules (Afnan)', 'أعلى مستويات الشجرة كقواعد مقروءة', 'The top levels of the tree as readable rules', 1)],
+    regression: [FIG('00_regression_leaderboard', 'MAE لكل النماذج', 'MAE by model', 'التحقق مقابل الاختبار', 'Validation vs test'),
+      FIG('R_xgb_diagnostics', 'تشخيص XGBoost على الاختبار', 'XGBoost test diagnostics', 'الفعلي مقابل المتوقع، البواقي، المعايرة، فئة×أسبوع', 'Actual vs predicted, residuals, calibration, category × week', 1),
+      FIG('R_xgb_shap_beeswarm', 'SHAP: تأثير كل ميزة', 'SHAP: effect of each feature', 'المخزون والصلاحية المتبقية يقودان الهدر', 'Stock and shelf life left drive waste'),
+      FIG('R_xgb_shap_bar', 'SHAP: أهمية الميزات', 'SHAP: feature importance', 'مؤشر نقص بيانات الصلاحية مهم أيضًا', 'The missing-shelf-life flag matters too'),
+      FIG('R_xgb_shap_dependence', 'SHAP: علاقة المخزون بالهدر', 'SHAP dependence: stock and waste', 'مخزون عالٍ وصلاحية قصيرة = هدر', 'High stock with short shelf life = waste', 1),
+      FIG('R_xgb_local_high', 'أعلى هدر متوقع في العينة', 'Highest predicted waste in the sample', 'شرح محلي', 'Local explanation'),
+      FIG('R_xgb_local_low', 'أقل هدر متوقع في العينة', 'Lowest predicted waste in the sample', 'شرح محلي', 'Local explanation')],
+    forecasting: [FIG('00_forecasting_leaderboard', 'MAE لكل النماذج', 'MAE by model', 'وحدة/يوم · الأقل أفضل', 'Units/day · lower is better'),
+      FIG('F_ets_backtest', 'ETS: التوقع مقابل الفعلي مع الأخطاء اليومية', 'ETS: forecast vs actual with daily errors', 'فترتا التحقق والاختبار', 'Validation and test periods', 1),
+      FIG('F_test_period', 'فترة الاختبار: الفائز مقابل "نفس اليوم الأسبوع الماضي"', 'Test period: champion vs same day last week', 'توقعات اليوم التالي', 'Day-ahead forecasts', 1),
+      FIG('F04_xgb_shap', 'SHAP لنموذج XGBoost الزمني (أفنان)', 'SHAP for the XGBoost forecaster (Afnan)', 'خطة العروض بجانب التأخيرات الزمنية', 'The promotion plan ranks with the lags'),
+      FIG('F04_xgb_dependence', 'SHAP: التأخير 28 يوم والخصم', 'SHAP dependence: lag 28 and discount', '', '', 1),
+      FIG('F04b_nowcast', 'التحديث الصباحي (Nowcast) لأفنان', 'Afnan’s same-morning nowcast', 'يخفض الخطأ إلى 371 وحدة/يوم مقابل 710', 'Cuts the error to 371 units/day vs 710', 1)],
+    anomaly: [FIG('U01_anomaly', 'كشف الشذوذ: الطرق الأربع', 'Anomaly detection: the four methods', 'الرفع، رسم Isolation Forest، ومصفوفة الاتفاق', 'Lift, Isolation Forest flags and agreement matrix', 1)],
+    clustering: [FIG('U02_clustering', 'التجميع: اختيار k والمجموعات وخطرها', 'Clustering: choosing k, the groups and their risk', 'Silhouette، K-Means على محورين، رفع كل مجموعة', 'Silhouette, K-Means on 2 axes, lift per group', 1)],
+    rules: [FIG('U03_rules', 'قواعد الارتباط: تدريب مقابل اختبار', 'Association rules: train vs test', 'قواعد النفاد والهدر', 'Stockout and waste rules', 1)],
+    recommendation: [FIG('U04_recommendation', 'Precision@K للقائمتين', 'Precision@K for both lists', 'إعادة الطلب والتخفيض', 'Re-order and mark-down', 1)],
+    checks: [FIG('A01_ablation', 'فحص الميزات (A01)', 'Feature ablation (A01)', 'PR-AUC للنفاد وR² للهدر في كل سيناريو', 'Stockout PR-AUC and waste R² per scenario', 1)]
+  };
+  function figPanel(k) {
+    const L = FIGS[k]; if (!L) return null;
+    return el(`<div class="panel s12 figpanel"><h3>${t('رسومات النماذج من دفاتر Jupyter', 'Model figures from the Jupyter notebooks')}</h3><p class="sub">${t('الرسومات الأصلية من دفاتر الفريق · اضغطي على أي رسم لتكبيره', 'The team’s original notebook figures · click any figure to enlarge')}</p>
+      <div class="figgrid">${L.map(g => `<button class="fig${g.wide ? ' wide' : ''}" data-src="${g.f}" data-title="${g.title}"><span class="im"><img src="${g.f}" alt="${g.title}"></span><b>${g.title}</b>${g.cap ? `<small>${g.cap}</small>` : ''}</button>`).join('')}</div></div>`);
+  }
+  const lbx = el(`<div class="figlb" role="dialog" aria-modal="true"><div class="in"><div class="bar"><b></b><button aria-label="${t('إغلاق', 'Close')}">✕</button></div><img alt=""></div></div>`);
+  document.body.appendChild(lbx);
+  const closeLb = () => lbx.classList.remove('open');
+  lbx.querySelector('button').onclick = closeLb; lbx.addEventListener('click', e => { if (e.target === lbx) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+  document.addEventListener('click', e => { const b = e.target.closest('.fig'); if (!b) return; lbx.querySelector('img').src = b.dataset.src; lbx.querySelector('b').textContent = b.dataset.title; lbx.classList.add('open'); });
+
+  /* ---------- Phase 4 overview ---------- */
+  function renderOverview(body) {
+    const tracks = ['classification', 'regression', 'forecasting'];
+    const rowsOf = tr => { const r = T[tr].rows.slice(); if (tr === 'classification' && F.khalid_classifier) r.push(F.khalid_classifier); return r; };
+    const rank = (tr, r) => { const rows = rowsOf(tr).filter(x => !x.baseline && x.test != null).sort((a, b) => T[tr].higher ? b.test - a.test : a.test - b.test); return rows.indexOf(r) + 1; };
+    const bestBase = tr => rowsOf(tr).filter(r => r.baseline && r.test != null).sort((a, b) => T[tr].higher ? b.test - a.test : a.test - b.test)[0];
+    const nModels = tracks.reduce((n, tr) => n + rowsOf(tr).filter(r => !r.baseline).length, 0), nBase = tracks.reduce((n, tr) => n + rowsOf(tr).filter(r => r.baseline).length, 0);
+    const members = ['Sara', 'Afnan', 'Khalid', 'Shahad', 'Rahaf'];
+    const steps = [
+      [t('البيانات', 'Data'), t(`${nf(D.data.model_rows)} سجلًا جاهزًا من المرحلة الثالثة، و23 ميزة معروفة قبل بداية اليوم`, `${nf(D.data.model_rows)} model-ready records from Phase 3, and 23 features known before the day starts`)],
+      [t('التقسيم الزمني', 'Time split'), t('73 أسبوع تدريب، 9 تحقق، 8 اختبار. لا تقسيم عشوائي', '73 training, 9 validation, 8 test weeks. Never random')],
+      [t('الضبط', 'Tuning'), t('بحث عشوائي/Optuna مع تحقق زمني متقاطع على التدريب فقط', 'Random search / Optuna with time-ordered CV on training data only')],
+      [t('الاختيار', 'Selection'), t('الترتيب على التحقق؛ الفرق أقل من 1% تعادل ويفوز الأقل إفراطًا', 'Rank on validation; within 1% is a tie and the least over-fitted wins')],
+      [t('الاختبار', 'Test'), t('مرة واحدة على 8 أسابيع لم يرها أي نموذج، مع Bootstrap وDiebold–Mariano', 'Once on 8 unseen weeks, with bootstrap and Diebold–Mariano tests')],
+      [t('الأعمال', 'Business'), t('تحويل النتيجة لقوائم صباحية وقرار استثمار', 'Turn the result into morning lists and an investment case')]];
+    const winVsBase = tracks.map(tr => { const c = T[tr].rows.find(r => r.model === T[tr].champion), b = bestBase(tr); return { tr, c, b, better: T[tr].higher ? c.test > b.test : c.test < b.test }; });
+    const status = (tr, r) => r.baseline ? `<span style="color:var(--ink-3)">${t('خط أساس', 'Baseline')}</span>` : r.model === T[tr].champion ? `<span class="tagx w">${t('الفائز', 'Winner')}</span>` : r.model === T[tr].best_team ? `<span class="tagx tm">${t('أفضل نموذج من الفريق', 'Best team')}</span>` : `#${rank(tr, r)}`;
+    const val = (tr, r) => tr === 'forecasting' ? nf(r.test) : nf(r.test, 3);
+    body.innerHTML = `
+      <div class="flow6">${steps.map((s, i) => `<div><i class="num">${i + 1}</i><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div>
+      ${kpis([[t('منهجيات', 'Approaches'), AP.length - 1, t('تحليلية وتنبؤية ووصفية', 'predictive and descriptive'), 1], [t('نماذج مدرّبة', 'Models trained'), nModels, t('في التصنيف والانحدار والسلاسل', 'classification, regression, time series')], [t('خطوط أساس', 'Baselines'), nBase, t('للمقارنة العادلة', 'for a fair comparison')], [t('أعضاء الفريق', 'Team members'), members.length, t('لكل عضو نموذج أو أكثر', 'each owns at least one model')], [t('أيام الاختبار', 'Test days'), F.test_period.days, F.test_period.start + ' → ' + F.test_period.end], [t('النفاد المكتشف', 'Stockouts caught'), pct(champC.top20), t('بفحص 20% من السجلات', 'checking 20% of records')]])}
+      <div class="panels">
+        <div class="panel s12"><h3>${t('هل الفائز أفضل من الطريقة البسيطة؟', 'Does the winner beat the simple way?')}</h3><p class="sub">${t('الفائز مقابل أفضل خط أساس في كل منهجية · على أسابيع الاختبار', 'Winner vs the best baseline in each approach · on the test weeks')}</p>
+          <div class="vsgrid">${winVsBase.map(x => `<div class="vs ${x.better ? 'ok' : 'tie'}"><small>${TR[x.tr].name}</small>
+            <div class="pair"><div><span>${short(x.c.model)}</span><b class="num">${val(x.tr, x.c)}</b></div><em>${t('مقابل', 'vs')}</em><div><span>${short(x.b.model)}</span><b class="num">${val(x.tr, x.b)}</b></div></div>
+            <p>${x.tr === 'forecasting' ? t('متقاربان جدًا: لا فرق إحصائي، والهدف (MAPE أقل من 15%) متحقق للاثنين.', 'Very close: no statistical difference, and both meet the MAPE < 15% target.') : x.tr === 'classification' ? t(`أفضل بـ ${nf((x.c.test / x.b.test - 1) * 100)}% في PR-AUC، و×${nf(x.c.test / rnd, 0)} من العشوائي.`, `${nf((x.c.test / x.b.test - 1) * 100)}% better PR-AUC, and ×${nf(x.c.test / rnd, 0)} vs random.`) : t(`خطأ أقل بـ ${nf((1 - x.c.test / x.b.test) * 100)}% من أفضل خط أساس.`, `${nf((1 - x.c.test / x.b.test) * 100)}% lower error than the best baseline.`)}</p></div>`).join('')}</div></div>
+        <div class="panel s7"><h3>${t('كل النماذج في جدول واحد', 'Every model in one table')}</h3><p class="sub">${t('النتيجة الأساسية على الاختبار · PR-AUC للتصنيف و MAE للانحدار والسلاسل', 'Primary test score · PR-AUC for classification, MAE for regression and time series')}</p>
+          <div class="table-wrap" style="box-shadow:none;max-height:520px;overflow:auto"><table class="mini-table"><thead><tr><th>${t('المنهجية', 'Approach')}</th><th>${t('النموذج', 'Model')}</th><th>${t('المالك', 'Owner')}</th><th>${t('النتيجة', 'Score')}</th><th>${t('الحالة', 'Status')}</th></tr></thead><tbody>
+          ${tracks.map(tr => rowsOf(tr).sort((a, b) => T[tr].higher ? (b.test ?? -1) - (a.test ?? -1) : (a.test ?? 1e9) - (b.test ?? 1e9)).map((r, i) => `<tr class="${rowCls(tr, r)}">${i === 0 ? `<td rowspan="${rowsOf(tr).length}" style="vertical-align:top;font-weight:700">${TR[tr].name}<br><small style="font-weight:400;color:var(--ink-3)">${TR[tr].metricLabel} · ${TR[tr].better}</small></td>` : ''}<td>${short(r.model)}</td><td>${own(r.owner)}</td><td class="num"><b>${val(tr, r)}</b></td><td>${status(tr, r)}</td></tr>`).join('')).join('')}
+          </tbody></table></div></div>
+        <div class="panel s5"><h3>${t('مساهمة كل عضو', 'Each member’s contribution')}</h3><p class="sub">${t('النماذج اللي بناها كل عضو وأفضل نتيجة', 'The models each member built and their best result')}</p>
+          <div class="team">${members.map(m => { const mine = tracks.flatMap(tr => rowsOf(tr).filter(r => r.owner === m).map(r => ({ tr, r }))); return `<div class="mem"><b>${own(m)}</b>${mine.length ? mine.map(x => `<span>${short(x.r.model)} · <em>${TR[x.tr].name.split(' · ')[0]}</em> · <b class="num">${val(x.tr, x.r)}</b>${x.r.model === T[x.tr].best_team && x.r.owner === T[x.tr].best_team_owner ? ` <i class="tagx tm">${t('الأفضل من الفريق', 'Best team')}</i>` : ''}</span>`).join('') : `<span style="color:var(--ink-3)">${t('قيادة الفريق والتنسيق', 'Team lead & coordination')}</span>`}</div>`; }).join('')}</div>
+          <div class="insight">${t('النماذج المرجعية (CatBoost وXGBoost وLightGBM والانحدار اللوجستي وETS وTheta) أُضيفت لرفع مستوى المقارنة.', 'The benchmark models (CatBoost, XGBoost, LightGBM, Logistic Regression, ETS, Theta) were added to raise the bar of the comparison.')}</div></div>
+        <div class="panel s12"><h3>${t('المنهجيات الثماني في سطر', 'The eight approaches in one line each')}</h3>
+          <div class="table-wrap" style="box-shadow:none"><table class="mini-table"><thead><tr><th>${t('المنهجية', 'Approach')}</th><th>${t('سؤال الأعمال', 'Business question')}</th><th>${t('الفائز', 'Winner')}</th><th>${t('اليوم', 'Today')}</th><th>${t('مع نماذجنا', 'With our models')}</th></tr></thead><tbody>
+          ${AP.filter(a => a.k !== 'overview').map((a, i) => { const ap = B.approaches[i] || {}; return `<tr><td><b>${a.name}</b></td><td>${a.q}</td><td>${short(a.win())}</td><td class="num">${ap.today || '—'}</td><td class="num ok">${ap.with || a.kpi()}</td></tr>`; }).join('')}
+          </tbody></table></div></div>
+      </div>`;
+  }
+
+  const RENDER = { overview: renderOverview, anomaly: renderAnomaly, clustering: renderClustering, rules: renderRules, recommendation: renderRec, abtest: renderAB, checks: renderChecks };
   function select(k) {
     document.querySelectorAll('#apGrid .ap').forEach(x => x.classList.toggle('on', x.dataset.k === k));
     const a = AP.find(z => z.k === k);
     document.getElementById('apTitle').textContent = a ? `${a.name} · ${a.q}` : t('فحوص التسرّب والميزات', 'Leakage & feature checks');
     const body = document.getElementById('p4Body'); body.innerHTML = '';
     if (RENDER[k]) RENDER[k](body); else renderTrack(k);
+    const fp = figPanel(k); if (fp) { let pn = body.querySelector('.panels'); if (!pn) { pn = el('<div class="panels"></div>'); body.appendChild(pn); } pn.appendChild(fp); }
   }
   document.querySelectorAll('#apGrid .ap, .p4sub .chk').forEach(b => b.onclick = () => select(b.dataset.k));
 
@@ -365,7 +490,7 @@
   const _show = show;
   window.show = function (v) {
     _show(v);
-    if (v === 'p4' && !p4Drawn) { p4Drawn = true; select('classification'); }
+    if (v === 'p4' && !p4Drawn) { p4Drawn = true; select('overview'); }
     if (v === 'biz') drawBiz();
   };
   const route = () => { const h = location.hash.slice(1); if (['p1', 'p4', 'biz'].includes(h)) window.show(h); };
