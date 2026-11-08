@@ -53,8 +53,36 @@
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
   .steps div{border-radius:14px;padding:14px;background:var(--green-50);border:1px solid var(--line);font-size:13px;color:var(--ink-2)}
   .steps div b{display:block;color:var(--green-700);font-size:14px;margin-bottom:4px}
-  @media (max-width:1100px){.tv{grid-template-columns:repeat(2,1fr)}.biz-hero{grid-template-columns:1fr}.champ{grid-template-columns:1fr}}
-  @media (max-width:900px){.tv,.roles,.steps{grid-template-columns:1fr}}`;
+  .p4head{background:radial-gradient(700px 300px at 85% 0%,rgba(201,162,74,.22),transparent 60%),linear-gradient(135deg,#0F2A1E,#1F4D37 65%,#295F45);color:#fff;border-radius:22px;padding:26px 28px;display:flex;justify-content:space-between;gap:24px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px;box-shadow:var(--shadow)}
+  .p4head h1{margin:6px 0 6px;font-size:26px;color:#fff}
+  .p4head p{margin:0;color:#CFE0D6;font-size:14px;max-width:720px}
+  .eyebrow-d{font-size:12px;letter-spacing:.08em;color:${GOLD};font-weight:600}
+  .p4meta{display:flex;gap:10px}
+  .p4meta div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 16px;text-align:center;min-width:92px}
+  .p4meta b{display:block;font-size:24px;color:${GOLD}}
+  .p4meta span{font-size:12px;color:#CFE0D6}
+  .apgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  .ap{font-family:inherit;text-align:start;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto auto;column-gap:12px;row-gap:2px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;cursor:pointer;box-shadow:var(--shadow);transition:transform .2s,border-color .2s,box-shadow .2s;color:var(--ink)}
+  .ap:hover{transform:translateY(-2px);border-color:#CFE0D6}
+  .ap .ic{grid-row:1/5;width:42px;height:42px;border-radius:12px;background:var(--green-100);color:var(--green-600);display:grid;place-items:center}
+  .ap .ic svg{width:20px;height:20px}
+  .ap .nm{font-weight:700;font-size:15px}
+  .ap .q{font-size:12.5px;color:var(--ink-3)}
+  .ap .w{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+  .ap .w b{color:var(--green-700)}
+  .ap .kp{font-size:13px;font-weight:700;color:#7A5B12}
+  .ap.on{border:2px solid ${GOLD};background:linear-gradient(180deg,#FFFBF1,#fff);box-shadow:0 12px 30px rgba(201,162,74,.22)}
+  .ap.on .ic{background:${GOLD};color:#0F2A1E}
+  .p4sub{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:4px 0 14px;flex-wrap:wrap}
+  .p4sub h2{margin:0;font-size:20px}
+  .p4sub .chk{font-family:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--ink-2);border-radius:999px;padding:8px 16px;cursor:pointer}
+  .rulebox{border:1px solid var(--line);border-radius:14px;margin:10px 0;overflow:hidden}
+  .rulebox div{display:flex;gap:12px;padding:10px 14px;font-size:14px}
+  .rulebox div+div{background:var(--green-50)}
+  .rulebox span{font-weight:700;color:${RED};min-width:44px;font-size:12.5px;letter-spacing:.04em}
+  .rulebox div+div span{color:var(--green-700)}
+  @media (max-width:1100px){.apgrid{grid-template-columns:repeat(2,1fr)}.tv{grid-template-columns:repeat(2,1fr)}.biz-hero{grid-template-columns:1fr}.champ{grid-template-columns:1fr}}
+  @media (max-width:900px){.tv,.roles,.steps{grid-template-columns:1fr}.apgrid{grid-template-columns:1fr 1fr}.p4meta{width:100%}.p4meta div{flex:1}}`;
   document.head.appendChild(el(`<style>${css}</style>`));
 
   /* ---------- side menu ---------- */
@@ -98,31 +126,26 @@
     regression: { name: t('الانحدار · كمية الهدر', 'Regression · waste quantity'), metricLabel: 'MAE', better: t('الأقل أفضل', 'lower is better') },
     forecasting: { name: t('السلاسل الزمنية · الطلب اليومي', 'Time series · daily demand'), metricLabel: 'MAE', better: t('الأقل أفضل', 'lower is better') }
   };
+  const O = F.other || {};
+  const AP = [
+    { k: 'classification', ic: '<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>', name: t('التصنيف', 'Classification'), q: t('خطر نفاد المخزون', 'Stockout risk'), win: () => cls.champion, kpi: () => `${pct(champC.top20)} ${t('من النفاد', 'of stockouts')}` },
+    { k: 'regression', ic: '<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>', name: t('الانحدار', 'Regression'), q: t('كمية الهدر', 'Waste quantity'), win: () => T.regression.champion, kpi: () => `${pct(B.waste.covered_top20)} ${t('من الهدر', 'of waste')}` },
+    { k: 'forecasting', ic: '<path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-6"/>', name: t('السلاسل الزمنية', 'Time series'), q: t('الطلب اليومي', 'Daily demand'), win: () => 'ETS', kpi: () => `MAPE ${pct(B.forecast.mape, 1)}` },
+    { k: 'anomaly', ic: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v3M11 14h.01"/>', name: t('كشف الشذوذ', 'Anomaly detection'), q: t('السجلات غير الطبيعية', 'Unusual records'), win: () => O.anomaly.winner, kpi: () => `×${O.anomaly.methods[0].waste} ${t('هدر', 'waste')}` },
+    { k: 'clustering', ic: '<circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/>', name: t('التجميع', 'Clustering'), q: t('المجموعات الطبيعية', 'Natural groups'), win: () => O.clustering.winner, kpi: () => `${O.clustering.k} ${t('مجموعات', 'groups')}` },
+    { k: 'rules', ic: '<path d="M4 6h16M4 12h10M4 18h6"/><path d="M17 15l3 3-3 3"/>', name: t('قواعد الارتباط', 'Association rules'), q: t('قواعد إذا–فإن', 'IF–THEN rules'), win: () => O.rules.winner, kpi: () => `${pct(O.rules.waste[0].conf)} ${t('ثقة', 'confidence')}` },
+    { k: 'recommendation', ic: '<path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/>', name: t('التوصية', 'Recommendation'), q: t('أفضل إجراء تالٍ', 'Next best action'), win: () => t('قائم على التنبؤ', 'Model-based'), kpi: () => `${O.recommendation.picks.markdown.model}/50 ${t('صحيحة', 'right')}` },
+    { k: 'abtest', ic: '<path d="M4 20V10M10 20V4M16 20v-6M22 20H2"/>', name: t('اختبار A/B', 'A/B testing'), q: t('أثر العروض', 'Promotion effect'), win: () => 'Welch t-test', kpi: () => `+${pct(O.abtest.units_uplift)} ${t('مبيعات', 'sales')}` }
+  ];
   const v4 = el(`<section class="view" id="p4" style="padding:0">
-    <div class="top"><div><h1>${t('المرحلة الرابعة · مقارنة النماذج', 'Phase 4 · Model comparison')}</h1><p>${t('لكل منهجية: كل النماذج اللي جرّبناها، والنموذج الفائز، وأفضل نموذج من الفريق · اختبار واحد على 8 أسابيع لم يرها أي نموذج', 'For each approach: every model we tried, the winner and the best team model · tested once on 8 weeks no model had seen')}</p></div><span class="pill">${t('فترة الاختبار', 'Test period')}: <b class="num">${F.test_period.start} → ${F.test_period.end}</b></span></div>
-    <div class="champ" id="p4Champs"></div>
-    <div class="p4tabs" id="p4Tabs">
-      <button class="on" data-tr="classification">${TR.classification.name}</button>
-      <button data-tr="regression">${TR.regression.name}</button>
-      <button data-tr="forecasting">${TR.forecasting.name}</button>
-      <button data-tr="other">${t('منهجيات أخرى', 'Other approaches')}</button>
-      <button data-tr="checks">${t('فحوص التسرّب', 'Leakage checks')}</button>
-    </div>
+    <div class="p4head"><div><span class="eyebrow-d">PHASE 4 · MODELING</span><h1>${t('المرحلة الرابعة · المنهجيات الثماني ونماذجها', 'Phase 4 · The eight approaches and their models')}</h1>
+      <p>${t('اختاري منهجية لعرض كل النماذج اللي جرّبناها فيها، والنموذج الفائز، وأفضل نموذج من الفريق. كل النتائج على 8 أسابيع اختبار لم يرها أي نموذج.', 'Pick an approach to see every model we tried, the winner and the best team model. All results are on 8 test weeks no model had seen.')}</p></div>
+      <div class="p4meta"><div><b class="num">${AP.length}</b><span>${t('منهجيات', 'approaches')}</span></div><div><b class="num">${cls.rows.length + T.regression.rows.length + T.forecasting.rows.length + 1}</b><span>${t('نموذج وخط أساس', 'models & baselines')}</span></div><div><b class="num">${F.test_period.days}</b><span>${t('يوم اختبار', 'test days')}</span></div></div></div>
+    <div class="apgrid" id="apGrid">${AP.map((a, i) => `<button class="ap${i ? '' : ' on'}" data-k="${a.k}"><span class="ic">${ic(a.ic)}</span><span class="nm">${a.name}</span><span class="q">${a.q}</span><span class="w">${t('الفائز', 'Winner')}: <b>${short(a.win())}</b></span><span class="kp num">${a.kpi()}</span></button>`).join('')}</div>
+    <div class="p4sub"><h2 id="apTitle"></h2><button class="chk" data-k="checks">${t('فحوص التسرّب والميزات', 'Leakage & feature checks')}</button></div>
     <div id="p4Body"></div>
   </section>`);
   document.getElementById('p3').after(v4);
-
-  const champCards = () => {
-    const box = document.getElementById('p4Champs');
-    const R = T.regression, Fc = T.forecasting;
-    const cR = R.rows.find(r => r.model === R.champion), cF = Fc.rows.find(r => r.model === Fc.champion);
-    box.innerHTML = [
-      [TR.classification.name, cls.champion, `PR-AUC ${nf(champC.test, 3)} · ${t('يكتشف', 'catches')} ${pct(champC.top20)} ${t('من النفاد بفحص 20% من السجلات', 'of stockouts checking 20% of records')}`, cls],
-      [TR.regression.name, R.champion, `MAE ${nf(cR.test, 3)} · R² ${nf(cR.r2, 2)} · ${t('خطأ أقل بـ', 'error')} ${pct(cR.gain)} ${t('من المتوسط', 'lower than the average')}`, R],
-      [TR.forecasting.name, short(Fc.champion), `MAE ${nf(cF.test)} ${t('وحدة/يوم', 'units/day')} · MAPE ${nf(cF.mape, 2)}%`, Fc]
-    ].map(([n, m, s, tr]) => `<div class="c win"><span class="crown">${t('الفائز', 'WINNER')}</span><small>${n}</small><b>${m}</b><span>${s}</span>
-      <div style="margin-top:8px;font-size:12px;color:var(--ink-3)">${t('أفضل نموذج من الفريق', 'Best team model')}: <b style="display:inline;font-size:12.5px;color:var(--green-700)">${short(tr.best_team)} · ${own(tr.best_team_owner)}</b></div></div>`).join('');
-  };
 
   let chartN = 0;
   const lbChart = (box, rows, key, tr, digits, higher) => {
@@ -139,8 +162,6 @@
 
   function renderTrack(tr) {
     const body = document.getElementById('p4Body'); body.innerHTML = '';
-    if (tr === 'other') return renderOther(body);
-    if (tr === 'checks') return renderChecks(body);
     const R = T[tr];
     let rows = R.rows.slice();
     if (tr === 'classification' && F.khalid_classifier) rows.push(F.khalid_classifier);
@@ -183,22 +204,6 @@
     panels.appendChild(el(`<div class="panel s12"><h3>${t('لماذا فاز هذا النموذج؟', 'Why this model won')}</h3><p style="font-size:14px;color:var(--ink-2);margin:6px 0 0">${why}</p>${R.shap ? `<div class="insight">${t('أهم المؤثرات (SHAP)', 'Top drivers (SHAP)')}: <b>${R.shap}</b></div>` : ''}</div>`));
   }
 
-  function renderOther(body) {
-    const name = { anomaly: t('اكتشاف الحالات الشاذة', 'Finding the unusual'), clusters: t('المجموعات الطبيعية', 'Natural groups'), rules: t('قواعد إذا–فإن', 'IF–THEN rules'), nba: t('أفضل إجراء تالٍ', 'Next best action'), ab: t('اختبار A/B للعروض', 'Promotion A/B test') };
-    const note = {
-      anomaly: t(`السجلات الشاذة (1%) تهدر ${B.unusual.waste_x}× أكثر، ونفادها ${B.unusual.stockout_x}× أكثر.`, `Unusual records (1%) waste ${B.unusual.waste_x}× more and run out ${B.unusual.stockout_x}× more.`),
-      clusters: t('6 مجموعات؛ مجموعة "مخزون عالٍ وصلاحية قصيرة" (6%) تهدر 5.6× المتوسط.', '6 groups; the "high stock, short shelf life" group (6%) wastes 5.6× the average.'),
-      rules: t('إذا الصلاحية ≤ 5 أيام والمخزون عالٍ، فالهدر وحدتين أو أكثر في 66% من الحالات.', 'IF shelf life ≤ 5 days AND stock is high, THEN 2+ units are wasted in 66% of cases.'),
-      nba: t('قائمة الصباح: 46 من 50 اختيارًا صحيحًا، مقابل 7 عشوائيًا.', 'Morning list: 46 of 50 right picks, against 7 at random.'),
-      ab: t('العروض: مبيعات +60% وهدر +64%. تجربة 5 أيام (3,004 سجل لكل مجموعة) تكفي لإثبات خفض 20%.', 'Promotions: +60% sales and +64% waste. A 5-day pilot (3,004 records per group) is enough to prove a 20% cut.')
-    };
-    const rows = B.approaches.filter(a => name[a.k]);
-    body.appendChild(el(`<div class="panels"><div class="panel s12"><h3>${t('المنهجيات الخمس الأخرى', 'The five other approaches')}</h3><p class="sub">${t('كل منهجية جُرّبت بأكثر من طريقة، والفائزة مذكورة', 'Each approach was tried several ways; the winning method is shown')}</p>
-      <div class="table-wrap" style="box-shadow:none"><table class="mini-table"><thead><tr><th>${t('المنهجية', 'Approach')}</th><th>${t('الطريقة الفائزة', 'Winning method')}</th><th>${t('اليوم', 'Today')}</th><th>${t('مع نماذجنا', 'With our models')}</th><th>${t('ماذا يعني للأعمال', 'What it means')}</th></tr></thead><tbody>
-      ${rows.map(a => `<tr><td><b>${name[a.k]}</b></td><td>${a.method}</td><td class="num">${a.today}</td><td class="num ok">${a.with}</td><td>${note[a.k]}</td></tr>`).join('')}</tbody></table></div>
-      <p style="font-size:12px;color:var(--ink-3);margin:10px 0 0">${t('المصدر: العرض التقديمي للمرحلة الرابعة، الملحقات D0 و D6–D8 و F6–F9.', 'Source: Phase 4 deck, appendices D0, D6–D8 and F6–F9.')}</p></div></div>`));
-  }
-
   function renderChecks(body) {
     const A = F.ablation || []; if (!A.length) return;
     const lab = s => s.startsWith('A') ? t('ميزات الفريق (المرجع)', 'Team features (reference)') : s.startsWith('B') ? t('+ زوار نفس اليوم (تسرّب)', '+ same-day footfall (leakage)') : s.startsWith('C') ? t('− بدون المخزون', '− without stock position') : t('− بدون التقويم', '− without calendar');
@@ -212,9 +217,79 @@
       options: { layout: { padding: { top: 18 } }, scales: { x: { grid: { display: false }, ticks: { color: INK } }, y: { beginAtZero: true } }, plugins: { valueLabels: { enabled: true, format: v => nf(v, 3) } } } });
   }
 
-  document.querySelectorAll('#p4Tabs button').forEach(b => b.onclick = () => {
-    document.querySelectorAll('#p4Tabs button').forEach(x => x.classList.toggle('on', x === b)); renderTrack(b.dataset.tr);
-  });
+  const approx = x => x === false ? '≈' : '';
+  const note = pages => `<p style="font-size:12px;color:var(--ink-3);margin:10px 0 0">${t('المصدر: العرض التقديمي للمرحلة الرابعة، صفحات', 'Source: Phase 4 deck, pages')} ${pages.join('، ')}. ${t('القيم المسبوقة بـ ≈ مقروءة من رسوم العرض.', 'Values marked ≈ are read from the deck charts.')}</p>`;
+  const hbar = (id, labels, sets, opt = {}) => mk(id, { type: 'bar', data: { labels, datasets: sets.map(([label, data, c]) => ({ label, data, backgroundColor: c, maxBarThickness: opt.th || 22 })) },
+    options: { indexAxis: opt.vertical ? 'x' : 'y', layout: { padding: { right: 50, top: 14 } }, scales: (() => { const val = { beginAtZero: true, max: opt.max, grid: { display: true }, ticks: Object.assign({ color: INK }, opt.xfmt ? { callback: opt.xfmt } : {}) }, cat = { grid: { display: false }, ticks: { color: INK, font: { size: 11.5 } } }; return opt.vertical ? { x: cat, y: val } : { x: val, y: cat }; })(),
+      plugins: { valueLabels: { enabled: true, format: opt.fmt || (v => nf(v, 1)) }, tooltip: { callbacks: { label: c => ` ${c.dataset.label || ''} ${opt.fmt ? opt.fmt(c.raw) : nf(c.raw, 2)}` } } } } });
+  const kpis = arr => `<div class="kpis">${arr.map(([l, v, sm, hero]) => `<div class="kpi${hero ? ' hero' : ''}"><span>${l}</span><b class="num">${v}</b><small>${sm || ''}</small></div>`).join('')}</div>`;
+
+  function renderAnomaly(body) {
+    const A = O.anomaly, W = A.methods[0];
+    body.innerHTML = kpis([[t('الطريقة الفائزة', 'Winning method'), A.winner, t('من 4 طرق', 'of 4 methods'), 1], [t('سجلات مؤشَّرة', 'Flagged records'), nf(A.flagged), pct(A.budget) + t(' من الاختبار', ' of the test period')], [t('الهدر مقارنة بالطبيعي', 'Waste vs normal'), '×' + nf(W.waste, 1)], [t('النفاد مقارنة بالطبيعي', 'Stockouts vs normal'), '×' + nf(W.stockout, 1)], [t('المخزون على الرف', 'Stock on the shelf'), '×' + A.profile.stock_x, t('من المعتاد', 'the usual')], [t('الصلاحية المتبقية', 'Shelf life left'), A.profile.shelf_days + t(' أيام', ' days'), t('الطبيعي ', 'normal ') + A.profile.shelf_days_normal]]) +
+      `<div class="panels"><div class="panel s7"><h3>${t('مقارنة الطرق الأربع بنفس الميزانية (1%)', 'The four methods on the same 1% budget')}</h3><p class="sub">${t('كم مرة السجلات المؤشَّرة أسوأ من المتوسط', 'How many times worse flagged records are than average')}</p>
+        <div class="legend"><span><i style="background:${GOLD}"></i>${t('الهدر', 'Waste')}</span><span><i style="background:${GREEN}"></i>${t('النفاد', 'Stockouts')}</span></div><div class="cv"><canvas id="anC"></canvas></div></div>
+      <div class="panel s5"><h3>${t('مدى اتفاق الطرق (Jaccard)', 'How much the methods agree (Jaccard)')}</h3><p class="sub">${t('1 = نفس السجلات تمامًا', '1 = exactly the same records')}</p><div id="anJ"></div>
+        <div class="insight">${t('الطرق تلتقط أنواعًا مختلفة من الشذوذ؛ Robust z-score يلتقط المخزون المفرط تحديدًا، وهو الأهم للهدر.', 'The methods catch different kinds of unusual records; Robust z-score specifically catches over-stock, which matters most for waste.')}</div></div>
+      <div class="panel s12"><h3>${t('شكل السجل الشاذ النموذجي', 'What a typical unusual record looks like')}</h3>
+        <div class="roles" style="grid-template-columns:repeat(3,1fr)"><div class="r"><b class="num">×${A.profile.stock_x}</b><p>${t('المخزون المعتاد على الرف', 'the usual stock on the shelf')}</p></div><div class="r"><b class="num">${A.profile.order_ratio}</b><p>${t(`نسبة الطلبات للمخزون (الطبيعي ${A.profile.order_ratio_normal}): القليل قادم`, `on order vs on shelf (normal ${A.profile.order_ratio_normal}): little coming in`)}</p></div><div class="r"><b class="num">${A.profile.shelf_days} ${t('أيام', 'days')}</b><p>${t(`صلاحية متبقية (الطبيعي ${A.profile.shelf_days_normal})`, `shelf life left (normal ${A.profile.shelf_days_normal})`)}</p></div></div>
+        <div class="insight">${t('الاستخدام: قائمة مراجعة يومية قصيرة للمخزون المفرط لمدير الفئة. بدون أي تسميات: الطريقة تتعلم شكل "الطبيعي" وتؤشر على أبعد 1%.', 'Use: a short daily review list of over-stocked records for the category manager. No labels used: the method learns what "normal" looks like and flags the 1% furthest from it.')}</div>${note(A.pages)}</div></div>`;
+    hbar('anC', A.methods.map(m => approx(m.exact) + m.m), [[t('الهدر', 'Waste'), A.methods.map(m => m.waste), GOLD], [t('النفاد', 'Stockouts'), A.methods.map(m => m.stockout), GREEN]], { fmt: v => '×' + nf(v, 1) });
+    const J = A.jaccard, cell = v => `<td class="num" style="background:rgba(31,122,77,${v});color:${v > .5 ? '#fff' : 'var(--ink)'};text-align:center">${nf(v, 2)}</td>`;
+    document.getElementById('anJ').innerHTML = `<table class="mini-table" style="table-layout:fixed"><thead><tr><th></th>${J.labels.map(l => `<th style="text-align:center">${l}</th>`).join('')}</tr></thead><tbody>${J.m.map((r, i) => `<tr><td><b>${J.labels[i]}</b></td>${r.map(cell).join('')}</tr>`).join('')}</tbody></table>`;
+  }
+  function renderClustering(body) {
+    const C = O.clustering, GN = { high_stock_short_life: t('مخزون عالٍ وصلاحية قصيرة', 'High stock, short shelf life'), discounted: t('مخفّض', 'Discounted'), high_price: t('سعر مرتفع', 'High price'), supplier_risk: t('خطر المورد', 'Supplier risk'), everyday: t('المتوسط اليومي', 'Everyday average'), thin_shelf_much_on_order: t('رف خفيف وطلبات كثيرة', 'Thin shelf, much on order') };
+    body.innerHTML = kpis([[t('الخوارزمية الفائزة', 'Winning algorithm'), C.winner, t(`من ${C.algorithms} خوارزميات`, `of ${C.algorithms} algorithms`), 1], [t('عدد المجموعات', 'Groups'), C.k], ['Silhouette', nf(C.silhouette, 2), t('الأعلى أفضل', 'higher is better')], ['Davies–Bouldin', nf(C.davies_bouldin, 2), t('الأقل أفضل', 'lower is better')], [t('الثبات (ARI)', 'Stability (ARI)'), nf(C.ari, 2), t('عبر بذور مختلفة', 'across seeds')], [t('أخطر مجموعة', 'Riskiest group'), '×' + C.groups[0].waste_x, t('هدر · ', 'waste · ') + pct(C.groups[0].share) + t(' من السجلات', ' of records')]]) +
+      `<div class="panels"><div class="panel s6"><h3>${t('المجموعات الست: الهدر مقارنة بالمتوسط', 'The six groups: waste vs the network average')}</h3><p class="sub">${t('اسم المجموعة · ونسبتها: ' + C.groups.map(g => GN[g.g] + ' ' + pct(g.share)).join('، '), 'Group name · share of records')}</p><div class="cv"><canvas id="clG"></canvas></div></div>
+      <div class="panel s6"><h3>${t('اختيار عدد المجموعات', 'Choosing the number of groups')}</h3><p class="sub">≈ Silhouette ${t('لكل k · الأعلى أفضل', 'by k · higher is better')}</p><div class="legend"><span><i style="background:${GREEN}"></i>K-Means</span><span><i style="background:${GOLD}"></i>Gaussian Mixture</span><span><i style="background:${BLUE}"></i>Agglomerative (Ward)</span></div><div class="cv"><canvas id="clK"></canvas></div></div>
+      <div class="panel s12"><div class="insight" style="margin:0">${t('الاستخدام: قاعدة واحدة لكل مجموعة، وقاعدة تخفيض للمجموعة عالية الهدر (6% من السجلات تهدر 5.6× المتوسط).', 'Use: one rule per group, and a mark-down rule for the high-waste group (6% of records waste 5.6× the average).')}</div>${note(C.pages)}</div></div>`;
+    hbar('clG', C.groups.map(g => AR ? GN[g.g] : `${GN[g.g]} · ${pct(g.share)}`), [['', C.groups.map(g => g.waste_x), C.groups.map((g, i) => i ? GRAY : RED)]], { fmt: v => '×' + nf(v, 1) });
+    const S = C.silhouette_by_k;
+    mk('clK', { type: 'line', data: { labels: S.k, datasets: [['K-Means', GREEN], ['Gaussian Mixture', GOLD], ['Agglomerative (Ward)', BLUE]].map(([n, c]) => ({ label: n, data: S[n], borderColor: c, backgroundColor: c, pointRadius: 4, tension: .2 })) },
+      options: { interaction: { mode: 'index', intersect: false }, scales: { x: { grid: { display: false }, title: { display: true, text: 'k' } }, y: { ticks: { callback: v => nf(v, 2) } } } } });
+  }
+  function renderRules(body) {
+    const R = O.rules, top = R.waste[0];
+    body.innerHTML = kpis([[t('الخوارزمية الفائزة', 'Winning algorithm'), R.winner, t('مقابل Apriori', 'vs Apriori'), 1], [t('قواعد مستخرجة', 'Rules mined'), nf(R.mined)], [t('أقوى قاعدة هدر', 'Top waste rule'), pct(top.conf), t('ثقة · lift ', 'confidence · lift ') + top.train], [t('أقوى قاعدة نفاد', 'Top stockout rule'), '×' + R.stockout[0].train, 'lift'], [t('ثبات على الاختبار', 'Holds on test'), '✓', t('نفس الـ lift تقريبًا', 'almost the same lift')], [t('مكان الاستخراج', 'Mined on'), t('التدريب', 'train'), t('تُحقق على الاختبار', 'checked on test')]]) +
+      `<div class="panels"><div class="panel s5"><h3>${t('القواعد الثلاث الأهم', 'The three key rules')}</h3>
+        <div class="rulebox"><div><span>${t('إذا', 'IF')}</span>${t('الصلاحية ≤ 5 أيام + مخزون عالٍ', 'shelf life ≤ 5 days + high stock')}</div><div><span>${t('فإن', 'THEN')}</span>${t(`هدر وحدتين أو أكثر في ${pct(top.conf)} من الحالات (${top.train}× الطبيعي)`, `2+ units wasted in ${pct(top.conf)} of cases (${top.train}× normal)`)}</div></div>
+        <div class="rulebox"><div><span>${t('إذا', 'IF')}</span>${t('طلبات كثيرة + مخزون منخفض', 'a lot on order + low stock')}</div><div><span>${t('فإن', 'THEN')}</span>${t(`النفاد ${R.stockout[0].train}× أكثر من الطبيعي`, `stockouts ${R.stockout[0].train}× more often than normal`)}</div></div>
+        <div class="rulebox"><div><span>${t('إذا', 'IF')}</span>${t('عرض ترويجي', 'promotion')}</div><div><span>${t('فإن', 'THEN')}</span>${t('دائمًا معه خصم: أداة واحدة وليست اثنتين', 'always comes with a discount: one lever, not two')}</div></div></div>
+      <div class="panel s7"><h3>${t('قواعد الهدر: التدريب مقابل الاختبار', 'Waste rules: train vs test')}</h3><p class="sub">lift · ${t('القاعدة صادقة إذا بقي الـ lift نفسه على بيانات جديدة', 'a rule is real if its lift holds on new data')}</p><div class="legend"><span><i style="background:${GOLD}"></i>${t('تدريب', 'Train')}</span><span><i style="background:${GREEN}"></i>${t('اختبار', 'Test')}</span></div><div class="cv" style="height:300px"><canvas id="ruW"></canvas></div></div>
+      <div class="panel s12"><h3>${t('قواعد النفاد', 'Stockout rules')}</h3><div class="cv sm"><canvas id="ruS"></canvas></div>${note(R.pages)}</div></div>`;
+    hbar('ruW', R.waste.map(r => approx(r.exact) + r.r), [[t('تدريب', 'Train'), R.waste.map(r => r.train), GOLD], [t('اختبار', 'Test'), R.waste.map(r => r.test), GREEN]], { fmt: v => nf(v, 1), th: 14 });
+    hbar('ruS', R.stockout.map(r => approx(r.exact) + r.r), [[t('تدريب', 'Train'), R.stockout.map(r => r.train), GOLD], [t('اختبار', 'Test'), R.stockout.map(r => r.test), GREEN]], { fmt: v => nf(v, 1), th: 16 });
+  }
+  function renderRec(body) {
+    const R = O.recommendation, P = R.picks, K = R.p_at_k;
+    body.innerHTML = kpis([[t('الطريقة الفائزة', 'Winning method'), t('قائمة على التنبؤ', 'Model-based'), t('من 3 طرق', 'of 3 methods'), 1], [t('قائمة التخفيض', 'Mark-down list'), `${P.markdown.model}/50`, t('عشوائي ', 'random ') + P.markdown.random], [t('قائمة إعادة الطلب', 'Re-order list'), `${P.reorder.model}/50`, t('عشوائي ', 'random ') + P.reorder.random], ['Precision@50', pct(K.markdown['Model-based champion'][1]), t('قائمة التخفيض', 'mark-down')], ['Precision@50', pct(K.reorder['Model-based champion'][1]), t('إعادة الطلب', 're-order')], [t('القاعدة البسيطة', 'Simple rule'), `${P.markdown.rule}/50`, t('تخفيض', 'mark-down')]]) +
+      `<div class="panels"><div class="panel s6"><h3>${t('اختيارات صحيحة في قائمة يومية من 50', 'Right picks in a daily list of 50')}</h3><div class="legend"><span><i style="background:${GRAY}"></i>${t('عشوائي', 'Random')}</span><span><i style="background:${BLUE}"></i>${t('قاعدة بسيطة', 'Simple rule')}</span><span><i style="background:${GREEN}"></i>${t('قائمتنا', 'Our list')}</span></div><div class="cv"><canvas id="reP"></canvas></div></div>
+      <div class="panel s6"><h3>Precision@K</h3><p class="sub">${t('≈ عدا K=50 · قائمة التخفيض', '≈ except K=50 · mark-down list')}</p><div class="legend"><span><i style="background:${GRAY}"></i>Popularity / rule</span><span><i style="background:${GOLD}"></i>Content-based kNN</span><span><i style="background:${GREEN}"></i>Model-based</span></div><div class="cv"><canvas id="reK"></canvas></div></div>
+      <div class="panel s12"><div class="insight" style="margin:0">${t('الاستخدام: كل صباح يحصل كل فريق على أهم 50 سجلًا: قائمة تخفيض للهدر، وقائمة إعادة طلب للنفاد.', 'Use: every morning each team gets its top 50 records: a mark-down list for waste and a re-order list for stockouts.')}</div>${note(R.pages)}</div></div>`;
+    mk('reP', { type: 'bar', data: { labels: [t('قائمة التخفيض', 'Mark-down list'), t('قائمة إعادة الطلب', 'Re-order list')], datasets: [[t('عشوائي', 'Random'), 'random', GRAY], [t('قاعدة بسيطة', 'Simple rule'), 'rule', BLUE], [t('قائمتنا', 'Our list'), 'model', GREEN]].map(([l, k, c]) => ({ label: l, data: [P.markdown[k], P.reorder[k]], backgroundColor: c, maxBarThickness: 46 })) },
+      options: { layout: { padding: { top: 18 } }, scales: { x: { grid: { display: false }, ticks: { color: INK } }, y: { beginAtZero: true, max: 50 } }, plugins: { valueLabels: { enabled: true, format: v => v + '/50' } } } });
+    mk('reK', { type: 'line', data: { labels: K.k.map(k => 'K=' + k), datasets: [['Popularity / rule', GRAY], ['Content-based kNN', GOLD], ['Model-based champion', GREEN]].map(([n, c]) => ({ label: n, data: K.markdown[n], borderColor: c, backgroundColor: c, pointRadius: 5, tension: .2 })) },
+      options: { interaction: { mode: 'index', intersect: false }, scales: { x: { grid: { display: false } }, y: { min: 0.5, max: 1, ticks: { callback: v => Math.round(v * 100) + '%' } } }, plugins: { tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${pct(c.raw)}` } } } } });
+  }
+  function renderAB(body) {
+    const A = O.abtest;
+    body.innerHTML = kpis([[t('الاختبار الإحصائي', 'Statistical test'), A.test, '', 1], [t('مبيعات مع العروض', 'Sales on promotion'), '+' + pct(A.units_uplift), t('مرصود', 'observed')], [t('هدر مع العروض', 'Waste on promotion'), '+' + pct(A.waste_uplift), t('مرصود، لم يُختبر بعد', 'observed, not yet tested')], [t('حجم كل مجموعة', 'Records per group'), nf(A.records_per_group)], [t('مدة التجربة', 'Pilot length'), A.days + t(' أيام', ' days')], [t('قوة الاختبار', 'Power'), pct(A.power), t('لإثبات خفض ', 'to prove a ') + pct(A.target_cut) + t(' للهدر', ' waste cut')]]) +
+      `<div class="panels"><div class="panel s6"><h3>${t('أثر العروض المرصود', 'Observed promotion effect')}</h3><p class="sub">${t('العروض ترفع المبيعات والهدر معًا', 'Promotions raise sales and waste together')}</p><div class="cv sm"><canvas id="abC"></canvas></div></div>
+      <div class="panel s6"><h3>${t('تصميم التجربة', 'Pilot design')}</h3><div class="steps" style="grid-template-columns:1fr 1fr"><div><b>${t('مجموعة A', 'Group A')}</b>${t('الطريقة الحالية', 'Today’s way')} · <span class="num">${nf(A.records_per_group)}</span> ${t('سجل', 'records')}</div><div><b>${t('مجموعة B', 'Group B')}</b>${t('قوائمنا الصباحية', 'Our morning lists')} · <span class="num">${nf(A.records_per_group)}</span> ${t('سجل', 'records')}</div></div>
+        <div class="insight">${t(`${A.days} أيام تكفي لإثبات خفض هدر ${pct(A.target_cut)} بثقة (قوة ${pct(A.power)}).`, `${A.days} days are enough to prove a ${pct(A.target_cut)} waste cut with confidence (${pct(A.power)} power).`)}</div>${note(A.pages)}</div></div>`;
+    hbar('abC', [t('المبيعات', 'Units sold'), t('الهدر', 'Waste')], [['', [A.units_uplift, A.waste_uplift], [GREEN, GOLD]]], { fmt: v => '+' + pct(v), vertical: true, xfmt: v => Math.round(v * 100) + '%', th: 70 });
+  }
+
+  const RENDER = { anomaly: renderAnomaly, clustering: renderClustering, rules: renderRules, recommendation: renderRec, abtest: renderAB, checks: renderChecks };
+  function select(k) {
+    document.querySelectorAll('#apGrid .ap').forEach(x => x.classList.toggle('on', x.dataset.k === k));
+    const a = AP.find(z => z.k === k);
+    document.getElementById('apTitle').textContent = a ? `${a.name} · ${a.q}` : t('فحوص التسرّب والميزات', 'Leakage & feature checks');
+    const body = document.getElementById('p4Body'); body.innerHTML = '';
+    if (RENDER[k]) RENDER[k](body); else renderTrack(k);
+  }
+  document.querySelectorAll('#apGrid .ap, .p4sub .chk').forEach(b => b.onclick = () => select(b.dataset.k));
 
   /* =================== Investment case =================== */
   const tvRow = (lab, v, max, c, txt) => `<div class="row"><span>${lab}</span><div class="track"><i style="width:${Math.max(2, v / max * 100)}%;background:${c}"></i></div><b class="num">${txt}</b></div>`;
@@ -290,7 +365,7 @@
   const _show = show;
   window.show = function (v) {
     _show(v);
-    if (v === 'p4' && !p4Drawn) { p4Drawn = true; champCards(); renderTrack('classification'); }
+    if (v === 'p4' && !p4Drawn) { p4Drawn = true; select('classification'); }
     if (v === 'biz') drawBiz();
   };
   const route = () => { const h = location.hash.slice(1); if (['p1', 'p4', 'biz'].includes(h)) window.show(h); };

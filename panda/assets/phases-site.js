@@ -26,11 +26,11 @@
 
   /* ---------------- 1. phase bar ---------------- */
   const phases = [
-    { k: 'p1', href: '#problem', n: t('المرحلة 1', 'Phase 1'), name: t('فهم الأعمال', 'Business understanding') },
+    { k: 'p1', href: '#phase1', n: t('المرحلة 1', 'Phase 1'), name: t('فهم الأعمال', 'Business understanding') },
     { k: 'p2', href: '#phase2', n: t('المرحلة 2', 'Phase 2'), name: t('فهم البيانات', 'Data understanding') },
     { k: 'p3', href: '#phase3', n: t('المرحلة 3', 'Phase 3'), name: t('تجهيز البيانات', 'Data preparation') },
-    { k: 'aw', href: '#awards', n: t('المراحل 1–2–3', 'Phases 1–2–3'), name: t('جائزتان', 'Two awards'), cls: 'award' },
-    { k: 'p4', href: '#phase4', n: t('المرحلة 4', 'Phase 4'), name: t('النمذجة والنتائج', 'Modeling & results'), isNew: true }
+    { k: 'p4', href: '#phase4', n: t('المرحلة 4', 'Phase 4'), name: t('النمذجة والنتائج', 'Modeling & results'), isNew: true },
+    { k: 'aw', href: '#awards', n: t('المراحل 1–2–3', 'Phases 1–2–3'), name: t('جائزتان', 'Two awards'), cls: 'award' }
   ];
   const nav = $('nav.nav');
   if (nav) {
@@ -40,8 +40,6 @@
   }
 
   /* ---------------- 2. menu item ---------------- */
-  const dashLi = [...document.querySelectorAll('#menu a')].find(a => a.getAttribute('href') === DASH);
-  if (dashLi) dashLi.parentElement.before(el(`<li><a href="#phase4">${t('المرحلة الرابعة', 'Phase 4')}</a></li>`));
 
   /* ---------------- 3. problem video (after business understanding) ---------------- */
   const V = X.video, VL = L(V), problem = $('#problem');
@@ -141,8 +139,8 @@
     <div class="p4-cta reveal" style="gap:12px;flex-wrap:wrap"><a class="btn btn-gold" href="${DASH}#biz">${t('قرار الاستثمار: الداشبورد التنفيذي', 'Investment case: executive dashboard')}</a><a class="btn btn-green" href="${DASH}#p4">${t('مقارنة كل النماذج', 'Compare every model')}</a></div>
   </div></section>`);
 
-  const footer = $('footer');
-  if (footer) { footer.before(awards); footer.before(banner); footer.before(p4); }
+  const slot = $('#p4-slot') || $('footer');
+  if (slot) { slot.before(banner); slot.before(p4); slot.before(awards); }
 
   /* zoom: reuse the page's existing lightbox */
   document.addEventListener('click', e => {
@@ -156,7 +154,7 @@
   document.querySelectorAll('#problem-video .reveal,#awards .reveal,#phase4-results .reveal').forEach(n => io.observe(n));
 
   /* ---------------- 6. scroll spy for the phase bar ---------------- */
-  const marks = [['#top', null], ['#problem', 'p1'], ['#deck', null], ['#phase2', 'p2'], ['#phase3', 'p3'], ['#awards', 'aw'], ['#phase4', 'p4']]
+  const marks = [['#top', null], ['#phase1', 'p1'], ['#phase2', 'p2'], ['#phase3', 'p3'], ['#phase4', 'p4'], ['#awards', 'aw'], ['#tableau', null]]
     .map(([sel, k]) => ({ node: $(sel), k })).filter(m => m.node);
   const links = [...document.querySelectorAll('.phasebar a')];
   let ticking = false;
