@@ -1,107 +1,94 @@
-<div align="center">
+# Nibras · نبراس
 
-# نبراس · Nibras
+**A bilingual AI study agent that turns a list of subjects and exam dates into a day-by-day plan, then helps you keep it.**
 
-**وكيل ذكاء اصطناعي يرتّب مذاكرتك، يضبط تركيزك، ويختبرك كل يوم**<br>
-**An AI study agent that plans your study, guards your focus, and quizzes you daily**
+You talk to it in Arabic or English. It works out what you want, picks one of nine tools, runs it in front of you, and updates your schedule and calendar. Every tool call is printed in the chat, with its arguments and its result, so you can see exactly what the agent did and why.
 
-[**جرّبه الآن · Try it live**](https://afnanaljohani.github.io/Afnan/nibras/)
+**[Open Nibras](https://afnanaljohani.github.io/Afnan/nibras/)** · no install, no sign-in, works on phone and desktop.
 
-![Nibras preview](assets/preview.png)
+> **نبراس** وكيل ذكاء اصطناعي للمذاكرة، بالعربي والإنجليزي. تضيفين موادك وتواريخ اختباراتها، فيرتّب لك جدولاً يومياً، ويشغّل مؤقت التركيز، ويختبرك بأسئلة سيناريو، ويعرض كل أداة يستدعيها قدامك.
 
-</div>
-
----
-
-## العربية
-
-### وش هو نبراس؟
-نبراس وكيل ذكاء اصطناعي (AI Agent) للمذاكرة يشتغل بالكامل داخل المتصفح. تكلمينه بالعربي أو الإنجليزي، فيفهم طلبك، ويختار الأداة المناسبة، وينفّذها قدامك، ثم يحدّث جدولك وتقويمك مباشرة.
-
-### المميزات
-- **جدول ذكي لعدة مواد:** تضيفين موادك مع تواريخ اختباراتها ومستوى صعوبتها، والوكيل يوزّع الجلسات. المادة الأصعب والأقرب تاخذ جلسات أكثر، واليوم اللي قبل كل اختبار للمراجعة.
-- **تقويم من يناير 2026 إلى أبريل 2027:** الإجازات، وفترات الاختبارات، واختباراتك الشخصية، وأيام المذاكرة، مع التاريخ الهجري.
-- **مؤقت تركيز:** 25 أو 45 أو 90 دقيقة، والدقائق تنحفظ في يومك.
-- **تحدي يومي:** أسئلة سيناريو في الذكاء الاصطناعي، مع وقت 30 ثانية ونقاط.
-- **شرح المصطلحات:** RAG، Embeddings، Function Calling، Transformers، وغيرها.
-- **تتبّع التقدّم:** سلسلة الأيام، دقائق التركيز، ودقة الإجابات.
-- **عربي وإنجليزي** بزر واحد، مع وضع فاتح وداكن تلقائي.
-- **خصوصية:** كل بياناتك محفوظة في متصفحك فقط (localStorage). ما فيه سيرفر ولا تسجيل دخول.
-
-### جرّبي تكتبين له
-| الرسالة | الأداة اللي يستدعيها |
-|---|---|
-| ضيف مادة Python اختبارها 20 ديسمبر صعبة | `add_subject` |
-| رتّب لي جدول | `build_schedule` |
-| وش أسوي اليوم؟ | `next_task` |
-| متى اختباري الجاي؟ | `next_exam` |
-| شغّل مؤقت 45 | `start_timer` |
-| اختبرني | `daily_challenge` |
-| وش يعني RAG؟ | `explain_term` |
-| خلصت | `mark_done` |
-| وين وصلت؟ | `get_progress` |
+Nibras does not call a language model. Intent detection is rule-based and runs entirely in the browser, which is why it is instant, free, and private. The tools are written so that an LLM with function calling can be dropped in front of them later without changing them.
 
 ---
 
-## English
+## What it looks like
 
-### What is Nibras?
-Nibras (نبراس, "the lamp that lights the way") is a browser-based AI study agent. Talk to it in Arabic or English: it detects your intent, picks a tool, runs it in front of you, and updates your schedule and calendar.
+**The schedule.** Subjects on top, each with its exam date, days left, and difficulty. Below them, the plan the agent built, one row per day.
 
-### Features
-- **Multi-subject scheduler:** add subjects with exam dates and difficulty. Harder and closer subjects get more sessions, and the day before each exam is a review day.
-- **Calendar (Jan 2026 – Apr 2027):** holidays, exam periods, your own exams, and study days, with Hijri months.
-- **Focus timer:** 25 / 45 / 90 minutes, logged to your day.
-- **Daily quiz:** 30-second AI scenario questions with points.
-- **Glossary:** RAG, embeddings, function calling, transformers and more.
-- **Progress:** streak, focus minutes, answer accuracy.
-- **Arabic / English** toggle, automatic light and dark themes.
-- **Private by design:** everything stays in your browser (localStorage). No server, no sign-in.
+![Schedule](assets/desktop-ar.png)
 
----
+**The agent trace.** Each request becomes a tool call. The dark card shows the call (`→`) and what the tool returned (`←`); the reply underneath is written from that result, not guessed.
 
-## How the agent works · كيف يفكّر الوكيل
+![Agent trace](assets/agent-trace.png)
 
-```
-User message ──► 1. Understand  (intent detection, Arabic + English)
-                 2. Pick a tool (extract args: subject, date, minutes…)
-                 3. Act         (run the tool, show call + result)
-                 4. Reply       (answer + update schedule / calendar)
-```
+**The calendar.** January 2026 to April 2027 with Hijri months. Holidays are hatched, exam periods are shaded, your own exams are solid, and the dots on each day are the study sessions planned for it. Shown here in dark mode.
 
-Every tool call is shown in the chat as a card, exactly like LLM function calling:
+![Calendar](assets/calendar-dark.png)
 
-```
-→ add_subject({"name":"Python","exam":"2026-12-20","level":3})
-← {"ok":true,"subject":"Python","days_left":42,"schedule_days":43}
-```
+**The focus timer.** 25, 45, or 90 minutes. When a session ends, its minutes are added to today and count toward your points.
 
-| Tool | What it does |
-|---|---|
-| `add_subject` | Adds a subject with exam date and level, then rebuilds the schedule |
-| `build_schedule` | Spreads sessions across days by difficulty and exam proximity |
-| `next_task` | Today's sessions |
-| `next_exam` | The nearest exam and days left |
-| `start_timer` | Starts a focus session |
-| `daily_challenge` | Serves a timed scenario question |
-| `explain_term` | Defines an AI term in the message's language |
-| `mark_done` | Marks today complete and updates the streak |
-| `get_progress` | Days done, focus minutes, streak, accuracy |
+![Focus timer](assets/focus.png)
 
-### Scheduling logic
-For each day until the last exam, every open subject gets a score:
+**The daily quiz.** A scenario question on applied AI with a 30-second clock. After you answer, it marks the right option and explains why.
 
-```
-score = level × (1 + 4 / days_until_exam) ÷ (sessions_so_far + 1)
-```
+![Daily quiz](assets/quiz.png)
 
-The top-scoring subjects fill the day's slots (1–3 per day). The day before an exam is reserved for reviewing that subject.
+**Progress, in English.** One button switches the whole interface, direction included. The agent answers in the language of each message.
+
+![Progress](assets/progress-en.png)
+
+**On a phone.** The same app, stacked into one column.
+
+<img src="assets/mobile-en.png" width="320" alt="Mobile">
 
 ---
 
-## Run it · التشغيل
+## How the agent works
 
-No build step and no dependencies. Open the live page, or download the `nibras` folder and open `index.html`, or serve it:
+```
+message ──► understand ──► pick a tool ──► run it ──► reply
+            (AR or EN)     (+ arguments)   (shown)    (from the result)
+```
+
+| You write | Tool | What happens |
+|---|---|---|
+| ضيف مادة Python اختبارها 20 ديسمبر صعبة | `add_subject` | Adds the subject and rebuilds the plan |
+| Build my schedule | `build_schedule` | Spreads sessions over the days before each exam |
+| وش أسوي اليوم؟ | `next_task` | Lists today's sessions |
+| When is my next exam? | `next_exam` | Nearest exam and days left |
+| شغّل مؤقت 45 | `start_timer` | Starts a focus session |
+| Quiz me | `daily_challenge` | Serves a timed question |
+| وش يعني RAG؟ | `explain_term` | Defines the term in your message's language |
+| I'm done | `mark_done` | Marks today complete, updates the streak |
+| وين وصلت؟ | `get_progress` | Days done, focus minutes, streak, accuracy |
+
+Every command in this table was run in a headless browser, in both languages, before release.
+
+### How the plan is built
+
+For each day until the last exam, every subject that still has an exam ahead gets a score:
+
+```
+score = difficulty × (1 + 4 / days_until_exam) ÷ (sessions_so_far + 1)
+```
+
+The highest scores fill the day's slots (1, 2, or 3 per day, your choice). The day before an exam is always a review of that subject. Hard subjects and near exams get more time; no subject is starved, because each session already given lowers its next score.
+
+Sessions are named after real topics when the subject is recognised (NLP, Generative AI, AI agents, deep learning, the AI engineer badge), and fall back to a general study cycle otherwise.
+
+---
+
+## About the data
+
+- **Holidays and exam periods** come from a training-program timetable for 2026–2027. Exam entries are intentionally generic: the calendar says *exam* or *exam period*, never the subject or the institution.
+- **Your data** (subjects, sessions, minutes, answers) is stored only in your own browser with `localStorage`. Nothing is sent anywhere.
+
+---
+
+## Run it locally
+
+There is no build step and no dependency. `index.html` is the whole app.
 
 ```bash
 git clone --branch gh-pages --depth 1 https://github.com/AfnanAljohani/Afnan.git
@@ -110,36 +97,23 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## Project structure
-
 ```
 nibras/
-├── index.html      # the whole app: HTML + CSS + JS, no dependencies
-├── assets/         # screenshots and link preview
+├── index.html    # HTML + CSS + JavaScript, one file
+├── assets/       # screenshots and the link preview
 ├── README.md
-└── LICENSE
+└── LICENSE       # MIT
 ```
-
-## Screenshots
-
-| Schedule (Arabic) | Calendar (dark) | Mobile (English) |
-|---|---|---|
-| ![Schedule](assets/desktop-ar.png) | ![Calendar](assets/calendar-dark.png) | ![Mobile](assets/mobile-en.png) |
-
-## Roadmap · الخطوات القادمة
-- [ ] Connect an LLM (Gemini) for free-form understanding, keeping the same tools
-- [ ] Export the schedule to Google Calendar (.ics)
-- [ ] Add more quiz questions and topics
-- [ ] Optional sync across devices
-
-## Tech
-Vanilla HTML, CSS and JavaScript · `Intl` for Gregorian and Umm al-Qura dates · Google Fonts (Reem Kufi, IBM Plex Sans Arabic, IBM Plex Mono).
 
 ---
 
-<div align="center">
+## Next
 
-Design by **Afnan Aljohani** — AI & Data Science Engineer<br>
-[LinkedIn](https://www.linkedin.com/in/afnan-aljohani-0b5a70315/)
+- Put an LLM with function calling in front of the same nine tools
+- Export the plan to Google Calendar (`.ics`)
+- More quiz questions, grouped by topic
+- Optional sync between devices
 
-</div>
+---
+
+Design by **Afnan Aljohani** — AI & Data Science Engineer · [LinkedIn](https://www.linkedin.com/in/afnan-aljohani-0b5a70315/)
