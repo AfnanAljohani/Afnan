@@ -18,7 +18,7 @@ Nibras does not call a language model. Intent detection is rule-based and runs e
 
 ## What it looks like
 
-**The landing.** The name, one sentence on what it does, and a live agent trace that replays real tool calls on a loop.
+**The landing.** The site opens with the 15-second teaser (skippable, sound off until you turn it on), then the hero animates in: the name, one sentence on what it does, and a live agent trace that replays real tool calls. The light cone follows your pointer, sections rise into view as you scroll, and the footer signs off with a QR code to LinkedIn.
 
 ![Landing](assets/hero.png)
 
