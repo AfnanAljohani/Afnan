@@ -193,4 +193,4 @@ nibras/
 
 ---
 
-Design by **Afnan Aljohani** — AI & Data Science Engineer · [LinkedIn](https://www.linkedin.com/in/afnan-aljohani-0b5a70315/)
+Design by **Afnan Aljohani** — AI & Data Science Engineer · [LinkedIn](https://www.linkedin.com/in/afnan-fahad-aljohani-0b5a70315/)
