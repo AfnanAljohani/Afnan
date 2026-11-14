@@ -982,3 +982,12 @@ footer{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
 .hv-orb::after{animation-duration:60s}
 @media (max-width:640px){#net,.aurora{display:none}}
 .hv-chip i,.live::before{background:var(--c-lilac);box-shadow:0 0 0 4px rgba(199,125,255,.18);animation:none}
+
+/* Motion layer: GSAP takes over reveals, so the CSS fallback steps aside */
+.gsap-on .rv{opacity:1;transform:none;transition:none}
+html.lenis,html.lenis body{height:auto}
+
+/* React Bits-style animated gradient text */
+.tri,.grad{background-size:220% 100%;animation:gradShift 8s ease-in-out infinite alternate}
+@keyframes gradShift{from{background-position:0% 50%}to{background-position:100% 50%}}
+@media (prefers-reduced-motion:reduce){.tri,.grad{animation:none}}
