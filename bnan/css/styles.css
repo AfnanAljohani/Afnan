@@ -781,3 +781,78 @@ button.hv-chip{cursor:pointer}
 .chat{right:auto;left:22px}
 @media (max-width:520px){.fab{left:14px}.chat{left:12px}}
 @media (max-width:640px){.askbar{padding-inline-start:16px;padding-inline-end:16px}.askbar{margin-bottom:8px}.hero{padding-bottom:70px}}
+
+/* =====================================================================
+   PREMIUM PASS: calmer background, one card language, consistent rhythm
+   ===================================================================== */
+:root{--r:22px;--line:rgba(255,255,255,.08);--line2:rgba(165,174,255,.32)}
+body{font-size:17px;line-height:1.85}
+body::after{opacity:.18}
+#net{opacity:.35}
+.aurora{opacity:.35}
+.hero .ksa{display:none}
+
+/* Type */
+h1,h2,h3{letter-spacing:-.015em}
+.sec-head{margin-bottom:52px}
+.sec-head .sec-title{font-weight:900}
+.sec-lead{font-size:18px;color:#A9AED6;max-width:640px}
+.eyebrow{font-size:12px;color:#B9A4FF}
+.eyebrow b{color:#fff}
+
+/* Section rhythm with hairline dividers */
+section{padding:120px 0;position:relative}
+section+section::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(1100px,90%);height:1px;
+  background:linear-gradient(90deg,transparent,rgba(165,174,255,.25),transparent)}
+@media (max-width:640px){section{padding:84px 0}.sec-head{margin-bottom:36px}}
+
+/* One card language: glass + gradient hairline */
+.card,.member,.ch,.pol,.tier,.leg,.stat,.qi,.hv-card,.feature,.voice{
+  background:linear-gradient(180deg,rgba(28,34,88,.55),rgba(16,21,62,.55));
+  border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 24px 60px -24px rgba(2,4,24,.8);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.card:hover,.leg:hover,.ch:hover{border-color:var(--line2);transform:translateY(-4px)}
+.card.accent::before{display:none}
+.num{-webkit-text-stroke:0;color:#8F82FF;font-size:22px}
+
+/* Buttons: one height, one radius */
+.btn{height:54px;border-radius:14px;font-size:16px;letter-spacing:.005em}
+.btn-primary{background:linear-gradient(135deg,#5B68F3,#8B5CF6);box-shadow:0 14px 34px -10px rgba(108,92,246,.7)}
+.btn-ghost{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.14)}
+.btn-light{box-shadow:0 14px 34px -14px rgba(255,255,255,.35)}
+
+/* Nav: cleaner bar */
+.nav{background:rgba(8,11,36,.72);border-bottom-color:rgba(255,255,255,.06)}
+.nav-links a{font-size:14.5px}
+.circles{background:rgba(8,11,36,.6)}
+
+/* Hero */
+.hero{padding-top:80px}
+.hero .hero-copy h1{font-size:clamp(42px,5.4vw,76px);line-height:1.12}
+.hero .lead{color:#B4B9DE}
+.badge{background:rgba(139,92,246,.1);border-color:rgba(165,174,255,.3)}
+.hero-cta{margin-top:30px}
+.askbar{background:rgba(16,21,62,.6);border-color:var(--line)}
+.stats{gap:16px;margin-top:64px}
+.stat{padding:26px 18px;border-radius:20px}
+.stat b{font-weight:800}
+
+/* Ribbon: just one calm band */
+.ribbon.r2{display:none}
+.ribbon.r1{padding:16px 0;box-shadow:none;background:linear-gradient(90deg,#4F5BE8,#7C5CF0,#A76BF5)}
+.ribbons{margin-top:0}
+.trust{margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
+.trust p{color:#8E95C4}
+
+/* Busy bits removed for a cleaner page */
+.activity .feed li em{font-size:12px}
+.topbar{height:3px}
+.progress{height:2px}
+
+/* Tags and chips: quieter */
+.tag{border-color:rgba(255,255,255,.1);color:#A9AED6;background:rgba(255,255,255,.02)}
+.chip,.ptab{border-color:rgba(255,255,255,.1)}
+
+/* Footer */
+footer{background:linear-gradient(180deg,transparent,rgba(5,7,24,.8))}
