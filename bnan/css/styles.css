@@ -765,3 +765,19 @@ button.hv-chip{cursor:pointer}
 @keyframes wave{to{transform:scaleY(.45)}}
 .v-time{color:var(--mute);font-size:13px;flex-shrink:0}
 .v-note{grid-column:1/-1;color:var(--mute);font-size:14px;margin:-14px 0 0}
+
+/* Hero copy and mobile tidy-up */
+.hero .lead b{color:#D6D9FF;font-weight:700;display:inline-block;margin-top:6px}
+@media (max-width:640px){
+  .hero .hero-copy h1{font-size:40px}
+  .hero .hero-copy .lead{font-size:17px}
+  .hero-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .hero-cta .btn{width:100%;padding-inline:12px}
+  .askbar .ask-ico{display:none}
+  .askbar{padding-inline-end:16px}
+}
+/* Floating Banan button sits on the opposite side so it never covers content */
+.fab{right:auto;left:22px}
+.chat{right:auto;left:22px}
+@media (max-width:520px){.fab{left:14px}.chat{left:12px}}
+@media (max-width:640px){.askbar{padding-inline-start:16px;padding-inline-end:16px}.askbar{margin-bottom:8px}.hero{padding-bottom:70px}}
