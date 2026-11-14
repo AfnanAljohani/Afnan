@@ -320,6 +320,32 @@ window.startBnanApp = function(){
     c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
   }, {passive:true});
 
+
+  // ---------- project filters ----------
+  document.getElementById('pTabs').addEventListener('click', function(e){
+    var b = e.target.closest('.ptab'); if(!b) return;
+    [].forEach.call(this.children, function(c){ c.classList.toggle('on', c === b); });
+    document.querySelectorAll('#projects [data-cat]').forEach(function(x){ x.classList.toggle('p-hide', b.dataset.f !== 'all' && x.dataset.cat !== b.dataset.f); });
+  });
+
+  // ---------- voice note ----------
+  var audio = document.getElementById('vAudio'), vp = document.getElementById('vPlayer'), vbtn = document.getElementById('vPlay');
+  var vbars = vp.querySelectorAll('.v-wave i');
+  function vfmt(t){ t = Math.floor(t || 0); return Math.floor(t / 60) + ':' + ('0' + t % 60).slice(-2); }
+  vbtn.addEventListener('click', function(){
+    if(audio.paused){
+      audio.play().catch(function(){ document.getElementById('vNote').hidden = false; });
+    } else { audio.pause(); }
+  });
+  audio.addEventListener('play', function(){ vp.classList.add('playing'); vbtn.classList.add('on'); });
+  audio.addEventListener('pause', function(){ vp.classList.remove('playing'); vbtn.classList.remove('on'); });
+  audio.addEventListener('timeupdate', function(){
+    document.getElementById('vTime').textContent = vfmt(audio.currentTime);
+    var done = audio.duration ? audio.currentTime / audio.duration : 0;
+    vbars.forEach(function(b, i){ b.classList.toggle('p', i / vbars.length < done); });
+  });
+  audio.addEventListener('error', function(){ document.getElementById('vNote').hidden = false; }, true);
+
   // ---------- likes ----------
   document.querySelectorAll('.like').forEach(function(b, i){
     var k = 'bnan-like-' + i, on = false;

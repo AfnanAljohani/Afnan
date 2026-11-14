@@ -35,7 +35,7 @@ window.BnanAPI = (function(){
   function fromRows(projects, decks, graphics){
     return {
       projects: projects.map(function(r){
-        return {slug:r.slug, status:r.status, progress:r.progress, icon:r.icon, year:r.year_label, tags:r.tags,
+        return {slug:r.slug, category:r.category, status:r.status, progress:r.progress, icon:r.icon, year:r.year_label, tags:r.tags,
                 title:{ar:r.title_ar, en:r.title_en}, summary:{ar:r.summary_ar, en:r.summary_en}};
       }),
       decks: decks.map(function(r){
@@ -52,7 +52,7 @@ window.BnanAPI = (function(){
     var local = window.BNAN_CONTENT;
     if(!online) return Promise.resolve(local);
     return Promise.all([
-      list('projects', 'slug,status,progress,icon,year_label,tags,title_ar,title_en,summary_ar,summary_en'),
+      list('projects', 'slug,category,status,progress,icon,year_label,tags,title_ar,title_en,summary_ar,summary_en'),
       list('decks', 'slug,title_ar,title_en,summary_ar,summary_en,tag_ar,tag_en,pages,cover_index,cover_position'),
       list('graphics', 'slug,category,image_path,caption_ar,caption_en')
     ]).then(function(r){

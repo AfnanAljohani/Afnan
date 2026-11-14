@@ -725,3 +725,43 @@ button.hv-chip{cursor:pointer}
 .intro-logo{width:min(560px,80vw);color:#F5F6FC;opacity:0;transform:scale(.85);filter:blur(8px);animation:logoIn .9s 1.2s ease-out forwards}
 @keyframes logoIn{to{opacity:1;transform:none;filter:none}}
 @media (prefers-reduced-motion:reduce){.intro{display:none}}
+
+/* Oval shortcuts */
+.ci{flex-direction:row;gap:9px;padding:9px 18px 9px 14px;border-radius:999px;border:1px solid rgba(165,174,255,.28);background:rgba(255,255,255,.04);transition:.2s}
+.ci:hover{border-color:transparent;background:linear-gradient(135deg,#5A67F2,#8B5CF6);transform:translateY(-2px)}
+.ci-i{width:auto;height:auto;border:0;background:none;color:#C9CEFF}
+.ci:hover .ci-i{color:#fff}
+.ci-i svg{width:18px;height:18px}
+.ci-t{font-size:14px;color:var(--ink)}
+.ci-row{gap:10px}
+@media (max-width:640px){.ci{padding:8px 14px 8px 12px}.ci-t{font-size:13px}}
+
+/* Section headers: "01 // Label" */
+.eyebrow{letter-spacing:.18em}
+.eyebrow b{font-weight:600;color:var(--ink);letter-spacing:.05em}
+.eyebrow::before{display:none}
+.sec-head .sec-title{font-size:clamp(34px,5.2vw,58px);line-height:1.15}
+
+/* Project filters */
+.ptabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.ptab{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--mute);font:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
+.ptab:hover{color:var(--ink);border-color:var(--line2)}
+.ptab.on{color:#fff;border-color:transparent;background:linear-gradient(135deg,#5A67F2,#8B5CF6)}
+.p-hide{display:none!important}
+
+/* Voice note */
+.voice{display:grid;grid-template-columns:1fr 1.1fr;gap:34px;align-items:center;padding:34px;border-radius:28px;border:1px solid var(--line2);background:radial-gradient(circle at 85% 20%,rgba(139,92,246,.22),transparent 55%),linear-gradient(160deg,rgba(26,32,84,.85),rgba(14,18,54,.9))}
+@media (max-width:860px){.voice{grid-template-columns:1fr;padding:22px}}
+.v-player{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:999px;background:rgba(8,11,36,.7);border:1px solid var(--line)}
+.v-ava{width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(165,174,255,.5)}
+.v-play{width:52px;height:52px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#5A67F2,#8B5CF6);box-shadow:0 10px 24px rgba(108,92,246,.4);cursor:pointer;border:0}
+.v-play svg{width:22px;height:22px}
+.v-play.on{animation:pulse 1.6s infinite}
+.v-wave{flex:1;display:flex;align-items:center;gap:3px;height:40px;direction:ltr}
+.v-wave i{flex:1;border-radius:3px;background:rgba(165,174,255,.35);transition:background .2s}
+.v-wave i.p{background:linear-gradient(180deg,#A5AEFF,#8B5CF6)}
+.v-player.playing .v-wave i{animation:wave 1s ease-in-out infinite alternate}
+.v-player.playing .v-wave i:nth-child(odd){animation-delay:.3s}
+@keyframes wave{to{transform:scaleY(.45)}}
+.v-time{color:var(--mute);font-size:13px;flex-shrink:0}
+.v-note{grid-column:1/-1;color:var(--mute);font-size:14px;margin:-14px 0 0}

@@ -25,7 +25,7 @@ window.BnanRender = (function(){
 
   function project(p){
     var st = STATUS[p.status] || STATUS.in_progress;
-    return '<article class="card proj rv">' +
+    return '<article class="card proj rv" data-cat="' + esc(p.category || 'ai') + '">' +
       '<div class="ph"><span class="pi">' + (ICONS[p.icon] || ICONS.web) + '</span><span class="pstat ' + st.cls + '" data-en="' + esc(st.en) + '">' + esc(st.ar) + '</span></div>' +
       '<h3 data-en="' + esc(p.title.en) + '">' + esc(p.title.ar) + '</h3>' +
       '<p data-en="' + esc(p.summary.en) + '">' + esc(p.summary.ar) + '</p>' +

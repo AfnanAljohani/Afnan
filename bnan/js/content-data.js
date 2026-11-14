@@ -20,7 +20,8 @@ window.BNAN_CONTENT = {
         "ar": "موقع بنان ومساعدتها الذكية «بنان»: خدمات، معرض أعمال، وتواصل مباشر.",
         "en": "The Bnan website and its assistant Banan: services, works gallery and direct contact."
       },
-      "sort": 10
+      "sort": 10,
+      "category": "ai"
     },
     {
       "slug": "ask-banan-with-generative-ai",
@@ -41,7 +42,8 @@ window.BNAN_CONTENT = {
         "ar": "ترقية «بنان» لتجاوب من محتوى بنان باستخدام نموذج لغوي واسترجاع المعرفة (RAG).",
         "en": "Upgrading Banan to answer from Bnan's content using an LLM with retrieval (RAG)."
       },
-      "sort": 20
+      "sort": 20,
+      "category": "ai"
     },
     {
       "slug": "ai-presentation-coach",
@@ -62,7 +64,8 @@ window.BNAN_CONTENT = {
         "ar": "يحلّل العرض المسجّل: سرعة الكلام، الكلمات الحشو، والتواصل البصري، ويعطيك نصائح.",
         "en": "Analyzes a recorded talk: pace, filler words and eye contact, and gives you tips."
       },
-      "sort": 30
+      "sort": 30,
+      "category": "ai"
     },
     {
       "slug": "medical-image-classifier",
@@ -83,7 +86,8 @@ window.BNAN_CONTENT = {
         "ar": "مسار تعلّم عميق على أكثر من 24,000 صورة طبية، يقارن EfficientNet وDenseNet وViT، مع عرض مباشر.",
         "en": "A deep learning pipeline on 24,000+ medical images comparing EfficientNet, DenseNet and ViT, with a live demo."
       },
-      "sort": 40
+      "sort": 40,
+      "category": "ai"
     },
     {
       "slug": "telecom-user-behavior-prediction",
@@ -104,7 +108,8 @@ window.BNAN_CONTENT = {
         "ar": "نموذج تصنيف لتقسيم سلوك مستخدمي STC مع سرد قصصي للبيانات، ضمن تجربة العمل الافتراضية من مسك.",
         "en": "A classification model segmenting STC user behavior, with data storytelling, in the Misk virtual work experience."
       },
-      "sort": 50
+      "sort": 50,
+      "category": "data"
     }
   ],
   "decks": [
