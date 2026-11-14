@@ -162,7 +162,7 @@ window.startBnanApp = function(){
     if(!greeted){ greeted = true; reply('hi'); }
     setTimeout(function(){ document.getElementById('chatI').focus({preventScroll:true}); }, 250);
   }
-  function closeChat(){ chat.classList.remove('open'); fab.setAttribute('aria-expanded', false); }
+  function closeChat(){ if(!chat.classList.contains('open')) return; chat.classList.remove('open'); fab.setAttribute('aria-expanded', false); fab.focus({preventScroll:true}); }
   fab.addEventListener('click', function(){ chat.classList.contains('open') ? closeChat() : openChat(); });
   document.querySelectorAll('[data-open-chat]').forEach(function(b){ b.addEventListener('click', openChat); });
   document.getElementById('chatX').addEventListener('click', closeChat);
@@ -344,6 +344,28 @@ window.startBnanApp = function(){
     vbars.forEach(function(b, i){ b.classList.toggle('p', i / vbars.length < done); });
   });
   audio.addEventListener('error', function(){ document.getElementById('vNote').hidden = false; }, true);
+
+
+  // ---------- YouTube: poster first, player only after a click ----------
+  var yt = document.getElementById('yt');
+  if(yt){
+    yt.querySelector('.yt-poster').addEventListener('click', function(){
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + yt.dataset.id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.title = lang === 'ar' ? 'فيديو بنان' : 'Bnan video';
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      yt.innerHTML = ''; yt.appendChild(f); f.focus();
+    });
+  }
+
+  // The chat subtitle says what is actually answering.
+  if(BnanAPI.isOnline()){
+    var sub = document.getElementById('chatSub');
+    sub.dataset.ar = 'مساعدة ذكية مدعومة بالذكاء الاصطناعي'; sub.dataset.en = 'AI-powered assistant';
+    sub.textContent = lang === 'ar' ? sub.dataset.ar : sub.dataset.en;
+  }
 
   // ---------- likes ----------
   document.querySelectorAll('.like').forEach(function(b, i){

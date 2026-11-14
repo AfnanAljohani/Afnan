@@ -856,3 +856,129 @@ section+section::before{content:"";position:absolute;top:0;left:50%;transform:tr
 
 /* Footer */
 footer{background:linear-gradient(180deg,transparent,rgba(5,7,24,.8))}
+
+/* =====================================================================
+   BNAN DESIGN SYSTEM · final layer
+   Tokens are the brand's existing values, gathered in one place.
+   ===================================================================== */
+:root{
+  --c-bg:#080B24; --c-bg-2:#0D1236; --c-surface:rgba(23,29,80,.55); --c-surface-2:rgba(14,18,54,.7);
+  --c-ink:#F5F6FC; --c-ink-2:#B4B9DE; --c-ink-3:#7E85B5;
+  --c-indigo:#6C7BFF; --c-violet:#8B5CF6; --c-lilac:#C77DFF; --c-cyan:#3CC8F0; --c-pink:#F0567A;
+  --g-brand:linear-gradient(135deg,#5B68F3,#8B5CF6);
+  --g-text:linear-gradient(90deg,#3CC8F0,#6C7BFF 40%,#C77DFF 70%,#F0567A);
+  --hair:rgba(255,255,255,.08); --hair-2:rgba(165,174,255,.3);
+  --radius:20px; --radius-sm:12px;
+  --nav-h:64px;
+  --space-section:clamp(72px,10vw,128px);
+  --shadow:0 24px 60px -28px rgba(2,4,24,.85);
+}
+html{scroll-padding-top:calc(var(--nav-h) + 16px)}
+[id]{scroll-margin-top:calc(var(--nav-h) + 16px)}
+body{background:var(--c-bg);color:var(--c-ink)}
+section{padding:var(--space-section) 0}
+::selection{background:rgba(139,92,246,.45);color:#fff}
+:focus-visible{outline:2px solid var(--c-lilac);outline-offset:3px}
+
+/* ---------- Header: compact, one navigation ---------- */
+.nav .wrap{height:var(--nav-h)}
+.brand svg{height:26px}
+.nav-tools .icon-btn{height:38px;border-radius:10px}
+.nav-tools .btn-sm{height:38px;border-radius:10px;padding-inline:16px}
+@media (max-width:1060px){
+  .nav-links{inset:calc(var(--nav-h) + 8px) 12px auto 12px;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:12px;border-radius:18px;
+    background:rgba(13,18,54,.97);border:1px solid var(--hair-2);box-shadow:0 30px 70px rgba(0,0,0,.6);
+    opacity:0;transform:translateY(-8px);pointer-events:none;transition:.2s}
+  .nav-links.open{display:grid;opacity:1;transform:none;pointer-events:auto}
+  .nav-links>a,.more-menu a{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--hair);font-size:15px;color:var(--c-ink)}
+  .nav-links a.active{box-shadow:none;border-color:var(--hair-2);background:rgba(139,92,246,.14)}
+  .more{display:contents}
+  .more-menu{display:contents}
+}
+@media (min-width:1061px){.nav-links{display:flex}}
+#langBtn{font-size:12px;letter-spacing:.06em}
+
+/* ---------- Buttons ---------- */
+.btn{height:50px;border-radius:var(--radius-sm);font-weight:700;gap:8px}
+.btn-lg{height:56px;padding-inline:28px;font-size:16.5px}
+.btn-primary{background:var(--g-brand);color:#fff;border:0}
+.btn-primary:hover{box-shadow:0 18px 40px -12px rgba(139,92,246,.75)}
+.btn-ghost{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.02);color:var(--c-ink)}
+.btn-ghost:hover{border-color:var(--hair-2);background:rgba(139,92,246,.08)}
+.btn:focus-visible{outline-offset:4px}
+
+/* ---------- Hero ---------- */
+.hero{padding:clamp(40px,7vw,96px) 0 40px}
+.hero-grid{min-height:0;gap:clamp(24px,5vw,64px)}
+.hero .hero-copy h1{font-size:clamp(38px,5.6vw,74px);line-height:1.12;margin-top:20px}
+.hero .hero-copy h1 .tri{display:block;padding-top:.08em}
+.hero .lead{font-size:clamp(16.5px,1.6vw,19px);color:var(--c-ink-2);max-width:560px;line-height:1.9}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.hero-links{display:flex;gap:22px;margin-top:18px;font-size:15px;font-weight:700}
+.hero-links a{color:var(--c-ink-2);border-bottom:1px solid transparent;padding-bottom:2px;transition:.2s}
+.hero-links a:hover{color:var(--c-ink);border-color:var(--c-lilac)}
+.hv-orb{opacity:.75}
+.hv-chip.c2{display:none}
+.stats{margin-top:56px}
+@media (max-width:640px){
+  .hero-cta{display:grid;grid-template-columns:1fr 1fr}
+  .hero-cta .btn{width:100%;padding-inline:10px}
+  .hero-visual{display:none}
+  .stats{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:40px}
+  .stat{padding:16px 10px}
+  .stat b{font-size:26px}
+  .stat span{font-size:12.5px}
+}
+@media (min-width:641px) and (max-width:980px){.hero-visual{display:none}}
+
+/* ---------- Section headings ---------- */
+.sec-head .sec-title{font-size:clamp(30px,4.6vw,52px);line-height:1.18;margin-top:10px}
+.sec-lead{font-size:clamp(16px,1.5vw,18px);color:var(--c-ink-2);line-height:1.9;margin-top:14px}
+.eyebrow{font-size:12px;letter-spacing:.2em;color:var(--c-lilac)}
+
+/* ---------- Video ---------- */
+.sec-video{padding-top:clamp(48px,6vw,80px)}
+.yt{position:relative;aspect-ratio:16/9;max-width:980px;margin-inline:auto;border-radius:24px;overflow:hidden;
+  background:#05071A;border:1px solid var(--hair-2);box-shadow:var(--shadow),0 0 0 6px rgba(139,92,246,.06)}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-poster{position:absolute;inset:0;width:100%;padding:0;border:0;cursor:pointer;background:none}
+.yt-poster img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) brightness(.75);transition:transform .6s,filter .3s}
+.yt-poster:hover img{transform:scale(1.03);filter:saturate(1) brightness(.85)}
+.yt-play{position:absolute;inset:0;margin:auto;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  background:var(--g-brand);box-shadow:0 18px 40px rgba(108,92,246,.55),0 0 0 10px rgba(255,255,255,.08);transition:transform .2s}
+.yt-play svg{width:34px;height:34px;margin-inline-start:4px}
+.yt-poster:hover .yt-play,.yt-poster:focus-visible .yt-play{transform:scale(1.08)}
+[dir=rtl] .yt-play svg{margin-inline-start:0;margin-inline-end:-4px}
+.yt-alt{text-align:center;margin-top:16px;font-size:14.5px}
+.yt-alt a{color:var(--c-ink-2);font-weight:700}
+.yt-alt a:hover{color:var(--c-ink)}
+
+/* ---------- Services: open grid with hairlines (not floating cards) ---------- */
+#services .grid.g3{gap:0;border:1px solid var(--hair);border-radius:var(--radius);overflow:hidden}
+#services .card.svc{border:0;border-radius:0;box-shadow:none;background:transparent;padding:32px;
+  border-inline-end:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+#services .card.svc:hover{background:rgba(139,92,246,.06);transform:none}
+#services .svc .ic,#services .svc.o .ic{border:0;background:rgba(139,92,246,.14)}
+#services .svc .ic svg,#services .svc.o .ic svg{stroke:#C9B8FF}
+
+/* ---------- Unified icons ---------- */
+svg.i{width:22px;height:22px;flex-shrink:0}
+.ach .m{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(139,92,246,.14);color:#C9B8FF}
+.pol b{gap:10px}.pol b svg.i{color:#C9B8FF}
+.trophy .cup{color:#E9D3FF;background:rgba(139,92,246,.16);border-color:var(--hair-2)}
+.trophy .cup svg.i{width:44px;height:44px}
+
+/* ---------- Floating chat: one button, clear of content and iPhone bars ---------- */
+.fab{width:58px;height:58px;left:max(16px,env(safe-area-inset-left));right:auto;bottom:calc(18px + env(safe-area-inset-bottom))}
+.fab .dot{display:none}
+.chat{left:max(12px,env(safe-area-inset-left));right:auto;bottom:calc(86px + env(safe-area-inset-bottom));max-height:calc(100dvh - var(--nav-h) - 110px)}
+.chat-h small{color:var(--c-ink-3)}
+.chat-h small::before{display:none}
+.chat-f input{font-size:16px} /* 16px stops iOS Safari from zooming the page */
+footer{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+
+/* ---------- Quieter decoration ---------- */
+.ribbon.r1 .rtrack span{font-size:18px}
+.hv-orb::after{animation-duration:60s}
+@media (max-width:640px){#net,.aurora{display:none}}
+.hv-chip i,.live::before{background:var(--c-lilac);box-shadow:0 0 0 4px rgba(199,125,255,.18);animation:none}
