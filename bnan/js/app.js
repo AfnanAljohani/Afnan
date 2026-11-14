@@ -165,6 +165,7 @@ window.startBnanApp = function(){
   function closeChat(){ chat.classList.remove('open'); fab.setAttribute('aria-expanded', false); }
   fab.addEventListener('click', function(){ chat.classList.contains('open') ? closeChat() : openChat(); });
   document.getElementById('openChat').addEventListener('click', openChat);
+  document.querySelectorAll('[data-open-chat]').forEach(function(b){ b.addEventListener('click', openChat); });
   document.getElementById('chatX').addEventListener('click', closeChat);
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeChat(); });
   document.getElementById('chatQ').addEventListener('click', function(e){
