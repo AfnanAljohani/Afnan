@@ -621,3 +621,6 @@ button:disabled{opacity:.6;cursor:wait}
   .feature{padding:16px;gap:22px}
   .f-pts li{grid-template-columns:80px 1fr}
 }
+
+/* Single-color logo: the symbols draw in currentColor */
+.brand svg,.hero-logo,.foot svg,.logo-stage svg{color:#F5F6FC}
