@@ -161,6 +161,36 @@ window.BNAN_CONTENT = {
   ],
   "graphics": [
     {
+      "slug": "logo-stacked",
+      "category": "logo",
+      "image": "graphics/logo-stacked.webp",
+      "caption": {
+        "ar": "شعار بنان الجديد",
+        "en": "New Bnan logo"
+      },
+      "sort": 10
+    },
+    {
+      "slug": "logo-icon",
+      "category": "logo",
+      "image": "graphics/logo-icon.webp",
+      "caption": {
+        "ar": "أيقونة بنان: حرف الباء ونقطة البنان",
+        "en": "Bnan icon: the letter ب and its dot"
+      },
+      "sort": 20
+    },
+    {
+      "slug": "logo-arabic",
+      "category": "logo",
+      "image": "graphics/logo-arabic.webp",
+      "caption": {
+        "ar": "شعار بنان بالعربي",
+        "en": "Bnan Arabic logo"
+      },
+      "sort": 30
+    },
+    {
       "slug": "poster-1-hello",
       "category": "post",
       "image": "graphics/poster-1-hello.webp",
@@ -168,7 +198,7 @@ window.BNAN_CONTENT = {
         "ar": "بوست «لا نتعلّم الذكاء الاصطناعي… نصنع أثره»",
         "en": "“We don't just learn AI” post"
       },
-      "sort": 10
+      "sort": 40
     },
     {
       "slug": "poster-2-services",
@@ -178,7 +208,7 @@ window.BNAN_CONTENT = {
         "ar": "بوست «وش نقدر نسوي لك؟»",
         "en": "“What can we do for you?” post"
       },
-      "sort": 20
+      "sort": 50
     },
     {
       "slug": "poster-3-smart-screen",
@@ -188,7 +218,7 @@ window.BNAN_CONTENT = {
         "ar": "بوست الشاشة التدريبية الذكية",
         "en": "Smart Training Screen post"
       },
-      "sort": 30
+      "sort": 60
     },
     {
       "slug": "poster-4-name",
@@ -198,7 +228,7 @@ window.BNAN_CONTENT = {
         "ar": "بوست «ليش بنان؟»",
         "en": "“Why Bnan?” post"
       },
-      "sort": 40
+      "sort": 70
     },
     {
       "slug": "poster-5-story",
@@ -208,7 +238,7 @@ window.BNAN_CONTENT = {
         "ar": "بوست «من سؤال بسيط… إلى شركة»",
         "en": "“From a question to a startup” post"
       },
-      "sort": 50
+      "sort": 80
     },
     {
       "slug": "poster-6-contact",
@@ -218,7 +248,7 @@ window.BNAN_CONTENT = {
         "ar": "بوست «عندك تحدٍّ؟»",
         "en": "“Got a challenge?” post"
       },
-      "sort": 60
+      "sort": 90
     },
     {
       "slug": "linkedin-cover",
@@ -228,37 +258,37 @@ window.BNAN_CONTENT = {
         "ar": "غلاف صفحة بنان في لينكدإن",
         "en": "Bnan LinkedIn cover"
       },
-      "sort": 70
+      "sort": 100
     },
     {
       "slug": "logo-wide",
       "category": "logo",
       "image": "graphics/logo-wide.webp",
       "caption": {
-        "ar": "شعار بنان · النسخة العريضة",
-        "en": "Bnan logo · wide"
+        "ar": "شعار بنان · النسخة العريضة (الهوية الأولى)",
+        "en": "Bnan logo · wide (first identity)"
       },
-      "sort": 80
+      "sort": 110
     },
     {
       "slug": "logo-square",
       "category": "logo",
       "image": "graphics/logo-square.webp",
       "caption": {
-        "ar": "شعار بنان · النسخة المربعة",
-        "en": "Bnan logo · square"
+        "ar": "شعار بنان · النسخة المربعة (الهوية الأولى)",
+        "en": "Bnan logo · square (first identity)"
       },
-      "sort": 90
+      "sort": 120
     },
     {
       "slug": "logo-story",
       "category": "logo",
       "image": "graphics/logo-story.webp",
       "caption": {
-        "ar": "قصة الاسم والشعار",
-        "en": "Name & logo story"
+        "ar": "قصة الاسم والشعار (الهوية الأولى)",
+        "en": "Name & logo story (first identity)"
       },
-      "sort": 100
+      "sort": 130
     },
     {
       "slug": "header-x",
@@ -268,7 +298,7 @@ window.BNAN_CONTENT = {
         "ar": "هيدر X",
         "en": "X header"
       },
-      "sort": 110
+      "sort": 140
     },
     {
       "slug": "header-linkedin",
@@ -278,7 +308,7 @@ window.BNAN_CONTENT = {
         "ar": "هيدر لينكدإن",
         "en": "LinkedIn header"
       },
-      "sort": 120
+      "sort": 150
     },
     {
       "slug": "header-email",
@@ -288,7 +318,7 @@ window.BNAN_CONTENT = {
         "ar": "هيدر البريد",
         "en": "Email header"
       },
-      "sort": 130
+      "sort": 160
     },
     {
       "slug": "banner-linkedin",
@@ -298,7 +328,7 @@ window.BNAN_CONTENT = {
         "ar": "بانر لينكدإن",
         "en": "LinkedIn banner"
       },
-      "sort": 140
+      "sort": 170
     },
     {
       "slug": "post-join",
@@ -308,7 +338,7 @@ window.BNAN_CONTENT = {
         "ar": "بوست «المستقبل ما ينتظر»",
         "en": "“The future doesn't wait” post"
       },
-      "sort": 150
+      "sort": 180
     },
     {
       "slug": "post-coming",
@@ -318,7 +348,7 @@ window.BNAN_CONTENT = {
         "ar": "تيزر «شي جاي…»",
         "en": "“Something's coming” teaser"
       },
-      "sort": 160
+      "sort": 190
     },
     {
       "slug": "post-system",
@@ -328,7 +358,7 @@ window.BNAN_CONTENT = {
         "ar": "تيزر «النظام يشتغل…»",
         "en": "“System booting” teaser"
       },
-      "sort": 170
+      "sort": 200
     },
     {
       "slug": "post-launch",
@@ -338,7 +368,7 @@ window.BNAN_CONTENT = {
         "ar": "بوست «التدشين قريب»",
         "en": "“Launch soon” post"
       },
-      "sort": 180
+      "sort": 210
     },
     {
       "slug": "icon-bnan",
@@ -348,7 +378,7 @@ window.BNAN_CONTENT = {
         "ar": "أيقونة بنان",
         "en": "Bnan icon"
       },
-      "sort": 190
+      "sort": 220
     },
     {
       "slug": "icon-announce",
@@ -358,7 +388,7 @@ window.BNAN_CONTENT = {
         "ar": "أيقونة الإعلانات",
         "en": "Announcements icon"
       },
-      "sort": 200
+      "sort": 230
     },
     {
       "slug": "icon-training",
@@ -368,7 +398,7 @@ window.BNAN_CONTENT = {
         "ar": "أيقونة التدريب والتطوير",
         "en": "Training icon"
       },
-      "sort": 210
+      "sort": 240
     },
     {
       "slug": "icon-events",
@@ -378,7 +408,7 @@ window.BNAN_CONTENT = {
         "ar": "أيقونة الفعاليات والتصميم",
         "en": "Events & design icon"
       },
-      "sort": 220
+      "sort": 250
     },
     {
       "slug": "icon-speaker",
@@ -388,7 +418,7 @@ window.BNAN_CONTENT = {
         "ar": "أيقونة الخطابة والإلقاء",
         "en": "Public speaking icon"
       },
-      "sort": 230
+      "sort": 260
     },
     {
       "slug": "icon-pr",
@@ -398,7 +428,7 @@ window.BNAN_CONTENT = {
         "ar": "أيقونة العلاقات العامة",
         "en": "Public relations icon"
       },
-      "sort": 240
+      "sort": 270
     },
     {
       "slug": "icon-important",
@@ -408,7 +438,7 @@ window.BNAN_CONTENT = {
         "ar": "أيقونة «المهم»",
         "en": "“Important” icon"
       },
-      "sort": 250
+      "sort": 280
     },
     {
       "slug": "icon-leaders",
@@ -418,7 +448,7 @@ window.BNAN_CONTENT = {
         "ar": "أيقونة القادة",
         "en": "Leaders icon"
       },
-      "sort": 260
+      "sort": 290
     }
   ]
 };

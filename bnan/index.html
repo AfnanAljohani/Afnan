@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0A0F2E">
 <meta property="og:title" content="Bnan AI · بنان للذكاء الاصطناعي">
 <meta property="og:description" content="We don't just learn AI, we make it matter. Learn · Build · Impact.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0F2E'/%3E%3Cpath d='M18 20h28l6 6v14l-6 6H18l-6-6V26z' fill='none' stroke='%23fff' stroke-width='3.5'/%3E%3Ccircle cx='25' cy='33' r='4' fill='%236C7BFF'/%3E%3Ccircle cx='39' cy='33' r='4' fill='%236C7BFF'/%3E%3Cpath d='M32 20V9' stroke='%23fff' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='8' r='4' fill='%23F0567A'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' rx='56' fill='%230A0F2E'/%3E%3Cpath d='M44 82C38 146 74 162 126 162H164C198 162 214 148 214 116' fill='none' stroke='%237C8BFF' stroke-width='28' stroke-linecap='round'/%3E%3Ccircle cx='128' cy='206' r='19' fill='%23F0567A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
@@ -27,103 +27,83 @@
     </filter>
     <filter id="soft" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
 
-    <radialGradient id="bSkin" cx="42%" cy="35%" r="75%"><stop offset="0" stop-color="#F6E2FF"/><stop offset=".45" stop-color="#C98BF2"/><stop offset="1" stop-color="#6A45D6"/></radialGradient>
-    <linearGradient id="bHood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A2470"/><stop offset="1" stop-color="#121044"/></linearGradient>
-    <linearGradient id="bBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C5CF0"/><stop offset="1" stop-color="#2B2380"/></linearGradient>
-    <radialGradient id="bHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9B6CF6" stop-opacity=".55"/><stop offset="1" stop-color="#9B6CF6" stop-opacity="0"/></radialGradient>
-    <filter id="bGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="rgHijab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8E3FB8"/><stop offset=".55" stop-color="#6A2390"/><stop offset="1" stop-color="#3F1060"/></linearGradient>
+    <linearGradient id="rgHijabIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A1468"/><stop offset="1" stop-color="#2C0A42"/></linearGradient>
+    <radialGradient id="rgSkin" cx="45%" cy="38%" r="70%"><stop offset="0" stop-color="#F7D6C2"/><stop offset=".6" stop-color="#E9B79B"/><stop offset="1" stop-color="#C98E73"/></radialGradient>
+    <linearGradient id="rgBlazer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B4C9B"/><stop offset="1" stop-color="#16285E"/></linearGradient>
+    <linearGradient id="rgMetal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4B5563"/><stop offset=".5" stop-color="#C7CED9"/><stop offset="1" stop-color="#4B5563"/></linearGradient>
+    <radialGradient id="rgHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9B6CF6" stop-opacity=".5"/><stop offset="1" stop-color="#9B6CF6" stop-opacity="0"/></radialGradient>
+    <radialGradient id="rgIris" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#E9C27A"/><stop offset=".6" stop-color="#8A6234"/><stop offset="1" stop-color="#3B2A18"/></radialGradient>
+    <filter id="rgGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <symbol id="bananBot" viewBox="0 0 300 360">
-      <circle cx="150" cy="170" r="150" fill="url(#bHalo)"/>
-      <!-- shoulders -->
-      <path d="M28 360C34 312 70 292 112 284H188C230 292 266 312 272 360Z" fill="url(#bBody)"/>
-      <path d="M112 284C120 306 134 318 150 318S180 306 188 284" fill="none" stroke="#A5AEFF" stroke-opacity=".5" stroke-width="2"/>
-      <path d="M60 318L96 304M240 318L204 304M74 346L104 330M226 346L196 330" stroke="#A5AEFF" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
-      <circle class="b-core" cx="150" cy="338" r="9" fill="#F0567A" filter="url(#bGlow)"/>
-      <!-- neck -->
-      <rect x="130" y="232" width="40" height="58" rx="8" fill="#3B2F9E"/>
-      <path d="M131 248H169M131 262H169M131 276H169" stroke="#7C6BFF" stroke-width="3"/>
-      <!-- hood / hair -->
-      <path d="M66 176C58 96 100 46 150 46S242 96 234 176C238 214 226 252 206 270L196 196C196 128 176 100 150 100S104 128 104 196L94 270C74 252 62 214 66 176Z" fill="url(#bHood)"/>
-      <path d="M86 120C96 92 118 72 150 66M214 120C204 92 182 72 150 66" fill="none" stroke="#6C7BFF" stroke-opacity=".55" stroke-width="2"/>
-      <path d="M78 170H92L98 180M222 170H208L202 180M84 210H96M216 210H204" stroke="#3CC8F0" stroke-opacity=".6" stroke-width="2" fill="none"/>
-      <!-- face -->
-      <path d="M150 86C190 86 212 118 212 160C212 210 184 246 150 246S88 210 88 160C88 118 110 86 150 86Z" fill="url(#bSkin)"/>
-      <!-- circuit half -->
-      <g stroke="#FFFFFF" stroke-opacity=".55" stroke-width="1.4" fill="none">
-        <path d="M150 92V128H170L178 136V150"/><path d="M150 230V206H166L176 196"/><path d="M196 120L186 130V146"/><path d="M204 186H190L184 192"/>
+      <circle cx="150" cy="175" r="150" fill="url(#rgHalo)"/>
+      <!-- blazer with circuit traces -->
+      <path d="M18 360C22 318 52 292 98 282L150 300L202 282C248 292 278 318 282 360Z" fill="url(#rgBlazer)"/>
+      <path d="M118 288L150 360L182 288L150 300Z" fill="#4C1D95"/>
+      <g stroke="#B28CFF" stroke-opacity=".7" stroke-width="1.6" fill="none"><path d="M140 318H160M136 332H150V346M164 326V342"/></g>
+      <path d="M98 282L132 360H112L80 296ZM202 282L168 360H188L220 296Z" fill="#203E86"/>
+      <g stroke="#38D5F5" stroke-opacity=".75" stroke-width="1.8" fill="none" stroke-linecap="round">
+        <path d="M44 330H66L76 320M52 346H84M232 334H256M226 346H210L200 336M90 308V326H100M212 306V322H204"/>
       </g>
-      <g fill="#FFFFFF" fill-opacity=".85"><circle cx="178" cy="150" r="2.2"/><circle cx="176" cy="196" r="2.2"/><circle cx="186" cy="146" r="2.2"/><circle cx="184" cy="192" r="2.2"/></g>
-      <path d="M150 88V244" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="1"/>
+      <g fill="#38D5F5"><circle cx="76" cy="320" r="2.6"/><circle cx="84" cy="346" r="2.6"/><circle cx="200" cy="336" r="2.6"/><circle cx="100" cy="326" r="2.6"/><circle cx="204" cy="322" r="2.6"/></g>
+      <circle class="b-core" cx="150" cy="332" r="0" fill="none"/>
+      <!-- hijab drape behind -->
+      <path d="M70 168C66 92 104 46 150 46S234 92 230 168C232 220 238 262 250 296C214 286 190 280 174 270L150 262L126 270C110 280 86 286 50 296C62 262 68 220 70 168Z" fill="url(#rgHijab)"/>
+      <!-- metallic neck -->
+      <path d="M128 214H172L176 272H124Z" fill="url(#rgMetal)"/>
+      <g stroke="#2D3748" stroke-width="2"><path d="M127 228H173M126 242H174M125 256H175"/></g>
+      <path d="M150 216V270" stroke="#38D5F5" stroke-width="1.6" stroke-opacity=".8"/>
+      <!-- hijab inner opening -->
+      <path d="M150 64C110 64 92 100 92 146C92 196 116 236 150 240C184 236 208 196 208 146C208 100 190 64 150 64Z" fill="url(#rgHijabIn)"/>
+      <!-- hair at the forehead -->
+      <path d="M100 132C98 96 120 74 150 74S202 96 200 132C190 112 172 100 154 98C148 112 128 124 100 132Z" fill="#17131A"/>
+      <!-- face -->
+      <path d="M150 94C120 94 104 118 104 148C104 186 126 219 150 221C174 219 196 186 196 148C196 118 180 94 150 94Z" fill="url(#rgSkin)"/>
+      <path d="M112 176C118 200 132 214 150 216C168 214 182 200 188 176C184 206 168 221 150 221C132 221 116 206 112 176Z" fill="#C98E73" opacity=".35"/>
+      <path d="M100 132C104 104 124 86 150 86S196 104 200 132C188 114 172 104 154 102C146 116 126 126 100 132Z" fill="#1C1620"/>
       <!-- brows -->
-      <path d="M110 140Q123 132 136 138M164 138Q177 132 190 140" stroke="#3B2275" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M114 138Q128 128 144 134M156 134Q172 128 186 138" stroke="#241816" stroke-width="3.6" stroke-linecap="round" fill="none"/>
       <!-- eyes -->
       <g class="b-eyes">
-        <path d="M108 158Q122 147 136 158Q122 167 108 158Z" fill="#1A1242"/>
-        <path d="M164 158Q178 147 192 158Q178 167 164 158Z" fill="#1A1242"/>
-        <circle cx="122" cy="157.5" r="4.6" fill="#3CC8F0" filter="url(#bGlow)"/>
-        <circle cx="178" cy="157.5" r="4.6" fill="#F5C76A" filter="url(#bGlow)"/>
-        <circle cx="123.5" cy="156" r="1.3" fill="#fff"/><circle cx="179.5" cy="156" r="1.3" fill="#fff"/>
+        <path d="M114 153Q129 141 145 152Q129 161 114 153Z" fill="#FBF7F4"/>
+        <path d="M155 152Q171 141 186 153Q171 161 155 152Z" fill="#FBF7F4"/>
+        <circle cx="129.5" cy="151.8" r="6" fill="url(#rgIris)"/><circle cx="170.5" cy="151.8" r="6" fill="url(#rgIris)"/>
+        <circle cx="129.5" cy="151.8" r="2.5" fill="#15100C"/><circle cx="170.5" cy="151.8" r="2.5" fill="#15100C"/>
+        <circle cx="131.4" cy="149.8" r="1.4" fill="#fff"/><circle cx="172.4" cy="149.8" r="1.4" fill="#fff"/>
+        <path d="M111 152Q129 138 147 151M153 151Q171 138 189 152" stroke="#141010" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <path d="M116 155Q129 161 143 154M157 154Q171 161 184 155" stroke="#8B5E4E" stroke-width="1" fill="none" opacity=".7"/>
       </g>
-      <!-- nose / cheeks / mouth -->
-      <path d="M150 168V186Q147 190 144 189" stroke="#8A55C8" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <ellipse cx="114" cy="190" rx="10" ry="5" fill="#F0567A" opacity=".25"/><ellipse cx="186" cy="190" rx="10" ry="5" fill="#F0567A" opacity=".25"/>
-      <path class="b-mouth" d="M134 206Q150 218 166 206Q150 212 134 206Z" fill="#B23A6E"/>
-      <!-- ear pods -->
-      <circle cx="86" cy="166" r="15" fill="#2B2380" stroke="#A5AEFF" stroke-width="2"/><circle cx="86" cy="166" r="6" fill="#3CC8F0" filter="url(#bGlow)"/>
-      <circle cx="214" cy="166" r="15" fill="#2B2380" stroke="#A5AEFF" stroke-width="2"/><circle class="b-core" cx="214" cy="166" r="6" fill="#F0567A" filter="url(#bGlow)"/>
+      <!-- nose, cheeks, lips -->
+      <path d="M151 160C151 170 150 176 147 180" stroke="#B57A60" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".8"/><path d="M143 182Q150 186 157 182" stroke="#A86A52" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <ellipse cx="124" cy="178" rx="10" ry="6" fill="#E58C8C" opacity=".22"/><ellipse cx="176" cy="178" rx="10" ry="6" fill="#E58C8C" opacity=".22"/>
+      <path class="b-mouth" d="M136 198Q143 193 150 195Q157 193 164 198Q150 209 136 198Z" fill="#B85B66"/>
+      <path d="M137 198Q150 200 163 198" stroke="#8E3D47" stroke-width="1" fill="none"/>
+      <!-- hijab front fold over the shoulders -->
+      <path d="M92 150C90 210 104 252 150 262C196 252 210 210 208 150C214 214 214 252 244 290C204 286 176 276 150 268C124 276 96 286 56 290C86 252 86 214 92 150Z" fill="url(#rgHijab)"/>
+      <path d="M96 196C102 232 120 252 150 260M204 196C198 232 180 252 150 260" stroke="#3F1060" stroke-opacity=".55" stroke-width="2" fill="none"/>
+      <path d="M78 120C86 84 112 60 150 58" stroke="#B57AD6" stroke-opacity=".45" stroke-width="2.4" fill="none" stroke-linecap="round"/>
     </symbol>
+    <linearGradient id="bnGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3CC8F0"/><stop offset=".5" stop-color="#6C7BFF"/><stop offset="1" stop-color="#C77DFF"/></linearGradient>
+    <radialGradient id="bnDot" cx="38%" cy="35%" r="70%"><stop offset="0" stop-color="#FFD1DC"/><stop offset=".45" stop-color="#F0567A"/><stop offset="1" stop-color="#C2306A"/></radialGradient>
+    <filter id="bnGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="7" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <!-- Mark: the Arabic letter ب. Its body is the solution we build; its dot is "al-banan", the point of impact people notice. -->
+    <symbol id="bnanMark" viewBox="0 0 256 256">
+      <g class="part" data-p="mark"><path d="M34 78C28 146 66 166 124 166H168C204 166 222 150 222 116" fill="none" stroke="url(#bnGrad)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g class="part" data-p="dot"><circle cx="128" cy="214" r="19" fill="url(#bnDot)" filter="url(#bnGlow)"/></g>
+    </symbol>
+    <!-- Horizontal lockup: mark + custom BNAN wordmark (the A's crossbar is the same dot). -->
     <symbol id="bnan" viewBox="0 0 900 250">
-      <g filter="url(#glow)">
-        <!-- robot = Bnan -->
-        <g class="part" data-p="robot">
-          <path class="lg-stroke" d="M140 82V40"/>
-          <circle cx="140" cy="34" r="22" fill="none" stroke="#6C7BFF" stroke-width="3" opacity=".7"/>
-          <circle cx="140" cy="34" r="13" fill="none" stroke="#6C7BFF" stroke-width="3"/>
-          <circle cx="140" cy="34" r="8" fill="#6C7BFF"/>
-          <path class="lg-stroke" d="M78 82H202L226 106V172L202 196H78L54 172V106Z"/>
-          <path class="lg-stroke" d="M20 139H54"/>
-          <circle cx="18" cy="139" r="11" fill="#6C7BFF"/>
-          <g fill="#fff">
-            <circle cx="78" cy="82" r="8"/><circle cx="202" cy="82" r="8"/><circle cx="226" cy="106" r="8"/><circle cx="226" cy="172" r="8"/>
-            <circle cx="202" cy="196" r="8"/><circle cx="78" cy="196" r="8"/><circle cx="54" cy="172" r="8"/><circle cx="54" cy="106" r="8"/>
-          </g>
-          <path d="M140 112L172 132L162 168H118L108 132Z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>
-          <circle cx="108" cy="132" r="15" fill="none" stroke="#6C7BFF" stroke-width="3"/>
-          <circle cx="172" cy="132" r="15" fill="none" stroke="#6C7BFF" stroke-width="3"/>
-          <g fill="#fff"><circle cx="108" cy="132" r="9"/><circle cx="172" cy="132" r="9"/><circle cx="140" cy="112" r="5"/><circle cx="162" cy="168" r="5"/><circle cx="118" cy="168" r="5"/></g>
-        </g>
-        <!-- signal = events -->
-        <g class="part" data-p="signal">
-          <path class="lg-stroke" d="M226 139H318"/>
-          <circle cx="272" cy="139" r="7" fill="#F0567A"/>
-        </g>
-        <!-- B = build -->
-        <g class="part" data-p="b">
-          <path class="lg-stroke" d="M318 82V196M318 82H382L404 104V117L386 139H318M386 139L410 161V174L388 196H318"/>
-          <circle cx="318" cy="82" r="12" fill="#6C7BFF"/><circle cx="318" cy="196" r="12" fill="#6C7BFF"/>
-          <g fill="#fff"><circle cx="318" cy="139" r="11"/><circle cx="382" cy="82" r="8"/><circle cx="404" cy="104" r="8"/><circle cx="404" cy="117" r="8"/><circle cx="386" cy="139" r="8"/><circle cx="410" cy="161" r="8"/><circle cx="410" cy="174" r="8"/><circle cx="388" cy="196" r="8"/></g>
-        </g>
-        <!-- dots = clients & partners -->
-        <g class="part" data-p="dots">
-          <path class="lg-stroke" d="M458 196V82L560 196V82"/>
-          <circle cx="458" cy="196" r="12" fill="#6C7BFF"/><circle cx="560" cy="82" r="12" fill="#6C7BFF"/>
-          <circle cx="458" cy="82" r="9" fill="#fff"/><circle cx="560" cy="196" r="9" fill="#fff"/>
-          <path class="lg-stroke" d="M776 196V82L878 196V82"/>
-          <circle cx="776" cy="196" r="12" fill="#6C7BFF"/><circle cx="878" cy="82" r="12" fill="#6C7BFF"/>
-          <circle cx="776" cy="82" r="9" fill="#fff"/><circle cx="878" cy="196" r="9" fill="#fff"/>
-        </g>
-        <!-- A = AI -->
-        <g class="part" data-p="a">
-          <path class="lg-stroke" d="M606 196L667 82L728 196M636 142H698"/>
-          <circle cx="606" cy="196" r="12" fill="#6C7BFF"/><circle cx="728" cy="196" r="12" fill="#6C7BFF"/>
-          <circle cx="636" cy="142" r="9" fill="#fff"/><circle cx="698" cy="142" r="9" fill="#fff"/>
-          <circle cx="667" cy="70" r="24" fill="none" stroke="#F0567A" stroke-width="3" opacity=".6"/>
-          <circle cx="667" cy="70" r="15" fill="none" stroke="#F0567A" stroke-width="3"/>
-          <circle cx="667" cy="70" r="10" fill="#F0567A"/>
-          <circle class="ping" cx="667" cy="70" r="16" fill="none" stroke="#F0567A" stroke-width="2"/>
-          <circle class="ping d2" cx="140" cy="34" r="14" fill="none" stroke="#6C7BFF" stroke-width="2"/>
-        </g>
+      <svg x="0" y="-3" width="250" height="250" viewBox="0 0 256 256">
+      <g class="part" data-p="mark"><path d="M34 78C28 146 66 166 124 166H168C204 166 222 150 222 116" fill="none" stroke="url(#bnGrad)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g class="part" data-p="dot"><circle cx="128" cy="214" r="19" fill="url(#bnDot)" filter="url(#bnGlow)"/></g>
+    </svg>
+      <g class="part" data-p="word" fill="none" stroke="#F5F6FC" stroke-width="19" stroke-linecap="square" stroke-linejoin="round">
+        <path d="M322 188V72H366a27 27 0 0 1 0 54H322M322 126H371a31 31 0 0 1 0 62H322Z"/>
+        <path d="M456 188V72L534 188V72"/>
+        <path d="M588 188L638 74L688 188" stroke-linecap="round"/>
+        <path d="M740 188V72L818 188V72"/>
       </g>
+      <g class="part" data-p="dot"><circle cx="638" cy="154" r="12" fill="url(#bnDot)"/></g>
     </symbol>
   </defs>
 </svg>
@@ -267,13 +247,11 @@
         <div class="eyebrow">Logo Story</div>
         <h3 class="sec-title" style="font-size:clamp(26px,3.4vw,36px)" data-en="The story behind the <span class='teal'>logo</span>">قصة <span class="teal">الشعار</span></h3>
         <div class="legend" style="margin-top:18px">
-          <button class="leg" data-p="robot"><span class="e">🤖</span><div><b data-en="Robot = Bnan">الروبوت = بنان</b><span data-en="Where ideas start, broadcasting knowledge through its antenna.">منبع الفكرة، يرسل المعرفة عبر هوائيه.</span></div></button>
-          <button class="leg" data-p="signal"><span class="e">📡</span><div><b data-en="Signal = Solutions">الإشارة = الحلول</b><span data-en="Services and projects travelling from idea to reality.">خدمات ومشاريع تنتقل من الفكرة إلى الواقع.</span></div></button>
-          <button class="leg" data-p="b"><span class="e">🧱</span><div><b data-en="B = Build">B = البناء</b><span data-en="The robot's arm is the middle stroke of B: we build together.">ذراع الروبوت هي الخط الأوسط في حرف B: نبني مع بعض.</span></div></button>
-          <button class="leg" data-p="dots"><span class="e">🔗</span><div><b data-en="Dots = Clients & partners">النقاط = العملاء والشركاء</b><span data-en="Every dot is a relationship, and the lines connect us.">كل نقطة علاقة، والخطوط تربطنا ببعض.</span></div></button>
-          <button class="leg" data-p="a"><span class="e">🧠</span><div><b data-en="A = AI">A = AI</b><span data-en="The first letter of AI, receiving the signal.">أول حرف من AI، يستقبل الإشارة.</span></div></button>
+          <button class="leg" data-p="mark"><span class="e">ب</span><div><b data-en="The letter ب = Bnan">حرف الباء = بنان</b><span data-en="The first letter of Bnan. Its curve is the foundation every solution is built on, from data (cyan) to intelligence (violet).">أول حرف من بنان. انحناءته هي الأساس اللي نبني عليه كل حل، من البيانات (السماوي) إلى الذكاء (البنفسجي).</span></div></button>
+          <button class="leg" data-p="dot"><span class="e">●</span><div><b data-en="The dot = al-banan">النقطة = البنان</b><span data-en="The fingertip people point with: the impact that gets noticed. It's the dot of ب, and the heart of the work.">طرف الإصبع اللي يُشار به: الأثر اللي يلاحظه الناس. هي نقطة الباء، وقلب كل شغل.</span></div></button>
+          <button class="leg" data-p="word"><span class="e">A</span><div><b data-en="BNAN = one idea, two languages">BNAN = فكرة وحدة بلغتين</b><span data-en="Custom lettering where the A's crossbar is the same dot: Arabic and English carry one mark.">حروف مصمّمة خصيصًا، والخط الأفقي في حرف A هو نفس النقطة: العربي والإنجليزي يحملون نفس الأثر.</span></div></button>
         </div>
-        <p class="credit" data-en="Logo design: <b>Afnan Aljohani</b> · Concept: <b>Sarah Alshamrani & Afnan Aljohani</b>">تصميم الشعار: <b>أفنان الجهني</b> · الفكرة: <b>سارة الشمراني وأفنان الجهني</b></p>
+        <p class="credit" data-en="Logo &amp; identity design: <b>Afnan Aljohani</b>">تصميم الشعار والهوية: <b>أفنان الجهني</b></p>
       </div>
     </div>
   </div>
