@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>بنان · Bnan AI</title>
+<meta name="description" content="بنان، شركة ناشئة سعودية في الذكاء الاصطناعي: استشارات وحلول، تحليل بيانات، نماذج أولية، وورش تدريبية. نصنع أثرًا يُشار إليه بالبنان.">
+<meta name="theme-color" content="#0A0F2E">
+<meta property="og:title" content="Bnan AI · بنان للذكاء الاصطناعي">
+<meta property="og:description" content="We don't just learn AI, we make it matter. Learn · Build · Impact.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235A67F2'/%3E%3Cstop offset='1' stop-color='%23B17BFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='256' height='256' rx='56' fill='url(%23g)'/%3E%3Cpath d='M48 84C42 146 76 162 126 162H162C196 162 210 148 210 118' fill='none' stroke='white' stroke-width='28' stroke-linecap='round'/%3E%3Ccircle cx='128' cy='206' r='19' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css" integrity="sha384-gvLq/iOMNnPchdosgVym5huSVkKipHCQaqSw2Eg0V52Mzmlf169ZOsXcNc2cNu8x" crossorigin="anonymous">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="intro" id="intro" aria-hidden="true"><div class="intro-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><svg class="intro-logo" viewBox="0 0 900 250"><use href="#bnan"/></svg></div>
+<div class="topbar"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- Logo definition (reused) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="glow" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+
+    <linearGradient id="rgHijab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6E2A6E"/><stop offset=".55" stop-color="#4E1A55"/><stop offset="1" stop-color="#2E0C36"/></linearGradient>
+    <linearGradient id="rgHijabHi" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A3A86"/><stop offset="1" stop-color="#5A2060"/></linearGradient>
+    <radialGradient id="rgSkin" cx="48%" cy="40%" r="68%"><stop offset="0" stop-color="#F6D2BC"/><stop offset=".65" stop-color="#E4B091"/><stop offset="1" stop-color="#C18465"/></radialGradient>
+    <linearGradient id="rgHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2430"/><stop offset="1" stop-color="#0E0B10"/></linearGradient>
+    <linearGradient id="rgBlazer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2D4F9A"/><stop offset="1" stop-color="#172C63"/></linearGradient>
+    <linearGradient id="rgMetal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3B4250"/><stop offset=".5" stop-color="#D4DAE3"/><stop offset="1" stop-color="#3B4250"/></linearGradient>
+    <radialGradient id="rgHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#8B5CF6" stop-opacity=".45"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <radialGradient id="rgIris" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#D9B57A"/><stop offset=".6" stop-color="#7E5A33"/><stop offset="1" stop-color="#3A2817"/></radialGradient>
+    <filter id="rgGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <symbol id="bananBot" viewBox="0 0 300 360">
+      <circle cx="150" cy="175" r="150" fill="url(#rgHalo)"/>
+      <!-- blazer -->
+      <path d="M14 360C18 316 50 290 100 280L150 296L200 280C250 290 282 316 286 360Z" fill="url(#rgBlazer)"/>
+      <path d="M120 286L150 360L180 286L150 296Z" fill="#3B2A78"/>
+      <g stroke="#9C8CFF" stroke-opacity=".75" stroke-width="1.4" fill="none"><path d="M138 312H146V326H156M162 314V332H152M142 340H160"/></g>
+      <path d="M100 280L136 360H112L76 296ZM200 280L164 360H188L224 296Z" fill="#244489"/>
+      <g stroke="#6FD3F5" stroke-opacity=".7" stroke-width="1.5" fill="none" stroke-linecap="round">
+        <path d="M30 334H54L64 324H76M40 348H70L80 338M58 312V322M88 300V318H98M96 336V352"/>
+        <path d="M270 334H246L236 324H224M260 348H230L220 338M242 312V322M212 300V318H202M204 336V352"/>
+      </g>
+      <g fill="#6FD3F5"><circle cx="76" cy="324" r="2.3"/><circle cx="80" cy="338" r="2.3"/><circle cx="98" cy="318" r="2.3"/><circle cx="224" cy="324" r="2.3"/><circle cx="220" cy="338" r="2.3"/><circle cx="202" cy="318" r="2.3"/></g>
+      <circle class="b-core" cx="150" cy="332" r="0" fill="none"/>
+      <!-- hijab back -->
+      <path d="M78 150C76 100 106 62 150 62S224 100 222 150C226 206 236 250 252 288C214 282 186 274 170 262H130C114 274 86 282 48 288C64 250 74 206 78 150Z" fill="url(#rgHijab)"/>
+      <!-- metallic neck -->
+      <path d="M131 206H169L173 262H127Z" fill="url(#rgMetal)"/>
+      <g stroke="#262C38" stroke-width="1.8"><path d="M130 220H170M129 234H171M128 248H172"/></g>
+      <path d="M143 210V258M157 210V258" stroke="#7E8796" stroke-width="1.2"/>
+      <!-- hair -->
+      <path d="M100 150C94 104 116 76 152 76C186 76 206 102 202 150C196 124 182 108 164 102C150 112 126 122 104 128C102 136 101 143 100 150Z" fill="url(#rgHair)"/>
+      <!-- face -->
+      <path d="M150 96C122 96 106 120 106 150C106 188 127 216 150 218C173 216 194 188 194 150C194 120 178 96 150 96Z" fill="url(#rgSkin)"/>
+      <path d="M106 150C108 182 126 210 150 214C135 206 118 186 112 150Z" fill="#B97A5C" opacity=".25"/>
+      <path d="M194 150C192 182 174 210 150 214C165 206 182 186 188 150Z" fill="#B97A5C" opacity=".25"/>
+      <!-- hair fringe over the forehead -->
+      <path d="M104 140C106 112 126 96 152 96C178 96 196 112 198 138C190 120 176 108 160 104C146 120 126 132 104 140Z" fill="url(#rgHair)"/>
+      <path d="M160 104C150 118 132 130 108 138" stroke="#3A3240" stroke-width="1.4" fill="none" opacity=".7"/>
+      <!-- brows -->
+      <path d="M119 141Q132 133 145 137M155 137Q168 133 181 141" stroke="#1E1512" stroke-width="3.8" stroke-linecap="round" fill="none"/>
+      <!-- eyes -->
+      <g class="b-eyes">
+        <path d="M119 155Q132 146 145 154Q132 162 119 155Z" fill="#FBF7F4"/>
+        <path d="M155 154Q168 146 181 155Q168 162 155 154Z" fill="#FBF7F4"/>
+        <circle cx="132.5" cy="154" r="5.4" fill="url(#rgIris)"/><circle cx="167.5" cy="154" r="5.4" fill="url(#rgIris)"/>
+        <circle cx="132.5" cy="154" r="2.2" fill="#120D0A"/><circle cx="167.5" cy="154" r="2.2" fill="#120D0A"/>
+        <circle cx="134.2" cy="152.2" r="1.2" fill="#fff"/><circle cx="169.2" cy="152.2" r="1.2" fill="#fff"/>
+        <path d="M116 154Q132 142 146 153M154 153Q168 142 184 154" stroke="#120C0C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- nose, cheeks, lips -->
+      <path d="M152 160C153 170 153 176 149 181" stroke="#A86A52" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/>
+      <path d="M143 183Q150 187 157 183" stroke="#A0634B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <ellipse cx="123" cy="178" rx="10" ry="6" fill="#E08A82" opacity=".2"/><ellipse cx="177" cy="178" rx="10" ry="6" fill="#E08A82" opacity=".2"/>
+      <path class="b-mouth" d="M135 199Q142 193 150 195Q158 193 165 199Q150 210 135 199Z" fill="#B45A62"/>
+      <path d="M136 199Q150 201 164 199" stroke="#7E343E" stroke-width="1.1" fill="none"/>
+      <!-- hijab wrapped around the neck and draped over the shoulders -->
+      <path d="M96 168C96 214 112 244 150 252C188 244 204 214 204 168C214 220 220 254 248 286C206 282 178 270 150 268C122 270 94 282 52 286C80 254 86 220 96 168Z" fill="url(#rgHijab)"/>
+      <path d="M112 232C130 250 170 250 188 232C196 252 210 266 232 280C200 276 176 266 150 264C124 266 100 276 68 280C90 266 104 252 112 232Z" fill="url(#rgHijabHi)" opacity=".85"/>
+      <path d="M100 210C110 238 128 252 150 256M200 210C190 238 172 252 150 256M90 262C112 270 132 272 150 270" stroke="#250A2C" stroke-opacity=".5" stroke-width="2" fill="none"/>
+      <path d="M86 118C96 86 120 68 150 66" stroke="#9C5A9A" stroke-opacity=".5" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <linearGradient id="bnGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3CC8F0"/><stop offset=".5" stop-color="#6C7BFF"/><stop offset="1" stop-color="#C77DFF"/></linearGradient>
+    <radialGradient id="bnDot" cx="38%" cy="35%" r="70%"><stop offset="0" stop-color="#FFD1DC"/><stop offset=".45" stop-color="#F0567A"/><stop offset="1" stop-color="#C2306A"/></radialGradient>
+    <filter id="bnGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="7" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <!-- Mark: the Arabic letter ب. Its body is the solution we build; its dot is "al-banan", the point of impact people notice. -->
+    <symbol id="bnanMark" viewBox="0 0 256 256">
+      <g class="part" data-p="mark"><path d="M34 78C28 146 66 166 124 166H168C204 166 222 150 222 116" fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g class="part" data-p="dot"><circle cx="128" cy="214" r="19" fill="currentColor"/></g>
+    </symbol>
+    <!-- Horizontal lockup: mark + custom BNAN wordmark (the A's crossbar is the same dot). -->
+    <symbol id="bnan" viewBox="0 0 900 250">
+      <svg x="0" y="-3" width="250" height="250" viewBox="0 0 256 256">
+      <g class="part" data-p="mark"><path d="M34 78C28 146 66 166 124 166H168C204 166 222 150 222 116" fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g class="part" data-p="dot"><circle cx="128" cy="214" r="19" fill="currentColor"/></g>
+    </svg>
+      <g class="part" data-p="word" fill="none" stroke="currentColor" stroke-width="19" stroke-linecap="square" stroke-linejoin="round">
+        <path d="M322 188V72H366a27 27 0 0 1 0 54H322M322 126H371a31 31 0 0 1 0 62H322Z"/>
+        <path d="M456 188V72L534 188V72"/>
+        <path d="M588 188L638 74L688 188" stroke-linecap="round"/>
+        <path d="M740 188V72L818 188V72"/>
+      </g>
+      <g class="part" data-p="dot"><circle cx="638" cy="154" r="12" fill="currentColor"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="Bnan"><svg viewBox="0 0 900 250"><use href="#bnan"/></svg></a>
+    <div class="nav-links" id="navLinks" data-lenis-prevent>
+      <a href="#top" class="active" data-en="Home">الرئيسية</a>
+      <a href="#about" data-en="About">عن بنان</a>
+      <a href="#services" data-en="Services">الخدمات</a>
+      <a href="#projects" data-en="Projects">المشاريع</a>
+      <a href="#decks" data-en="Presentations">العروض</a>
+      <a href="#graphics" data-en="Graphic design">الجرافيك</a>
+      <div class="more" id="more">
+        <button type="button" aria-haspopup="true"><span data-en="More">المزيد</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 4l4 4 4-4"/></svg></button>
+        <div class="more-menu">
+          <a href="#ideas" data-en="Ideas lab">مختبر الأفكار</a>
+          <a href="#ecosystem" data-en="Knowledge Center">مركز المعرفة</a>
+          <a href="#story" data-en="Our story">قصتنا</a>
+          <a href="#achievements" data-en="Achievements">الإنجازات</a>
+          <a href="#model" data-en="Why Bnan?">ليش بنان؟</a>
+          <a href="#founder" data-en="Founder">المؤسِّسة</a>
+          <a href="#contact" data-en="Contact">تواصل</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" id="langBtn" aria-label="Switch language">ENGLISH 🌐</button>
+      <a class="btn btn-primary btn-sm" href="#contact" data-type="service" data-en="Start a project">ابدأ مشروعك</a>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <svg class="aurora" viewBox="0 0 1440 340" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="au1" x1="0" x2="1"><stop offset="0" stop-color="#6C7BFF" stop-opacity="0"/><stop offset=".3" stop-color="#6C7BFF"/><stop offset=".7" stop-color="#3CC8F0"/><stop offset="1" stop-color="#6C7BFF" stop-opacity="0"/></linearGradient>
+      <linearGradient id="au2" x1="0" x2="1"><stop offset="0" stop-color="#F0567A" stop-opacity="0"/><stop offset=".45" stop-color="#C77DFF"/><stop offset="1" stop-color="#F0567A" stop-opacity="0"/></linearGradient>
+    </defs>
+    <path class="w1" stroke="url(#au1)" d="M-100 250C200 170 400 320 720 230S1200 140 1540 230"/>
+    <path class="w2" stroke="url(#au2)" stroke-opacity=".7" d="M-100 280C260 210 480 330 760 260S1180 190 1540 270"/>
+    <path class="w3" stroke="url(#au1)" stroke-opacity=".5" d="M-100 300C300 250 520 340 820 290S1240 230 1540 300"/>
+    <path class="w1" stroke="url(#au1)" stroke-opacity=".25" stroke-width="18" d="M-100 260C200 180 400 330 720 240S1200 150 1540 240"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="badge"><i></i><span data-en="Saudi AI startup">ستارت أب سعودية في الذكاء الاصطناعي</span></span>
+      <h1 data-en="We don't just learn AI, <span class='tri'>we make it matter.</span>">لا نتعلّم الذكاء الاصطناعي، <span class="tri">نصنع أثره.</span></h1>
+      <p class="lead" data-en="We turn your ideas and challenges into AI solutions that actually work: <b>consulting · data analysis · prototypes · workshops</b>.">نحوّل أفكارك وتحدياتك إلى حلول ذكاء اصطناعي تشتغل فعلًا:<br><b>استشارات · تحليل بيانات · نماذج أولية · ورش تطبيقية</b></p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="#contact" data-type="service" data-en="Start your project">ابدأ مشروعك</a>
+        <a class="btn btn-ghost btn-lg" href="#projects" data-en="See the projects">شاهد المشاريع</a>
+      </div>
+      <div class="hero-links">
+        <a href="#contact" data-type="service"><span data-en="Submit a challenge">ارفع تحدّيًا</span> <span aria-hidden="true">←</span></a>
+        <a href="https://wa.me/966545379819?text=%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A3%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A8%D9%86%D8%A7%D9%86%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9" target="_blank" rel="noopener"><span data-en="WhatsApp">واتساب</span> <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hv-orb" aria-hidden="true"></div>
+      <img class="hv-bot" src="assets/banan/banan.webp" alt="بنان، المساعدة الذكية" width="763" height="788">
+      <button class="hv-chip c1" type="button" data-open-chat><i></i><span data-en="Ask Banan">اسأل بنان</span></button>
+      <span class="hv-chip c2"><b>AI</b><span data-en="Solutions that work">حلول تشتغل فعلًا</span></span>
+      <div class="hv-card">
+      <div class="pillars">
+        <span><i style="background:var(--teal)"></i><span data-en="Analyze">حلّل</span></span>
+        <span><i style="background:#A5AEFF"></i><span data-en="Build">ابنِ</span></span>
+        <span><i style="background:var(--gold)"></i><span data-en="Launch">أطلق</span></span>
+        <span><i style="background:var(--orange)"></i><span data-en="Make impact">اصنع الأثر</span></span>
+      </div>
+      <div class="cycle" id="cycle">
+        <div class="hd"><span data-en="IDEA LIFECYCLE">دورة حياة الفكرة</span><span data-en="6 STAGES">6 مراحل</span></div>
+        <div class="rail"><span style="background:#3CC8F0;color:#3CC8F0"></span><span style="background:#4C8DFF;color:#4C8DFF"></span><span style="background:#6C7BFF;color:#6C7BFF"></span><span style="background:#9B6CF6;color:#9B6CF6"></span><span style="background:#D45FC8;color:#D45FC8"></span><span style="background:#F0567A;color:#F0567A"></span></div>
+        <div class="lb"><span data-en="Idea">الفكرة</span><span data-en="Prototype">النموذج</span><span data-en="Impact">الأثر</span></div>
+        <div class="now" id="cycleNow"></div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b class="teal" data-count="15">0</b><span data-en="Certificates & awards">شهادة وجائزة للمؤسِّسة</span></div>
+      <div class="stat"><b class="orange">6</b><span data-en="AI services">خدمات في الذكاء الاصطناعي</span></div>
+      <div class="stat"><b class="gold">6</b><span data-en="Projects">مشاريع وأفكار منفّذة</span></div>
+      <div class="stat"><b>2026</b><span data-en="Founded">سنة التأسيس</span></div>
+    </div>
+    <div class="trust" aria-label="Experience and training">
+      <p data-en="Experience and training with">خبرة وتدريب مع</p>
+      <div class="marquee"><div class="track"><span>SDAIA</span><span>GACA</span><span>Holberton School</span><span>Tuwaiq Academy</span><span>IBM SkillsBuild</span><span>Huawei Cloud</span><span>Misk × STC</span><span>Snapchat × SDA</span><span>King Saud University</span><span>Red Hat</span><span aria-hidden="true">SDAIA</span><span aria-hidden="true">GACA</span><span aria-hidden="true">Holberton School</span><span aria-hidden="true">Tuwaiq Academy</span><span aria-hidden="true">IBM SkillsBuild</span><span aria-hidden="true">Huawei Cloud</span><span aria-hidden="true">Misk × STC</span><span aria-hidden="true">Snapchat × SDA</span><span aria-hidden="true">King Saud University</span><span aria-hidden="true">Red Hat</span></div></div>
+    </div>
+  </div>
+</header>
+<div class="ribbons" aria-hidden="true">
+  <div class="ribbon r1"><div class="rtrack"><span>استشارات ذكاء اصطناعي</span><em>✦</em><span>تحليل بيانات</span><em>✦</em><span>لوحات مؤشرات</span><em>✦</em><span>نماذج أولية</span><em>✦</em><span>رؤية حاسوبية</span><em>✦</em><span>ورش تطبيقية</span><em>✦</em><span>تجهيز للهاكاثونات</span><em>✦</em><span>العرض والإلقاء</span><em>✦</em><span>استشارات ذكاء اصطناعي</span><em>✦</em><span>تحليل بيانات</span><em>✦</em><span>لوحات مؤشرات</span><em>✦</em><span>نماذج أولية</span><em>✦</em><span>رؤية حاسوبية</span><em>✦</em><span>ورش تطبيقية</span><em>✦</em><span>تجهيز للهاكاثونات</span><em>✦</em><span>العرض والإلقاء</span><em>✦</em></div></div>
+  <div class="ribbon r2"><div class="rtrack rev"><span>AI consulting</span><em>✦</em><span>Data analysis</span><em>✦</em><span>Dashboards</span><em>✦</em><span>Prototypes</span><em>✦</em><span>Computer vision</span><em>✦</em><span>Hands-on workshops</span><em>✦</em><span>Hackathon prep</span><em>✦</em><span>Presentation coaching</span><em>✦</em><span>AI consulting</span><em>✦</em><span>Data analysis</span><em>✦</em><span>Dashboards</span><em>✦</em><span>Prototypes</span><em>✦</em><span>Computer vision</span><em>✦</em><span>Hands-on workshops</span><em>✦</em><span>Hackathon prep</span><em>✦</em><span>Presentation coaching</span><em>✦</em></div></div>
+</div>
+
+
+<!-- VIDEO -->
+<section id="video" class="sec-video">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow">Watch</div>
+      <h2 class="sec-title" data-en="Bnan <span class='teal'>in a minute</span>">بنان <span class="teal">في دقيقة</span></h2>
+    </div>
+    <div class="yt rv" id="yt" data-id="S2kymv60ndQ">
+      <button class="yt-poster" type="button" aria-label="Play video" data-en-label="Play video">
+        <img src="https://i.ytimg.com/vi/S2kymv60ndQ/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+        <span class="yt-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+      </button>
+    </div>
+    <p class="yt-alt rv"><a href="https://youtu.be/S2kymv60ndQ" target="_blank" rel="noopener"><span data-en="Watch on YouTube">شاهد على YouTube</span> ↗</a></p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><b>01</b> // About Bnan</div>
+      <h2 class="sec-title" data-en="About <span class='teal'>Bnan</span>">عن <span class="teal">بنان</span></h2>
+    </div>
+
+    <div class="card name-card rv">
+      <div class="big">بنان<small>BNAN</small></div>
+      <div>
+        <h3 data-en="“Pointed out with fingertips”">«يُشار إليه بالبنان»</h3>
+        <p style="margin-top:10px" data-en="A classical Arabic expression for someone of high standing and good impact, someone people notice and point to with their fingertips (al-banan) out of respect. That's where our name comes from: we want every solution we build to leave an impact worth pointing to.">تعبير عربي فصيح يُقال لصاحب المكانة الرفيعة والأثر الحسن، الذي يلتفت له الناس ويدلّون عليه بأطراف أصابعهم (البنان) إجلالًا وتقديرًا. ومنه جاء اسمنا: نبي كل حل نبنيه يترك أثرًا يُشار إليه بالبنان.</p>
+      </div>
+    </div>
+
+    <div class="card accent o oneline rv">
+      <p style="color:var(--mute)" data-en="The idea in one line">الفكرة في سطر</p>
+      <p class="t" data-en="A startup that <span class='teal'>builds</span> AI solutions and creates an <span class='orange'>impact</span> <span class='gold'>worth pointing to</span>.">شركة ناشئة <span class="teal">تبني</span> حلول ذكاء اصطناعي، وتصنع <span class="orange">أثرًا</span> <span class="gold">يُشار إليه بالبنان</span>.</p>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card accent rv"><h3 data-en="Vision">الرؤية</h3><p data-en="To be a leading Saudi startup in AI solutions with real, measurable impact.">أن تكون بنان شركة سعودية رائدة في حلول الذكاء الاصطناعي ذات الأثر الحقيقي والمقيس.</p></div>
+      <div class="card accent rv"><h3 data-en="Mission">الرسالة</h3><p data-en="Help people and organizations turn their ideas and challenges into practical AI solutions, with quality, speed and responsibility.">نساعد الأفراد والجهات يحوّلون أفكارهم وتحدياتهم إلى حلول ذكاء اصطناعي عملية، بجودة وسرعة ومسؤولية.</p></div>
+    </div>
+
+    <div class="grid g4" style="margin-top:18px">
+      <div class="card rv"><span class="num">01</span><h3 data-en="Practical solutions">حلول عملية</h3><p data-en="AI that solves a real problem, not a demo.">ذكاء اصطناعي يحل مشكلة حقيقية، مو مجرد عرض.</p></div>
+      <div class="card rv"><span class="num">02</span><h3 data-en="Fast prototypes">نماذج أولية سريعة</h3><p data-en="A working first version within weeks.">أول نسخة تشتغل خلال أسابيع.</p></div>
+      <div class="card rv"><span class="num">03</span><h3 data-en="Share knowledge">نشر المعرفة</h3><p data-en="Hands-on workshops that build your team's AI skills.">ورش تطبيقية ترفع مهارات فريقك في الذكاء الاصطناعي.</p></div>
+      <div class="card rv"><span class="num">04</span><h3 data-en="Measured impact">أثر مقيس</h3><p data-en="Every project has clear success indicators.">لكل مشروع مؤشرات نجاح واضحة.</p></div>
+    </div>
+
+    <!-- Logo story -->
+    <div class="story" id="logoStory">
+      <div class="logo-stage rv" id="stage">
+        <svg viewBox="0 0 900 250" role="img" aria-label="BNAN logo"><use href="#bnan"/></svg>
+      </div>
+      <div class="rv">
+        <div class="eyebrow">Logo Story</div>
+        <h3 class="sec-title" style="font-size:clamp(26px,3.4vw,36px)" data-en="The story behind the <span class='teal'>logo</span>">قصة <span class="teal">الشعار</span></h3>
+        <div class="legend" style="margin-top:18px">
+          <button class="leg" data-p="mark"><span class="e">ب</span><div><b data-en="The letter ب = Bnan">حرف الباء = بنان</b><span data-en="The first letter of Bnan. Its curve is the foundation every solution is built on.">أول حرف من بنان. انحناءته هي الأساس اللي نبني عليه كل حل.</span></div></button>
+          <button class="leg" data-p="dot"><span class="e">●</span><div><b data-en="The dot = al-banan">النقطة = البنان</b><span data-en="The fingertip people point with: the impact that gets noticed. It's the dot of ب, and the heart of the work.">طرف الإصبع اللي يُشار به: الأثر اللي يلاحظه الناس. هي نقطة الباء، وقلب كل شغل.</span></div></button>
+          <button class="leg" data-p="word"><span class="e">A</span><div><b data-en="BNAN = one idea, two languages">BNAN = فكرة وحدة بلغتين</b><span data-en="Custom lettering where the A's crossbar is the same dot: Arabic and English carry one mark.">حروف مصمّمة خصيصًا، والخط الأفقي في حرف A هو نفس النقطة: العربي والإنجليزي يحملون نفس الأثر.</span></div></button>
+        </div>
+        <p class="credit" data-en="Logo &amp; identity design: <b>Afnan Aljohani</b>">تصميم الشعار والهوية: <b>أفنان الجهني</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><b>02</b> // From a spark to a startup</div>
+      <h2 class="sec-title" data-en="From a club idea to a <span class='grad'>startup spark</span>">من فكرة نادٍ إلى <span class="grad">شرارة شركة ناشئة</span></h2>
+      <p class="sec-lead" data-en="Bnan wasn't born as a company. It started as a personal effort and grew one step at a time.">بنان ما انولدت شركة جاهزة. بدأت اجتهادًا شخصيًا، وكبرت خطوة بخطوة.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl rv"><span class="dot">1</span><small>THE IDEA</small><h4 data-en="A personal effort">اجتهاد شخصي</h4><p data-en="A question: why don't we learn AI together, and apply it?">سؤال بسيط: ليش ما نتعلّم الذكاء الاصطناعي مع بعض ونطبّقه؟</p></div>
+      <div class="tl rv"><span class="dot">2</span><small>THE CLUB</small><h4 data-en="An AI club">نادي ذكاء اصطناعي</h4><p data-en="The first step: a club for workshops, challenges and sessions.">الخطوة الأولى: نادٍ للورش والتحديات والجلسات.</p></div>
+      <div class="tl rv"><span class="dot">3</span><small>THE SPARK</small><h4 data-en="The spark">الشرارة</h4><p data-en="A complete visual identity and the first AI projects.">هوية بصرية كاملة، وأول مشاريع الذكاء الاصطناعي.</p></div>
+      <div class="tl rv"><span class="dot">4</span><small>THE STARTUP</small><h4 data-en="Bnan AI">شركة بنان</h4><p data-en="A startup offering AI services, solutions and workshops.">ستارت أب تقدّم خدمات وحلول وورشًا في الذكاء الاصطناعي.</p></div>
+      <div class="tl rv"><span class="dot">5</span><small>NEXT</small><h4 data-en="What's next">القادم</h4><p data-en="First clients and partnerships, and Bnan's own AI products.">أول العملاء والشراكات، ومنتجات ذكاء اصطناعي خاصة ببنان.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <div class="eyebrow"><b>03</b> // Services</div>
+        <h2 class="sec-title" data-en="Got a challenge? <span class='teal'>Bnan has your back</span>">عندك تحدٍّ؟ <span class="teal">بنان معك</span></h2>
+        <p class="sec-lead" data-en="Got a challenge in your project? We can help. Here's the journey we take with you.">عندك تحدٍّ في مشروعك؟ نقدر نساعدك، وهذي رحلتنا معك.</p>
+      </div>
+      <a class="btn btn-ghost" href="#contact" data-type="service" data-en="Request a service ←">اطلب خدمة ←</a>
+    </div>
+
+    <div class="journey">
+      <div class="card rv">
+        <div class="eyebrow" style="color:var(--teal)">How we help</div>
+        <h3 style="font-size:24px;margin-top:10px" data-en="Got a challenge in your project?">عندك تحدٍّ في مشروعك؟</h3>
+        <div class="steps" id="steps">
+          <div class="step on"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5a5 5 0 0 1 5.5 5"/></svg></i><span data-en="We analyze">نحلّل</span></div>
+          <div class="step"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></i><span data-en="Proven solutions">حلول مجرّبة</span></div>
+          <div class="step"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21.5h11.6a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7 15h10"/></svg></i><span data-en="Prototype">نموذج أولي</span></div>
+          <div class="step"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/></svg></i><span data-en="Measured impact">أثر مقيس</span></div>
+        </div>
+        <p class="step-text" id="stepText">نسمع تحدّيك ونفهم المشكلة وبياناتك قبل ما نقترح أي حل.</p>
+      </div>
+      <div class="card activity rv">
+        <div class="h"><span data-en="Latest activity">آخر النشاط</span><span class="live" data-en="Updates">تحديثات</span></div>
+        <ul class="feed">
+          <li data-en="Bnan website and the Banan assistant launched<em>this week</em>">إطلاق موقع بنان ومساعدتها الذكية «بنان»<em>هذا الأسبوع</em></li>
+          <li class="o" data-en="Service and challenge requests are now open<em>now</em>">فتح باب طلبات الخدمات والتحديات<em>الآن</em></li>
+          <li class="g" data-en="Bnan visual identity and brand book released<em>this month</em>">إطلاق هوية بنان البصرية ودليل الهوية<em>هذا الشهر</em></li>
+          <li data-en="Building a generative-AI version of Ask Banan<em>in progress</em>">العمل على نسخة «اسأل بنان» بالذكاء التوليدي<em>قيد التطوير</em></li>
+          <li class="o" data-en="Bnan's first hands-on workshop<em>soon</em>">أول ورشة تطبيقية من بنان<em>قريبًا</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4v1a3 3 0 0 1 3 3v1a3 3 0 0 1-1 2.2V15a4 4 0 0 1-4 4h-1v3M12 2a4 4 0 0 0-4 4v1a3 3 0 0 0-3 3v1a3 3 0 0 0 1 2.2V15a4 4 0 0 0 4 4h1"/><path d="M12 6v12"/></svg></div>
+        <h3 data-en="AI consulting & solutions">استشارات وحلول ذكاء اصطناعي</h3>
+        <p data-en="We study your challenge and suggest a practical AI solution that fits your project and data.">ندرس تحدّيك ونقترح حلًا عمليًا بالذكاء الاصطناعي يناسب مشروعك وبياناتك.</p>
+        <div class="tags"><span class="tag">ML</span><span class="tag">GenAI</span><span class="tag">LLMs</span></div>
+      </div>
+      <div class="card svc o rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 16V12M12 16V8M17 16v-5"/></svg></div>
+        <h3 data-en="Data analysis & dashboards">تحليل بيانات ولوحات مؤشرات</h3>
+        <p data-en="Cleaning, analysis (EDA) and interactive dashboards that support decision-making.">تنظيف وتحليل (EDA) ولوحات تفاعلية تدعم اتخاذ القرار.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">Tableau</span></div>
+      </div>
+      <div class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3 data-en="Prototypes & computer vision">نماذج أولية ورؤية حاسوبية</h3>
+        <p data-en="From idea to a working prototype in weeks: image classification, prediction and smart assistants.">من الفكرة إلى نموذج يشتغل خلال أسابيع: تصنيف صور، تنبؤ، ومساعدات ذكية.</p>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">ViT</span></div>
+      </div>
+      <div class="card svc o rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></div>
+        <h3 data-en="Workshops & learning paths">ورش ومسارات تدريبية</h3>
+        <p data-en="Hands-on workshops for schools, teams and organizations, from fundamentals to applied projects.">ورش تطبيقية للجهات والفرق والطلاب، من الأساسيات إلى المشاريع التطبيقية.</p>
+        <div class="tags"><span class="tag">Beginner → Advanced</span></div>
+      </div>
+      <div class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></div>
+        <h3 data-en="Hackathon preparation">تجهيز للهاكاثونات</h3>
+        <p data-en="Idea validation, prototyping and pitch coaching, from real hackathon experience.">اختبار الفكرة، بناء النموذج، وتدريب العرض، من خبرة فعلية في الهاكاثونات.</p>
+        <div class="tags"><span class="tag">Mentoring</span><span class="tag">Pitch</span></div>
+      </div>
+      <div class="card svc o rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"/></svg></div>
+        <h3 data-en="Presentation & public-speaking coaching">تدريب العرض والإلقاء</h3>
+        <p data-en="Present technical ideas clearly and confidently, to judges, managers and the public.">تقديم الأفكار التقنية بوضوح وثقة أمام لجان التحكيم والإدارات والجمهور.</p>
+        <div class="tags"><span class="tag">Storytelling</span><span class="tag">Demo Day</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT -->
+<section id="programs" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv" style="margin:0 0 26px">
+      <div class="eyebrow">Work with Bnan</div>
+      <h3 class="sec-title" style="font-size:clamp(24px,3vw,34px)" data-en="Ways to work with Bnan">طرق التعاون مع بنان</h3>
+    </div>
+    <div class="grid g2">
+      <div class="card prog rv"><span class="when" data-en="One session">جلسة</span><div><h3 data-en="Consultation">استشارة</h3><p data-en="A focused session to understand your challenge and the right AI approach for it.">جلسة مركّزة نفهم فيها تحدّيك والطريقة المناسبة لحلّه بالذكاء الاصطناعي.</p></div></div>
+      <div class="card prog rv"><span class="when" data-en="2–6 weeks">2–6 أسابيع</span><div><h3 data-en="Scoped project">مشروع بنطاق محدد</h3><p data-en="From idea to a working prototype, with a clear scope and success indicators.">من الفكرة إلى نموذج أولي يشتغل، بنطاق واضح ومؤشرات نجاح.</p></div></div>
+      <div class="card prog rv"><span class="when" data-en="1–2 days">يوم أو يومين</span><div><h3 data-en="Team workshop">ورشة لفريقك</h3><p data-en="A hands-on workshop that builds your team's AI and data skills.">ورشة تطبيقية ترفع مهارات فريقك في الذكاء الاصطناعي والبيانات.</p></div></div>
+      <div class="card prog rv"><span class="when" data-en="Ongoing">مستمر</span><div><h3 data-en="Long-term partnership">شراكة طويلة المدى</h3><p data-en="Ongoing support to build and improve your AI solutions over time.">دعم مستمر لبناء حلولك في الذكاء الاصطناعي وتطويرها مع الوقت.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <div class="eyebrow"><b>04</b> // Projects</div>
+        <h2 class="sec-title" data-en="Projects <span class='teal'>I'm working on</span>">مشاريع <span class="teal">أشتغل عليها</span></h2>
+        <p class="sec-lead" data-en="Bnan is a startup run by Afnan Aljohani. These are the projects I'm building now, and the ones I've finished.">بنان شركة ناشئة تديرها أفنان الجهني. هذي المشاريع اللي أبنيها الحين، واللي خلّصتها.</p>
+      </div>
+      <a class="btn btn-ghost" href="#contact" data-type="partner" data-en="Work with me ←">اشتغل معي ←</a>
+    </div>
+    <div class="ptabs rv" id="pTabs" role="tablist">
+      <button class="ptab on" type="button" data-f="all" data-en="All projects">كل المشاريع</button>
+      <button class="ptab" type="button" data-f="ai" data-en="AI projects">مشاريع ذكاء اصطناعي</button>
+      <button class="ptab" type="button" data-f="data" data-en="Data projects">مشاريع بيانات</button>
+      <button class="ptab" type="button" data-f="innovation" data-en="Innovation projects">مشاريع ابتكار</button>
+    </div>
+    <article class="feature rv" id="smartScreen" data-cat="innovation">
+      <div class="f-screen">
+        <div class="ts" id="ts" role="img" aria-label="Smart Training Screen live demo">
+          <div class="ts-top"><span class="ts-brand"><i></i><span id="tsTitle">الشاشة التدريبية الذكية</span></span><span class="ts-day" id="tsDay"></span><b class="ts-clock mono" id="tsClock">--:--</b></div>
+          <div class="ts-alert" id="tsAlert" hidden></div>
+          <div class="ts-main">
+            <div class="ts-now"><small id="tsNowLbl">● الفترة الحالية</small><b id="tsNow">—</b><span id="tsNext"></span></div>
+            <div class="ts-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="tsArc" cx="60" cy="60" r="52"/></svg><div><b class="mono" id="tsLeft">--:--</b><small id="tsLeftLbl">متبقي</small></div></div>
+          </div>
+          <div class="ts-path" id="tsPath"></div>
+        </div>
+        <span class="ts-demo" data-en="● Live demo · simulated training day">● عرض تجريبي حي · يوم تدريبي افتراضي</span>
+      </div>
+      <div class="f-info">
+        <div class="f-badges"><span class="pstat p-soon" data-en="Original idea · Ready to pilot">فكرة أصلية · جاهزة للتجربة</span><span class="mono f-year" dir="ltr">2026</span></div>
+        <h3 data-en="Smart Training Screen">الشاشة التدريبية الذكية</h3>
+        <p data-en="A smart display that follows the training day moment by moment: the current period and time left, the day's schedule, back-to-class alerts, reminders for trainees' belongings, and the week's challenges. It runs on its own, with no one pressing anything.">شاشة عرض ذكية تتابع اليوم التدريبي لحظة بلحظة: الفترة الحالية والوقت المتبقي عليها، جدول اليوم، تنبيهات العودة إلى القاعات، تذكير المتدربين بأغراضهم، وتحديات الأسبوع. وتشتغل تلقائيًا بدون أي تدخل.</p>
+        <div class="f-kpis">
+          <div><b class="mono">5</b><span data-en="sections, auto-rotating">أقسام تتنقل تلقائيًا</span></div>
+          <div><b class="mono">2</b><span data-en="smart alerts">تنبيهات ذكية</span></div>
+          <div><b class="mono">2</b><span data-en="languages">لغتان</span></div>
+          <div><b class="mono">0</b><span data-en="extra devices">أجهزة إضافية</span></div>
+        </div>
+        <ul class="f-pts">
+          <li><b data-en="Challenge">التحدي</b><span data-en="Late returns after breaks, forgotten belongings, and challenge deadlines lost between groups.">التأخر في العودة بعد الاستراحات، نسيان الأغراض، وضياع مواعيد التحديات بين المجموعات.</span></li>
+          <li><b data-en="Solution">الحل</b><span data-en="A live view of the current and next period, the day's path, and automatic alerts at the right moment.">عرض حي للفترة الحالية والقادمة ومسار اليوم، وتنبيهات تلقائية في اللحظة المناسبة.</span></li>
+          <li><b data-en="Who benefits">المستفيدون</b><span data-en="Trainees, trainers, and the training organization's management.">المتدربون، المدربون، وإدارة جهة التدريب.</span></li>
+        </ul>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">JavaScript</span><span class="tag">Offline</span><span class="tag">عربي · English</span></div>
+        <div class="f-cta"><button class="btn btn-primary" type="button" data-deck="smartscreen" data-en="View the proposal deck">شاهد عرض الفكرة</button><a class="btn btn-ghost" href="#contact" data-type="service" data-en="I want it for my organization">أبيها لجهتي</a></div>
+      </div>
+    </article>
+    <!-- Projects are rendered from data (see js/render.js). -->
+    <div class="grid g3" id="projectGrid">
+      <a class="card proj next rv" href="#contact" data-type="idea">
+        <span class="plus">+</span>
+        <h3 data-en="The next project">المشروع القادم</h3>
+        <p data-en="Have an idea or a challenge? It could be the next project we build together.">عندك فكرة أو تحدٍّ؟ ممكن يكون المشروع الجاي اللي نبنيه سوا.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRESENTATIONS -->
+<section id="decks">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <div class="eyebrow"><b>05</b> // Presentations</div>
+        <h2 class="sec-title" data-en="Presentation <span class='teal'>design</span>">تصاميم <span class="teal">العروض</span></h2>
+        <p class="sec-lead" data-en="Decks I designed: proposals, identities and pitches that tell the story clearly.">عروض صمّمتها: مقترحات وهويات وعروض تقديمية تحكي الفكرة بوضوح.</p>
+      </div>
+      <a class="btn btn-ghost" href="#contact" data-type="service" data-en="Design my deck →">صمّم عرضي ←</a>
+    </div>
+    <!-- Decks are rendered from data (see js/render.js). -->
+    <div class="grid g2" id="deckGrid">
+    </div>
+  </div>
+</section>
+
+<!-- GRAPHICS -->
+<section id="graphics">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <div class="eyebrow"><b>06</b> // Graphic design</div>
+        <h2 class="sec-title" data-en="Graphic <span class='teal'>design</span>">تصاميم <span class="teal">الجرافيك</span></h2>
+        <p class="sec-lead" data-en="Logos, social posts, headers and icons, all designed by Afnan Aljohani.">شعارات، بوستات، هيدرات، وأيقونات، كلها من تصميم أفنان الجهني.</p>
+      </div>
+    </div>
+    <div class="filters chips rv" id="gFilters" style="margin:0 0 22px">
+      <button class="chip on" type="button" data-f="all" data-en="All">الكل</button>
+      <button class="chip" type="button" data-f="logo" data-en="Logo">الشعار</button>
+      <button class="chip" type="button" data-f="post" data-en="Posts">بوستات</button>
+      <button class="chip" type="button" data-f="banner" data-en="Headers & banners">هيدرات وبانرات</button>
+      <button class="chip" type="button" data-f="icon" data-en="Icons">أيقونات</button>
+    </div>
+    <!-- Designs are rendered from data (see js/render.js). -->
+    <div class="masonry" id="gGrid">
+    </div>
+  </div>
+</section>
+
+<!-- OPEN IDEAS -->
+<section id="ideas">
+  <div class="wrap">
+    <div class="sec-head row rv">
+      <div>
+        <div class="eyebrow"><b>07</b> // Ideas lab</div>
+        <h2 class="sec-title" data-en="We share ideas openly, <span class='gold'>and credit their owners</span>">ننشر الأفكار بفتح، <span class="gold">ونحفظ حق أصحابها</span></h2>
+        <p class="sec-lead" data-en="An idea shared publicly with a name and a date is protected by its history. Copying an idea is easy; executing it like its owners is not.">الفكرة المنشورة باسم صاحبها وتاريخها محميّة بسجلّها. نسخ الفكرة سهل، لكن تنفيذها مثل أصحابها صعب.</p>
+      </div>
+      <a class="btn btn-primary" href="#contact" data-type="idea" data-en="Submit an idea">ارفع فكرتك</a>
+    </div>
+    <div class="policy">
+      <div class="pol rv"><b data-en="Name & date"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12 12 20 3 11V3h8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>اسم وتاريخ</b><p data-en="Every idea is published with its author's name and a timestamp: a public record of who came first.">كل فكرة تُنشر باسم صاحبها وتاريخها: سجل علني يثبت من سبق.</p></div>
+      <div class="pol rv"><b data-en="Clear license"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg>رخصة واضحة</b><p data-en="Projects on GitHub carry an open license that requires attribution (MIT / CC BY).">المشاريع على GitHub برخصة مفتوحة تشترط ذكر المصدر (MIT / CC BY).</p></div>
+      <div class="pol rv"><b data-en="Some ideas stay private"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>بعض الأفكار تبقى خاصة</b><p data-en="Startup ideas or client work? We publish the concept, and keep the details and data private.">فكرة شركة ناشئة أو عمل لعميل؟ ننشر المفهوم ونحفظ التفاصيل والبيانات.</p></div>
+      <div class="pol rv"><b data-en="Execution wins"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2M14 4c3-1 6-1 6-1s0 3-1 6l-7 7-5-5z"/><circle cx="15" cy="9" r="1.5"/></svg>التنفيذ هو الفرق</b><p data-en="Whoever builds and publishes first owns the story.">اللي يبني وينشر أولًا يملك القصة.</p></div>
+    </div>
+    <div class="grid g3" id="ideaGrid">
+      <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-001</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic lecture summarizer">ملخّص المحاضرات العربي</h3><p data-en="An assistant that turns Arabic lecture recordings into notes, key terms and quiz questions.">مساعد يحوّل تسجيلات المحاضرات العربية إلى ملخّص ومصطلحات وأسئلة مراجعة.</p><div class="tags"><span class="tag">NLP</span><span class="tag">Speech</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
+      <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-003</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic misinformation detector">كاشف الأخبار المضلّلة</h3><p data-en="A model that flags misleading Arabic posts and shows the reliable source.">نموذج ينبّه على المنشورات العربية المضلّلة ويعرض المصدر الموثوق.</p><div class="tags"><span class="tag">NLP</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
+      <div class="card idea rv" data-s="open"><div class="top"><span class="type" data-en="Idea">فكرة</span><span class="id mono" style="margin-inline-start:auto;margin-inline-end:8px">IDEA-005</span><span class="status s-open" data-en="Open">مفتوحة</span></div><h3 data-en="Arabic customer-service assistant">مساعد خدمة العملاء العربي</h3><p data-en="A smart assistant that answers customers in Saudi dialect from a company's own documents.">مساعد ذكي يرد على العملاء باللهجة السعودية من مستندات الشركة نفسها.</p><div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">Arabic NLP</span></div><div class="by"><span class="av">ب</span><b data-en="Bnan Team">فريق بنان</b><em data-en="Oct 2026">أكتوبر 2026</em><button class="like" type="button" aria-pressed="false">♥</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><b>08</b> // Achievements</div>
+      <h2 class="sec-title" data-en="Impact <span class='gold'>worth pointing to</span>">أثر <span class="gold">يُشار إليه بالبنان</span></h2>
+    </div>
+    <div class="card trophy rv">
+      <div class="cup"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M8.5 11 6 3h4l2 4 2-4h4l-2.5 8"/></svg></div>
+      <div>
+        <div class="eyebrow" style="color:var(--gold)">Gold Certificate+ · Kanz AI Hackathon 2026</div>
+        <h3 style="margin-top:8px" data-en="The founder earned the <span class='gold'>Gold Certificate+</span> at Kanz AI Hackathon 2026">المؤسِّسة حصلت على <span class="gold">الشهادة الذهبية+</span> في هاكاثون كنز للذكاء الاصطناعي 2026</h3>
+        <p data-en="Track: Supercharge Your Data Analytics with Generative AI. The same experience goes into every Bnan project.">مسار: Supercharge Your Data Analytics with Generative AI. ونفس الخبرة تدخل في كل مشروع من مشاريع بنان.</p>
+      </div>
+    </div>
+    <div class="grid g4" style="margin-top:18px">
+      <div class="card ach rv"><span class="m"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M8 8h8M8 12h5M9 16l-1 5 4-2 4 2-1-5"/></svg></span><div><h3 style="font-size:17px" data-en="SDAIA Certificate">شهادة سدايا</h3><p style="font-size:14.5px" data-en="Increase Productivity & Improve Efficiency · 2026">برنامج رفع الإنتاجية وتحسين الكفاءة · 2026</p><small data-en="Founder">المؤسِّسة</small></div></div>
+      <div class="card ach rv"><span class="m"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5"/><path d="M8.5 11 6 3h4l2 4 2-4h4l-2.5 8"/></svg></span><div><h3 style="font-size:17px" data-en="2nd Place">المركز الثاني</h3><p style="font-size:14.5px">Snap AR Lens Challenge · SDA × Snapchat</p><small data-en="Founder">المؤسِّسة</small></div></div>
+      <div class="card ach rv"><span class="m"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><h3 style="font-size:17px" data-en="Student Ambassador">سفيرة طلابية</h3><p style="font-size:14.5px">IBM SkillsBuild · 2026</p><small data-en="Founder">المؤسِّسة</small></div></div>
+      <div class="card ach rv"><span class="m"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span><div><h3 style="font-size:17px">HCIA-AI 4.0</h3><p style="font-size:14.5px">Huawei Cloud Middle East</p><small data-en="Founder">المؤسِّسة</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY BNAN -->
+<section id="model">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><b>09</b> // Why Bnan</div>
+      <h2 class="sec-title" data-en="Why <span class='teal'>Bnan?</span>">ليش <span class="teal">بنان؟</span></h2>
+      <p class="sec-lead" data-en="A small startup with real experience: clear scope, fast prototypes, and results we measure.">شركة ناشئة صغيرة بخبرة حقيقية: نطاق واضح، نماذج أولية سريعة، ونتائج نقيسها.</p>
+    </div>
+    <div class="tiers rv">
+      <div class="tier"><span class="lv">EXPERIENCE</span><h4 data-en="Real experience">خبرة عملية</h4><p data-en="AI and data work with SDAIA, GACA and a consulting firm.">عمل في الذكاء الاصطناعي والبيانات مع سدايا والطيران المدني وشركة استشارات.</p></div>
+      <div class="tier"><span class="lv">SPEED</span><h4 data-en="Fast delivery">سرعة</h4><p data-en="A working prototype you can try within weeks.">نموذج أولي تقدر تجرّبه خلال أسابيع.</p></div>
+      <div class="tier"><span class="lv">ARABIC FIRST</span><h4 data-en="Arabic first">عربي أولًا</h4><p data-en="Solutions that understand Arabic and the Saudi context.">حلول تفهم اللغة العربية والسياق السعودي.</p></div>
+      <div class="tier"><span class="lv">RESPONSIBLE</span><h4 data-en="Responsible AI">مسؤولية</h4><p data-en="Your data is handled under data-governance and privacy standards.">بياناتك محمية وفق معايير حوكمة البيانات والخصوصية.</p></div>
+    </div>
+    <div class="card rv" style="margin-top:22px">
+      <h3 data-en="How every project works">كيف يمشي كل مشروع</h3>
+      <ul class="rules" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 24px">
+        <li data-en="A clear scope and price before we start.">نطاق واضح وسعر واضح قبل ما نبدأ.</li>
+        <li data-en="A prototype you can see early.">نموذج أولي تشوفه بدري.</li>
+        <li data-en="Three success indicators for every project.">3 مؤشرات نجاح لكل مشروع.</li>
+        <li data-en="Documented delivery: code, report and training.">تسليم موثّق: كود وتقرير وتدريب.</li>
+        <li data-en="Ideas and work are credited to their owners.">الأفكار والأعمال تُنسب لأصحابها.</li>
+        <li data-en="Support after delivery.">دعم بعد التسليم.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><b>10</b> // Founder</div>
+      <h2 class="sec-title" data-en="From the <span class='gold'>founder</span>">من <span class="gold">المؤسِّسة</span></h2>
+    </div>
+    <div class="founder">
+      <div class="card f-id rv">
+        <div class="f-av" data-en="A">أ</div>
+        <h3 data-en="Afnan Fahad Aljohani">أفنان فهد الجهني</h3>
+        <span class="role">AI & Data Science Engineer</span>
+        <span class="sub" data-en="Founder & CEO, Bnan AI · Riyadh">المؤسِّسة والرئيسة التنفيذية لبنان · الرياض</span>
+        <div class="f-links">
+          <a class="btn btn-primary" style="height:44px;padding-inline:18px;font-size:15px" href="mailto:a.almass3dii@gmail.com" data-en="Email me">راسليني</a>
+          <a class="btn btn-ghost" style="height:44px;padding-inline:18px;font-size:15px" href="https://wa.me/966545379819" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div class="card rv">
+        <p style="font-size:19px;color:#DADDF2" data-en="“Bnan started as a personal effort: an idea for an AI club. Today it is a startup I'm building step by step, so that every solution we deliver leaves an impact worth pointing to.”">«بدأت بنان اجتهادًا شخصيًا، فكرة نادٍ للذكاء الاصطناعي. واليوم هي شركة ناشئة أبنيها خطوة بخطوة، عشان كل حل نقدّمه يترك أثرًا يُشار إليه بالبنان.»</p>
+        <div class="kv" style="margin-top:22px">
+          <div><small>EDUCATION</small><b data-en="BSc Computer Science, Data Science track, University of Jeddah (Honors)">بكالوريوس علوم الحاسب، مسار علم البيانات، جامعة جدة (مرتبة الشرف)</b></div>
+          <div><small>TRAINING</small><b data-en="Holberton School by Tuwaiq Academy, Advanced Software Engineering">Holberton School من أكاديمية طويق، هندسة برمجيات متقدمة</b></div>
+          <div><small>EXPERIENCE</small><b data-en="AI & Data: SDAIA · GACA · Outstanding Knowledge Consultancy">ذكاء اصطناعي وبيانات: سدايا · الهيئة العامة للطيران المدني · المعرفة المتميزة للاستشارات</b></div>
+          <div><small>FOCUS</small><b data-en="Computer vision, deep learning, ML pipelines, BI dashboards">الرؤية الحاسوبية، التعلّم العميق، مسارات تعلّم الآلة، لوحات المؤشرات</b></div>
+        </div>
+        <div class="tags" style="margin-top:16px"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">Scikit-learn</span><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">PostgreSQL</span><span class="tag">Linux</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE NOTE -->
+<section id="voice">
+  <div class="wrap">
+    <div class="voice rv">
+      <div class="v-info">
+        <div class="eyebrow">Voice note</div>
+        <h2 class="sec-title" data-en="A word <span class='teal'>from the founder</span>">كلمة <span class="teal">من المؤسِّسة</span></h2>
+        <p class="sec-lead" data-en="Hear the story of Bnan, and what we can build together, in Afnan's own voice.">اسمع قصة بنان، ووش نقدر نبني مع بعض، بصوت أفنان.</p>
+      </div>
+      <div class="v-player" id="vPlayer">
+        <img class="v-ava" src="assets/banan/banan-head.webp" alt="" width="256" height="256">
+        <button class="v-play" id="vPlay" type="button" aria-label="Play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"/></svg></button>
+        <div class="v-wave" aria-hidden="true"><i style="height:30%"></i><i style="height:55%"></i><i style="height:40%"></i><i style="height:80%"></i><i style="height:60%"></i><i style="height:95%"></i><i style="height:50%"></i><i style="height:70%"></i><i style="height:35%"></i><i style="height:85%"></i><i style="height:45%"></i><i style="height:65%"></i><i style="height:30%"></i><i style="height:75%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:40%"></i><i style="height:60%"></i><i style="height:25%"></i><i style="height:50%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:35%"></i></div>
+        <span class="v-time mono" id="vTime">0:00</span>
+        <!-- Add the recording as assets/voice/intro.mp3 (or .m4a) and it plays here. -->
+        <audio id="vAudio" preload="none"><source src="assets/voice/intro.mp3" type="audio/mpeg"><source src="assets/voice/intro.m4a" type="audio/mp4"></audio>
+      </div>
+      <p class="v-note" id="vNote" hidden data-en="The voice note is coming soon 🎙️">التعليق الصوتي قريبًا 🎙️</p>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section id="ecosystem">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow"><b>11</b> // Knowledge Center</div>
+      <h2 class="sec-title" data-en="Knowledge Center: <span class='teal'>where to start</span>">مركز المعرفة: <span class="teal">من وين تبدأ؟</span></h2>
+      <p class="sec-lead" data-en="Bnan is part of a growing Saudi AI ecosystem. These are resources we recommend.">بنان جزء من منظومة سعودية متنامية في الذكاء الاصطناعي، وهذي مصادر ننصح فيها.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card eco rv"><span class="tag" style="align-self:flex-start" data-en="Free course">دورة مجانية</span><h3 data-en="AI for Community Service">الذكاء الاصطناعي لخدمة المجتمع</h3><p data-en="A course from the Ministry of Communications and IT on the FutureX platform.">دورة من وزارة الاتصالات وتقنية المعلومات على منصة FutureX.</p><a class="lnk" href="https://mcit.futurex.sa/courses/course-v1:mcit+C-1-intl+2025/about" target="_blank" rel="noopener" data-en="Open the course ↗">افتح الدورة ↗</a></div>
+      <div class="card eco rv"><span class="tag" style="align-self:flex-start" data-en="Non-profit">غير ربحي</span><h3 data-en="Artificial Intelligence Association (AIA)">جمعية الذكاء الاصطناعي (AIA)</h3><p data-en="A non-profit AI community that collaborates with many organizations. A partner we aspire to work with.">مجتمع غير ربحي للذكاء الاصطناعي يتعاون مع جهات كثيرة، ونطمح للتعاون معه.</p><a class="lnk" href="https://aia.org.sa/site/" target="_blank" rel="noopener" data-en="Visit ↗">زيارة الموقع ↗</a></div>
+      <div class="card eco rv"><span class="tag" style="align-self:flex-start" data-en="National academy">أكاديمية وطنية</span><h3 data-en="SDAIA Academy">أكاديمية سدايا</h3><p data-en="Programs and certificates in AI and data engineering from the Saudi Data & AI Authority.">برامج وشهادات في الذكاء الاصطناعي وهندسة البيانات من الهيئة السعودية للبيانات والذكاء الاصطناعي.</p><a class="lnk" href="https://sdaia.gov.sa/" target="_blank" rel="noopener" data-en="Visit ↗">زيارة الموقع ↗</a></div>
+    </div>
+    <p class="note rv" data-en="Listing these resources doesn't imply an official partnership; we will announce partnerships once they are signed.">ذكر هذه الجهات لا يعني شراكة رسمية، وسنعلن الشراكات عند توقيعها.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="band rv" style="margin-bottom:56px">
+      <h2 data-en="The future doesn't wait… <span class='teal'>we build it</span>">المستقبل ما ينتظر… <span class="teal">إحنا نصنعه</span></h2>
+      <p data-en="Have an idea, a challenge, or data that needs analyzing? Let's build it together 🤖💜">عندك فكرة أو تحدٍّ أو بيانات تحتاج تحليل؟ خلّنا نبنيها سوا 🤖💜</p>
+    </div>
+    <div class="sec-head rv">
+      <div class="eyebrow"><b>12</b> // Contact</div>
+      <h2 class="sec-title" data-en="Let's <span class='teal'>talk</span>">خلّنا <span class="teal">نتواصل</span></h2>
+    </div>
+    <div class="contact">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <a class="ch rv" href="mailto:a.almass3dii@gmail.com"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><small data-en="Email">البريد الإلكتروني</small><b>a.almass3dii@gmail.com</b></div></a>
+        <a class="ch rv" href="https://wa.me/966545379819" target="_blank" rel="noopener"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.3-4.4A9 9 0 1 1 21 12z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-1.8-1-1 .8a4 4 0 0 1-2.2-2.2l.8-1-1-1.8z"/></svg></span><div><small data-en="WhatsApp">واتساب</small><b>+966 54 537 9819</b></div></a>
+        <div class="ch rv" style="cursor:default"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><small data-en="Based in">المقر</small><b style="font-family:var(--font)" data-en="Riyadh, Saudi Arabia">الرياض، المملكة العربية السعودية</b></div></div>
+      </div>
+      <form class="card rv" id="form" novalidate>
+        <div class="seg" role="radiogroup" aria-label="Type">
+          <input type="radio" name="type" id="t-join" value="join" checked><label for="t-join" data-en="Consultation">استشارة</label>
+          <input type="radio" name="type" id="t-service" value="service"><label for="t-service" data-en="Service request">طلب خدمة</label>
+          <input type="radio" name="type" id="t-idea" value="idea"><label for="t-idea" data-en="Share an idea">مشاركة فكرة</label>
+          <input type="radio" name="type" id="t-partner" value="partner"><label for="t-partner" data-en="Partnership / Investment">شراكة واستثمار</label>
+        </div>
+        <div class="two">
+          <div class="field"><label for="f-name" data-en="Name">الاسم</label><input id="f-name" required autocomplete="name"></div>
+          <div class="field"><label for="f-mail" data-en="Email">البريد</label><input id="f-mail" type="email" required autocomplete="email" dir="ltr"></div>
+        </div>
+        <div class="field"><label for="f-msg" data-en="Message">رسالتك</label><textarea id="f-msg" required></textarea></div>
+        <button class="btn btn-primary" type="submit" data-en="Send via email">أرسل عبر البريد</button>
+        <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
+        <p class="note form-note" id="formNote" style="margin:0" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="designby" dir="ltr">
+      <span class="db-bar"></span>
+      <a class="db-qr" href="https://www.linkedin.com/in/afnan-aljohani-0b5a70315/" target="_blank" rel="noopener" aria-label="Afnan Aljohani on LinkedIn"><svg aria-hidden="true" shape-rendering="crispEdges" viewBox="0 0 33 33" class="segno"><path class="qrline" stroke="#0a0f2e" d="M0 0.5h7m5 0h2m2 0h6m1 0h1m2 0h7m-33 1h1m5 0h1m3 0h1m1 0h6m6 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h1m3 0h3m4 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h3m1 0h2m3 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h1m2 0h1m2 0h2m2 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h11m1 0h2m2 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h1m4 0h1m4 0h3m1 0h1m-25 1h1m1 0h5m3 0h6m1 0h1m4 0h1m1 0h1m1 0h5m-28 1h1m4 0h1m1 0h1m5 0h1m1 0h2m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h1m2 0h1m2 0h1m5 0h2m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m1 0h1m-29 1h1m1 0h1m2 0h1m6 0h1m1 0h1m1 0h6m4 0h3m1 0h1m-32 1h4m1 0h1m1 0h1m1 0h2m6 0h3m1 0h2m1 0h1m1 0h3m1 0h2m-33 1h1m1 0h1m1 0h1m5 0h2m1 0h7m3 0h2m1 0h1m2 0h1m1 0h2m-32 1h3m2 0h1m1 0h1m4 0h1m3 0h1m2 0h1m1 0h1m2 0h2m1 0h4m-30 1h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m4 0h1m3 0h2m1 0h3m-27 1h3m1 0h5m1 0h1m2 0h1m4 0h4m1 0h2m3 0h1m-33 1h1m2 0h1m1 0h1m2 0h3m1 0h2m3 0h5m1 0h5m1 0h2m1 0h1m-31 1h5m2 0h1m1 0h3m1 0h1m1 0h1m2 0h2m5 0h2m1 0h2m-32 1h2m2 0h1m6 0h2m3 0h3m2 0h3m1 0h1m1 0h5m-32 1h3m1 0h3m1 0h5m3 0h1m2 0h2m3 0h2m1 0h3m-30 1h1m2 0h1m1 0h1m2 0h1m5 0h2m1 0h3m2 0h3m1 0h1m3 0h1m1 0h1m-33 1h1m2 0h1m2 0h4m1 0h1m2 0h3m3 0h1m4 0h1m1 0h5m-32 1h1m3 0h1m3 0h1m1 0h2m1 0h1m1 0h1m3 0h1m1 0h2m1 0h8m-32 1h1m2 0h2m1 0h1m2 0h1m5 0h1m1 0h2m3 0h7m2 0h1m-24 1h1m3 0h3m1 0h1m1 0h4m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m4 0h2m2 0h2m1 0h1m3 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m1 0h2m2 0h1m4 0h5m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h3m4 0h1m1 0h1m3 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h4m1 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h6m3 0h1m3 0h7m2 0h1m-31 1h1m5 0h1m4 0h4m1 0h1m4 0h2m2 0h2m1 0h3m-31 1h7m1 0h1m2 0h4m2 0h1m4 0h3m1 0h2m3 0h1"/></svg></a>
+      <div class="db-txt"><small>DESIGN BY</small><b>Afnan Aljohani</b><span>AI &amp; Data Science Engineer</span></div>
+    </div>
+  </div>
+  <div class="wrap foot">
+    <div style="display:flex;align-items:center;gap:14px"><svg viewBox="0 0 900 250" aria-hidden="true"><use href="#bnan"/></svg><span class="m" dir="ltr">© 2026 Bnan AI · LEARN · BUILD · IMPACT</span></div>
+    <a class="m" href="https://www.linkedin.com/in/afnan-aljohani-0b5a70315/" target="_blank" rel="noopener" dir="ltr">LinkedIn ↗</a>
+  </div>
+  <div class="made">Made with <span class="h">♥</span> by <b>Afnan Aljohani</b></div>
+</footer>
+
+
+<div class="lbx" id="lb" role="dialog" aria-modal="true" aria-label="Viewer" hidden>
+  <div class="lb-top"><span class="lb-cap" id="lbCap"></span><span class="lb-n mono" id="lbN"></span><button class="lb-x" id="lbX" aria-label="Close">×</button></div>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <div class="lb-stage" id="lbStage" data-lenis-prevent><img id="lbImg" alt=""></div>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+</div>
+
+<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="wTitle" hidden>
+  <div class="w-card">
+    <div class="w-bot"><img src="assets/banan/banan.webp" alt="بنان" width="763" height="788"></div>
+    <div class="w-talk">
+      <span class="badge"><i></i><span data-en="Ask Banan">اسأل بنان</span></span>
+      <h2 id="wTitle" data-en="Hi, I'm <span class='tri'>Banan</span> 👋">أهلًا، أنا <span class="tri">بنان</span> 👋</h2>
+      <p class="w-bubble"><span id="wText"></span><i class="caret"></i></p>
+      <div class="w-btns">
+        <button class="btn btn-primary" id="wGo" type="button" data-en="Let's start">يلا نبدأ</button>
+        <button class="btn btn-ghost" id="wAsk" type="button" data-en="Ask Banan">اسأل بنان</button>
+      </div>
+    </div>
+    <button class="w-x" id="wX" aria-label="Close">×</button>
+  </div>
+</div>
+
+<button class="fab" id="fab" aria-label="Ask Bnan" aria-expanded="false"><img src="assets/banan/banan-head.webp" alt="" width="256" height="256"><span class="dot"></span></button>
+<div class="chat" id="chat" role="dialog" aria-label="Ask Bnan">
+  <div class="chat-h">
+    <span class="ava"><img src="assets/banan/banan-head.webp" alt="" width="256" height="256"></span>
+    <div><b data-en="Banan · AI assistant">بنان · مساعدتك الذكية</b><small id="chatSub" data-en="Quick answers about Bnan">إجابات سريعة عن بنان</small></div>
+    <button class="x" id="chatX" aria-label="Close">×</button>
+  </div>
+  <div class="chat-b" id="chatB" data-lenis-prevent aria-live="polite"></div>
+  <div class="chat-q" id="chatQ">
+    <button class="chip" data-q="what" data-en="What is Bnan?">وش هو بنان؟</button>
+    <button class="chip" data-q="join" data-en="How do I start a project?">كيف أبدأ مشروع؟</button>
+    <button class="chip" data-q="service" data-en="Services?">وش تقدّمون؟</button>
+    <button class="chip" data-q="cost" data-en="Pricing?">الأسعار؟</button>
+    <button class="chip" data-q="events" data-en="Workshops?">ورشكم؟</button>
+    <button class="chip" data-q="ideas" data-en="Will my idea be stolen?">هل تُسرق فكرتي؟</button>
+    <button class="chip" data-q="projects" data-en="Your projects?">مشاريعك؟</button>
+    <button class="chip" data-q="learn" data-en="Where do I start?">من وين أبدأ؟</button>
+    <button class="chip wa" data-q="wa" data-en="💚 WhatsApp">💚 واتساب</button>
+  </div>
+  <form class="chat-f" id="chatF" autocomplete="off">
+    <input id="chatI" data-ph-ar="اكتب سؤالك…" data-ph-en="Type your question…" placeholder="اكتب سؤالك…" aria-label="Message">
+    <button type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js" integrity="sha384-3vCAhD+a3BOliP3QqjQINn6ZWiZxoqu0WFxX5ZQZgqekDZuSb1mJBrrLMmu94H8f" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/ScrollTrigger.min.js" integrity="sha384-H2WL1iy/jKQQ7MTHU2hskZKNHTYWWD/KgKE1vCNnaWY8An2ESTh23KN/fTp8XS3j" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" integrity="sha384-R18XzqnxvVLEF+BYfhpmDx30v7eP83fAckyfoRzK7/Uf6nGqufcmsk0eAKo7S3RU" crossorigin="anonymous"></script>
+<script src="js/content-data.js"></script>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app.js"></script>
+<script src="js/main.js"></script>
+<script src="js/motion.js"></script>
+</body>
+</html>
