@@ -683,3 +683,45 @@ button.hv-chip{cursor:pointer}
 @media (prefers-reduced-motion:reduce){.hv-bot,.hv-chip,.w-bot img,.hv-orb::after,.rtrack{animation:none}}
 .ribbon.r1 .rtrack span{direction:rtl;unicode-bidi:isolate}
 @media (max-width:640px){.fab{width:54px;height:54px;bottom:16px}.askbar{padding-inline-end:70px}}
+
+/* Story-style circle icons under the nav */
+.circles{position:sticky;top:68px;z-index:55;background:rgba(8,11,36,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.ci-row{display:flex;justify-content:center;gap:26px;padding-block:12px;overflow-x:auto;scrollbar-width:none}
+.ci-row::-webkit-scrollbar{display:none}
+.ci{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;background:none;border:0;color:var(--ink);font:inherit;cursor:pointer}
+.ci-r{width:60px;height:60px;border-radius:50%;padding:2.5px;background:linear-gradient(135deg,#3CC8F0,#6C7BFF,#C77DFF,#F0567A);transition:transform .2s}
+.ci-i{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#121845;border:2px solid #080B24;color:#fff}
+.ci-i svg{width:24px;height:24px}
+.ci:hover .ci-r{transform:scale(1.08)}
+.ci-t{font-size:12.5px;font-weight:700;color:#D0D3EC;white-space:nowrap}
+@media (max-width:640px){.circles{top:68px}.ci-row{justify-content:flex-start;gap:16px;padding-inline:16px}.ci-r{width:54px;height:54px}}
+
+/* Hero video */
+.video{margin-top:18px;max-width:620px;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.video iframe{width:100%;height:100%;border:0;display:block}
+
+/* Straight ribbons */
+.ribbons{height:auto;display:flex;flex-direction:column;gap:0}
+.ribbon{position:relative;left:0;width:100%;top:auto!important;transform:none!important}
+
+/* Tidier mobile: compact stats, no stacked clutter */
+@media (max-width:720px){
+  .stats{grid-template-columns:repeat(4,1fr);gap:8px}
+  .stat{padding:12px 6px;border-radius:14px}
+  .stat b{font-size:22px}
+  .stat span{font-size:11.5px;line-height:1.4;display:block}
+  .hero-visual .hv-card{display:none}
+  .hv-bot{width:70%}
+}
+
+/* Intro: dots gather, then the logo */
+.intro{position:fixed;inset:0;z-index:200;background:#080B24;display:grid;place-items:center;transition:opacity .6s}
+.intro.done{opacity:0;pointer-events:none}
+.intro-dots{position:absolute;width:10px;height:10px}
+.intro-dots i{position:absolute;width:10px;height:10px;border-radius:50%;background:#A5AEFF;box-shadow:0 0 16px #8B5CF6;animation:gather 1.4s cubic-bezier(.7,0,.2,1) forwards}
+.intro-dots i:nth-child(1){--x:-40vw;--y:-30vh}.intro-dots i:nth-child(2){--x:40vw;--y:-30vh}.intro-dots i:nth-child(3){--x:-40vw;--y:30vh}.intro-dots i:nth-child(4){--x:40vw;--y:30vh}
+.intro-dots i:nth-child(5){--x:0;--y:-45vh}.intro-dots i:nth-child(6){--x:0;--y:45vh}.intro-dots i:nth-child(7){--x:-48vw;--y:0}.intro-dots i:nth-child(8){--x:48vw;--y:0;background:#F0567A}
+@keyframes gather{from{transform:translate(var(--x),var(--y));opacity:0}30%{opacity:1}to{transform:translate(0,0) scale(1.6);opacity:0}}
+.intro-logo{width:min(560px,80vw);color:#F5F6FC;opacity:0;transform:scale(.85);filter:blur(8px);animation:logoIn .9s 1.2s ease-out forwards}
+@keyframes logoIn{to{opacity:1;transform:none;filter:none}}
+@media (prefers-reduced-motion:reduce){.intro{display:none}}

@@ -205,9 +205,13 @@ window.startBnanApp = function(){
     wEl.classList.add('out');
     setTimeout(function(){ wEl.hidden = true; wEl.classList.remove('out'); document.body.style.overflow = ''; if(then) then(); }, 350);
   }
+  // Intro plays once per visit, then the welcome opens.
+  var introEl = document.getElementById('intro');
+  if(seen || reduceMotion){ introEl.remove(); }
+  else { setTimeout(function(){ introEl.classList.add('done'); setTimeout(function(){ introEl.remove(); }, 700); }, 2900); }
   if(!seen){
     wEl.hidden = false; document.body.style.overflow = 'hidden';
-    setTimeout(typeWelcome, 450);
+    setTimeout(typeWelcome, 3300);
     setTimeout(function(){ document.getElementById('wGo').focus({preventScroll:true}); }, 100);
   }
   document.getElementById('wGo').addEventListener('click', function(){ closeWelcome(); });
