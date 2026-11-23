@@ -1,0 +1,104 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;800;900&family=Noto+Naskh+Arabic:wght@600;700&display=swap">
+<style>
+*{margin:0;box-sizing:border-box}
+body{background:#222;padding:20px;display:flex;gap:20px;width:2300px}
+.p{position:relative;width:1080px;height:1350px;overflow:hidden;color:#fff;font-family:Tajawal}
+.p>svg.bg{position:absolute;inset:0;width:100%;height:100%}
+.grain{position:absolute;inset:0;mix-blend-mode:overlay;opacity:.55;pointer-events:none}
+.txt{position:absolute;top:150px;right:110px;text-align:right}
+.l1{font-family:'Noto Naskh Arabic';font-weight:700;font-size:64px;line-height:1.5;text-shadow:0 4px 20px rgba(0,0,0,.35)}
+.big{font-weight:900;font-size:150px;line-height:1.15;margin-top:6px;text-shadow:0 6px 30px rgba(0,0,0,.35)}
+.mk{position:relative;display:inline-block;padding:0 14px;z-index:0}
+.mk::before{content:"";position:absolute;left:-6px;right:-6px;top:38%;bottom:6%;background:#9B6CF6;opacity:.85;transform:skewX(-8deg) rotate(-1.5deg);z-index:-1;border-radius:6px}
+.gold{color:#F8D57E}
+.src{position:absolute;left:90px;bottom:80px;text-align:left;direction:rtl;font-size:26px;line-height:1.4}
+.src b{display:block;font-size:34px;font-weight:800}
+.brand{position:absolute;right:90px;bottom:84px;display:flex;align-items:center;gap:12px;font-size:30px;font-weight:800}
+.brand svg{width:44px;height:44px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+ <linearGradient id="kg" x1="0" x2="1"><stop offset="0" stop-color="#7DD3FC"/><stop offset=".5" stop-color="#A78BFA"/><stop offset="1" stop-color="#E9D5FF"/></linearGradient>
+ <radialGradient id="kd" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FFF7E0"/><stop offset=".5" stop-color="#F8D57E"/><stop offset="1" stop-color="#D99A3B"/></radialGradient>
+ <symbol id="km" viewBox="0 0 256 256"><path d="M34 78C28 146 66 166 124 166H168C204 166 222 150 222 116" fill="none" stroke="url(#kg)" stroke-width="26" stroke-linecap="round"/><circle cx="128" cy="214" r="20" fill="url(#kd)"/></symbol>
+ <filter id="paint"><feTurbulence type="fractalNoise" baseFrequency=".012 .04" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="26"/></filter>
+ <filter id="blur30"><feGaussianBlur stdDeviation="30"/></filter>
+ <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
+ <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .55 0"/></filter>
+</defs></svg>
+
+<!-- POST 1: الطلاق ٣ — a small figure walking a golden path toward a lit doorway -->
+<section class="p" data-name="khair-day1-a">
+ <svg class="bg" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+  <defs>
+   <linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140F3D"/><stop offset=".55" stop-color="#2E1F6B"/><stop offset="1" stop-color="#4A2D86"/></linearGradient>
+   <linearGradient id="path1" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F8D57E"/><stop offset="1" stop-color="#FFF4D6"/></linearGradient>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#s1)"/>
+  <g filter="url(#paint)">
+   <path d="M0 760C180 700 300 740 460 700S800 640 1080 690V1350H0Z" fill="#3B2775"/>
+   <path d="M0 900C220 840 380 880 560 850S900 800 1080 840V1350H0Z" fill="#2A1C5C"/>
+   <path d="M0 1060C260 1000 460 1040 640 1010S940 970 1080 1000V1350H0Z" fill="#1E1548"/>
+  </g>
+  <g fill="#fff">
+   <circle cx="120" cy="120" r="2"/><circle cx="300" cy="80" r="1.6"/><circle cx="520" cy="60" r="2"/><circle cx="80" cy="330" r="1.5"/><circle cx="240" cy="260" r="2.2"/><circle cx="460" cy="200" r="1.4"/><circle cx="640" cy="110" r="1.8"/><circle cx="160" cy="470" r="1.6"/><circle cx="380" cy="420" r="1.4"/>
+  </g>
+  <!-- glowing doorway -->
+  <ellipse cx="300" cy="640" rx="260" ry="200" fill="#F8D57E" opacity=".35" filter="url(#blur30)"/>
+  <path d="M230 720V560a70 70 0 0 1 140 0V720Z" fill="#FFF1C7"/>
+  <path d="M230 720V560a70 70 0 0 1 140 0V720Z" fill="none" stroke="#F8D57E" stroke-width="6" filter="url(#blur8)"/>
+  <!-- golden path -->
+  <path d="M300 720C330 800 520 820 560 900S420 1050 520 1160S760 1300 820 1350H560C520 1300 380 1240 360 1150S470 980 440 910S300 800 280 720Z" fill="url(#path1)" opacity=".92" filter="url(#paint)"/>
+  <!-- traveler -->
+  <g transform="translate(468 960)">
+   <ellipse cx="0" cy="58" rx="26" ry="6" fill="#000" opacity=".35"/>
+   <path d="M-12 0C-14 22-16 40-10 56h20c6-16 4-34 2-56Z" fill="#2B2170"/>
+   <circle cx="0" cy="-12" r="11" fill="#2B2170"/>
+   <path d="M-12 4c-10 10-12 22-8 30M12 4c10 10 12 22 8 30" stroke="#2B2170" stroke-width="6" stroke-linecap="round" fill="none"/>
+  </g>
+  <rect width="1080" height="1350" filter="url(#noise)" opacity=".18"/>
+ </svg>
+ <div class="txt">
+  <div class="l1">وَمَن يَتَوَكَّلْ عَلَى اللَّهِ</div>
+  <div class="big">فَهُوَ <span class="mk gold">حَسْبُهُ</span></div>
+ </div>
+ <div class="src"><b>آيات</b>سورة الطلاق ٣</div>
+ <div class="brand"><svg viewBox="0 0 256 256"><use href="#km"/></svg>بنان الخير</div>
+</section>
+
+<!-- POST 2: الشرح ٥ — crescent over night dunes, a seated figure with a lantern -->
+<section class="p" data-name="khair-day1-b">
+ <svg class="bg" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+  <defs>
+   <linearGradient id="s2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E1240"/><stop offset=".6" stop-color="#2A2A7A"/><stop offset="1" stop-color="#5A3E9A"/></linearGradient>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#s2)"/>
+  <circle cx="250" cy="300" r="230" fill="#F8D57E" opacity=".22" filter="url(#blur30)"/>
+  <path d="M330 170a150 150 0 1 0 0 260a120 120 0 1 1 0-260z" fill="#FBE3A2"/>
+  <g fill="#fff"><circle cx="560" cy="90" r="2"/><circle cx="700" cy="160" r="1.6"/><circle cx="90" cy="560" r="1.8"/><circle cx="460" cy="470" r="1.4"/><circle cx="620" cy="380" r="2"/><circle cx="980" cy="560" r="1.6"/></g>
+  <g filter="url(#paint)">
+   <path d="M0 880C200 780 380 820 560 760S900 700 1080 760V1350H0Z" fill="#4B3590"/>
+   <path d="M0 1000C240 930 420 960 620 920S920 880 1080 930V1350H0Z" fill="#33256F"/>
+   <path d="M0 1130C280 1070 500 1110 700 1080S960 1050 1080 1080V1350H0Z" fill="#1F1850"/>
+  </g>
+  <!-- dune highlight from the moon -->
+  <path d="M120 870C260 820 380 830 520 790" stroke="#F8D57E" stroke-width="8" opacity=".45" fill="none" filter="url(#blur8)"/>
+  <!-- seated figure with lantern -->
+  <g transform="translate(720 940)">
+   <ellipse cx="0" cy="40" rx="60" ry="10" fill="#000" opacity=".3"/>
+   <path d="M-30 40c0-40 10-70 30-70s30 30 30 70z" fill="#241B5E"/>
+   <circle cx="0" cy="-44" r="16" fill="#241B5E"/>
+   <circle cx="-60" cy="20" r="60" fill="#F8D57E" opacity=".35" filter="url(#blur8)"/>
+   <rect x="-72" y="6" width="24" height="30" rx="5" fill="#FFE7A8"/>
+   <path d="M-66 6v-10h12v10" stroke="#C99A45" stroke-width="3" fill="none"/>
+  </g>
+  <rect width="1080" height="1350" filter="url(#noise)" opacity=".18"/>
+ </svg>
+ <div class="txt">
+  <div class="l1">فَإِنَّ مَعَ</div>
+  <div class="big">العُسْرِ<br><span class="mk gold">يُسْرًا</span></div>
+ </div>
+ <div class="src"><b>آيات</b>سورة الشرح ٥</div>
+ <div class="brand"><svg viewBox="0 0 256 256"><use href="#km"/></svg>بنان الخير</div>
+</section>
+</body></html>
