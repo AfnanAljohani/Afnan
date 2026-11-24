@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بنك أسئلة شارة سدايا</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* VOICE: calm exam-room workbook, focused and quiet; the work itself is the picture.
+   IDEA: an answer sheet beside a scoreboard of seven domains.
+   PICTURE: the domain board (accuracy per domain) and the question card.
+   COLOUR and TYPE: deep SDAIA green ground band, white sheet, one gold accent; IBM Plex Sans Arabic + IBM Plex Sans for English stems.
+   LAYOUT: header band with stats + domain board; mode tabs; one question card in one calm column. */
+:root{color-scheme:light dark;
+ --bg:light-dark(#f2f5f3,#0d1513);--sheet:light-dark(#fff,#15201d);--sheet2:light-dark(#e8efeb,#1c2a26);
+ --ink:light-dark(#11201b,#e4eee9);--mut:light-dark(#4f625b,#9ab0a7);--line:light-dark(#d2ddd8,#2a3b36);
+ --band:light-dark(#0b5a43,#0a3a2d);--bandink:#eaf6f0;--acc:light-dark(#0b6b4f,#46cf9f);--accfg:light-dark(#fff,#062219);
+ --gold:light-dark(#9a6b12,#e8b85c);--goldbg:light-dark(#fbf1dc,#33280f);
+ --ok:light-dark(#13693a,#74dd9d);--okbg:light-dark(#dcf2e3,#143222);--no:light-dark(#a12828,#ff9a9a);--nobg:light-dark(#f8dfdf,#3a1b1b)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:64px}#mTop,#mCard{scroll-margin-top:120px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "IBM Plex Sans Arabic",Tahoma,sans-serif;overflow-x:clip}
+button{font:inherit;color:inherit}
+button:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:860px;margin-inline:auto;padding-inline:16px}
+header{background:var(--band);color:var(--bandink);padding:28px 0 22px}
+h1{font-size:clamp(26px,5vw,38px);line-height:1.15;margin:0 0 6px;text-wrap:balance}
+.sub{margin:0;opacity:.85;max-width:60ch}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0 16px}
+.stat{background:rgba(255,255,255,.09);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font:600 clamp(22px,5vw,30px)/1.1 "IBM Plex Sans",sans-serif}
+.stat span{font-size:13.5px;opacity:.85}
+.board{display:grid;gap:7px}
+.drow{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:2px 10px;align-items:center;font-size:14px;cursor:pointer;background:none;border:0;padding:0;text-align:start;color:inherit}
+.drow .bar{grid-column:1/-1;height:7px;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden}
+.drow .bar i{display:block;height:100%;background:#f0c15f;border-radius:4px}
+.drow .v{font:500 13px "IBM Plex Sans",sans-serif;text-align:end;direction:ltr;opacity:.9}
+.facts{background:var(--goldbg);color:var(--ink);border-radius:10px;padding:12px 14px;margin:16px 0 0;font-size:14.5px}
+.facts b{color:var(--gold)}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:4px;overflow-x:auto}
+nav button{flex:none;background:none;border:0;border-bottom:3px solid transparent;padding:13px 14px;color:var(--mut);cursor:pointer;font-weight:500;min-height:48px}
+nav button[aria-selected=true]{color:var(--acc);border-bottom-color:var(--acc);font-weight:700}
+main{padding:18px 0 60px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+select{font:inherit;font-size:16px;background:var(--sheet);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-height:44px;flex:1 1 160px}
+.btn{background:var(--acc);color:var(--accfg);border:0;border-radius:8px;padding:10px 18px;min-height:44px;font-weight:600;cursor:pointer}
+.btn.g{background:var(--sheet2);color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sp{flex:1}
+.count{font-size:14px;color:var(--mut)}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;margin:10px 0}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+.chip{font-size:12.5px;background:var(--sheet2);border-radius:6px;padding:2px 9px;font-weight:600}
+.chip.k{background:var(--goldbg);color:var(--gold)}
+.qid{margin-inline-start:auto;font:13px "IBM Plex Sans",sans-serif;color:var(--mut);direction:ltr}
+.q{direction:ltr;text-align:left;font-family:"IBM Plex Sans","IBM Plex Sans Arabic",sans-serif;font-size:16px;line-height:1.6}
+.q.ar{direction:rtl;text-align:right;font-family:"IBM Plex Sans Arabic",sans-serif}
+.q p{margin:0 0 10px}
+.q .qline{font-weight:600}
+.q img{display:block;max-width:100%;height:auto;margin:8px 0 12px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.q pre,.q pre.code{direction:ltr;text-align:left;background:#10231d;color:#e9dcb4;border-radius:8px;padding:12px;font:13.5px/1.6 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre;margin:4px 0 12px}
+.q .lab{font-size:12.5px;color:var(--mut);margin:0 0 2px}
+.q .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:4px 0 12px}
+.q table{border-collapse:collapse;width:100%;min-width:460px;font-size:14px}
+.q th,.q td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+.q th{background:var(--sheet2)} .q td:first-child,.q th:first-child{text-align:left}
+.q .reqs{background:var(--sheet2);border-radius:8px;padding:10px 12px;margin:0 0 12px}
+.q .reqs .t{font-size:12px;font-weight:700;color:var(--gold)} .q .reqs ul{margin:4px 0 0;padding-inline-start:18px}
+.q svg.fig{width:100%;height:auto;background:#fff;border-radius:8px;border:1px solid var(--line)}
+.q .figc,.q .tcap{font-size:12.5px;color:var(--mut);margin:2px 0 10px}
+.opts{display:grid;gap:8px;margin-top:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;direction:ltr;background:var(--bg);border:1.5px solid var(--line);border-radius:9px;padding:11px 13px;cursor:pointer;min-height:46px;font-family:"IBM Plex Sans","IBM Plex Sans Arabic",sans-serif;font-size:15px;line-height:1.5}
+.opt.ar{direction:rtl;text-align:right}
+.opt .L{font-weight:700;color:var(--mut);flex:none;width:18px}
+.opt.sel{border-color:var(--acc);background:var(--sheet2)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)} .opt.ok .L{color:var(--ok)}
+.opt.no{border-color:var(--no);background:var(--nobg)} .opt.no .L{color:var(--no)}
+.opt.miss{border-color:var(--ok);border-style:dashed}
+.opt:disabled{cursor:default;color:var(--ink)}
+.res{margin-top:12px;border-radius:9px;padding:10px 12px;font-weight:700}
+.res.ok{background:var(--okbg);color:var(--ok)} .res.no{background:var(--nobg);color:var(--no)}
+.exp{margin-top:10px;display:grid;gap:8px;font-size:15px}
+.exp .en{direction:ltr;text-align:left;font-family:"IBM Plex Sans",sans-serif;background:var(--sheet2);border-radius:8px;padding:10px 12px}
+.exp p{margin:0;border-radius:8px;padding:10px 12px;background:var(--sheet2)}
+.exp p.n{background:var(--nobg)} .exp p.k{background:var(--goldbg)}
+.none{color:var(--mut);font-size:14px}
+.timer{position:sticky;top:49px;z-index:4;background:var(--band);color:var(--bandink);border-radius:10px;padding:8px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.timer b{font:600 22px "IBM Plex Sans",sans-serif;direction:ltr}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:5px;margin:10px 0}
+.grid button{min-height:40px;border:1px solid var(--line);border-radius:7px;background:var(--sheet);font:13px "IBM Plex Sans",sans-serif;cursor:pointer}
+.grid .a{background:var(--sheet2);border-color:var(--acc)} .grid .f{box-shadow:inset 0 -3px 0 var(--gold)} .grid .cur{outline:2px solid var(--acc)}
+.grid .ok{background:var(--okbg);border-color:var(--ok)} .grid .no{background:var(--nobg);border-color:var(--no)}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl td,.tbl th{padding:8px;border-bottom:1px solid var(--line);text-align:start}
+.tbl td.n{text-align:end;direction:ltr;font-family:"IBM Plex Sans",sans-serif;white-space:nowrap}
+.big{font:600 clamp(36px,8vw,56px)/1 "IBM Plex Sans",sans-serif;color:var(--acc)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:6px}.links a{display:block;padding:10px 12px;min-height:44px;background:var(--sheet2);border-radius:8px;color:var(--acc);text-decoration:none;font-weight:600}
+.cd{display:inline-block;background:#f0c15f;color:#2a1d00;border-radius:999px;padding:4px 14px;font-weight:700;margin:0 0 10px}
+details.tr{margin:4px 0 10px;background:var(--goldbg);border-radius:8px;padding:8px 12px;font-family:"IBM Plex Sans Arabic",sans-serif;direction:rtl;text-align:right}
+details.tr summary{cursor:pointer;font-weight:600;color:var(--gold);min-height:32px}
+details.tr ol{margin:6px 0 0;padding-inline-start:22px}details.tr p{margin:6px 0}
+.hl{background:var(--goldbg)}
+.lrn summary{cursor:pointer;font-size:18px;list-style-position:inside;padding:4px 0}
+.lrn summary .w{font-family:"IBM Plex Sans",sans-serif;font-size:14px;color:var(--acc);margin-inline-start:6px}
+.lrn h3{font-size:16px;margin:18px 0 8px;color:var(--acc)}.lrn .idea{font-size:15.5px;margin:10px 0 4px}
+.lrn ul{padding-inline-start:20px;margin:0}.lrn li{margin-bottom:6px;line-height:1.7}
+.lrn .en{font-family:"IBM Plex Sans",sans-serif;unicode-bidi:isolate}
+.lrn .sc td:first-child small{color:var(--mut);font-size:13.5px}
+.lrn .trap{background:var(--goldbg);border-radius:8px;padding:10px 12px;margin:14px 0 10px}
+.lrn .row{flex-wrap:wrap;gap:8px}
+
+.card h2{margin:0 0 10px;font-size:19px}
+.rules{margin:0;padding-inline-start:22px}.rules li{margin-bottom:6px}
+.kt{width:100%;border-collapse:collapse;font-size:14.5px}.kt td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.kt td:last-child{font-weight:600;color:var(--acc)}.kt td[dir=ltr]{text-align:left;font-family:"IBM Plex Sans",sans-serif}
+.day{display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 12px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:8px}
+.day.today{border-color:var(--acc);box-shadow:inset -4px 0 0 var(--acc)}.day.ex{background:var(--goldbg)}
+.day .dt{font-weight:700}.day .dt small{display:block;font-weight:400;color:var(--mut)}
+.day ul{margin:0;padding-inline-start:18px}.day .row{grid-column:2}
+@media(max-width:600px){.day{grid-template-columns:1fr}.day .row{grid-column:1}}
+.empty{text-align:center;color:var(--mut);padding:30px 10px}
+footer{color:var(--mut);font-size:13px;padding:10px 0 40px}
+@media(max-width:600px){.stats{gap:6px}.stat{padding:8px}.drow{grid-template-columns:minmax(0,1fr) 78px;font-size:13px}.timer{top:49px}}
+@media(prefers-reduced-motion:no-preference){.drow .bar i{transition:width .5s}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+ <h1>بنك أسئلة شارة مهندس الذكاء الاصطناعي</h1>
+ <p class="cd" id="cd"></p><p class="sub">كل أسئلة ملفات المذاكرة في مكان واحد، مصنّفة على المحاور السبعة: تدريب حر، واختبار تجريبي بنفس عدد الأسئلة والوقت، ومراجعة أخطائك.</p>
+ <div class="stats">
+  <div class="stat"><b id="sAns">0</b><span id="sAnsL">سؤال محلول</span></div>
+  <div class="stat"><b id="sAcc">–</b><span>نسبة الصواب</span></div>
+  <div class="stat"><b id="sWrong">0</b><span>تنتظر المراجعة</span></div>
+ </div>
+ <div class="board" id="board" aria-label="الصواب حسب المحور"></div>
+</div></header>
+<nav><div class="wrap" role="tablist">
+ <button role="tab" data-t="practice" aria-selected="true">تدريب</button>
+ <button role="tab" data-t="learn" aria-selected="false">شرح المحاور</button>
+ <button role="tab" data-t="mock" aria-selected="false">اختبار تجريبي</button>
+ <button role="tab" data-t="review" aria-selected="false">أخطائي</button>
+ <button role="tab" data-t="notes" aria-selected="false">الملخص</button>
+ <button role="tab" data-t="plan" aria-selected="false">الخطة</button>
+ <button role="tab" data-t="about" aria-selected="false">عن الاختبار</button>
+</div></nav>
+<main class="wrap">
+ <section id="practice">
+  <div class="tools">
+   <select id="fDom" aria-label="المحور"></select>
+   <select id="fSrc" aria-label="المصدر"></select>
+   <select id="fState" aria-label="الحالة">
+    <option value="all">كل الأسئلة</option><option value="new">لم أحلّها</option><option value="wrong">أخطأت فيها</option>
+   </select>
+   <select id="fOrder" aria-label="الترتيب"><option value="seq">بالترتيب</option><option value="rnd">عشوائي</option></select>
+  </div>
+  <div class="row"><span class="count" id="pCount"></span><span class="sp"></span>
+   <button class="btn g" id="pPrev">السابق</button><button class="btn" id="pNext">التالي</button></div>
+  <div id="pCard"></div>
+  <div class="row"><span class="sp"></span><button class="btn g" id="pPrev2">السابق</button><button class="btn" id="pNext2">التالي</button></div>
+ </section>
+ <section id="learn" hidden>
+<div class="card hl"><b>كيف تذاكرين هنا:</b> افتحي المحور، اقرئي الشرح، ثم جدول «إذا شفتي في السيناريو ← الجواب»، ثم اضغطي زر الأسئلة وحلّي. المحاور مرتبة حسب الوزن.</div>
+<details class="card lrn" open><summary><b>D4</b> · <span data-dn="4"></span> <span class="w">18%</span></summary><p class="idea">النموذج جاهز. كيف أنزّله للإنتاج بأمان، وأراقبه، وأرجع عنه إذا خرب؟</p><h3>استراتيجيات النشر</h3><table class="kt">
+<tr><td><span dir="ltr" class="en">Shadow</span>: النموذج الجديد يستقبل طلبات حقيقية، وردوده ما توصل لأحد</td><td>مقارنة بدون أي مخاطرة</td></tr>
+<tr><td><span dir="ltr" class="en">Canary</span>: نسبة صغيرة من المستخدمين (مثل 5%) تروح للنسخة الجديدة</td><td>تجربة تدريجية على مستخدمين حقيقيين</td></tr>
+<tr><td><span dir="ltr" class="en">Blue-Green</span>: بيئتين كاملتين، وتحولين كل الطلبات مرة وحدة</td><td>تحويل كامل ورجوع فوري</td></tr>
+<tr><td><span dir="ltr" class="en">A/B test</span>: تقسمين المستخدمين بين نسختين</td><td>قياس أثر تجاري (مبيعات، نقرات)</td></tr>
+<tr><td><span dir="ltr" class="en">Batch</span> مقابل <span dir="ltr" class="en">Real-time</span></td><td>يومي أو أسبوعي ← Batch · أجزاء من الثانية ← Real-time</td></tr></table><h3>المراقبة: ليش الأداء نزل؟</h3><ul>
+<li><b><span dir="ltr" class="en">Data drift</span></b>: المدخلات نفسها تغيّرت (مثلًا صار يدخل عملاء أصغر سنًا).</li>
+<li><b><span dir="ltr" class="en">Concept drift</span></b>: المدخلات نفسها، لكن <b>العلاقة</b> بينها وبين النتيجة تغيّرت (المحتالين غيّروا أسلوبهم).</li>
+<li><b><span dir="ltr" class="en">Training-serving skew</span></b>: الأداء سيئ <b>من أول يوم</b>، لأن المعالجة وقت التشغيل تختلف عن وقت التدريب. الحل: نفس الـpipeline أو <span dir="ltr" class="en">feature store</span>.</li>
+<li><b><span dir="ltr" class="en">Label delay</span></b>: الإجابات الصحيحة تتأخر أشهر، فتراقبين drift و<span dir="ltr" class="en">proxy metrics</span>.</li></ul><h3>الإصدارات وإعادة الإنتاج</h3><ul>
+<li><b><span dir="ltr" class="en">Model registry</span></b>: يحفظ كل نموذج مع رقم إصداره ومقاييسه وحالته.</li>
+<li><b><span dir="ltr" class="en">Reproducibility</span></b>: ثبّتي الـseed وإصدارات المكتبات (أو container) ونسخة البيانات والإعدادات.</li>
+<li><b><span dir="ltr" class="en">Rollback bundle</span></b>: ترجعين النموذج والكود والإعدادات ونسخة البيانات <b>مع بعض</b>، مو النموذج بس.</li>
+<li><b><span dir="ltr" class="en">Eval gate</span></b>: أي إصدار ما ينزل إلا إذا نجح في التقييم (الدقة، العدالة، زمن الاستجابة).</li>
+<li><b><span dir="ltr" class="en">Continuous Training</span></b>: إعادة التدريب تكون <b>بمحفّز</b> (drift، انخفاض أداء، جدول زمني)، مو بشكل عشوائي.</li></ul><h3>LLMOps</h3><ul>
+<li><b><span dir="ltr" class="en">Prompt versioning</span></b>: الـprompt مثل الكود: إصدارات ومراجعة وتقييم وإمكانية رجوع.</li>
+<li><b><span dir="ltr" class="en">Eval set</span></b> ثابت تقيسين عليه الهلوسة والجودة قبل أي تعديل.</li>
+<li><b><span dir="ltr" class="en">Guardrails</span></b>: فلترة المدخلات والمخرجات (بيانات شخصية، <span dir="ltr" class="en">prompt injection</span>).</li>
+<li>معلومات قديمة في نظام RAG ← <b>حدّثي الـindex</b>، مو fine-tuning.</li>
+<li>تكلفة عالية ← <span dir="ltr" class="en">caching</span>، نموذج أصغر للمهام البسيطة، تقليل التوكنز.</li></ul><h3>الموثوقية</h3><ul>
+<li><b><span dir="ltr" class="en">SLI</span></b> = المقياس (نسبة التوفر، <span dir="ltr" class="en">p99 latency</span>) · <b><span dir="ltr" class="en">SLO</span></b> = الهدف (مثل 99.9%).</li>
+<li><b><span dir="ltr" class="en">Error budget</span></b> = (1 − SLO) × المدة. مثال: 99.9% على 30 يوم = 0.001 × 43,200 = <b>43.2 دقيقة</b>.</li>
+<li><b><span dir="ltr" class="en">Burn rate</span></b>: سرعة استهلاك الـerror budget. إذا عالية ← تنبيه فوري.</li>
+<li><b><span dir="ltr" class="en">Fallback / Circuit breaker</span></b>: إذا تعطل النموذج ارجعي لقاعدة بسيطة أو نسخة أقدم بدل ما تنهار الخدمة.</li></ul><h3>إذا شفتي في السيناريو ← الجواب</h3><table class="kt sc"><tr><td><span dir="ltr" class="en">compare on live traffic with no impact on users</span><br><small>مقارنة على طلبات حقيقية بدون تأثير على المستخدمين</small></td><td>Shadow</td></tr><tr><td><span dir="ltr" class="en">gradually expose a small % of users and monitor</span><br><small>تدريجيًا لنسبة صغيرة من المستخدمين</small></td><td>Canary</td></tr><tr><td><span dir="ltr" class="en">instant switch and instant rollback, two environments</span><br><small>تحويل فوري ورجوع فوري</small></td><td>Blue-Green</td></tr><tr><td><span dir="ltr" class="en">inputs unchanged but the outcome relationship changed</span><br><small>المدخلات ما تغيرت لكن النتائج اختلفت</small></td><td>Concept drift</td></tr><tr><td><span dir="ltr" class="en">feature distributions shifted</span><br><small>توزيع الخصائص تغيّر</small></td><td>Data drift</td></tr><tr><td><span dir="ltr" class="en">good offline, poor in production from day one</span><br><small>ممتاز في الاختبار وسيئ من أول يوم</small></td><td>Training-serving skew ← نفس الـpipeline</td></tr><tr><td><span dir="ltr" class="en">canary breaches latency/error SLO</span><br><small>الـcanary تجاوز الـSLO</small></td><td>Rollback (لا تزيدين الزيارات)</td></tr><tr><td><span dir="ltr" class="en">cannot reproduce last month's results</span><br><small>ما قدروا يعيدون نتائج الشهر الماضي</small></td><td>Version للبيانات والكود والبيئة والـseed</td></tr><tr><td><span dir="ltr" class="en">a prompt edit broke the chatbot</span><br><small>تعديل الـprompt خرب البوت</small></td><td>Prompt versioning + eval gate + rollback</td></tr><tr><td><span dir="ltr" class="en">LLM answers with outdated information</span><br><small>الـLLM يجاوب بمعلومات قديمة</small></td><td>حدّثي الـRAG index</td></tr><tr><td><span dir="ltr" class="en">labels arrive months later</span><br><small>الإجابات الصحيحة تتأخر أشهر</small></td><td>راقبي drift و proxy metrics</td></tr><tr><td><span dir="ltr" class="en">LLM cost is too high</span><br><small>تكلفة الـLLM عالية</small></td><td>Caching / نموذج أصغر / توكنز أقل</td></tr></table><div class="trap"><b>الفخ:</b> خيارات مثل retrain immediately أو increase model size أو «زيدي الزيارات عشان نجمع بيانات». الجواب غالبًا: شخّصي السبب، ارجعي للنسخة السابقة، راقبي.</div><div class="row"><button class="btn" data-go="4|140">حلّي أسئلة D4 من بنك الـ140</button><button class="btn g" data-go="4|bi">سيناريوهات D4 ثنائية اللغة</button></div></details>
+<details class="card lrn"><summary><b>D1</b> · <span data-dn="1"></span> <span class="w">17.3%</span></summary><p class="idea">البيانات: كيف أجهزها وأقسمها، وأختار الخوارزمية، وأقيس النموذج بالمقياس الصح.</p><h3>جودة البيانات والتسريب</h3><ul>
+<li><b><span dir="ltr" class="en">Missing values</span></b>: لو التوزيع منحرف (skewed) استخدمي <b>الوسيط</b> بدل المتوسط.</li>
+<li><b><span dir="ltr" class="en">Data leakage</span></b>: خاصية تحتوي معلومة من المستقبل أو من الهدف نفسه ← احذفيها. علامتها: نتيجة ممتازة بشكل غير منطقي.</li>
+<li>القاعدة: <b>قسّمي البيانات أولًا</b>، وبعدها اعملي <span dir="ltr" class="en">fit</span> للـscaler والـimputer على بيانات التدريب فقط.</li></ul><h3>تقسيم البيانات</h3><ul>
+<li><b>سلاسل زمنية</b> (مبيعات، طلب) ← قسمة حسب الوقت: تدريب على الماضي واختبار على المستقبل، بدون <span dir="ltr" class="en">shuffle</span>.</li>
+<li><b>فئات غير متوازنة</b> ← <span dir="ltr" class="en">stratified split</span>.</li>
+<li><b>نفس العميل أو المريض له عدة صفوف</b> ← <span dir="ltr" class="en">group split / GroupKFold</span> عشان ما يظهر في التدريب والاختبار.</li></ul><h3>المقاييس</h3><table class="kt">
+<tr><td><span dir="ltr" class="en">Precision = TP/(TP+FP)</span></td><td>لما الإنذار الكاذب (FP) مكلف: إيميل مهم ينحجب كسبام</td></tr>
+<tr><td><span dir="ltr" class="en">Recall = TP/(TP+FN)</span></td><td>لما تفويت الحالة (FN) مكلف: احتيال، سرطان</td></tr>
+<tr><td><span dir="ltr" class="en">F1</span></td><td>توازن بين الاثنين</td></tr>
+<tr><td><span dir="ltr" class="en">PR-AUC</span></td><td>بيانات غير متوازنة جدًا</td></tr>
+<tr><td><span dir="ltr" class="en">Accuracy</span></td><td>مضللة إذا الفئات غير متوازنة</td></tr>
+<tr><td><span dir="ltr" class="en">MAE</span></td><td>انحدار، أقل تأثرًا بالقيم الشاذة وسهل التفسير</td></tr>
+<tr><td><span dir="ltr" class="en">RMSE</span></td><td>انحدار، يعاقب الأخطاء الكبيرة أكثر</td></tr></table><h3>Overfitting و Underfitting</h3><ul>
+<li><b><span dir="ltr" class="en">Overfitting</span></b>: التدريب عالي والاختبار منخفض ← <span dir="ltr" class="en">regularization</span>، نموذج أبسط، بيانات أكثر، <span dir="ltr" class="en">early stopping</span>، <span dir="ltr" class="en">dropout</span>.</li>
+<li><b><span dir="ltr" class="en">Underfitting</span></b>: الاثنين منخفضين ← نموذج أعقد أو خصائص أفضل.</li></ul><h3>الخوارزميات</h3><ul>
+<li><b><span dir="ltr" class="en">KNN</span></b>: لازم <span dir="ltr" class="en">scaling</span> للخصائص. k صغير جدًا ← overfitting.</li>
+<li><b><span dir="ltr" class="en">Decision tree</span></b>: سهل التفسير، يميل للـoverfitting ← <span dir="ltr" class="en">max_depth / pruning</span>.</li>
+<li><b><span dir="ltr" class="en">Random Forest</span></b> (<span dir="ltr" class="en">bagging</span>): يقلل التباين (variance) · <b><span dir="ltr" class="en">Gradient Boosting / XGBoost</span></b>: الأقوى غالبًا في البيانات الجدولية.</li>
+<li><b><span dir="ltr" class="en">Logistic Regression</span></b>: خط أساس (baseline) سهل التفسير.</li>
+<li><b><span dir="ltr" class="en">K-means</span></b>: تجميع بدون labels، يحتاج k وscaling · <b><span dir="ltr" class="en">PCA</span></b>: تقليل الأبعاد.</li>
+<li><b><span dir="ltr" class="en">Association rules</span></b> (سلة المشتريات): <span dir="ltr" class="en">support</span>، <span dir="ltr" class="en">confidence</span>، <span dir="ltr" class="en">lift</span>. إذا lift &gt; 1 فالعلاقة إيجابية.</li></ul><h3>إذا شفتي في السيناريو ← الجواب</h3><table class="kt sc"><tr><td><span dir="ltr" class="en">99% accuracy but fraud is only 1% of data</span><br><small>دقة 99% والاحتيال 1% فقط</small></td><td>Accuracy مضللة ← Recall / PR-AUC</td></tr><tr><td><span dir="ltr" class="en">missing a positive case is very costly</span><br><small>تفويت الحالة مكلف جدًا</small></td><td>Recall</td></tr><tr><td><span dir="ltr" class="en">false alarms annoy customers</span><br><small>الإنذار الكاذب يزعج العملاء</small></td><td>Precision</td></tr><tr><td><span dir="ltr" class="en">suspiciously high validation score; feature known only after the event</span><br><small>نتيجة عالية بشكل مريب وخاصية تُعرف بعد الحدث</small></td><td>Data leakage ← احذفيها</td></tr><tr><td><span dir="ltr" class="en">sales forecasting with a random split</span><br><small>توقع مبيعات بتقسيم عشوائي</small></td><td>Time-based split</td></tr><tr><td><span dir="ltr" class="en">KNN with salary and age on different scales</span><br><small>KNN مع راتب وعمر بمقاييس مختلفة</small></td><td>Standardize / scale</td></tr><tr><td><span dir="ltr" class="en">train 99%, test 70%</span><br><small>تدريب 99% واختبار 70%</small></td><td>Overfitting ← regularization</td></tr><tr><td><span dir="ltr" class="en">same patient appears in train and test</span><br><small>نفس المريض في التدريب والاختبار</small></td><td>Group split</td></tr><tr><td><span dir="ltr" class="en">segment customers with no labels</span><br><small>تقسيم العملاء بدون labels</small></td><td>K-means / clustering</td></tr><tr><td><span dir="ltr" class="en">products frequently bought together</span><br><small>منتجات تُشترى مع بعض</small></td><td>Association rules (lift)</td></tr><tr><td><span dir="ltr" class="en">regulator needs to understand loan decisions</span><br><small>جهة رقابية تبي تفهم قرارات القروض</small></td><td>نموذج قابل للتفسير + SHAP</td></tr></table><div class="trap"><b>الفخ:</b> لا تختارين Accuracy مع بيانات غير متوازنة، ولا تسوين scaling قبل التقسيم، ولا تستخدمين تقسيم عشوائي مع بيانات زمنية.</div><div class="row"><button class="btn" data-go="1|140">حلّي أسئلة D1 من بنك الـ140</button><button class="btn g" data-go="1|bi">سيناريوهات D1 ثنائية اللغة</button></div></details>
+<details class="card lrn"><summary><b>D2</b> · <span data-dn="2"></span> <span class="w">16.7%</span></summary><p class="idea">الشبكات العصبية والنماذج التوليدية: متى أستخدم أي معمارية، وكيف أحل مشاكل التدريب، ومتى RAG ومتى fine-tuning.</p><h3>أساسيات الشبكات العصبية</h3><ul>
+<li><span dir="ltr" class="en">Activation</span>: <span dir="ltr" class="en">ReLU</span> للطبقات المخفية · <span dir="ltr" class="en">Sigmoid</span> لمخرج ثنائي · <span dir="ltr" class="en">Softmax</span> لعدة فئات.</li>
+<li><span dir="ltr" class="en">Loss</span>: <span dir="ltr" class="en">Binary cross-entropy</span> للثنائي · <span dir="ltr" class="en">Categorical cross-entropy</span> لعدة فئات · <span dir="ltr" class="en">MSE</span> للانحدار.</li>
+<li>الـloss يتذبذب أو يصير NaN ← <b>قللي <span dir="ltr" class="en">learning rate</span></b>. التعلم بطيء جدًا ← زيديه.</li>
+<li><span dir="ltr" class="en">Vanishing gradients</span> ← ReLU، <span dir="ltr" class="en">batch normalization</span>، <span dir="ltr" class="en">residual connections</span>.</li></ul><h3>المعماريات</h3><ul>
+<li><b><span dir="ltr" class="en">CNN</span></b>: صور · <b><span dir="ltr" class="en">RNN / LSTM</span></b>: تسلسلات (قديمة نسبيًا) · <b><span dir="ltr" class="en">Transformer</span></b>: نصوص وتسلسلات بالـattention · <b><span dir="ltr" class="en">ViT</span></b>: صور بالـTransformer.</li>
+<li><b><span dir="ltr" class="en">Transfer learning</span></b>: بيانات قليلة ← نموذج مدرّب مسبقًا + fine-tune لآخر الطبقات + <span dir="ltr" class="en">data augmentation</span>.</li>
+<li><b><span dir="ltr" class="en">Autoencoder</span></b>: كشف الشذوذ بدون labels عن طريق <span dir="ltr" class="en">reconstruction error</span>.</li>
+<li><b><span dir="ltr" class="en">GAN</span></b> و<b><span dir="ltr" class="en">Diffusion</span></b>: توليد صور.</li></ul><h3>الذكاء الاصطناعي التوليدي</h3><ul>
+<li><b><span dir="ltr" class="en">Temperature</span></b> منخفضة ← إجابات ثابتة ودقيقة · عالية ← إبداع وتنوع.</li>
+<li><b><span dir="ltr" class="en">Hallucination</span></b> ← <span dir="ltr" class="en">RAG</span> مع مصادر (grounding + citations) + temperature منخفضة.</li>
+<li><b>RAG</b>: لما المعرفة تتغير أو خاصة بالشركة · <b><span dir="ltr" class="en">Fine-tuning</span></b>: لما تبين أسلوب أو صيغة أو سلوك ثابت.</li>
+<li><b><span dir="ltr" class="en">LoRA / PEFT</span></b> و<span dir="ltr" class="en">quantization</span>: fine-tuning بموارد GPU قليلة.</li>
+<li><span dir="ltr" class="en">Embeddings</span> + <span dir="ltr" class="en">vector DB</span>: بحث دلالي · استرجاع ضعيف ← حسّني <span dir="ltr" class="en">chunking</span>، <span dir="ltr" class="en">reranking</span>، <span dir="ltr" class="en">hybrid search</span>.</li>
+<li><b><span dir="ltr" class="en">Few-shot</span></b> و<span dir="ltr" class="en">chain-of-thought</span>: تحسين الـprompt قبل ما تفكرين في fine-tuning.</li>
+<li><b><span dir="ltr" class="en">Agents</span></b>: أدوات بصلاحيات أقل ما يمكن، وموافقة بشرية على الإجراءات الخطرة.</li></ul><h3>إذا شفتي في السيناريو ← الجواب</h3><table class="kt sc"><tr><td><span dir="ltr" class="en">only 500 labeled images</span><br><small>500 صورة فقط عليها labels</small></td><td>Transfer learning + augmentation</td></tr><tr><td><span dir="ltr" class="en">loss oscillates or becomes NaN</span><br><small>الـloss يتذبذب أو NaN</small></td><td>قللي learning rate</td></tr><tr><td><span dir="ltr" class="en">chatbot must answer from policies updated monthly</span><br><small>بوت يجاوب من سياسات تتحدث شهريًا</small></td><td>RAG</td></tr><tr><td><span dir="ltr" class="en">need a consistent tone or output format</span><br><small>تبين أسلوب أو صيغة ثابتة</small></td><td>Fine-tuning / few-shot + structured output</td></tr><tr><td><span dir="ltr" class="en">model invents facts</span><br><small>النموذج يخترع معلومات</small></td><td>RAG + citations + temperature منخفضة</td></tr><tr><td><span dir="ltr" class="en">retrieval returns irrelevant chunks</span><br><small>الاسترجاع يجيب مقاطع غير مرتبطة</small></td><td>Chunking / reranking / hybrid search</td></tr><tr><td><span dir="ltr" class="en">fine-tune a large model on limited GPU</span><br><small>fine-tune لنموذج كبير بـGPU محدود</small></td><td>LoRA / PEFT / quantization</td></tr><tr><td><span dir="ltr" class="en">multi-class output layer</span><br><small>طبقة مخرجات لعدة فئات</small></td><td>Softmax + categorical cross-entropy</td></tr><tr><td><span dir="ltr" class="en">detect anomalies without labels</span><br><small>كشف الشذوذ بدون labels</small></td><td>Autoencoder</td></tr><tr><td><span dir="ltr" class="en">document longer than the context window</span><br><small>مستند أطول من الـcontext window</small></td><td>Chunking + RAG أو تلخيص</td></tr></table><div class="trap"><b>الفخ:</b> لا تختارين fine-tuning لحل مشكلة معلومات تتغير (الحل RAG)، ولا تختارين تدريب نموذج من الصفر مع بيانات قليلة (الحل transfer learning).</div><div class="row"><button class="btn" data-go="2|140">حلّي أسئلة D2 من بنك الـ140</button><button class="btn g" data-go="2|bi">سيناريوهات D2 ثنائية اللغة</button></div></details>
+<details class="card lrn"><summary><b>D6</b> · <span data-dn="6"></span> <span class="w">14.7%</span></summary><p class="idea">مرجع سدايا: المبادئ السبعة، وفئات المخاطر، ونظام حماية البيانات الشخصية، وأمن النماذج.</p><h3>مبادئ أخلاقيات الذكاء الاصطناعي (سدايا)</h3><table class="kt">
+<tr><td><span dir="ltr" class="en">Fairness</span></td><td>تحيز ضد فئة ← قيسي الأداء لكل فئة، وابحثي عن الخصائص البديلة (proxy) مثل الحي</td></tr>
+<tr><td><span dir="ltr" class="en">Privacy & Security</span></td><td>حماية البيانات الشخصية وأمن النظام</td></tr>
+<tr><td><span dir="ltr" class="en">Humanity</span></td><td>النظام يخدم الإنسان ويحفظ حقوقه وكرامته</td></tr>
+<tr><td><span dir="ltr" class="en">Social & Environmental Benefits</span></td><td>أثر إيجابي على المجتمع والبيئة (مثل استهلاك الطاقة)</td></tr>
+<tr><td><span dir="ltr" class="en">Reliability & Safety</span></td><td>يعمل كما هو متوقع، مع اختبار وخطة عند الفشل</td></tr>
+<tr><td><span dir="ltr" class="en">Transparency & Explainability</span></td><td>«ليش انرفض طلبي؟» ← تفسير (SHAP، <span dir="ltr" class="en">model card</span>)</td></tr>
+<tr><td><span dir="ltr" class="en">Accountability & Responsibility</span></td><td>«مين المسؤول؟» ← مالك واضح، RACI، سجلات تدقيق</td></tr></table>
+<p>المقاييس الخاصة بالعدالة تتحدد في مرحلة <b><span dir="ltr" class="en">Plan & Design</span></b>.</p><h3>فئات المخاطر</h3><ul>
+<li><b><span dir="ltr" class="en">Little or no risk</span></b>: مثل فلتر السبام. بدون قيود.</li>
+<li><b><span dir="ltr" class="en">Limited risk</span></b>: تطبيق مبادئ الأخلاقيات.</li>
+<li><b><span dir="ltr" class="en">High risk</span></b>: مثل التوظيف أو التشخيص الطبي أو الائتمان. يحتاج تقييم مطابقة <b>قبل وبعد</b> النشر، وإشراف بشري.</li>
+<li><b><span dir="ltr" class="en">Unacceptable risk</span></b>: مثل التصنيف الاجتماعي (social scoring). <b>ممنوع</b>.</li></ul><h3>نظام حماية البيانات الشخصية PDPL</h3><ul>
+<li><b>الموافقة</b> و<b>تحديد الغرض</b>: لا تستخدمين البيانات لغرض جديد بدون أساس نظامي أو موافقة.</li>
+<li><b><span dir="ltr" class="en">Data minimization</span></b>: اجمعي الحقول اللي تحتاجينها فقط.</li>
+<li>حقوق صاحب البيانات: الاطلاع، والتصحيح، والإتلاف.</li>
+<li><b>التسريب</b>: إشعار الجهة المختصة (سدايا) خلال <b>72 ساعة</b>.</li>
+<li><b>النقل خارج المملكة</b> له شروط وضوابط.</li>
+<li><span dir="ltr" class="en">Pseudonymization</span> (يمكن إرجاع الهوية) ≠ <span dir="ltr" class="en">Anonymization</span> (ما يمكن إرجاعها).</li></ul><h3>أمن النماذج</h3><table class="kt">
+<tr><td><span dir="ltr" class="en">Prompt injection</span>: تعليمات مخفية في مستند أو مدخل</td><td>فصل التعليمات عن البيانات، فلترة، أقل صلاحيات للأدوات</td></tr>
+<tr><td><span dir="ltr" class="en">Data poisoning</span>: بيانات تدريب ملوّثة</td><td>التحقق من مصدر البيانات وجودتها</td></tr>
+<tr><td><span dir="ltr" class="en">Model inversion / membership inference</span></td><td><span dir="ltr" class="en">Differential privacy</span>، تقليل تفاصيل المخرجات</td></tr>
+<tr><td><span dir="ltr" class="en">Adversarial examples</span></td><td><span dir="ltr" class="en">Adversarial training</span>، التحقق من المدخلات</td></tr>
+<tr><td><span dir="ltr" class="en">Model theft</span> عبر API</td><td><span dir="ltr" class="en">Rate limiting</span>، مصادقة، مراقبة</td></tr>
+<tr><td>بيانات شخصية داخل الـprompts</td><td>إخفاء البيانات (<span dir="ltr" class="en">masking / redaction</span>)</td></tr></table><h3>إذا شفتي في السيناريو ← الجواب</h3><table class="kt sc"><tr><td><span dir="ltr" class="en">loan model rejects one group more often</span><br><small>نموذج قروض يرفض فئة أكثر</small></td><td>Fairness ← قيسي لكل فئة</td></tr><tr><td><span dir="ltr" class="en">customer asks why the application was rejected</span><br><small>عميل يسأل ليش انرفض</small></td><td>Transparency & Explainability</td></tr><tr><td><span dir="ltr" class="en">nobody owns the model's errors</span><br><small>ما أحد مسؤول عن أخطاء النموذج</small></td><td>Accountability (RACI)</td></tr><tr><td><span dir="ltr" class="en">scoring citizens' social behavior</span><br><small>تقييم سلوك المواطنين</small></td><td>Unacceptable risk</td></tr><tr><td><span dir="ltr" class="en">AI for hiring or medical diagnosis</span><br><small>توظيف أو تشخيص طبي</small></td><td>High risk ← تقييم مطابقة + إشراف بشري</td></tr><tr><td><span dir="ltr" class="en">uploaded file says 'ignore previous instructions'</span><br><small>ملف فيه «تجاهل التعليمات السابقة»</small></td><td>Prompt injection</td></tr><tr><td><span dir="ltr" class="en">training data scraped from untrusted sources was manipulated</span><br><small>بيانات من مصادر غير موثوقة تم التلاعب فيها</small></td><td>Data poisoning</td></tr><tr><td><span dir="ltr" class="en">reuse customer data for a new purpose</span><br><small>استخدام بيانات العملاء لغرض جديد</small></td><td>PDPL: تحديد الغرض / الموافقة</td></tr><tr><td><span dir="ltr" class="en">a personal data breach happened</span><br><small>حصل تسريب بيانات شخصية</small></td><td>إشعار خلال 72 ساعة</td></tr><tr><td><span dir="ltr" class="en">collect only the fields needed</span><br><small>اجمعي الحقول المطلوبة فقط</small></td><td>Data minimization</td></tr></table><div class="trap"><b>الفخ:</b> لا تخلطين بين Transparency (التفسير) وAccountability (المسؤولية). ولا تختارين «احذفي الخاصية الحساسة وخلاص» لحل التحيز، لأن الخصائص البديلة (proxy) تنقل نفس التحيز.</div><div class="row"><button class="btn" data-go="6|140">حلّي أسئلة D6 من بنك الـ140</button><button class="btn g" data-go="6|bi">سيناريوهات D6 ثنائية اللغة</button></div></details>
+<details class="card lrn"><summary><b>D3</b> · <span data-dn="3"></span> <span class="w">14%</span></summary><p class="idea">كيف أبني خدمة الذكاء الاصطناعي ككود سليم: APIs، واختبارات، وتكامل مع الأنظمة، وأسئلة مخرجات الكود.</p><h3>APIs والتكامل</h3><ul>
+<li><b><span dir="ltr" class="en">Input validation</span></b> بمخطط (<span dir="ltr" class="en">schema / pydantic</span>) عشان المدخلات الخاطئة ما تطيّح الخدمة.</li>
+<li><b><span dir="ltr" class="en">API versioning</span></b> (/v1, /v2) عشان التغييرات ما تكسر العملاء.</li>
+<li><b><span dir="ltr" class="en">429 Too Many Requests</span></b> ← <span dir="ltr" class="en">retry with exponential backoff</span>.</li>
+<li><b><span dir="ltr" class="en">Idempotency key</span></b>: إعادة المحاولة ما تكرر العملية (مثل دفع مرتين).</li>
+<li>معالجة طويلة (فيديو، ملفات كبيرة) ← <span dir="ltr" class="en">async job + queue</span> + <span dir="ltr" class="en">polling / webhook</span>.</li>
+<li>أحداث لحظية مستمرة ← <span dir="ltr" class="en">streaming / message queue (Kafka)</span>.</li></ul><h3>جودة الكود والاختبارات</h3><ul>
+<li><span dir="ltr" class="en">Unit tests</span> لدوال المعالجة · <span dir="ltr" class="en">Integration tests</span> للخدمة كاملة · <span dir="ltr" class="en">Data validation</span> للبيانات الداخلة.</li>
+<li>«يشتغل عندي بس» ← <span dir="ltr" class="en">Docker</span> + إصدارات مكتبات مثبتة.</li>
+<li>مفتاح API في الكود ← انقليه لـ<span dir="ltr" class="en">secrets manager</span> و<b>غيّري المفتاح (rotate)</b>.</li>
+<li>الإعدادات في ملفات config، مو مكتوبة داخل الكود · <span dir="ltr" class="en">logging</span> منظم.</li></ul><h3>أسئلة مخرجات الكود (Python)</h3><ul>
+<li><span dir="ltr" class="en">scaler.fit(X_test)</span> أو <span dir="ltr" class="en">fit_transform</span> على الاختبار ← تسريب.</li>
+<li><span dir="ltr" class="en">list[::-1]</span> يعكس القائمة · <span dir="ltr" class="en">7 // 2 = 3</span> · <span dir="ltr" class="en">7 % 2 = 1</span>.</li>
+<li><span dir="ltr" class="en">def f(x, lst=[])</span>: القائمة الافتراضية <b>تُشارَك</b> بين الاستدعاءات.</li>
+<li><span dir="ltr" class="en">df.groupby("a")["b"].mean()</span>: متوسط b لكل قيمة a.</li>
+<li><span dir="ltr" class="en">np.zeros((3,1)) + np.zeros((1,4))</span> ← شكل <span dir="ltr" class="en">(3, 4)</span> (broadcasting).</li></ul><h3>إذا شفتي في السيناريو ← الجواب</h3><table class="kt sc"><tr><td><span dir="ltr" class="en">third-party API returns 429</span><br><small>API خارجي يرجع 429</small></td><td>Exponential backoff + retry</td></tr><tr><td><span dir="ltr" class="en">video inference times out</span><br><small>معالجة الفيديو تنتهي مهلتها</small></td><td>Async job + queue</td></tr><tr><td><span dir="ltr" class="en">malformed input crashes the service</span><br><small>مدخل خاطئ يطيّح الخدمة</small></td><td>Schema validation</td></tr><tr><td><span dir="ltr" class="en">works on my machine only</span><br><small>يشتغل عندي بس</small></td><td>Docker + pinned dependencies</td></tr><tr><td><span dir="ltr" class="en">API key committed to the repo</span><br><small>مفتاح API في المستودع</small></td><td>Secrets manager + rotate key</td></tr><tr><td><span dir="ltr" class="en">new response format breaks clients</span><br><small>صيغة جديدة تكسر العملاء</small></td><td>API versioning</td></tr><tr><td><span dir="ltr" class="en">retry causes duplicate payments</span><br><small>إعادة المحاولة تكرر الدفع</small></td><td>Idempotency key</td></tr><tr><td><span dir="ltr" class="en">continuous sensor events</span><br><small>أحداث مستمرة من حساسات</small></td><td>Streaming / message queue</td></tr></table><div class="trap"><b>الفخ:</b> في أسئلة الكود: لا تجاوبين من أول نظرة. تتبعي القيم سطر بسطر وانتبهي للفهرسة (indexing) وdefault arguments وأين صار fit.</div><div class="row"><button class="btn" data-go="3|140">حلّي أسئلة D3 من بنك الـ140</button><button class="btn g" data-go="3|bi">سيناريوهات D3 ثنائية اللغة</button></div></details>
+<details class="card lrn"><summary><b>D5</b> · <span data-dn="5"></span> <span class="w">12.7%</span></summary><p class="idea">أين يشتغل النموذج، وبأي تكلفة وسرعة، وكيف يتحمل الضغط.</p><h3>السرعة والأداء</h3><ul>
+<li><span dir="ltr" class="en">Latency</span> (زمن الطلب الواحد) ≠ <span dir="ltr" class="en">Throughput</span> (عدد الطلبات في الثانية). <span dir="ltr" class="en">Batching</span> يرفع الـthroughput.</li>
+<li>تسريع النموذج: <span dir="ltr" class="en">quantization (INT8)</span>، <span dir="ltr" class="en">pruning</span>، <span dir="ltr" class="en">distillation</span> لنموذج أصغر، <span dir="ltr" class="en">caching</span>، GPU.</li>
+<li><span dir="ltr" class="en">p95 / p99</span>: 95% أو 99% من الطلبات أسرع من هذا الرقم.</li></ul><h3>اختيار البنية</h3><table class="kt">
+<tr><td>طلبات قليلة وغير متوقعة</td><td><span dir="ltr" class="en">Serverless</span></td></tr>
+<tr><td>طلبات عالية وثابتة</td><td>خوادم مخصصة (<span dir="ltr" class="en">dedicated / reserved</span>)</td></tr>
+<tr><td>ذروات (رمضان، عروض)</td><td><span dir="ltr" class="en">Autoscaling</span> + <span dir="ltr" class="en">load balancer</span></td></tr>
+<tr><td>تدريب يتحمل الانقطاع</td><td><span dir="ltr" class="en">Spot instances</span> + <span dir="ltr" class="en">checkpoints</span></td></tr>
+<tr><td>بدون إنترنت، زمن منخفض، خصوصية</td><td><span dir="ltr" class="en">Edge / on-device</span> + quantization</td></tr>
+<tr><td>نقطة فشل وحيدة</td><td>تكرار (<span dir="ltr" class="en">redundancy, multi-AZ</span>)</td></tr></table><h3>التخزين</h3><ul>
+<li><span dir="ltr" class="en">Data lake / object storage</span>: بيانات خام ورخيصة · <span dir="ltr" class="en">Data warehouse</span>: تحليلات وتقارير منظمة.</li>
+<li><span dir="ltr" class="en">Vector DB</span>: بحث دلالي للـRAG · <span dir="ltr" class="en">Feature store</span>: خصائص موحدة للتدريب والتشغيل.</li></ul><h3>أسئلة التكلفة</h3><ol class="rules">
+<li>احذفي أي خيار يكسر قيدًا (مثل p95 &lt; 200ms أو الامتثال).</li>
+<li>من الباقي اختاري <b>الأرخص</b>.</li>
+<li>التكلفة = عدد الساعات × سعر الساعة × عدد الأجهزة. انتبهي لتحويل الأيام والأشهر (30 يوم = 720 ساعة).</li></ol><h3>إذا شفتي في السيناريو ← الجواب</h3><table class="kt sc"><tr><td><span dir="ltr" class="en">app must work offline in remote sites</span><br><small>تطبيق لازم يشتغل بدون إنترنت</small></td><td>Edge + quantization</td></tr><tr><td><span dir="ltr" class="en">model too slow for the latency target</span><br><small>النموذج أبطأ من المطلوب</small></td><td>Quantization / distillation / caching</td></tr><tr><td><span dir="ltr" class="en">traffic spikes during campaigns</span><br><small>ذروات في الحملات</small></td><td>Autoscaling</td></tr><tr><td><span dir="ltr" class="en">infrequent, unpredictable requests</span><br><small>طلبات قليلة وغير متوقعة</small></td><td>Serverless</td></tr><tr><td><span dir="ltr" class="en">expensive training that tolerates interruption</span><br><small>تدريب مكلف يتحمل الانقطاع</small></td><td>Spot + checkpoints</td></tr><tr><td><span dir="ltr" class="en">many identical repeated queries</span><br><small>أسئلة متكررة ومتطابقة</small></td><td>Caching</td></tr><tr><td><span dir="ltr" class="en">score millions of records nightly</span><br><small>تقييم ملايين السجلات كل ليلة</small></td><td>Batch inference</td></tr><tr><td><span dir="ltr" class="en">pick the cheapest option meeting p95</span><br><small>الأرخص اللي يحقق p95</small></td><td>احذفي المخالف، ثم الأرخص</td></tr></table><div class="trap"><b>الفخ:</b> الأرخص مو دايمًا الصح: لو يكسر قيد زمن الاستجابة أو الامتثال فهو مستبعد. والأقوى (أكبر GPU) مو دايمًا الصح إذا فيه خيار أرخص يحقق الشرط.</div><div class="row"><button class="btn" data-go="5|140">حلّي أسئلة D5 من بنك الـ140</button><button class="btn g" data-go="5|bi">سيناريوهات D5 ثنائية اللغة</button></div></details>
+<details class="card lrn"><summary><b>D7</b> · <span data-dn="7"></span> <span class="w">6.7%</span></summary><p class="idea">التفكير كمهندس في شركة: المشكلة التجارية أولًا، والتواصل، والتكلفة والعائد، والتعاون.</p><h3>قواعد هذا المحور</h3><ul>
+<li><b>حددي المشكلة والمؤشر (<span dir="ltr" class="en">KPI</span>) أولًا</b> قبل اختيار أي نموذج.</li>
+<li>إذا قاعدة بسيطة تحل المشكلة ← <b>لا تستخدمين ML</b>.</li>
+<li>قيمة غير مؤكدة وميزانية محدودة ← <span dir="ltr" class="en">PoC / pilot / MVP</span>.</li>
+<li><span dir="ltr" class="en">Build vs Buy</span>: إذا فيه خدمة جاهزة تحقق الحاجة بتكلفة أقل ← اشتريها.</li>
+<li>التواصل مع غير التقنيين: الأثر التجاري ورسوم بسيطة، بدون مصطلحات.</li>
+<li>طلبات جديدة في نص المشروع (<span dir="ltr" class="en">scope creep</span>) ← إدارة التغيير وترتيب الأولويات مع أصحاب المصلحة.</li>
+<li>طُلب منك إخفاء ضعف في النموذج ← الشفافية والتصعيد.</li>
+<li><span dir="ltr" class="en">ROI = (Benefit − Cost) / Cost</span>.</li></ul><h3>إذا شفتي في السيناريو ← الجواب</h3><table class="kt sc"><tr><td><span dir="ltr" class="en">executive wants 'AI' but the problem is unclear</span><br><small>المدير يبي «ذكاء اصطناعي» والمشكلة غير واضحة</small></td><td>حددي الهدف والـKPI أولًا</td></tr><tr><td><span dir="ltr" class="en">a simple rule already solves it</span><br><small>قاعدة بسيطة تحلها</small></td><td>لا تستخدمين ML</td></tr><tr><td><span dir="ltr" class="en">explain results to non-technical managers</span><br><small>شرح النتائج لمدراء غير تقنيين</small></td><td>الأثر التجاري بدون مصطلحات</td></tr><tr><td><span dir="ltr" class="en">limited budget, uncertain value</span><br><small>ميزانية محدودة وقيمة غير مؤكدة</small></td><td>Pilot / PoC</td></tr><tr><td><span dir="ltr" class="en">ready-made API meets the need cheaply</span><br><small>خدمة جاهزة تكفي وأرخص</small></td><td>Buy</td></tr><tr><td><span dir="ltr" class="en">choose the project with the best return</span><br><small>اختاري المشروع الأعلى عائد</small></td><td>احسبي ROI</td></tr><tr><td><span dir="ltr" class="en">stakeholder adds features mid-project</span><br><small>طلبات إضافية في نص المشروع</small></td><td>إدارة التغيير والأولويات</td></tr></table><div class="trap"><b>الفخ:</b> الخيار التقني الأعقد مو هو الصح هنا. الصح غالبًا الأبسط اللي يحقق هدف العمل بأقل تكلفة ومخاطرة.</div><div class="row"><button class="btn" data-go="7|140">حلّي أسئلة D7 من بنك الـ140</button><button class="btn g" data-go="7|bi">سيناريوهات D7 ثنائية اللغة</button></div></details>
+ </section>
+ <section id="mock" hidden></section>
+ <section id="review" hidden></section>
+ <section id="notes" hidden>
+  <div class="card hl"><b>أهم ما قاله المختبرون (24 نوفمبر):</b> الأسئلة طويلة (بعضها أكثر من 16 سطر) ومحوسبة، فيها رسوم بيانية وجداول، وKNN و Model trees، وأكواد تسأل عن سبب المخرج، وحسابات بسيطة، وأسئلة تكاليف وميزانية وحلول تشغيلية للشركات. أكثرهم قالوا إن بنك الـ 140 هو الأقرب لشكل الاختبار. السر: إنجليزي + تركيز + قراءة آخر سطر في السؤال أولاً.</div>
+  <div class="card"><h2>قاعدة الاختبار الذهبية</h2>
+   <ol class="rules">
+    <li>اقرئي <b>آخر سطر</b> (المطلوب) قبل السيناريو: BEST / FIRST / MOST likely / NOT / Select TWO.</li>
+    <li>اكتبي في ذهنك <b>القيود</b>: زمن (p95)، ميزانية، دقة/Recall، امتثال، قدرة فريق المراجعة.</li>
+    <li>استبعدي أي خيار <b>يكسر قيداً واحداً</b> حتى لو كان الأدق أو الأرخص.</li>
+    <li>بين المتبقي: اختاري ما يعالج <b>السبب الجذري</b> لا العَرَض، وبأقل تكلفة وتعقيد.</li>
+    <li>الوقت: 120 سؤال في 180 دقيقة = <b>90 ثانية</b> للسؤال. أكثر من دقيقتين؟ علّميه وارجعي له.</li>
+   </ol></div>
+  <div class="card"><h2>D4 · MLOps وLLMOps والنشر (18%)</h2><table class="kt">
+   <tr><td>بدون أي تعرض للمستخدم</td><td dir="ltr">Shadow deployment</td></tr>
+   <tr><td>نسبة صغيرة من المستخدمين أولاً</td><td dir="ltr">Canary</td></tr>
+   <tr><td>بيئتان متطابقتان وتحويل فوري</td><td dir="ltr">Blue-Green</td></tr>
+   <tr><td>توزيع المدخلات تغيّر P(X)</td><td dir="ltr">Data drift (PSI &gt; 0.25 كبير)</td></tr>
+   <tr><td>العلاقة بين المدخل والهدف تغيّرت P(y|X)</td><td dir="ltr">Concept drift → relabel + retrain</td></tr>
+   <tr><td>التدريب ≠ التشغيل لنفس المدخل</td><td dir="ltr">Training-serving skew → parity test</td></tr>
+   <tr><td>التراجع لم يحل المشكلة</td><td>ارجعي بالحزمة كاملة: Model + Tokenizer + Preprocessing + Config</td></tr>
+   <tr><td>Retraining آلي رقّى نموذجاً أسوأ</td><td dir="ltr">Data validation + Champion/Challenger gate</td></tr>
+   <tr><td>تسميات تتأخر 30–45 يوم</td><td>لا تعتبري غير المؤكد سليماً؛ راقبي مؤشرات بديلة</td></tr>
+   <tr><td>SLO 99.9% وفشل 2%</td><td dir="ltr">Burn rate = 2 ÷ 0.1 = 20×</td></tr>
+   <tr><td>Prompt من 'latest'</td><td>Prompt versioning + eval suite + rollback</td></tr>
+   <tr><td>لا نستطيع إعادة إنتاج النموذج</td><td dir="ltr">Version data, code, config, env, seeds + MLflow/DVC</td></tr>
+  </table></div>
+  <div class="card"><h2>D1 · البيانات وتعلم الآلة والتقييم (17.3%)</h2><table class="kt">
+   <tr><td>تفويت الحالة مكلف (احتيال، مرض)</td><td dir="ltr">Recall ↑ (FN مكلف)</td></tr>
+   <tr><td>الإنذار الكاذب مكلف (حظر عميل سليم)</td><td dir="ltr">Precision ↑ (FP مكلف)</td></tr>
+   <tr><td>بيانات غير متوازنة 99/1</td><td dir="ltr">Accuracy مضللة → PR-AUC, F1, Recall</td></tr>
+   <tr><td>فريق مراجعة سعته ثابتة</td><td>أعلى Recall ضمن السعة (لا تتجاوزي عدد الحالات اليومي)</td></tr>
+   <tr><td>AUC 0.97 + خاصية تُسجَّل بعد الحدث</td><td dir="ltr">Target leakage</td></tr>
+   <tr><td>Scaler/SMOTE قبل التقسيم</td><td dir="ltr">Leakage → split أولاً + Pipeline</td></tr>
+   <tr><td>بيانات زمنية مع K-Fold عشوائي</td><td dir="ltr">TimeSeriesSplit / walk-forward</td></tr>
+   <tr><td>تدريب ممتاز واختبار ضعيف</td><td dir="ltr">Overfitting → regularization, simpler model</td></tr>
+   <tr><td>ضعيف في التدريب والاختبار</td><td dir="ltr">Underfitting → more capacity/features</td></tr>
+   <tr><td>AUC جيد لكن الاحتمالات غير صحيحة</td><td dir="ltr">Calibration (Platt / Isotonic)</td></tr>
+   <tr><td>K-Means / KNN / SVM والخصائص بمقاييس مختلفة</td><td dir="ltr">Standardize first</td></tr>
+   <tr><td>L1 يصفّر أوزان (اختيار خصائص) · L2 يصغّرها</td><td dir="ltr">Lasso vs Ridge</td></tr>
+   <tr><td>MAE · RMSE يعاقب الأخطاء الكبيرة · R²</td><td>مقاييس الانحدار</td></tr>
+  </table></div>
+  <div class="card"><h2>D2 · التعلم العميق والتوليدي (16.7%)</h2><table class="kt">
+   <tr><td>معرفة متغيرة + استشهاد</td><td dir="ltr">RAG</td></tr>
+   <tr><td>نبرة/صيغة/سلوك ثابت</td><td dir="ltr">Fine-tuning (LoRA/QLoRA)</td></tr>
+   <tr><td>مقاطع صحيحة لكن الإجابة غير مدعومة</td><td dir="ltr">Grounding: answer only from context, cite, abstain</td></tr>
+   <tr><td>مستند ملغي يتصدر النتائج</td><td dir="ltr">Metadata (status/date) + re-ranking</td></tr>
+   <tr><td>نتائج كثيرة غير ذات صلة</td><td dir="ltr">Hybrid search (BM25 + dense) + cross-encoder re-ranker</td></tr>
+   <tr><td>النموذج يكمل النص ويخترع أدوار مستخدم</td><td dir="ltr">Chat template mismatch</td></tr>
+   <tr><td>نفس النص العربي أغلى ويملأ السياق</td><td dir="ltr">Tokenizer splits Arabic into more tokens</td></tr>
+   <tr><td>Temperature أعلى = تنوع أكثر · أقل = حتمية</td><td>لا تؤثر على الذاكرة ولا الصيغة</td></tr>
+   <tr><td>بيانات صور قليلة</td><td dir="ltr">Transfer learning + augmentation</td></tr>
+   <tr><td>Loss = NaN والمشتقات تكبر</td><td dir="ltr">Exploding gradients → clipping, lower LR</td></tr>
+   <tr><td>مستند أطول من السياق</td><td dir="ltr">Chunking + map-reduce</td></tr>
+   <tr><td>Self-attention: Q, K, V · Encoder (BERT) · Decoder (GPT)</td><td>الانتباه O(n²) في طول التسلسل</td></tr>
+  </table></div>
+  <div class="card"><h2>D6 · الذكاء الاصطناعي المسؤول والأمن والحوكمة (14.7%)</h2>
+   <p><b>مبادئ أخلاقيات الذكاء الاصطناعي السبعة (سدايا) بأسمائها الرسمية:</b></p>
+   <ol class="rules" dir="ltr" style="text-align:left">
+    <li>Fairness</li><li>Privacy &amp; Security</li><li>Humanity</li><li>Social &amp; Environmental Benefits</li><li>Reliability &amp; Safety</li><li>Transparency &amp; Explainability</li><li>Accountability &amp; Responsibility</li></ol>
+   <p><b>فئات المخاطر الأربع:</b> Little or no risk (مثل فلتر السبام: بلا قيود) · Limited risk (تطبيق مبادئ الأخلاقيات) · High risk (تقييم مطابقة قبل وبعد + المتطلبات النظامية) · Unacceptable risk (مثل التصنيف الاجتماعي واستغلال الأطفال: غير مسموح).</p>
+   <p><b>دورة حياة النظام (4 مراحل):</b> Plan &amp; Design ← Prepare Input Data ← Build &amp; Validate ← Deploy &amp; Monitor. مقاييس الإنصاف والسمات الحساسة تُحدد في Plan &amp; Design.</p>
+   <table class="kt">
+    <tr><td>حذف السمة الحساسة ولا زال الفرق موجوداً</td><td dir="ltr">Proxy features → Fairness audit by group</td></tr>
+    <tr><td>بيانات مقيدة + مورد بالخارج + بند تعاقدي</td><td>العقد لا يُنشئ أساساً نظامياً؛ لا تُنقل خارج البيئة المعتمدة</td></tr>
+    <tr><td>استخدام البيانات لغرض جديد</td><td dir="ltr">PDPL: purpose limitation, lawful basis/consent, minimization, DPIA</td></tr>
+    <tr><td>تعليمات مخفية في مستند</td><td dir="ltr">Indirect prompt injection → isolate content, least privilege, no secrets in prompt</td></tr>
+    <tr><td>قرار آلي بلا سبب ولا اعتراض</td><td dir="ltr">Transparency + Humanity (human review)</td></tr>
+    <tr><td>لا أحد مسؤول عن الخطأ</td><td dir="ltr">Accountability &amp; Responsibility (RACI)</td></tr>
+    <tr><td>النموذج يخرج أرقاماً حقيقية من التدريب</td><td dir="ltr">Memorization → scrub PII + output filter</td></tr>
+   </table></div>
+  <div class="card"><h2>D3 · هندسة البرمجيات والتكامل (14%)</h2><table class="kt">
+   <tr><td>طلب طويل (دقائق)</td><td dir="ltr">Queue + async workers + job status</td></tr>
+   <tr><td>إعادة المحاولة تكرر الأثر</td><td dir="ltr">Idempotency key</td></tr>
+   <tr><td>تابع يتعطل ويُسقط الخدمة</td><td dir="ltr">Timeout + Circuit breaker + fallback</td></tr>
+   <tr><td>إعادة المحاولة بدون إغراق</td><td dir="ltr">Exponential backoff + jitter</td></tr>
+   <tr><td>Tool call بمعرّف مستخدم آخر</td><td>الصلاحية في الخلفية بهوية المستخدم، لا بتعليمات النموذج</td></tr>
+   <tr><td>JSON غير صالح أحياناً</td><td dir="ltr">Structured output + schema validation + retry</td></tr>
+   <tr><td>إطلاق لنسبة بدون نشر</td><td dir="ltr">Feature flag + kill switch</td></tr>
+   <tr><td>مفتاح API تسرّب</td><td dir="ltr">Revoke/rotate → secrets manager</td></tr>
+   <tr><td>إعداد مشترك بين نقطتي نهاية يتسرب</td><td>فصل الإعداد لكل نقطة/طلب، لا حالة مشتركة قابلة للتعديل</td></tr>
+   <tr><td dir="ltr">Unit · Integration · E2E</td><td>دالة واحدة · خدمتان معاً · رحلة المستخدم كاملة</td></tr>
+  </table></div>
+  <div class="card"><h2>D5 · المعمارية والبنية التحتية والأداء (12.7%)</h2><table class="kt">
+   <tr><td>جدول مواصفات + 3 متطلبات</td><td>استبعدي أي خيار يكسر قيداً، ثم الأقل تكلفة/الأعلى قيمة</td></tr>
+   <tr><td>ذاكرة الأوزان</td><td dir="ltr">params × bytes (FP16 = 2, INT8 = 1, INT4 = 0.5)</td></tr>
+   <tr><td>جلسات متزامنة كثيرة</td><td dir="ltr">KV cache per session → quantize, cap context/concurrency, PagedAttention</td></tr>
+   <tr><td>تدريب نموذج ضخم OOM مع DDP</td><td dir="ltr">FSDP / ZeRO-3 + gradient checkpointing</td></tr>
+   <tr><td>قفزات p99 دورية فقط</td><td>مهمة خلفية مجدولة، لا ضغط حمل</td></tr>
+   <tr><td>ملايين الصفوف ليلاً</td><td dir="ltr">Batch inference</td></tr>
+   <tr><td>نتائج متكررة نادرة التغير</td><td dir="ltr">Caching (TTL)</td></tr>
+   <tr><td>GPU خامل معظم الوقت</td><td dir="ltr">On-demand / autoscaling / spot + checkpoints</td></tr>
+   <tr><td>Horizontal (سيرفرات أكثر) · Vertical (سيرفر أقوى)</td><td dir="ltr">Multi-AZ = fault tolerance</td></tr>
+   <tr><td>Batch size أكبر</td><td>إنتاجية أعلى + زمن أعلى؛ اختاري أكبر Batch يحقق الـ SLO</td></tr>
+  </table></div>
+  <div class="card"><h2>D7 · الأعمال والممارسة المهنية (6.7%)</h2><table class="kt">
+   <tr><td>طلب "نبغى AI" بدون مشكلة</td><td>Problem framing: مستخدمون، خط أساس، KPI</td></tr>
+   <tr><td>مقارنة موردين</td><td dir="ltr">TCO = licence + integration + years × (support + staff)</td></tr>
+   <tr><td dir="ltr">PoC → Pilot → Production</td><td>لا تعميم من عينة نظيفة صغيرة</td></tr>
+   <tr><td>النقرات ↑ والإكمال ↓</td><td>لا تطلقي؛ احكمي بمقاييس النتيجة والحراسة</td></tr>
+   <tr><td>خطأ متركز قبل الإطلاق</td><td>ارفعي الأرقام + بدائل؛ التنويه لا ينقل المسؤولية</td></tr>
+   <tr><td>عرض لغير التقنيين</td><td>الأثر أولاً + المخاطر بوضوح + التفاصيل في ملحق</td></tr>
+  </table></div>
+ </section>
+ <section id="plan" hidden>
+  <div class="card hl">الاختبار <b>السبت 5 ديسمبر</b> في الرياض: 120 سؤال، 3 ساعات، بالإنجليزي. كل يوم: 20 دقيقة مراجعة الملخص، ثم الأسئلة، ثم راجعي أخطاءك من تبويب "أخطائي".</div>
+  <div id="planList"></div>
+ </section>
+ <section id="about" hidden>
+  <div class="card">
+   <h2 style="margin:0 0 8px;font-size:20px">ما نعرفه عن الاختبار</h2>
+   <table class="tbl">
+    <tr><td>موعدك</td><td>السبت 5 ديسمبر 2026 في الرياض: 120 سؤالاً في 3 ساعات.</td></tr>
+    <tr><td>اللغة والمكان</td><td>بالإنجليزية، حضوري ومراقَب (في جامعة الملك سعود حسب تجربة سابقة).</td></tr>
+    <tr><td>طبيعة الأسئلة</td><td>سيناريوهات قرار لا تعريفات: حل مشكلة قائمة، مطابقة متطلبات مع جدول مواصفات، تحليل تكاليف، وحوكمة وامتثال (PDPL ومبادئ الأخلاقيات بأسمائها الدقيقة).</td></tr>
+    <tr><td>مستوى الشارة</td><td>الملصق يقول: التعليم 20% والشهادات 10% والخبرة 20% والاختبار 50%. لكن رسالة قطاع بناء القدرات (8 سبتمبر) تقول إن المستوى يعتمد على أداء الاختبار فقط، ولا تدخل المؤهلات ولا الخبرة. الرسالة أحدث.</td></tr>
+   </table>
+  </div>
+  <div class="card">
+   <h2 style="margin:0 0 8px;font-size:20px">مصادر الأسئلة هنا</h2>
+   <table class="tbl" id="srcTbl"></table>
+   <p class="none" style="margin:10px 0 0">كلها مواد تدريبية غير رسمية جمعها متدربون، وليست أسئلة الاختبار الفعلي. شروحات بنك 140 بالإنجليزية من الملف نفسه، وبنك 60 بلا شرح في مصدره.</p>
+  </div>
+  <div class="card">
+   <h2 style="margin:0 0 8px;font-size:20px">روابط المذاكرة</h2>
+   <ul class="links"><li><a href="https://ds.qarni.me/" target="_blank" rel="noopener">موقع مذاكرة — محمد القرني</a></li><li><a href="https://linktr.ee/SarahAlsharif" target="_blank" rel="noopener">Linktree — سارة</a></li><li><a href="https://3ssiri.github.io/ai-engineer-learning-path/" target="_blank" rel="noopener">AI Engineer Learning Path — علي عسيري</a></li><li><a href="https://claude.ai/artifact/ECZGkozW3JjgniNB1TBb5F" target="_blank" rel="noopener">مرجع شارة سدايا — أفنان</a></li><li><a href="https://c3mr.me/Ai-e/ai-engineer-badge-helper.html" target="_blank" rel="noopener">مساعد الإثراء (عربي) — عمر</a></li><li><a href="https://c3mr.me/Ai-e/ai-engineer-badge-helper-e.html" target="_blank" rel="noopener">مساعد الإثراء (English) — عمر</a></li><li><a href="https://mcit.futurex.sa/learning/course/course-v1:mcit+mcit_awsai_2026+T1_2026/block-v1:mcit+mcit_awsai_2026+T1_2026+type@sequential+block@b1b2c3d4e5f600014a8b9c0d1e2f3051/block-v1:mcit+mcit_awsai_2026+T1_2026+type@vertical+block@a1b2c3d4e5f600014a8b9c0d1e2f3041" target="_blank" rel="noopener">دورة AWS AI على FutureX (فيها سيناريوهات)</a></li><li><a href="https://pro.fobramg.com/u/ahmed-haroud" target="_blank" rel="noopener">شروحات الذكاء — محمود</a></li></ul>
+  </div>
+ </section>
+ <footer>تقدّمك محفوظ في هذا المتصفح فقط. · Afnan Aljohani</footer>
+</main>
+<script>
+{
+const DOM={1:["أسس البيانات وتعلم الآلة وتقييم النماذج",17.3],2:["الذكاء الاصطناعي والتعلم العميق والتوليدي",16.7],3:["هندسة برمجيات الذكاء الاصطناعي والتكامل",14.0],4:["عمليات MLOps وLLMOps والنشر والموثوقية",18.0],5:["المعمارية والبنية التحتية والأداء والتوسع",12.7],6:["الذكاء الاصطناعي المسؤول والأمن والحوكمة",14.7],7:["الأعمال والممارسة المهنية والتعاون",6.7]};
+const SRC={"bi":["سيناريوهات ثنائية اللغة (جديدة)","كُتبت لكِ بالعربي والإنجليزي"],"140":["بنك 140 (متقدم، إجابة أو أكثر)","ملف SDAIA_AI_Engineering_140_Questions"],"60":["60 سؤال سيناريو","ملف AI_Badge_60_Practice_Questions"],"hard":["الأسئلة الصعبة 15","ملف sdaia-hard-questions"],"docx":["أسئلة ملف الوورد","ملف sdaia-exam-style-questions"],"aws":["دورة AWS (عربي)","لقطات Skill Builder"],"omer":["مراجعة عمر 76 (أساسيات)","ملف AI_Engineer-ex2"]};
+const QUOTA={1:21,2:20,3:17,4:21,5:15,6:18,7:8};
+const KEY="sdaia-qbank-1";
+let S={a:{},m:[],mock:null};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let Q=[],BY={};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const same=(a,b)=>a.length===b.length&&a.every(x=>b.includes(x));
+
+function body(q){
+ return q.parts.map(p=>{
+  if(p.html!==undefined)return p.html;
+  if(p.text!==undefined)return `<p>${esc(p.text)}</p>`;
+  if(p.code!==undefined)return `<pre>${esc(p.code)}</pre>`;
+  if(p.label!==undefined)return `<p class="lab">${esc(p.label)}</p>`;
+  if(p.fig!==undefined)return `<img src="${esc(p.fig)}" alt="${esc(p.cap||"Figure")}" loading="lazy">${p.cap?`<p class="figc">${esc(p.cap)}</p>`:""}`;
+  return "";}).join("");
+}
+function expl(q){
+ let h="";
+ if(q.exp)h+=`<div class="en">${esc(q.exp)}</div>`;
+ if(q.exph)h+=q.exph;
+ return h||`<span class="none">لا يوجد شرح في المصدر لهذا السؤال.</span>`;
+}
+// render one question. sel: chosen letters; reveal: show answer
+function card(q,sel,reveal,ctx){
+ const ar=q.optrtl?" ar":"";
+ const opts=q.opts.map(([L,t])=>{
+  let c="opt"+ar;
+  if(reveal){if(q.ans.includes(L))c+=sel.includes(L)?" ok":" miss";else if(sel.includes(L))c+=" no"}
+  else if(sel.includes(L))c+=" sel";
+  return `<button class="${c}" data-l="${L}" ${reveal?"disabled":""}><span class="L">${L}</span><span>${esc(t)}</span></button>`}).join("");
+ const ok=same(sel,q.ans);
+ return `<article class="card" data-ctx="${ctx}">
+  <div class="meta"><span class="chip">${DOM[q.d][0]}</span><span class="chip">${SRC[q.src][0]}</span>${q.k>1?`<span class="chip k">اختر ${q.k===2?"إجابتين":"ثلاث إجابات"}</span>`:""}<span class="qid">${q.id}</span></div>
+  <div class="q${q.rtl&&q.optrtl?" ar":""}">${body(q)}</div>
+  ${q.ar?`<details class="tr"><summary>الترجمة العربية</summary><p>${esc(q.ar.stem)}</p><ol type="A">${q.ar.opts.map(o=>`<li>${esc(o)}</li>`).join("")}</ol></details>`:""}
+  <div class="opts">${opts}</div>
+  ${q.k>1&&!reveal&&ctx==="p"?`<div class="row" style="margin-top:10px"><button class="btn" data-check ${sel.length!==q.k?"disabled":""}>تحقق من إجابتي</button><span class="count">${sel.length} / ${q.k}</span></div>`:""}
+  ${reveal?`<div class="res ${ok?"ok":"no"}">${ok?"إجابة صحيحة":"إجابة خاطئة · الصحيح: "+q.ans.join(", ")}</div><div class="exp">${expl(q)}</div>`:""}
+ </article>`;
+}
+function record(q,sel){const c=same(sel,q.ans)?1:0;S.a[q.id]={c,s:sel.join(""),t:Date.now()};save();stats()}
+
+/* ---------- stats + board ---------- */
+function stats(){
+ const ids=Object.keys(S.a);const n=ids.length;const c=ids.filter(i=>S.a[i].c).length;
+ $("sAns").textContent=n;$("sAnsL").textContent=`من ${Q.length} سؤال محلول`;
+ $("sAcc").textContent=n?Math.round(c/n*100)+"%":"–";
+ $("sWrong").textContent=n-c;
+ $("board").innerHTML=Object.entries(DOM).map(([d,[nm,w]])=>{
+  const qs=BY[d]||[];const done=qs.filter(q=>S.a[q.id]);const cc=done.filter(q=>S.a[q.id].c).length;
+  const pct=done.length?Math.round(cc/done.length*100):0;
+  return `<button class="drow" data-d="${d}"><span>D${d} · ${nm}</span><span class="v">${done.length?pct+"%":"–"} · ${done.length}/${qs.length}</span><span class="bar"><i style="width:${pct}%"></i></span></button>`}).join("");
+}
+
+/* ---------- practice ---------- */
+let P={list:[],i:0,sel:[],rev:false};
+function buildList(){
+ const d=$("fDom").value,s=$("fSrc").value,st=$("fState").value;
+ let l=Q.filter(q=>(d==="all"||q.d==d)&&(s==="all"||q.src===s)&&(st==="all"||(st==="new"&&!S.a[q.id])||(st==="wrong"&&S.a[q.id]&&!S.a[q.id].c)));
+ if($("fOrder").value==="rnd")l=shuffle(l);
+ P={list:l,i:0,sel:[],rev:false};drawP();
+}
+function drawP(){
+ const l=P.list;
+ if(!l.length){$("pCount").textContent="";$("pCard").innerHTML=`<div class="empty">لا توجد أسئلة بهذا الفلتر.</div>`;$("pPrev").disabled=$("pNext").disabled=$("pPrev2").disabled=$("pNext2").disabled=true;return}
+ const q=l[P.i];
+ $("pCount").textContent=`سؤال ${P.i+1} من ${l.length}`;
+ $("pPrev").disabled=$("pPrev2").disabled=P.i===0;$("pNext").disabled=$("pNext2").disabled=P.i>=l.length-1;
+ $("pCard").innerHTML=card(q,P.sel,P.rev,"p");
+}
+function goP(k){P.i=Math.max(0,Math.min(P.list.length-1,P.i+k));P.sel=[];P.rev=false;drawP();$("pCount").scrollIntoView({block:"start"})}
+$("pCard").addEventListener("click",e=>{
+ const q=P.list[P.i];if(!q||P.rev)return;
+ const b=e.target.closest(".opt");
+ if(b){const L=b.dataset.l;
+  if(q.k===1){P.sel=[L];P.rev=true;record(q,P.sel)}
+  else{P.sel=P.sel.includes(L)?P.sel.filter(x=>x!==L):(P.sel.length<q.k?[...P.sel,L]:P.sel)}
+  drawP();return}
+ if(e.target.closest("[data-check]")){P.sel.sort();P.rev=true;record(q,P.sel);drawP()}
+});
+$("pPrev").onclick=$("pPrev2").onclick=()=>goP(-1);$("pNext").onclick=$("pNext2").onclick=()=>goP(1);
+["fDom","fSrc","fState","fOrder"].forEach(id=>$(id).onchange=buildList);
+
+/* ---------- mock exam ---------- */
+let tick=null,MI=0;
+function newMock(){
+ const pool=Q.filter(q=>q.src!=="omer"&&q.src!=="aws");
+ let ids=[];
+ for(const d in QUOTA){let p=shuffle(pool.filter(q=>q.d==d));if(p.length<QUOTA[d])p=p.concat(shuffle(Q.filter(q=>q.d==d&&!p.includes(q))));ids=ids.concat(p.slice(0,QUOTA[d]).map(q=>q.id))}
+ S.mock={ids:shuffle(ids),ans:{},flags:{},end:Date.now()+180*60000,done:false};MI=0;save();drawM();
+}
+function finishMock(){
+ const m=S.mock;if(!m||m.done)return;m.done=true;
+ const dom={};let c=0;
+ m.ids.forEach(id=>{const q=QID[id];const sel=(m.ans[id]||"").split("").filter(Boolean);const ok=same(sel,q.ans);if(ok)c++;
+  dom[q.d]=dom[q.d]||[0,0];dom[q.d][1]++;if(ok)dom[q.d][0]++;
+  if(sel.length)S.a[id]={c:ok?1:0,s:sel.join(""),t:Date.now()};});
+ S.m.unshift({t:Date.now(),c,n:m.ids.length,dom});save();stats();drawM();
+}
+function fmt(ms){ms=Math.max(0,ms);const s=Math.floor(ms/1000);return `${Math.floor(s/3600)}:${String(Math.floor(s/60)%60).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`}
+function drawM(){
+ clearInterval(tick);const el=$("mock");const m=S.mock;
+ if(!m){
+  el.innerHTML=`<div class="card"><h2 style="margin:0 0 6px;font-size:20px">اختبار تجريبي كامل</h2>
+  <p>120 سؤال سيناريو موزعة على المحاور بنفس أوزان الاختبار، في 3 ساعات (90 ثانية للسؤال). لا تظهر الإجابات حتى تسلّمين، والدرجة لكل سؤال كاملة أو صفر.</p>
+  <table class="tbl">${Object.entries(QUOTA).map(([d,n])=>`<tr><td>D${d} · ${DOM[d][0]}</td><td class="n">${n}</td></tr>`).join("")}</table>
+  <div class="row" style="margin-top:12px"><button class="btn" id="mStart">ابدئي الاختبار</button></div></div>${history()}`;
+  $("mStart").onclick=newMock;return}
+ if(m.done){
+  const r=S.m[0];
+  el.innerHTML=`<div class="card"><div class="row"><div><div class="big">${Math.round(r.c/r.n*100)}%</div><div class="count">${r.c} من ${r.n} صحيحة</div></div><span class="sp"></span><button class="btn" id="mNew">اختبار جديد</button></div>
+  <table class="tbl" style="margin-top:12px">${Object.entries(r.dom).sort((a,b)=>a[0]-b[0]).map(([d,[c,n]])=>`<tr><td>D${d} · ${DOM[d][0]}</td><td class="n">${c}/${n} · ${Math.round(c/n*100)}%</td></tr>`).join("")}</table></div>
+  <div class="card"><b>راجعي الأسئلة</b><div class="grid" id="mGrid">${m.ids.map((id,i)=>{const sel=(m.ans[id]||"").split("").filter(Boolean);return `<button data-i="${i}" class="${same(sel,QID[id].ans)?"ok":"no"}${i===MI?" cur":""}">${i+1}</button>`}).join("")}</div></div>
+  <div id="mCard">${card(QID[m.ids[MI]],(m.ans[m.ids[MI]]||"").split("").filter(Boolean),true,"m")}</div>${history()}`;
+  $("mNew").onclick=()=>{S.mock=null;save();drawM()};
+  $("mGrid").onclick=e=>{const b=e.target.closest("[data-i]");if(b){MI=+b.dataset.i;drawM();$("mCard").scrollIntoView({block:"start"})}};
+  return}
+ const id=m.ids[MI],q=QID[id],sel=(m.ans[id]||"").split("").filter(Boolean);
+ const answered=Object.values(m.ans).filter(Boolean).length;
+ el.innerHTML=`<div class="timer"><b id="mT">${fmt(m.end-Date.now())}</b><span>${answered} / ${m.ids.length} مُجابة</span><span class="sp"></span><button class="btn g" id="mSub">تسليم</button></div>
+  <div class="row" style="margin-top:10px" id="mTop"><span class="count">سؤال ${MI+1} من ${m.ids.length}</span><span class="sp"></span>
+  <button class="btn g" id="mFlag">${m.flags[id]?"إلغاء العلامة":"علّميه للرجوع"}</button></div>
+  <div id="mCard">${card(q,sel,false,"m")}</div>
+  <div class="row"><span class="sp"></span><button class="btn g" id="mPrev" ${MI===0?"disabled":""}>السابق</button><button class="btn" id="mNext" ${MI>=m.ids.length-1?"disabled":""}>التالي</button></div>
+  <div class="card"><div class="grid" id="mGrid">${m.ids.map((x,i)=>`<button data-i="${i}" class="${m.ans[x]?"a":""}${m.flags[x]?" f":""}${i===MI?" cur":""}">${i+1}</button>`).join("")}</div>
+  <p class="none" style="margin:0">المربعات الملوّنة مُجابة، والخط الذهبي علامة رجوع.</p></div>`;
+ const go=k=>{MI=Math.max(0,Math.min(m.ids.length-1,MI+k));drawM();$("mTop").scrollIntoView({block:"start"})};
+ $("mPrev").onclick=()=>go(-1);$("mNext").onclick=()=>go(1);
+ $("mFlag").onclick=()=>{m.flags[id]=!m.flags[id];save();drawM()};
+ $("mGrid").onclick=e=>{const b=e.target.closest("[data-i]");if(b){MI=+b.dataset.i;drawM();$("mTop").scrollIntoView({block:"start"})}};
+ $("mSub").onclick=()=>{const left=m.ids.length-answered;const b=$("mSub");
+  if(left&&b.dataset.c!=="1"){b.dataset.c="1";b.textContent=`باقي ${left}، اضغطي مرة ثانية للتسليم`;return}finishMock()};
+ $("mCard").onclick=e=>{const b=e.target.closest(".opt");if(!b)return;const L=b.dataset.l;let s=sel.slice();
+  if(q.k===1)s=[L];else s=s.includes(L)?s.filter(x=>x!==L):(s.length<q.k?[...s,L]:s);
+  m.ans[id]=s.sort().join("");save();drawM()};
+ tick=setInterval(()=>{const left=m.end-Date.now();const t=$("mT");if(t)t.textContent=fmt(left);if(left<=0){clearInterval(tick);finishMock()}},1000);
+}
+function history(){
+ if(!S.m.length)return "";
+ return `<div class="card"><b>محاولاتك السابقة</b><table class="tbl">${S.m.slice(0,8).map(r=>`<tr><td>${new Date(r.t).toLocaleDateString("ar-SA-u-nu-latn",{day:"numeric",month:"long"})}</td><td class="n">${r.c}/${r.n} · ${Math.round(r.c/r.n*100)}%</td></tr>`).join("")}</table></div>`;
+}
+
+/* ---------- review ---------- */
+let R={i:0,rev:false,sel:[]};
+function drawR(){
+ const wrong=Q.filter(q=>S.a[q.id]&&!S.a[q.id].c);const el=$("review");
+ if(!wrong.length){el.innerHTML=`<div class="empty">ما عندك أخطاء محفوظة. حلّي أسئلة في التدريب أو الاختبار التجريبي وترجع لك هنا.</div>`;return}
+ const dc={};wrong.forEach(q=>dc[q.d]=(dc[q.d]||0)+1);
+ R.i=Math.min(R.i,wrong.length-1);const q=wrong[R.i];const prev=S.a[q.id].s.split("");
+ el.innerHTML=`<div class="card"><b>${wrong.length} سؤال أخطأتِ فيه</b><table class="tbl">${Object.entries(dc).sort((a,b)=>b[1]-a[1]).map(([d,n])=>`<tr><td>D${d} · ${DOM[d][0]}</td><td class="n">${n}</td></tr>`).join("")}</table></div>
+  <div class="row"><span class="count">إجابتك السابقة: ${prev.join(", ")||"—"} · حاولي مرة ثانية</span><span class="sp"></span>
+  <button class="btn g" id="rPrev" ${R.i===0?"disabled":""}>السابق</button><button class="btn" id="rNext" ${R.i>=wrong.length-1?"disabled":""}>التالي</button></div>
+  <div id="rCard">${card(q,R.sel,R.rev,"p")}</div>`;
+ $("rPrev").onclick=()=>{R={i:R.i-1,rev:false,sel:[]};drawR()};
+ $("rNext").onclick=()=>{R={i:R.i+1,rev:false,sel:[]};drawR()};
+ $("rCard").onclick=e=>{if(R.rev)return;const b=e.target.closest(".opt");
+  if(b){const L=b.dataset.l;if(q.k===1){R.sel=[L];R.rev=true}else R.sel=R.sel.includes(L)?R.sel.filter(x=>x!==L):(R.sel.length<q.k?[...R.sel,L]:R.sel);
+   if(R.rev){const ok=same(R.sel,q.ans);if(ok){S.a[q.id].c=1;save();stats()}}drawR();return}
+  if(e.target.closest("[data-check]")){R.sel.sort();R.rev=true;if(same(R.sel,q.ans)){S.a[q.id].c=1;save();stats()}drawR()}};
+}
+
+
+/* ---------- countdown + plan ---------- */
+const EXAM=new Date("2026-12-05T08:00:00+03:00");
+{const d=Math.ceil((EXAM-Date.now())/86400000);$("cd").textContent=d>0?`باقي ${d} يوم على الاختبار · السبت 5 ديسمبر`:(d===0?"اليوم الاختبار، بالتوفيق":"انتهى الاختبار");}
+const PLAN=[
+ ["2026-11-24","الثلاثاء",["اقرئي تبويب الملخص كاملاً مرة واحدة","D4 من بنك 140 (25 سؤال)"],[["4","140","D4 · بنك 140"]]],
+ ["2026-11-25","الأربعاء",["D1 من بنك 140 (24 سؤال): ركزي على الرسوم، KNN، الأشجار، ROC، المعايرة","سيناريوهات D1 الجديدة"],[["1","140","D1 · بنك 140"],["1","bi","D1 · الجديدة"]]],
+ ["2026-11-26","الخميس",["D2 من بنك 140 (23 سؤال)","سيناريوهات D2 الجديدة"],[["2","140","D2 · بنك 140"],["2","bi","D2 · الجديدة"]]],
+ ["2026-11-27","الجمعة",["اختبار تجريبي كامل 120 سؤال في 3 ساعات بدون توقف","راجعي كل خطأ واقرئي شرحه"],[["mock","","ابدئي الاختبار التجريبي"]]],
+ ["2026-11-28","السبت",["D6 من بنك 140 (21 سؤال)","المبادئ السبعة وفئات المخاطر ودورة الحياة بأسمائها الإنجليزية","سيناريوهات D6 الجديدة"],[["6","140","D6 · بنك 140"],["6","bi","D6 · الجديدة"]]],
+ ["2026-11-29","الأحد",["D3 من بنك 140 (20 سؤال) مع أسئلة الأكواد","سيناريوهات D3 الجديدة"],[["3","140","D3 · بنك 140"],["3","bi","D3 · الجديدة"]]],
+ ["2026-11-30","الاثنين",["D5 من بنك 140 (18 سؤال): جداول التكلفة والذاكرة والزمن","D7 من بنك 140 (9 أسئلة)"],[["5","140","D5 · بنك 140"],["7","140","D7 · بنك 140"]]],
+ ["2026-12-01","الثلاثاء",["اختبار تجريبي ثانٍ كامل","قارني نتيجتك بالأول لكل محور"],[["mock","","اختبار تجريبي"]]],
+ ["2026-12-02","الأربعاء",["بنك الـ 60 + الأسئلة الصعبة 15 لأضعف محورين عندك"],[["all","60","بنك 60"],["all","hard","الصعبة 15"]]],
+ ["2026-12-03","الخميس",["أعيدي حل كل أخطائك","اختبار تجريبي ثالث (أو نصفه) لضبط الوقت"],[["review","","أخطائي"],["mock","","اختبار تجريبي"]]],
+ ["2026-12-04","الجمعة",["مراجعة خفيفة للملخص فقط، لا مواضيع جديدة","جهزي الهوية وموقع المقر ونامي بدري"],[["notes","","الملخص"]]],
+ ["2026-12-05","السبت",["يوم الاختبار: كوني هناك قبل الموعد، 90 ثانية لكل سؤال، علّمي الصعب وارجعي له"],[]]
+];
+function drawPlan(){
+ const today=new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Riyadh"});
+ $("planList").innerHTML=PLAN.map(([d,dn,items,links])=>`<div class="day${d===today?" today":""}${d==="2026-12-05"?" ex":""}"><div class="dt">${dn}<small>${new Date(d+"T12:00:00").toLocaleDateString("ar-SA-u-nu-latn",{day:"numeric",month:"long"})}</small></div><ul>${items.map(i=>`<li>${i}</li>`).join("")}</ul>${links.length?`<div class="row">${links.map(([a,b,t])=>`<button class="btn g" data-go="${a}|${b}">${t}</button>`).join("")}</div>`:""}</div>`).join("");
+}
+$("planList").onclick=e=>{const b=e.target.closest("[data-go]");if(!b)return;const [a,s]=b.dataset.go.split("|");
+ if(["mock","review","notes"].includes(a)){tab(a);return}
+ $("fDom").value=a;$("fSrc").value=s||"all";$("fState").value="all";tab("practice");buildList();};
+document.querySelectorAll("[data-dn]").forEach(e=>e.textContent=DOM[e.dataset.dn][0]);
+$("learn").onclick=e=>{const b=e.target.closest("[data-go]");if(!b)return;const [a,s]=b.dataset.go.split("|");
+ $("fDom").value=a;$("fSrc").value=s||"all";$("fState").value="all";$("fOrder").value="seq";tab("practice");buildList();window.scrollTo(0,0)};
+drawPlan();
+
+/* ---------- tabs ---------- */
+function tab(t){
+ document.querySelectorAll("nav [data-t]").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));
+ ["practice","learn","mock","review","notes","plan","about"].forEach(s=>$(s).hidden=s!==t);
+ if(t==="mock")drawM();else clearInterval(tick);
+ if(t==="review"){R={i:0,rev:false,sel:[]};drawR()}
+ if(t==="practice")drawP();
+ if(location.hash.slice(1)!==t)history_replace(t);
+}
+function history_replace(t){try{history.replaceState(null,"","#"+t)}catch(e){}}
+document.querySelector("nav").onclick=e=>{const b=e.target.closest("[data-t]");if(b)tab(b.dataset.t)};
+$("board").onclick=e=>{const b=e.target.closest("[data-d]");if(!b)return;$("fDom").value=b.dataset.d;tab("practice");buildList()};
+
+let QID={};
+fetch("questions.json").then(r=>r.json()).then(data=>{
+ Q=data;Q.forEach(q=>{QID[q.id]=q;(BY[q.d]=BY[q.d]||[]).push(q)});
+ $("fDom").innerHTML=`<option value="all">كل المحاور (${Q.length})</option>`+Object.entries(DOM).map(([d,[n]])=>`<option value="${d}">D${d} · ${n} (${BY[d].length})</option>`).join("");
+ const cnt={};Q.forEach(q=>cnt[q.src]=(cnt[q.src]||0)+1);
+ $("fSrc").innerHTML=`<option value="all">كل المصادر</option>`+Object.entries(SRC).map(([k,[n]])=>`<option value="${k}">${n} (${cnt[k]||0})</option>`).join("");
+ $("srcTbl").innerHTML=Object.entries(SRC).map(([k,[n,f]])=>`<tr><td>${n}<br><span class="none">${f}</span></td><td class="n">${cnt[k]||0}</td></tr>`).join("");
+ stats();buildList();
+ const h=location.hash.slice(1);if(["practice","learn","mock","review","notes","plan","about"].includes(h))tab(h);
+ if(S.mock&&!S.mock.done&&Date.now()>S.mock.end)finishMock();
+}).catch(()=>{$("pCard").innerHTML=`<div class="empty">تعذّر تحميل الأسئلة. حدّثي الصفحة.</div>`});
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(["practice","mock","review","notes","plan","about"].includes(h))tab(h)});
+}
+</script>
+</body>
+</html>
